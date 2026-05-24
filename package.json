@@ -1,0 +1,52 @@
+{
+  "name": "ai-creator-platform",
+  "version": "1.0.0",
+  "description": "头条AI前端训练营 - AI 创作者辅助⽣产与分发平台",
+  "keywords": [
+    "ai",
+    "creator",
+    "platform"
+  ],
+  "homepage": "https://github.com/8023time/ai-creator-platform#readme",
+  "bugs": {
+    "url": "https://github.com/8023time/ai-creator-platform/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/8023time/ai-creator-platform.git"
+  },
+  "license": "ISC",
+  "author": "8023time",
+  "type": "module",
+  "scripts": {
+    "dev": "turbo run start",
+    "dev:proxy": "caddy run --config Caddyfile",
+    "dev:web": "turbo run start --filter=web",
+    "dev:admin": "turbo run start --filter=admin",
+    "dev:server": "turbo run start --filter=server",
+    "lint:prettier": "prettier --write \"src/**/*.{js,ts,mjs,cjs,json,tsx,css,less,scss,vue,html,md}\"",
+    "commit": "cz"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.0.1",
+    "@commitlint/config-conventional": "^21.0.1",
+    "@eslint/eslintrc": "^3.3.5",
+    "@eslint/js": "^10.0.1",
+    "commitizen": "^4.3.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^10.4.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "globals": "^17.6.0",
+    "husky": "^9.1.7",
+    "prettier": "^3.8.3",
+    "prettier-plugin-tailwindcss": "^0.8.0",
+    "turbo": "^2.9.14",
+    "typescript-eslint": "^8.59.4"
+  }
+}

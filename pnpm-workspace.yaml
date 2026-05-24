@@ -1,0 +1,8 @@
+packages:
+  - server
+  - apps/*
+  - packages/*
+
+onlyBuiltDependencies:
+  - sharp
+  - unrs-resolver
