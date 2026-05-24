@@ -47,6 +47,10 @@ ai-creator-platform/
 127.0.0.1 api.8023time.com
 ```
 
+- Node.js: v24.11.1
+- pnpm: 10.25.0
+- nest: 11.0.14
+
 ## 三、安装
 
 - 安装 Caddy

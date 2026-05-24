@@ -1,2 +1,6 @@
 export * from './common.module';
 export * from './common.service';
+export * from './prisma/prisma.module';
+export * from './prisma/prisma.service';
+export * from './response/response.module';
+export * from './response/response.service';

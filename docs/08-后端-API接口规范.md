@@ -1,30 +1,17 @@
-# 后端：服务与 API 接口规范
+# 后端：API 接口规范
 
-## 通用规范
+## 一、通用规范
 
 统一成功响应：
 
 ```json
 {
-  "success": true,
+  "timestamp": "2026-05-22T10:00:00Z",
+  "path": "/api/contents",
+  "message": "请求成功",
+  "code": 0,
   "data": {},
-  "error": null,
-  "requestId": "req_xxx"
-}
-```
-
-统一错误响应：
-
-```json
-{
-  "success": false,
-  "data": null,
-  "error": {
-    "code": "DRAFT_CONFLICT",
-    "message": "草稿存在云端冲突",
-    "details": {}
-  },
-  "requestId": "req_xxx"
+  "success": true
 }
 ```
 
@@ -34,26 +21,8 @@
 - B 端创作者后台调用注册登录、Prompt、素材、草稿、AI 创作、审核、评分、改写、发布和分发中心接口。
 - C 端内容前台调用内容详情、首页信息流、热点榜、爆文榜、推荐榜和阅读互动接口。
 - 所有列表接口使用 `limit + cursor` 分页。
-- 所有响应返回 `requestId`，便于前端报错和后端日志排查。
 - 请求体必须经过 DTO 校验。
 - AI 生成、审核、评分、改写在 MVP 阶段优先同步返回；耗时增加时再切换为任务模式。
-
-## 错误码
-
-```text
-UNAUTHORIZED              未登录或 token 无效
-FORBIDDEN                 无权限访问资源
-VALIDATION_ERROR          请求参数不合法
-RESOURCE_NOT_FOUND        资源不存在
-DRAFT_CONFLICT            草稿版本冲突
-CONTENT_NOT_APPROVED      内容未审核通过，不能发布
-CONTENT_REJECTED          内容已被驳回
-AI_PROVIDER_TIMEOUT       AI 服务超时
-AI_OUTPUT_INVALID         AI 输出结构不合法
-RATE_LIMITED              请求过于频繁
-UPLOAD_INVALID_TYPE       上传文件类型不合法
-UPLOAD_TOO_LARGE          上传文件过大
-```
 
 ## 鉴权接口
 

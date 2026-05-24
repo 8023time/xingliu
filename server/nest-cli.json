@@ -6,6 +6,9 @@
     "deleteOutDir": true,
     "webpack": true
   },
+  "generateOptions": {
+    "spec": false
+  },
   "projects": {
     "common": {
       "type": "library",
