@@ -24,7 +24,9 @@
 - 请求体必须经过 DTO 校验。
 - AI 生成、审核、评分、改写在 MVP 阶段优先同步返回；耗时增加时再切换为任务模式。
 
-## 鉴权接口
+## 二、接口设计
+
+### 1. 鉴权接口
 
 ```text
 POST /api/auth/register
@@ -47,7 +49,7 @@ GET  /api/auth/me
 }
 ```
 
-## Prompt 接口
+### 2. Prompt 接口
 
 ```text
 GET    /api/prompts
@@ -68,7 +70,7 @@ Prompt 创建请求：
 }
 ```
 
-## 素材接口
+### 3. 素材接口
 
 ```text
 POST   /api/assets/upload
@@ -84,7 +86,7 @@ DELETE /api/assets/:id
 - 素材元数据写入 PostgreSQL。
 - 进阶挑战可调用 AI 生成素材描述。
 
-## 草稿接口
+### 4. 草稿接口
 
 ```text
 POST   /api/drafts
@@ -118,7 +120,7 @@ DELETE /api/drafts/:id
 }
 ```
 
-## AI 创作接口
+### 5. AI 创作接口
 
 ```text
 POST /api/ai/generate-title
@@ -161,7 +163,7 @@ POST /api/ai/image-prompt
 }
 ```
 
-## 内容与审核接口
+### 6. 内容与审核接口
 
 ```text
 POST /api/contents/from-draft
@@ -193,7 +195,7 @@ POST /api/rewrite/compliance
 - 最新审核记录 `decision` 必须是 `pass`。
 - 发布成功后初始化或更新 `content_metrics`。
 
-## 榜单与阅读互动接口
+### 7. 榜单与阅读互动接口
 
 ```text
 GET  /api/feed?cursor=&limit=20
@@ -219,7 +221,7 @@ POST /api/contents/:id/share
 }
 ```
 
-## 任务模式预留
+### 8. 任务模式预留
 
 当 AI 任务耗时较长时，接口可以从同步响应切换为任务模式：
 

@@ -4,10 +4,769 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider     = "prisma-client"
+  output       = "../libs/common/src/generated/prisma"
+  moduleFormat = "cjs"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+enum UserStatus {
+  ACTIVE   @map("active")
+  DISABLED @map("disabled")
+  DELETED  @map("deleted")
+}
+
+enum UserRoleType {
+  READER   @map("reader")
+  CREATOR  @map("creator")
+  OPERATOR @map("operator")
+  ADMIN    @map("admin")
+}
+
+enum Visibility {
+  PRIVATE @map("private")
+  PUBLIC  @map("public")
+  SYSTEM  @map("system")
+}
+
+enum CommonStatus {
+  ACTIVE   @map("active")
+  DISABLED @map("disabled")
+  DELETED  @map("deleted")
+}
+
+enum AssetType {
+  IMAGE    @map("image")
+  VIDEO    @map("video")
+  DOCUMENT @map("document")
+  LINK     @map("link")
+  AUDIO    @map("audio")
+}
+
+enum SafetyStatus {
+  PENDING @map("pending")
+  PASS    @map("pass")
+  REJECT  @map("reject")
+}
+
+enum AssetSafetyDecision {
+  PASS          @map("pass")
+  REJECT        @map("reject")
+  MANUAL_REVIEW @map("manual_review")
+}
+
+enum RiskLevel {
+  NONE   @map("none")
+  LOW    @map("low")
+  MEDIUM @map("medium")
+  HIGH   @map("high")
+}
+
+enum ContentType {
+  ARTICLE    @map("article")
+  IMAGE_TEXT @map("image_text")
+  SHORT_POST @map("short_post")
+}
+
+enum ContentStatus {
+  DRAFT        @map("draft")
+  REVIEWING    @map("reviewing")
+  NEED_REWRITE @map("need_rewrite")
+  REJECTED     @map("rejected")
+  APPROVED     @map("approved")
+  PUBLISHED    @map("published")
+  OFFLINE      @map("offline")
+}
+
+enum QualityLevel {
+  S @map("S")
+  A @map("A")
+  B @map("B")
+  C @map("C")
+  D @map("D")
+}
+
+enum ChangeType {
+  CREATE   @map("create")
+  EDIT     @map("edit")
+  REWRITE  @map("rewrite")
+  ROLLBACK @map("rollback")
+}
+
+enum DraftSyncStatus {
+  SYNCED   @map("synced")
+  PENDING  @map("pending")
+  CONFLICT @map("conflict")
+}
+
+enum DraftSavedFrom {
+  AUTO         @map("auto")
+  MANUAL       @map("manual")
+  OFFLINE_SYNC @map("offline_sync")
+}
+
+enum AiTaskType {
+  GENERATE     @map("generate")
+  MODERATE     @map("moderate")
+  SCORE        @map("score")
+  REWRITE      @map("rewrite")
+  ASSET_CHECK  @map("asset_check")
+  IMAGE_PROMPT @map("image_prompt")
+}
+
+enum AiTaskStatus {
+  PENDING @map("pending")
+  RUNNING @map("running")
+  SUCCESS @map("success")
+  FAILED  @map("failed")
+}
+
+enum SafetyReviewDecision {
+  PASS         @map("pass")
+  NEED_REWRITE @map("need_rewrite")
+  REJECT       @map("reject")
+}
+
+enum PatternType {
+  KEYWORD           @map("keyword")
+  REGEX             @map("regex")
+  MODEL_INSTRUCTION @map("model_instruction")
+}
+
+enum AuditAction {
+  WARN    @map("warn")
+  REWRITE @map("rewrite")
+  REJECT  @map("reject")
+}
+
+enum InteractionType {
+  VIEW    @map("view")
+  LIKE    @map("like")
+  SHARE   @map("share")
+  COLLECT @map("collect")
+  DISLIKE @map("dislike")
+  REPORT  @map("report")
+}
+
+enum RankingType {
+  HOT       @map("hot")
+  QUALITY   @map("quality")
+  RECOMMEND @map("recommend")
+  LATEST    @map("latest")
+}
+
+enum TopicSource {
+  MANUAL  @map("manual")
+  API     @map("api")
+  CRAWLER @map("crawler")
+  SYSTEM  @map("system")
+}
+
+enum TopicStatus {
+  ACTIVE  @map("active")
+  EXPIRED @map("expired")
+  HIDDEN  @map("hidden")
+}
+
+enum ChannelType {
+  INTERNAL @map("internal")
+  EXTERNAL @map("external")
+}
+
+enum DistributionStatus {
+  PENDING @map("pending")
+  SUCCESS @map("success")
+  FAILED  @map("failed")
+}
+
+enum ContentOperationType {
+  PUBLISH  @map("publish")
+  OFFLINE  @map("offline")
+  ROLLBACK @map("rollback")
+  REJECT   @map("reject")
+  APPROVE  @map("approve")
+}
+
+model User {
+  id           String     @id @default(uuid())
+  email        String?    @unique
+  phone        String?    @unique
+  passwordHash String     @map("password_hash")
+  username     String
+  avatarUrl    String?    @map("avatar_url")
+  status       UserStatus @default(ACTIVE)
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
+
+  roles                  UserRole[]
+  promptTemplates        PromptTemplate[]
+  promptVersionsCreated  PromptTemplateVersion[]
+  assets                 Asset[]
+  contents               Content[]
+  contentVersionsCreated ContentVersion[]
+  draftSnapshots         DraftSnapshot[]
+  aiTasks                AiTask[]
+  rewriteRecords         RewriteRecord[]
+  auditRuleSetsCreated   AuditRuleSet[]
+  interactions           ContentInteraction[]
+  contentOperations      ContentOperation[]
+
+  @@index([status])
+  @@map("users")
+}
+
+model UserRole {
+  id        String       @id @default(uuid())
+  userId    String       @map("user_id")
+  role      UserRoleType
+  createdAt DateTime     @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, role])
+  @@index([role])
+  @@map("user_roles")
+}
+
+model PromptTemplate {
+  id               String       @id @default(uuid())
+  ownerId          String?      @map("owner_id")
+  name             String
+  category         String
+  description      String?
+  visibility       Visibility   @default(PRIVATE)
+  currentVersionId String?      @unique @map("current_version_id")
+  usageCount       Int          @default(0) @map("usage_count")
+  status           CommonStatus @default(ACTIVE)
+  createdAt        DateTime     @default(now()) @map("created_at")
+  updatedAt        DateTime     @updatedAt @map("updated_at")
+
+  owner          User?                   @relation(fields: [ownerId], references: [id], onDelete: SetNull)
+  versions       PromptTemplateVersion[] @relation("PromptTemplateVersions")
+  currentVersion PromptTemplateVersion?  @relation("CurrentPromptVersion", fields: [currentVersionId], references: [id], onDelete: SetNull)
+  aiTasks        AiTask[]
+
+  @@index([ownerId, updatedAt])
+  @@index([category, visibility])
+  @@index([status])
+  @@map("prompt_templates")
+}
+
+model PromptTemplateVersion {
+  id              String   @id @default(uuid())
+  promptId        String   @map("prompt_id")
+  versionNo       Int      @map("version_no")
+  template        String
+  variablesSchema Json     @map("variables_schema")
+  modelConfig     Json?    @map("model_config")
+  changeSummary   String?  @map("change_summary")
+  createdBy       String?  @map("created_by")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  prompt           PromptTemplate  @relation("PromptTemplateVersions", fields: [promptId], references: [id], onDelete: Cascade)
+  currentForPrompt PromptTemplate? @relation("CurrentPromptVersion")
+  creator          User?           @relation(fields: [createdBy], references: [id], onDelete: SetNull)
+  aiTasks          AiTask[]
+
+  @@unique([promptId, versionNo])
+  @@index([createdAt])
+  @@map("prompt_template_versions")
+}
+
+model Asset {
+  id            String       @id @default(uuid())
+  userId        String       @map("user_id")
+  type          AssetType
+  name          String
+  url           String
+  storageKey    String       @map("storage_key")
+  mimeType      String?      @map("mime_type")
+  sizeBytes     Int?         @map("size_bytes")
+  tags          Json?
+  aiDescription String?      @map("ai_description")
+  metadata      Json?
+  safetyStatus  SafetyStatus @default(PENDING) @map("safety_status")
+  createdAt     DateTime     @default(now()) @map("created_at")
+  updatedAt     DateTime     @updatedAt @map("updated_at")
+  deletedAt     DateTime?    @map("deleted_at")
+
+  user          User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  safetyChecks  AssetSafetyCheck[]
+  aiTasks       AiTask[]
+  coverContents Content[]
+  coverVersions ContentVersion[]
+
+  @@index([userId, createdAt])
+  @@index([type])
+  @@index([safetyStatus])
+  @@map("assets")
+}
+
+model AssetSafetyCheck {
+  id          String              @id @default(uuid())
+  assetId     String              @map("asset_id")
+  decision    AssetSafetyDecision
+  riskLevel   RiskLevel           @map("risk_level")
+  categories  Json?
+  aiReason    String?             @map("ai_reason")
+  rawAiOutput Json?               @map("raw_ai_output")
+  modelName   String?             @map("model_name")
+  createdAt   DateTime            @default(now()) @map("created_at")
+
+  asset Asset @relation(fields: [assetId], references: [id], onDelete: Cascade)
+
+  @@index([assetId, createdAt])
+  @@index([decision, createdAt])
+  @@map("asset_safety_checks")
+}
+
+model Content {
+  id               String        @id @default(uuid())
+  authorId         String        @map("author_id")
+  contentType      ContentType   @map("content_type")
+  title            String
+  summary          String?
+  coverAssetId     String?       @map("cover_asset_id")
+  currentVersionId String?       @unique @map("current_version_id")
+  status           ContentStatus @default(DRAFT)
+  safetyStatus     SafetyStatus  @default(PENDING) @map("safety_status")
+  qualityLevel     QualityLevel? @map("quality_level")
+  qualityScore     Decimal?      @map("quality_score") @db.Decimal(6, 2)
+  safetyScore      Decimal?      @map("safety_score") @db.Decimal(6, 2)
+  hotScore         Decimal?      @map("hot_score") @db.Decimal(12, 4)
+  recommendScore   Decimal?      @map("recommend_score") @db.Decimal(12, 4)
+  publishedAt      DateTime?     @map("published_at")
+  offlineAt        DateTime?     @map("offline_at")
+  createdAt        DateTime      @default(now()) @map("created_at")
+  updatedAt        DateTime      @updatedAt @map("updated_at")
+  deletedAt        DateTime?     @map("deleted_at")
+
+  author             User                   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  coverAsset         Asset?                 @relation(fields: [coverAssetId], references: [id], onDelete: SetNull)
+  versions           ContentVersion[]       @relation("ContentVersions")
+  currentVersion     ContentVersion?        @relation("CurrentContentVersion", fields: [currentVersionId], references: [id], onDelete: SetNull)
+  draftSnapshots     DraftSnapshot[]
+  aiTasks            AiTask[]
+  safetyReviews      SafetyReview[]
+  qualityEvaluations QualityEvaluation[]
+  rewriteRecords     RewriteRecord[]
+  metrics            ContentMetric?
+  interactions       ContentInteraction[]
+  rankingScores      RankingScore[]
+  topicRelations     ContentTopicRelation[]
+  distributionTasks  DistributionTask[]
+  operations         ContentOperation[]
+
+  @@index([authorId, updatedAt])
+  @@index([status, publishedAt])
+  @@index([status, hotScore])
+  @@index([status, recommendScore])
+  @@index([qualityScore])
+  @@index([publishedAt])
+  @@map("contents")
+}
+
+model ContentVersion {
+  id            String     @id @default(uuid())
+  contentId     String     @map("content_id")
+  versionNo     Int        @map("version_no")
+  title         String
+  summary       String?
+  body          String
+  bodyJson      Json?      @map("body_json")
+  assetIds      Json?      @map("asset_ids")
+  coverAssetId  String?    @map("cover_asset_id")
+  changeType    ChangeType @map("change_type")
+  changeSummary String?    @map("change_summary")
+  createdBy     String?    @map("created_by")
+  createdAt     DateTime   @default(now()) @map("created_at")
+
+  content                 Content             @relation("ContentVersions", fields: [contentId], references: [id], onDelete: Cascade)
+  currentForContent       Content?            @relation("CurrentContentVersion")
+  coverAsset              Asset?              @relation(fields: [coverAssetId], references: [id], onDelete: SetNull)
+  creator                 User?               @relation(fields: [createdBy], references: [id], onDelete: SetNull)
+  basedDraftSnapshots     DraftSnapshot[]
+  safetyReviews           SafetyReview[]
+  qualityEvaluations      QualityEvaluation[]
+  rewriteSourceRecords    RewriteRecord[]     @relation("RewriteSourceVersion")
+  rewriteTargetRecords    RewriteRecord[]     @relation("RewriteTargetVersion")
+  operationTargetVersions ContentOperation[]
+
+  @@unique([contentId, versionNo])
+  @@index([contentId, createdAt])
+  @@map("content_versions")
+}
+
+model DraftSnapshot {
+  id             String          @id @default(uuid())
+  contentId      String          @map("content_id")
+  userId         String          @map("user_id")
+  baseVersionId  String?         @map("base_version_id")
+  title          String
+  body           String
+  bodyJson       Json?           @map("body_json")
+  assetIds       Json?           @map("asset_ids")
+  clientRevision Int             @default(1) @map("client_revision")
+  serverRevision Int             @default(1) @map("server_revision")
+  syncStatus     DraftSyncStatus @default(SYNCED) @map("sync_status")
+  savedFrom      DraftSavedFrom  @default(AUTO) @map("saved_from")
+  createdAt      DateTime        @default(now()) @map("created_at")
+
+  content     Content         @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  baseVersion ContentVersion? @relation(fields: [baseVersionId], references: [id], onDelete: SetNull)
+
+  @@index([contentId, createdAt])
+  @@index([userId, createdAt])
+  @@index([syncStatus])
+  @@map("draft_snapshots")
+}
+
+model AiTask {
+  id              String       @id @default(uuid())
+  userId          String?      @map("user_id")
+  contentId       String?      @map("content_id")
+  assetId         String?      @map("asset_id")
+  promptId        String?      @map("prompt_id")
+  promptVersionId String?      @map("prompt_version_id")
+  taskType        AiTaskType   @map("task_type")
+  status          AiTaskStatus @default(PENDING)
+  modelProvider   String       @map("model_provider")
+  modelName       String?      @map("model_name")
+  inputSummary    String?      @map("input_summary")
+  outputSummary   String?      @map("output_summary")
+  inputHash       String?      @map("input_hash")
+  tokenInput      Int?         @map("token_input")
+  tokenOutput     Int?         @map("token_output")
+  durationMs      Int?         @map("duration_ms")
+  errorCode       String?      @map("error_code")
+  errorMessage    String?      @map("error_message")
+  createdAt       DateTime     @default(now()) @map("created_at")
+  updatedAt       DateTime     @updatedAt @map("updated_at")
+
+  user               User?                  @relation(fields: [userId], references: [id], onDelete: SetNull)
+  content            Content?               @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  asset              Asset?                 @relation(fields: [assetId], references: [id], onDelete: Cascade)
+  prompt             PromptTemplate?        @relation(fields: [promptId], references: [id], onDelete: SetNull)
+  promptVersion      PromptTemplateVersion? @relation(fields: [promptVersionId], references: [id], onDelete: SetNull)
+  safetyReviews      SafetyReview[]
+  qualityEvaluations QualityEvaluation[]
+  rewriteRecords     RewriteRecord[]
+
+  @@index([taskType, status])
+  @@index([contentId, createdAt])
+  @@index([userId, createdAt])
+  @@map("ai_tasks")
+}
+
+model SafetyReview {
+  id               String               @id @default(uuid())
+  contentId        String               @map("content_id")
+  contentVersionId String               @map("content_version_id")
+  aiTaskId         String?              @map("ai_task_id")
+  decision         SafetyReviewDecision
+  riskLevel        RiskLevel            @map("risk_level")
+  riskCategories   Json?                @map("risk_categories")
+  riskSpans        Json?                @map("risk_spans")
+  ruleHits         Json?                @map("rule_hits")
+  safetyScore      Decimal              @map("safety_score") @db.Decimal(6, 2)
+  aiReason         String?              @map("ai_reason")
+  suggestions      Json?
+  ruleSetVersion   String               @map("rule_set_version")
+  createdAt        DateTime             @default(now()) @map("created_at")
+
+  content        Content        @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  contentVersion ContentVersion @relation(fields: [contentVersionId], references: [id], onDelete: Cascade)
+  aiTask         AiTask?        @relation(fields: [aiTaskId], references: [id], onDelete: SetNull)
+
+  @@index([contentId, createdAt])
+  @@index([contentVersionId])
+  @@index([decision, createdAt])
+  @@index([riskLevel, createdAt])
+  @@map("safety_reviews")
+}
+
+model QualityEvaluation {
+  id               String       @id @default(uuid())
+  contentId        String       @map("content_id")
+  contentVersionId String       @map("content_version_id")
+  aiTaskId         String?      @map("ai_task_id")
+  totalScore       Decimal      @map("total_score") @db.Decimal(6, 2)
+  level            QualityLevel
+  rubricVersion    String       @map("rubric_version")
+  summary          String?
+  improvements     Json?
+  createdAt        DateTime     @default(now()) @map("created_at")
+
+  content        Content                      @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  contentVersion ContentVersion               @relation(fields: [contentVersionId], references: [id], onDelete: Cascade)
+  aiTask         AiTask?                      @relation(fields: [aiTaskId], references: [id], onDelete: SetNull)
+  dimensions     QualityEvaluationDimension[]
+
+  @@index([contentId, createdAt])
+  @@index([totalScore])
+  @@index([level])
+  @@map("quality_evaluations")
+}
+
+model QualityEvaluationDimension {
+  id            String   @id @default(uuid())
+  evaluationId  String   @map("evaluation_id")
+  dimensionKey  String   @map("dimension_key")
+  dimensionName String   @map("dimension_name")
+  score         Decimal  @db.Decimal(6, 2)
+  weight        Decimal? @db.Decimal(6, 4)
+  reason        String?
+
+  evaluation QualityEvaluation @relation(fields: [evaluationId], references: [id], onDelete: Cascade)
+
+  @@index([evaluationId])
+  @@index([dimensionKey])
+  @@map("quality_evaluation_dimensions")
+}
+
+model RewriteRecord {
+  id                 String   @id @default(uuid())
+  contentId          String   @map("content_id")
+  userId             String?  @map("user_id")
+  sourceVersionId    String   @map("source_version_id")
+  rewrittenVersionId String?  @map("rewritten_version_id")
+  aiTaskId           String?  @map("ai_task_id")
+  sourceTitle        String   @map("source_title")
+  sourceBody         String   @map("source_body")
+  rewrittenTitle     String   @map("rewritten_title")
+  rewrittenBody      String   @map("rewritten_body")
+  changedSpans       Json?    @map("changed_spans")
+  reason             String?
+  accepted           Boolean  @default(false)
+  createdAt          DateTime @default(now()) @map("created_at")
+
+  content          Content         @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  user             User?           @relation(fields: [userId], references: [id], onDelete: SetNull)
+  sourceVersion    ContentVersion  @relation("RewriteSourceVersion", fields: [sourceVersionId], references: [id], onDelete: Cascade)
+  rewrittenVersion ContentVersion? @relation("RewriteTargetVersion", fields: [rewrittenVersionId], references: [id], onDelete: SetNull)
+  aiTask           AiTask?         @relation(fields: [aiTaskId], references: [id], onDelete: SetNull)
+
+  @@index([contentId, createdAt])
+  @@index([accepted])
+  @@map("rewrite_records")
+}
+
+model AuditRuleSet {
+  id          String   @id @default(uuid())
+  name        String
+  version     String
+  description String?
+  enabled     Boolean  @default(true)
+  createdBy   String?  @map("created_by")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  creator User?       @relation(fields: [createdBy], references: [id], onDelete: SetNull)
+  rules   AuditRule[]
+
+  @@unique([name, version])
+  @@index([enabled])
+  @@map("audit_rule_sets")
+}
+
+model AuditRule {
+  id          String      @id @default(uuid())
+  ruleSetId   String      @map("rule_set_id")
+  category    String
+  patternType PatternType @map("pattern_type")
+  pattern     String
+  riskLevel   RiskLevel   @map("risk_level")
+  action      AuditAction
+  description String?
+  enabled     Boolean     @default(true)
+  createdAt   DateTime    @default(now()) @map("created_at")
+  updatedAt   DateTime    @updatedAt @map("updated_at")
+
+  ruleSet AuditRuleSet @relation(fields: [ruleSetId], references: [id], onDelete: Cascade)
+
+  @@index([ruleSetId])
+  @@index([category, enabled])
+  @@index([riskLevel, action])
+  @@map("audit_rules")
+}
+
+model QualityRubric {
+  id          String   @id @default(uuid())
+  name        String
+  version     String
+  description String?
+  enabled     Boolean  @default(true)
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  dimensions QualityRubricDimension[]
+
+  @@unique([name, version])
+  @@index([enabled])
+  @@map("quality_rubrics")
+}
+
+model QualityRubricDimension {
+  id            String  @id @default(uuid())
+  rubricId      String  @map("rubric_id")
+  dimensionKey  String  @map("dimension_key")
+  dimensionName String  @map("dimension_name")
+  description   String?
+  weight        Decimal @db.Decimal(6, 4)
+  maxScore      Decimal @default(100) @map("max_score") @db.Decimal(6, 2)
+  sortOrder     Int     @default(0) @map("sort_order")
+  enabled       Boolean @default(true)
+
+  rubric QualityRubric @relation(fields: [rubricId], references: [id], onDelete: Cascade)
+
+  @@unique([rubricId, dimensionKey])
+  @@index([rubricId])
+  @@map("quality_rubric_dimensions")
+}
+
+model ContentMetric {
+  contentId    String   @id @map("content_id")
+  viewCount    Int      @default(0) @map("view_count")
+  likeCount    Int      @default(0) @map("like_count")
+  shareCount   Int      @default(0) @map("share_count")
+  collectCount Int      @default(0) @map("collect_count")
+  commentCount Int      @default(0) @map("comment_count")
+  reportCount  Int      @default(0) @map("report_count")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  content Content @relation(fields: [contentId], references: [id], onDelete: Cascade)
+
+  @@index([updatedAt])
+  @@map("content_metrics")
+}
+
+model ContentInteraction {
+  id         String          @id @default(uuid())
+  userId     String?         @map("user_id")
+  contentId  String          @map("content_id")
+  actionType InteractionType @map("action_type")
+  value      String?
+  metadata   Json?
+  createdAt  DateTime        @default(now()) @map("created_at")
+
+  user    User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+  content Content @relation(fields: [contentId], references: [id], onDelete: Cascade)
+
+  @@index([contentId, actionType])
+  @@index([userId, createdAt])
+  @@index([actionType, createdAt])
+  @@map("content_interactions")
+}
+
+model RankingScore {
+  id               String      @id @default(uuid())
+  contentId        String      @map("content_id")
+  rankingType      RankingType @map("ranking_type")
+  score            Decimal     @db.Decimal(12, 4)
+  qualityScore     Decimal?    @map("quality_score") @db.Decimal(6, 2)
+  hotScore         Decimal?    @map("hot_score") @db.Decimal(12, 4)
+  freshnessScore   Decimal?    @map("freshness_score") @db.Decimal(12, 4)
+  interactionScore Decimal?    @map("interaction_score") @db.Decimal(12, 4)
+  calculatedAt     DateTime    @default(now()) @map("calculated_at")
+
+  content Content @relation(fields: [contentId], references: [id], onDelete: Cascade)
+
+  @@index([rankingType, score])
+  @@index([contentId, calculatedAt])
+  @@index([calculatedAt])
+  @@map("ranking_scores")
+}
+
+model HotTopic {
+  id        String      @id @default(uuid())
+  title     String
+  source    TopicSource
+  category  String?
+  heatScore Decimal     @map("heat_score") @db.Decimal(12, 4)
+  keywords  Json?
+  startedAt DateTime?   @map("started_at")
+  endedAt   DateTime?   @map("ended_at")
+  status    TopicStatus @default(ACTIVE)
+  createdAt DateTime    @default(now()) @map("created_at")
+  updatedAt DateTime    @updatedAt @map("updated_at")
+
+  contentRelations ContentTopicRelation[]
+
+  @@index([status, heatScore])
+  @@index([category])
+  @@index([createdAt])
+  @@map("hot_topics")
+}
+
+model ContentTopicRelation {
+  id            String   @id @default(uuid())
+  contentId     String   @map("content_id")
+  topicId       String   @map("topic_id")
+  relationScore Decimal  @map("relation_score") @db.Decimal(6, 2)
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  content Content  @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  topic   HotTopic @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+  @@unique([contentId, topicId])
+  @@index([topicId, relationScore])
+  @@map("content_topic_relations")
+}
+
+model DistributionChannel {
+  id          String      @id @default(uuid())
+  name        String
+  channelType ChannelType @map("channel_type")
+  config      Json?
+  enabled     Boolean     @default(true)
+  createdAt   DateTime    @default(now()) @map("created_at")
+  updatedAt   DateTime    @updatedAt @map("updated_at")
+
+  tasks DistributionTask[]
+
+  @@index([enabled])
+  @@map("distribution_channels")
+}
+
+model DistributionTask {
+  id                String             @id @default(uuid())
+  contentId         String             @map("content_id")
+  channelId         String             @map("channel_id")
+  status            DistributionStatus @default(PENDING)
+  externalContentId String?            @map("external_content_id")
+  errorMessage      String?            @map("error_message")
+  distributedAt     DateTime?          @map("distributed_at")
+  createdAt         DateTime           @default(now()) @map("created_at")
+  updatedAt         DateTime           @updatedAt @map("updated_at")
+
+  content Content             @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  channel DistributionChannel @relation(fields: [channelId], references: [id], onDelete: Cascade)
+
+  @@index([contentId])
+  @@index([channelId, status])
+  @@index([status, createdAt])
+  @@map("distribution_tasks")
+}
+
+model ContentOperation {
+  id              String               @id @default(uuid())
+  contentId       String               @map("content_id")
+  operatorId      String?              @map("operator_id")
+  operationType   ContentOperationType @map("operation_type")
+  fromStatus      ContentStatus?       @map("from_status")
+  toStatus        ContentStatus?       @map("to_status")
+  targetVersionId String?              @map("target_version_id")
+  reason          String?
+  createdAt       DateTime             @default(now()) @map("created_at")
+
+  content       Content         @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  operator      User?           @relation(fields: [operatorId], references: [id], onDelete: SetNull)
+  targetVersion ContentVersion? @relation(fields: [targetVersionId], references: [id], onDelete: SetNull)
+
+  @@index([contentId, createdAt])
+  @@index([operatorId, createdAt])
+  @@index([operationType, createdAt])
+  @@map("content_operations")
 }

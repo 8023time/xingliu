@@ -114,5 +114,8 @@
     "brotli",
     "pnpm",
     "antd"
-  ]
+  ],
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  }
 }
