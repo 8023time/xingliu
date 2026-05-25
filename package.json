@@ -36,18 +36,18 @@
     "@commitlint/cli": "^21.0.1",
     "@commitlint/config-conventional": "^21.0.1",
     "@eslint/eslintrc": "^3.3.5",
-    "@eslint/js": "^10.0.1",
     "commitizen": "^4.3.1",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^10.4.0",
+    "@eslint/js": "^10.0.1",
+    "globals": "^17.6.0",
+    "typescript-eslint": "^8.59.4",
+    "prettier": "^3.8.3",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
-    "globals": "^17.6.0",
     "husky": "^9.1.7",
-    "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.8.0",
-    "turbo": "^2.9.14",
-    "typescript-eslint": "^8.59.4"
+    "turbo": "^2.9.14"
   },
   "dependencies": {
     "md5": "^2.3.0"
