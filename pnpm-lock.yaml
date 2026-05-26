@@ -63,7 +63,7 @@ importers:
 
   apps/admin:
     dependencies:
-      '@cm/config':
+      '@xingliu/config':
         specifier: workspace:*
         version: link:../../packages/config
       react:
@@ -103,7 +103,7 @@ importers:
 
   apps/web:
     dependencies:
-      '@cm/config':
+      '@xingliu/config':
         specifier: workspace:*
         version: link:../../packages/config
       next:
@@ -144,12 +144,6 @@ importers:
 
   server:
     dependencies:
-      '@cm/config':
-        specifier: workspace:*
-        version: link:../packages/config
-      '@cm/shared':
-        specifier: workspace:*
-        version: link:../packages/shared
       '@nestjs/common':
         specifier: ^11.0.1
         version: 11.1.23(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -180,6 +174,12 @@ importers:
       '@scalar/nestjs-api-reference':
         specifier: ^1.1.19
         version: 1.1.19
+      '@xingliu/config':
+        specifier: workspace:*
+        version: link:../packages/config
+      '@xingliu/shared':
+        specifier: workspace:*
+        version: link:../packages/shared
       class-validator:
         specifier: ^0.15.1
         version: 0.15.1

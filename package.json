@@ -1,19 +1,19 @@
 {
-  "name": "ai-creator-platform",
+  "name": "xingliu",
   "version": "1.0.0",
-  "description": "头条AI前端训练营 - AI 创作者辅助⽣产与分发平台",
+  "description": "星流 - AI 创作者辅助生产与分发平台",
   "keywords": [
     "ai",
     "creator",
     "platform"
   ],
-  "homepage": "https://github.com/8023time/ai-creator-platform#readme",
+  "homepage": "https://github.com/8023time/xingliu#readme",
   "bugs": {
-    "url": "https://github.com/8023time/ai-creator-platform/issues"
+    "url": "https://github.com/8023time/xingliu/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/8023time/ai-creator-platform.git"
+    "url": "git+https://github.com/8023time/xingliu.git"
   },
   "license": "ISC",
   "author": "8023time",
@@ -21,9 +21,9 @@
   "packageManager": "pnpm@10.25.0",
   "scripts": {
     "dev": "turbo run dev",
-    "dev:web": "turbo run dev --filter=@cm/web",
-    "dev:admin": "turbo run dev --filter=@cm/admin",
-    "dev:server": "turbo run dev --filter=@cm/server",
+    "dev:web": "turbo run dev --filter=@xingliu/web",
+    "dev:admin": "turbo run dev --filter=@xingliu/admin",
+    "dev:server": "turbo run dev --filter=@xingliu/server",
     "lint:eslint": "turbo run lint:eslint",
     "lint:oxc": "oxlint",
     "lint": "pnpm lint:oxc && pnpm lint:eslint",

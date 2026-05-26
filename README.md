@@ -1,11 +1,15 @@
-# AI 创作者辅助⽣产与分发平台
+<div align="center">
+
+# 星流 - AI 创作者平台
+
+</div>
 
 ## 一、项目架构概览
 
 使用 Turborepo + pnpm + Monorepo 统一管理整个项目
 
 ```
-ai-creator-platform/
+xingliu/
 ├── .vscode/                       # VS Code 工作区配置
 ├── .husky/                        # Git hooks
 ├── docs/                          # 项目文档

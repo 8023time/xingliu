@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, MinLength } from 'class-validator';
-import type { LoginUserRequest } from '@cm/shared';
+import type { LoginUserRequest } from '@xingliu/shared';
 
 export class LoginUserDto implements LoginUserRequest {
   @ApiProperty({

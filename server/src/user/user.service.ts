@@ -4,7 +4,7 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { LogoutUserDto } from './dto/logout-user.dto';
 import { ResponseService, PrismaService } from '@libs/common';
 import { AuthService } from '../auth/auth.service';
-import type { LoginUserResponse, RegisterUserResponse } from '@cm/shared';
+import type { LoginUserResponse, RegisterUserResponse } from '@xingliu/shared';
 
 @Injectable()
 export class UserService {

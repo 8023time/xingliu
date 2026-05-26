@@ -1,5 +1,5 @@
 {
-  "name": "@cm/server",
+  "name": "@xingliu/server",
   "version": "0.0.1",
   "description": "backend for ai creator platform",
   "author": "8023time",
@@ -11,8 +11,8 @@
     "lint:eslint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
   },
   "dependencies": {
-    "@cm/config": "workspace:*",
-    "@cm/shared": "workspace:*",
+    "@xingliu/config": "workspace:*",
+    "@xingliu/shared": "workspace:*",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.4",
     "@nestjs/core": "^11.0.1",

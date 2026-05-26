@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, Matches, MinLength } from 'class-validator';
-import type { RegisterUserRequest } from '@cm/shared';
+import type { RegisterUserRequest } from '@xingliu/shared';
 
 export class RegisterUserDto implements RegisterUserRequest {
   @ApiProperty({

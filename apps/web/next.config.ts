@@ -1,5 +1,5 @@
 import type { NextConfig } from 'next';
-import { Config } from '@cm/config';
+import { Config } from '@xingliu/config';
 
 const nextConfig: NextConfig = {
   env: {
