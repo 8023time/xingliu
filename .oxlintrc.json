@@ -1,0 +1,28 @@
+{
+  "rules": {
+    "no-unused-vars": "error",
+    "no-constant-condition": "warn",
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "no-debugger": "warn",
+    "no-var": "error",
+    "prefer-const": "warn",
+    "eqeqeq": "warn",
+    "no-duplicate-imports": "error"
+  },
+  "ignorePatterns": [
+    "dist",
+    "build",
+    "node_modules",
+    ".next",
+    "coverage",
+    ".turbo",
+    ".git",
+    "**/*.d.ts",
+    "prisma/generated"
+  ],
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2024": true
+  }
+}

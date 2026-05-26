@@ -13,6 +13,9 @@
     "lint": {
       "outputs": []
     },
+    "lint:eslint": {
+      "outputs": []
+    },
     "test": {
       "dependsOn": ["^build"],
       "outputs": ["coverage/**"]
