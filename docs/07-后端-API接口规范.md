@@ -20,7 +20,7 @@
   "path": "/api/contents",
   "message": "请求成功",
   "code": 0,
-  "data": {},
+  "data": {}, // 详细数据
   "success": true
 }
 ```
@@ -33,7 +33,7 @@
   "path": "/api/contents",
   "message": "错误描述",
   "code": 1,
-  "data": {},
+  "data": {}, // 详细业务错误信息
   "success": true
 }
 ```
@@ -63,11 +63,11 @@
 
 ### 1. 用户模块接口
 
-```text
-POST /api/user/register
-POST /api/user/login
-POST /api/user/logout
-```
+| 方法 | 路径               | 说明     |
+| ---- | ------------------ | -------- |
+| POST | /api/user/register | 用户注册 |
+| POST | /api/user/login    | 用户登录 |
+| POST | /api/user/logout   | 用户登出 |
 
 登录响应建议返回：
 
@@ -90,13 +90,13 @@ POST /api/user/logout
 
 ### 2. Prompt 接口
 
-```text
-GET    /api/prompts
-POST   /api/prompts
-PUT    /api/prompts/:id
-DELETE /api/prompts/:id
-POST   /api/prompts/:id/use
-```
+| 方法   | 路径                 | 说明             |
+| ------ | -------------------- | ---------------- |
+| GET    | /api/prompts         | 获取 Prompt 列表 |
+| POST   | /api/prompts         | 新建 Prompt      |
+| PUT    | /api/prompts/:id     | 更新 Prompt      |
+| DELETE | /api/prompts/:id     | 删除 Prompt      |
+| POST   | /api/prompts/:id/use | 使用 Prompt      |
 
 Prompt 创建请求：
 
@@ -111,12 +111,12 @@ Prompt 创建请求：
 
 ### 3. 素材接口
 
-```text
-POST   /api/assets/upload
-GET    /api/assets?cursor=&limit=20&type=image
-POST   /api/assets/:id/describe
-DELETE /api/assets/:id
-```
+| 方法   | 路径                                    | 说明         |
+| ------ | --------------------------------------- | ------------ |
+| POST   | /api/assets/upload                      | 上传素材     |
+| GET    | /api/assets?cursor=&limit=20&type=image | 获取素材列表 |
+| POST   | /api/assets/:id/describe                | 生成素材描述 |
+| DELETE | /api/assets/:id                         | 删除素材     |
 
 素材上传约束：
 
@@ -127,15 +127,15 @@ DELETE /api/assets/:id
 
 ### 4. 草稿接口
 
-```text
-POST   /api/drafts
-GET    /api/drafts?cursor=&limit=20&status=
-GET    /api/drafts/:id
-PUT    /api/drafts/:id
-PUT    /api/drafts/:id/autosave
-POST   /api/drafts/sync
-DELETE /api/drafts/:id
-```
+| 方法   | 路径                                 | 说明         |
+| ------ | ------------------------------------ | ------------ |
+| POST   | /api/drafts                          | 新建草稿     |
+| GET    | /api/drafts?cursor=&limit=20&status= | 获取草稿列表 |
+| GET    | /api/drafts/:id                      | 获取草稿详情 |
+| PUT    | /api/drafts/:id                      | 更新草稿     |
+| PUT    | /api/drafts/:id/autosave             | 自动保存草稿 |
+| POST   | /api/drafts/sync                     | 同步草稿     |
+| DELETE | /api/drafts/:id                      | 删除草稿     |
 
 自动保存请求：
 
@@ -161,13 +161,13 @@ DELETE /api/drafts/:id
 
 ### 5. AI 创作接口
 
-```text
-POST /api/ai/generate-title
-POST /api/ai/generate-content
-POST /api/ai/continue-writing
-POST /api/ai/optimize-title
-POST /api/ai/image-prompt
-```
+| 方法 | 路径                     | 说明            |
+| ---- | ------------------------ | --------------- |
+| POST | /api/ai/generate-title   | 生成标题        |
+| POST | /api/ai/generate-content | 生成内容        |
+| POST | /api/ai/continue-writing | 续写内容        |
+| POST | /api/ai/optimize-title   | 优化标题        |
+| POST | /api/ai/image-prompt     | 生成图片 Prompt |
 
 内容生成请求：
 
@@ -204,18 +204,18 @@ POST /api/ai/image-prompt
 
 ### 6. 内容与审核接口
 
-```text
-POST /api/contents/from-draft
-GET  /api/contents/:id
-PUT  /api/contents/:id
-POST /api/contents/:id/submit-review
-POST /api/contents/:id/publish
-POST /api/moderation/check
-GET  /api/moderation/records/:contentId
-POST /api/quality/score
-GET  /api/quality/:contentId
-POST /api/rewrite/compliance
-```
+| 方法 | 路径                               | 说明           |
+| ---- | ---------------------------------- | -------------- |
+| POST | /api/contents/from-draft           | 从草稿生成内容 |
+| GET  | /api/contents/:id                  | 获取内容详情   |
+| PUT  | /api/contents/:id                  | 更新内容       |
+| POST | /api/contents/:id/submit-review    | 提交审核       |
+| POST | /api/contents/:id/publish          | 发布内容       |
+| POST | /api/moderation/check              | 内容审核       |
+| GET  | /api/moderation/records/:contentId | 获取审核记录   |
+| POST | /api/quality/score                 | 内容评分       |
+| GET  | /api/quality/:contentId            | 获取评分结果   |
+| POST | /api/rewrite/compliance            | 合规改写       |
 
 提交审核请求：
 
@@ -236,15 +236,15 @@ POST /api/rewrite/compliance
 
 ### 7. 榜单与阅读互动接口
 
-```text
-GET  /api/feed?cursor=&limit=20
-GET  /api/rankings/hot?cursor=&limit=20
-GET  /api/rankings/viral?cursor=&limit=20
-GET  /api/rankings/recommend?cursor=&limit=20
-POST /api/contents/:id/view
-POST /api/contents/:id/like
-POST /api/contents/:id/share
-```
+| 方法 | 路径                                     | 说明       |
+| ---- | ---------------------------------------- | ---------- |
+| GET  | /api/feed?cursor=&limit=20               | 获取信息流 |
+| GET  | /api/rankings/hot?cursor=&limit=20       | 获取热点榜 |
+| GET  | /api/rankings/viral?cursor=&limit=20     | 获取爆文榜 |
+| GET  | /api/rankings/recommend?cursor=&limit=20 | 获取推荐榜 |
+| POST | /api/contents/:id/view                   | 记录阅读   |
+| POST | /api/contents/:id/like                   | 点赞内容   |
+| POST | /api/contents/:id/share                  | 分享内容   |
 
 收藏、举报、不感兴趣属于进阶挑战，用于后续用户反馈加权排序；当前 API 不作为必做主链路。
 
@@ -264,10 +264,10 @@ POST /api/contents/:id/share
 
 当 AI 任务耗时较长时，接口可以从同步响应切换为任务模式：
 
-```text
-POST /api/tasks
-GET  /api/tasks/:id
-```
+| 方法 | 路径           | 说明         |
+| ---- | -------------- | ------------ |
+| POST | /api/tasks     | 创建任务     |
+| GET  | /api/tasks/:id | 查询任务状态 |
 
 任务响应：
 

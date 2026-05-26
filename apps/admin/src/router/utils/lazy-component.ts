@@ -1,4 +1,4 @@
-import { createElement, lazy, Suspense, type ComponentType, type ReactNode } from "react";
+import { createElement, lazy, Suspense, type ComponentType, type ReactNode } from 'react';
 
 export function lazyComponent(
   importFunc: () => Promise<{ default: ComponentType }>,
