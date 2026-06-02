@@ -1,136 +1,166 @@
 # FE Admin Rules
 
-本文约束 `apps/admin` 的 AI 开发与人工开发过程。目标应用名称为 **星流 创作者中心**，定位为 B 端创作者生产后台，视觉参考抖音创作者中心，但不复制外部站点代码和资产。
+本文约束 `apps/admin` 的 AI 开发与人工开发过程。目标应用名称为 **星流 创作者中心**，定位为 B 端创作者内容生产后台。
 
-## 1. 技术栈边界
+核心业务闭环为：
+
+`创意输入 -> 素材补充 -> 素材解析 -> 内容生成 -> 编辑审核 -> 自动保存 -> 站内发布`
+
+## 1. 项目定位
+
+- `apps/admin` 必须围绕创作者内容生产、素材管理、草稿编辑、内容发布和后续数据反馈建设。
+- 页面优先服务高频后台操作，不做营销型落地页，不用大篇幅介绍性内容占据首屏。
+- 视觉风格可以参考成熟创作者后台的效率型布局，但不得复制外部站点代码、图片、图标或品牌资产。
+- 文案使用简洁中文，优先表达状态、结果、操作和下一步动作。
+- 所有中文文档和源码中文内容必须使用 UTF-8 编码。
+
+## 2. 技术栈边界
 
 - 必须使用当前技术栈：React 19、React Router 7、Vite 8、TypeScript、Tailwind CSS 4。
-- 组件库使用 `@douyinfe/semi-ui`，图标使用 `@douyinfe/semi-icons`，插画优先使用 `@douyinfe/semi-illustrations`。
-- 服务端状态使用 `@tanstack/react-query`，本地交互状态使用 `zustand`，注意不要过渡使用`zustand`。
-- HTTP 请求使用 `axios`；OpenAPI 代码生成使用 `orval`，生成代码不得手改。
+- UI 组件库使用 `antd`，图标使用 `@ant-design/icons`。
+- 服务端状态使用 `@tanstack/react-query`，客户端交互状态使用 `zustand`。
+- HTTP 请求使用 `axios`，OpenAPI 代码生成使用 `orval`，生成代码不得手改。
 - 富文本编辑器使用 Tiptap：`@tiptap/react`、`@tiptap/pm`、`@tiptap/starter-kit` 及已安装扩展。
-- 离线草稿使用 `dexie` 和 `dexie-react-hooks`。
+- 本地草稿和离线数据使用 `dexie` 与 `dexie-react-hooks`。
 - 数据图表使用 `@visactor/react-vchart`。
-- 草稿指纹、幂等 key、内容变更比对可使用 `md5`；密码提交前也按后端约定进行 MD5 处理，但不得把 MD5 当作安全加密方案。
+- 内容 hash、幂等 key、变更比对可使用 `md5`；密码处理按接口约定执行，但不得把 MD5 当作安全加密方案。
+- 不引入未安装的新依赖；确需新增依赖时必须说明用途、替代方案和影响范围。
 
-## 2. 品牌与公共资产
+## 3. 品牌与公共资产
 
 - 应用展示名称统一为 `星流 创作者中心`。
 - 浏览器图标使用 `apps/admin/public/favicon.png`。
-- 不新增无来源的品牌图标文件；需要业务图片时放在 `src/assets`，公共静态资源才放在 `public`。
-- 页面文案使用简洁中文，避免营销型夸张表达；后台产品优先表达状态、结果和下一步动作。
+- 由源码 import 的图片、SVG、字体等资源放在 `src/assets`。
+- 需要通过 URL 直接访问的公共静态资源放在 `public`。
+- 不新增无来源的品牌图标、头像、插画或第三方平台素材。
+- 业务图标优先使用 `@ant-design/icons`，不为常见动作重复手写 SVG。
 
-## 3. 目录职责
+## 4. 目录职责
 
 `apps/admin/src` 必须按以下职责组织代码：
 
-- `api/`：接口类型来自 `packages/shared`;比如`api/login/`这样模块化封装接口请求和 React Query hooks。
-- `assets/`：由源码 import 的图片、SVG、局部静态资源。比如`assets/icons/`、`assets/images/`、`assets/fonts/`。
-- `components/`：`components/ui`跨页面复用组件，只沉淀有明确复用价值的业务组件和布局组件;`components/layout`放置整体布局组件，如后台框架、编辑器布局等;
-- `configs/`：应用工具配置`configs/utils/`、axios 的基础封装、Semi 配置、环境变量读取。
-- `hooks/`：跨组件复用的业务 hooks，必须以 `use` 开头。
-- `pages/`：路由页面;遇到只属于自己的页面封装，需要放到自己模块的`components/`下面，比如`pages/login/components/`。
-- `router/`：路由定义、懒加载、权限路由守卫。
-- `stores/`：Zustand store，只存放客户端状态。
-- `styles/`：全局样式、Tailwind 入口、Semi 变量覆盖、基础排版。
+- `api/`：封装接口请求、请求适配、响应适配和 React Query hooks；接口类型优先来自 `@xingliu/shared` 或 Orval 生成代码。
+- `components/layout/`：放置后台整体布局、顶部栏、侧边栏、编辑器布局等跨页面布局组件。
+- `components/ui/`：放置跨页面复用的基础业务组件，只沉淀有明确复用价值的组件。
+- `configs/`：放置 axios 实例、全局配置、环境配置、持久化工具和通用错误码。
+- `hooks/`：放置跨组件复用的业务 hooks，命名必须以 `use` 开头。
+- `pages/`：放置路由页面；页面专属组件放在当前页面目录下的 `components/` 中，例如 `pages/login/components/`。
+- `router/`：放置路由定义、懒加载工具、权限路由守卫。
+- `stores/`：放置 Zustand store，只保存客户端状态。
+- `styles/`：放置全局样式、Tailwind 入口、基础排版和必要的 antd 视觉微调。
+- 禁止把大量业务逻辑写进 `App.tsx`、`main.tsx` 或单个页面文件。
 
-禁止把大量业务逻辑写进 `App.tsx`、`main.tsx` 或单个页面文件。
+## 5. 命名规范
 
-## 4. 命名规范
-
-- 文件夹使用 kebab-case：`creator-workbench`、`content-review`。
-- React 组件文件使用 PascalCase：`AdminShell.tsx`、`StatusTag.tsx`。
-- 非组件 TypeScript 文件使用 kebab-case：`http-client.ts`、`query-client.ts`、`draft-repository.ts`。
-- React 组件、类型、枚举使用 PascalCase：`CreatorProfile`、`DraftSyncStatus`。
-- 变量、函数、hook、store selector 使用 camelCase：`createDraft`、`useDraftList`。
-- 常量使用 UPPER_SNAKE_CASE：`DEFAULT_PAGE_SIZE`、`DRAFT_AUTOSAVE_INTERVAL_MS`。
+- 文件夹使用 kebab-case：`content-create`、`material-list`、`creator-workbench`。
+- React 组件文件使用 PascalCase：`RootLayout.tsx`、`StatusTag.tsx`。
+- 非组件 TypeScript 文件使用 kebab-case：`request.ts`、`query-client.ts`、`draft-repository.ts`。
+- React 组件、类型、枚举使用 PascalCase：`CreatorProject`、`DraftSyncStatus`。
+- 变量、函数、hook、store selector 使用 camelCase：`createProject`、`useMaterialList`。
+- 常量使用 UPPER_SNAKE_CASE：`DEFAULT_PAGE_SIZE`、`DRAFT_AUTOSAVE_DELAY_MS`。
 - 布尔变量必须带语义前缀：`isLoading`、`hasConflict`、`canPublish`、`shouldSync`。
-- 事件处理函数使用 `handle` 前缀：`handleSubmit`、`handleRetrySync`。
-- API 方法名使用业务动词：`fetchDraftList`、`createPromptTemplate`、`publishContent`。
+- 事件处理函数使用 `handle` 前缀：`handleSubmit`、`handleRetrySave`。
+- API 方法名使用业务动词：`fetchProjectList`、`uploadMaterial`、`publishContent`。
 - 命名必须表达业务含义，禁止使用 `data`、`list`、`item`、`temp`、`foo` 这类无法单独理解的名称，除非作用域极小且语义清晰。
 
-## 5. 组件化规则
+## 6. 组件化规则
 
-- 有 Semi 组件可用时优先使用 Semi，不自行实现 Button、Input、Modal、Table、Tabs、Form、Select、Tag、Toast、Drawer 等基础组件。
-- 不封装无价值的二次基础组件，例如 `XButton`、`BaseInput`；只封装业务复合组件，例如 `AdminShell`、`EditorLayout`、`ReviewSideSheet`、`StatusTag`、`DataTableToolbar`。
-- 单个组件只承担一个主要职责；组件超过约 200 行时，应优先拆出子组件、hooks 或配置对象。
-- 页面级组件不得直接写复杂表格列渲染、表单规则和请求适配逻辑；这些应拆到同目录的 `components/`、`hooks/` 或 `api/`。
-- props 类型必须显式声明，组件对外 props 使用 `interface`。
-- 组件内部派生数据优先使用局部变量或 `useMemo`，不要把可计算数据写入 store。
+- 有 antd 组件可用时优先使用 antd，不自行实现 Button、Input、Modal、Table、Tabs、Form、Select、Tag、Drawer、Upload 等基础组件。
+- 不封装无价值的二次基础组件，例如 `XButton`、`BaseInput`。
+- 只封装有业务含义的复合组件，例如 `ProjectHeader`、`StepNavigation`、`MaterialSummary`、`PublishPanel`。
+- 单个组件只承担一个主要职责；组件超过约 200 行时，优先拆出子组件、hooks 或配置对象。
+- 页面级组件不得直接堆叠复杂表格列渲染、表单规则、请求适配和编辑器配置。
+- props 类型必须显式声明；组件对外 props 使用 `interface`。
+- 组件内部派生数据优先使用局部变量或 `useMemo`，不得把可计算数据写入 store。
 - 列表渲染必须使用稳定业务 id 作为 `key`，禁止使用数组下标作为 key。
 - 空状态、加载态、错误态、禁用态必须完整处理。
 
-## 6. 语义化与可访问性
+## 7. UI、样式与可访问性
 
+- antd 负责基础组件能力和交互状态，Tailwind 负责布局、间距、尺寸和页面级微调。
+- 不在业务组件中大面积覆盖 antd 内部 class；确需统一视觉时优先放在 `src/styles/base.css`。
+- 后台页面首屏必须直接展示登录表单、工作台、列表、编辑器或发布配置。
+- 卡片只用于内容项、结果面板、弹窗、局部模块，不把整页套进大卡片。
 - 页面结构优先使用语义化标签：`main`、`nav`、`header`、`section`、`aside`、`footer`。
-- 可点击行为优先使用 `button` 或 Semi 按钮组件，导航跳转使用 React Router 的 `Link`。
-- 图标按钮必须提供 `aria-label` 或可见文字。
+- 可点击行为优先使用 `button` 或 antd 按钮组件，导航跳转使用 React Router 的 `Link` 或路由 API。
+- 图标按钮必须提供 `aria-label`、`title` 或可见文字。
 - 表单项必须有明确 label、校验提示和提交反馈。
-- 表格批量操作、危险操作、发布操作必须有确认或明确的二次反馈。
-- 不用纯颜色表达状态；状态必须同时有文字，例如 `通过`、`需改写`、`同步失败`。
-
-## 7. 样式规则
-
-- Semi 负责组件视觉，Tailwind 只负责布局、间距、尺寸和页面级微调。
-- 不在业务组件里大面积覆盖 Semi 内部 class；需要统一视觉时在 `src/styles/base.css` 中覆盖 CSS 变量。
-- 布局必须适配桌面、平板和移动端。B 端以桌面效率优先，移动端保证主流程可用。
-- 后台页面不要做营销型大 Hero；首屏应直接展示工作台、列表、编辑器或登录表单。
-- 卡片只用于内容项、结果面板、弹窗或局部模块，不把整页套进大卡片。
-- 文本不得溢出按钮、表格单元格和卡片；长标题必须使用省略、换行或 Tooltip。
-- 颜色使用语义：成功为绿色，警告/需改写为橙色，错误/驳回为红色，同步/离线为蓝色或灰色。
+- 不得只用颜色表达状态；状态必须同时有文字，例如 `已保存`、`解析中`、`需审核`、`发布失败`。
+- 文本不得溢出按钮、表格单元格和卡片；长标题必须使用换行、省略或 Tooltip。
 
 ## 8. 路由与页面规则
 
 - 路由集中定义在 `router/`，页面组件放在 `pages/`。
-- 路由页面必须懒加载，避免首屏加载编辑器、图表等大模块。
-- 登录页路径为 `/login`；登录后默认进入创作工作台。
-- 需要权限的页面必须经过统一路由守卫，不在每个页面重复写鉴权逻辑。
-- 页面标题、面包屑、导航选中态应由路由元信息或集中配置驱动。
+- 路由页面必须懒加载，避免首屏加载编辑器、图表、上传解析等大模块。
+- 登录页路径为 `/login`。
+- 登录后默认进入创作工作台或首页，受保护页面必须经过统一路由守卫。
+- 不在每个页面重复编写鉴权逻辑。
+- 页面标题、侧边栏选中态、面包屑应优先由路由配置或集中配置驱动。
+- 404、无权限、加载失败等兜底页面必须可达且文案明确。
 
-## 9. API 与类型规则
+## 9. 内容创作流程
 
-- 未来接口类型统一从 `packages/shared` 导入，保持前后端 DTO 一致。
-- 页面禁止直接调用 axios 实例；页面通过 `api/` 方法、Orval hooks 或业务 hooks 取数。
-- axios 实例必须统一处理 `baseURL`、token、requestId、401、网络错误和业务错误码。
-- React Query key 必须集中管理，禁止散落硬编码字符串。
-- 服务端列表、详情、分页、筛选结果放在 React Query，不放进 Zustand。
-- 请求入参和响应适配在 `api/` 或业务 hook 中完成，页面只消费适配后的 UI 数据。
-- Orval 生成目录应明显标记为 generated，禁止人工编辑生成文件。
+- 内容创作主流程必须包含：创建项目、创意构思、AI 优化大纲、素材上传、素材解析、内容类型选择、AI 内容生成、编辑审核、自动保存草稿、站内发布。
+- 工作台布局固定为：顶部项目栏、左侧步骤导航、中间主操作区、右侧 AI 助手 / 预览 / 素材摘要。
+- 顶部项目栏展示项目名称、保存状态、预览入口和发布入口。
+- 左侧步骤导航包含：创意构思、素材上传、内容类型、内容生成、编辑审核、发布设置。
+- 创意构思步骤包含创意标题、内容主题、目标用户、内容平台、内容风格、补充说明。
+- AI 优化结果展示优化后的创意描述、推荐标题、内容定位、内容大纲、推荐受众和风格建议。
+- 素材上传步骤支持图片、PDF、Word、Markdown、音频、视频、链接和压缩包。
+- 素材必须展示上传进度、解析状态、解析失败原因、AI 摘要和关键词。
+- 内容类型选择使用卡片或多选控件，支持长文、短图文、种草文案、小红书笔记、抖音脚本、公众号文章、商品测评、海报文案。
+- 内容生成区展示生成结果列表、内容编辑器、实时预览和 AI 建议。
+- 编辑审核步骤必须允许用户修改标题、正文、标签、封面、摘要和发布配置。
+- 站内发布必须先于多平台分发；多平台分发仅作为后续扩展入口，不在第一阶段展开复杂发布链路。
 
-## 10. 表单与安全规则
+## 10. 表单与接口规则
 
-- 所有用户输入必须校验字段，包含必填、长度、格式、边界值和前后空格处理。
+- 所有用户输入必须校验必填、长度、格式、边界值和前后空格。
 - 登录账号支持手机号或邮箱时，必须分别校验手机号和邮箱格式。
-- 密码字段至少校验必填和长度；提交前按接口约定使用 `md5(password)`。
-- 不在 console、URL、localStorage、Zustand 持久化数据中保存明文密码或 MD5 后的密码。
-- token 只通过统一认证 store 和 axios 拦截器使用，禁止散落读取。
-- 危险 HTML 内容必须经过可信来源或显式净化；Tiptap 渲染内容不得直接绕过 React 安全机制。
+- 注册手机号必填，并校验中国大陆手机号格式。
+- 注册邮箱可选，但填写时必须校验邮箱格式。
+- 用户名必填，并限制合理长度。
+- 密码必须校验必填、长度和强度；当前规则为 6-16 位且包含字母和数字。
+- 确认密码只用于注册、改密等场景；登录表单不得要求确认密码。
+- 页面禁止直接调用 axios 实例，必须通过 `api/` 方法、Orval hooks 或业务 hooks 取数。
+- 请求入参和响应适配在 `api/` 或业务 hook 中完成，页面只消费适配后的 UI 数据。
+- `configs/request.ts` 统一处理 `baseURL`、超时、错误提示、401、网络错误和业务错误码。
+- React Query key 必须集中管理，禁止散落硬编码字符串。
+- 接口类型优先复用 `@xingliu/shared` 或 Orval 生成类型，不重复定义 DTO。
 
 ## 11. 状态管理规则
 
-- Zustand 只管理客户端状态：登录态、编辑器 UI、同步状态、抽屉弹窗、当前操作上下文。
-- React Query 管理服务端状态：Prompt、素材、草稿、内容、审核结果、分发数据。
-- Dexie 管理本地持久数据：草稿、草稿快照、同步队列、冲突记录。
-- Store 必须按业务域拆分，例如 `auth-store.ts`、`editor-store.ts`、`sync-store.ts`。
-- Store action 必须表达意图，例如 `setCurrentDraft`、`markSyncFailed`，禁止直接暴露大而全的 `setState` 给页面。
-- 跨域状态同步必须有明确来源，避免 React Query、Zustand、Dexie 三处互相复制同一份服务端数据。
+- React Query 管理服务端状态：项目、素材、解析结果、生成结果、草稿详情、发布记录、统计数据。
+- Zustand 管理客户端状态：登录态、当前步骤、编辑器 UI、侧栏展开、弹窗抽屉、当前操作上下文。
+- Dexie 管理本地持久数据：草稿、草稿快照、上传队列、同步队列、冲突记录。
+- Store 必须按业务域拆分，例如 `user-store.ts`、`editor-store.ts`、`draft-store.ts`。
+- Store action 必须表达意图，例如 `setCurrentStep`、`markSaveFailed`，禁止直接暴露大而全的 `setState` 给页面。
+- 不得在 React Query、Zustand、Dexie 中重复保存同一份服务端数据。
+- 页面卸载后仍需保留的数据必须明确归属，不能临时散落在组件 state 中。
 
-## 12. 编辑器与离线规则
+## 12. 编辑器、草稿与自动保存
 
 - 富文本编辑器统一基于 Tiptap 封装，编辑器扩展集中配置。
-- AI 生成结果先进入候选区，用户确认后才能插入、替换或追加到正文。
-- 编辑过程必须触发本地保存，离线时不得丢稿。
-- 草稿保存必须记录内容 hash、更新时间、同步状态和冲突状态。
+- AI 生成结果必须先进入候选区或生成结果列表，用户确认后才能写入正文。
+- 编辑过程必须触发自动保存，离线时不得丢稿。
+- 自动保存触发场景包含：用户输入停止 2 秒、切换步骤、上传素材完成、内容生成完成。
+- 保存状态必须明确展示：`保存中`、`已自动保存`、`保存失败，点击重试`。
+- 草稿保存必须记录项目 id、内容 hash、更新时间、同步状态和冲突状态。
 - Dexie schema 变更必须显式提升版本，并写清迁移逻辑。
-- 同步冲突必须展示本地版本、云端版本和复制为新草稿的处理方式。
+- 同步冲突必须展示本地版本、云端版本和保留副本的处理方式。
 
-## 13. 性能规则
+## 13. 安全与性能规则
 
-- 首屏不得加载 Tiptap、VChart、大型编辑器面板等非当前页面必要模块。
-- 路由级代码分割必须保留；复杂页面内部也应按编辑器、图表、抽屉延迟加载。
-- 表格大数据量必须分页；长列表需要虚拟滚动或分页，不一次渲染全部。
-- 图片必须限制尺寸和比例，避免布局抖动。
-- 避免在 render 中创建大量匿名配置；表格列、图表 spec、表单规则可提到组件外或用 `useMemo`。
+- 不在 console、URL、localStorage、Zustand 持久化数据中保存明文密码或 MD5 后的密码。
+- token 只通过统一认证 store 和 axios 拦截器使用，禁止散落读取。
+- 危险 HTML 内容必须来自可信来源或经过显式净化。
+- Tiptap 渲染内容不得直接绕过 React 安全机制。
+- 发布前必须检查标题、正文、封面、敏感词和内容质量评分。
+- 首屏不得加载 Tiptap、VChart、大型上传解析器等非当前页面必要模块。
+- 复杂页面内部应按编辑器、图表、抽屉、预览面板延迟加载。
+- 表格大数据量必须分页；长列表使用分页或虚拟滚动。
+- 图片、视频封面和上传预览必须限制尺寸和比例，避免布局抖动。
+- 避免在 render 中创建大量匿名配置；表格列、图表 spec、表单规则优先提到组件外或使用 `useMemo`。
 
 ## 14. AI 开发执行规则
 
@@ -138,26 +168,16 @@
 - 只改与当前任务相关的文件，不做无关重构。
 - 新增能力必须同步考虑加载、空、错、禁用、权限不足等状态。
 - 新增公共能力必须放到正确目录，并给出清晰命名。
-- 不生成重复类型；能从 `packages/shared` 或 Orval 获取类型时必须复用。
+- 不生成重复类型；能从 `@xingliu/shared` 或 Orval 获取类型时必须复用。
+- 不新增与当前需求无关的页面、mock 数据或未来功能。
 - 不引入未安装的新依赖，除非明确说明原因并获得确认。
-- 完成后至少运行 `pnpm --filter @xingliu/admin build` 或说明无法运行的原因。
+- 完成代码改动后至少运行 `pnpm --filter @xingliu/admin build`，或说明无法运行的原因。
+- 仅修改文档时无需运行构建，但必须检查 UTF-8、关键技术栈和核心流程是否正确。
 
-## 15. 推荐基础文件
+## 15. 禁止过度封装
 
-后续实现时优先补齐以下基础文件：
-
-- `src/configs/providers.tsx`：挂载 React Query、Semi 配置和全局上下文。
-- `src/configs/query-client.ts`：React Query 默认配置。
-- `src/api/http-client.ts`：axios 实例与拦截器。
-- `src/api/query-keys.ts`：React Query key 工厂。
-- `src/api/generated/`：Orval 生成代码目录。
-- `src/api/draft-repository.ts`：Dexie 草稿仓储封装。
-- `src/configs/dexie-db.ts`：Dexie schema 与版本。
-- `src/utils/hash.ts`：MD5 hash 封装。
-- `src/components/layout/AdminShell.tsx`：后台整体布局。
-- `src/components/business/StatusTag.tsx`：统一业务状态展示。
-
-## 16. 禁止过渡封装
-
-- 对于类似于登陆注册页面的简单页面，不要过渡到`src/components`目录下创建过多的组件，比如登录注册页面直接在`src/pages/login/components`中实现。
-- 对于一些简单的工具函数，不要过渡封装到`src/utils`目录下创建过多的工具函数，比如一些简单的格式化函数直接在需要使用的地方实现。
+- 简单页面不要拆到过多全局组件中，例如登录注册页面可直接在 `pages/login/components/` 中实现。
+- 页面专属组件不得放进 `components/ui/`，除非已经有两个以上页面复用。
+- 简单格式化逻辑可就近实现，不为了单次使用创建 `utils` 文件。
+- 不为 antd 基础组件创建无业务含义的包装层。
+- 不为暂未落地的多平台分发、复杂审核流、复杂数据看板提前创建大量空目录或占位文件。
