@@ -4,8 +4,7 @@ import {
   PlusOutlined,
   HomeOutlined,
   FileTextOutlined,
-  BarChartOutlined,
-  DownOutlined,
+  FireOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   LogoutOutlined,
@@ -14,6 +13,8 @@ import {
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { WEB_DATA_INFO } from '@/configs/config';
 import { useAuthStore } from '@/stores/user-store';
+import { useSiderStore } from '@/stores/sider-store';
+import CreateModal from '@/components/createModal/index';
 
 const { Header, Sider, Content } = Layout;
 
@@ -22,7 +23,7 @@ export default function RootLayout() {
     <Layout style={{ minHeight: '100vh', width: '100%', background: '#F8F8F8' }}>
       <Header
         style={{
-          height: 50,
+          height: 64,
           padding: '0 24px',
           background: '#F8F8F8',
         }}
@@ -31,7 +32,7 @@ export default function RootLayout() {
       </Header>
       <Layout style={{ background: '#F8F8F8', maxHeight: 'calc(100vh - 64px)' }}>
         <APPSider />
-        <Content style={{ background: '#F8F8F8', padding: 25, overflow: 'auto' }}>
+        <Content style={{ background: '#F8F8F8', padding: '0 15px 15px 0', overflow: 'auto' }}>
           <Outlet />
         </Content>
       </Layout>
@@ -40,30 +41,21 @@ export default function RootLayout() {
 }
 
 function APPSider() {
-  // 将折叠状态内聚在组件内部
-  const [collapsed, setCollapsed] = useState(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const { collapsed, setCollapsed, toggleCollapsed } = useSiderStore();
 
   const navigate = useNavigate();
   const location = useLocation();
 
-  const publishItems = [
-    { key: 'video', label: '发布视频' },
-    { key: 'image-text', label: '发布图文' },
-  ];
-
   const menuItems = [
     { key: '/home', icon: <HomeOutlined />, label: '首页' },
-    { key: '/notes', icon: <FileTextOutlined />, label: '笔记管理' },
-    {
-      key: '/data',
-      icon: <BarChartOutlined />,
-      label: '数据看板',
-      children: [
-        { key: '/data/overview', label: '作品数据' },
-        { key: '/data/fans', label: '粉丝数据' },
-      ],
-    },
+    { key: '/rankings', icon: <FireOutlined />, label: '榜单中心' },
+    { key: '/content/list', icon: <FileTextOutlined />, label: '内容列表' },
   ];
+
+  const handleCreateClick = () => {
+    setIsCreateModalOpen(true);
+  };
 
   return (
     <Sider
@@ -82,26 +74,25 @@ function APPSider() {
       <Flex vertical style={{ height: '100%' }} justify="space-between">
         <div>
           <div style={{ marginBottom: 16, padding: collapsed ? '0 4px' : '0 8px', transition: 'all 0.2s' }}>
-            <Dropdown menu={{ items: publishItems }} placement="bottomCenter">
-              <Button
-                type="primary"
-                danger
-                size="large"
-                icon={<PlusOutlined />}
-                block
-                style={{
-                  height: 40,
-                  borderRadius: 8,
-                  fontWeight: 'bold',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                {!collapsed && '发布笔记'}
-                {!collapsed && <DownOutlined style={{ fontSize: 10, marginLeft: 4 }} />}
-              </Button>
-            </Dropdown>
+            <Button
+              type="primary"
+              danger
+              size="large"
+              icon={<PlusOutlined />}
+              block
+              onClick={handleCreateClick}
+              style={{
+                height: 40,
+                borderRadius: 8,
+                fontWeight: 'bold',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              {!collapsed && '创建'}
+            </Button>
+            <CreateModal open={isCreateModalOpen} onClose={() => setIsCreateModalOpen(false)} />
           </div>
 
           {/* 💡 现代化无边框菜单 */}
@@ -122,7 +113,7 @@ function APPSider() {
             type="text"
             block
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
+            onClick={toggleCollapsed}
             style={{
               height: 40,
               borderRadius: 8,
