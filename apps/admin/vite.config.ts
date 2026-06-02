@@ -25,6 +25,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@Tip': fileURLToPath(new URL('./src/components/editor/Tiptap', import.meta.url)),
     },
   },
 });

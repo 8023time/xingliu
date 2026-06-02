@@ -23,7 +23,8 @@
 
     // Path mapping for cleaner imports.
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@Tip/*": ["./src/components/editor/Tiptap/*"]
     }
   },
   "include": ["src"]
