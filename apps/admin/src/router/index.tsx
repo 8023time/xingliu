@@ -1,6 +1,8 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { lazyComponent } from './utils/lazy-component';
 import AuthRoute from './utils/AuthRoute';
+import RouteError from '@/components/ui/RouteError';
+import RankingsPage from '@/pages/rankings';
 
 const router = createBrowserRouter([
   {
@@ -9,6 +11,7 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: lazyComponent(() => import('@/components/layout/RootLayout')),
+        errorElement: <RouteError />,
         children: [
           {
             index: true,
@@ -17,6 +20,10 @@ const router = createBrowserRouter([
           {
             path: 'home',
             element: lazyComponent(() => import('@/pages/home')),
+          },
+          {
+            path: 'rankings',
+            element: <RankingsPage />,
           },
           {
             path: '/content',
@@ -33,15 +40,18 @@ const router = createBrowserRouter([
           },
         ],
       },
+      {
+        path: '/login',
+        element: lazyComponent(() => import('@/pages/login')),
+        errorElement: <RouteError />,
+      },
     ],
   },
-  {
-    path: '/login',
-    element: lazyComponent(() => import('@/pages/login')),
-  },
+
   {
     path: '*',
     element: lazyComponent(() => import('@/components/ui/404')),
+    errorElement: <RouteError />,
   },
 ]);
 
