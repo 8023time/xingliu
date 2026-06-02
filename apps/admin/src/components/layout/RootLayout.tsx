@@ -49,8 +49,8 @@ function APPSider() {
 
   const menuItems = [
     { key: '/home', icon: <HomeOutlined />, label: '首页' },
-    { key: '/rankings', icon: <FireOutlined />, label: '榜单中心' },
     { key: '/content/list', icon: <FileTextOutlined />, label: '内容列表' },
+    { key: '/rankings', icon: <FireOutlined />, label: '榜单中心' },
   ];
 
   const handleCreateClick = () => {
