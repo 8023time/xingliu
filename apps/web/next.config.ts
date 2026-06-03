@@ -7,6 +7,15 @@ const nextConfig: NextConfig = {
     NEXT_PUBLIC_WEB_PORT: String(Config.port.web),
     NEXT_PUBLIC_API_HOST: Config.host.api,
   },
+  images: {
+    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+    ],
+  },
 };
 
 export default nextConfig;
