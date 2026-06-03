@@ -5,6 +5,7 @@ import { ResponseModule } from './response/response.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { MinioModule } from './minio/minio.module';
+import { AiModule } from './ai/ai.module';
 
 @Global()
 @Module({
@@ -29,6 +30,7 @@ import { MinioModule } from './minio/minio.module';
       },
     }),
     MinioModule,
+    AiModule,
   ],
 })
 export class CommonModule {}
