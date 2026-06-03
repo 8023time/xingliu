@@ -4,11 +4,12 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ResponseModule } from './response/response.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
+import { MinioModule } from './minio/minio.module';
 
 @Global()
 @Module({
   providers: [CommonService],
-  exports: [CommonService, PrismaModule, ResponseModule, JwtModule, ConfigModule],
+  exports: [CommonService, PrismaModule, ResponseModule, JwtModule, ConfigModule, MinioModule],
   imports: [
     PrismaModule,
     ResponseModule,
@@ -27,6 +28,7 @@ import { JwtModule } from '@nestjs/jwt';
         };
       },
     }),
+    MinioModule,
   ],
 })
 export class CommonModule {}
