@@ -4,7 +4,8 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { LogoutUserDto } from './dto/logout-user.dto';
 import { ResponseService, PrismaService } from '@libs/common';
 import { AuthService } from '../auth/auth.service';
-import type { LoginUserResponse, RegisterUserResponse } from '@xingliu/shared/user';
+import type { LoginUserResponse, RegisterUserResponse, AuthToken } from '@xingliu/shared/user';
+import { RefreshTokenDto } from './dto/refresh-token.dto';
 
 @Injectable()
 export class UserService {
@@ -113,6 +114,46 @@ export class UserService {
       },
       '登录成功',
     );
+  }
+
+  async refreshToken(refreshTokenDto: RefreshTokenDto) {
+    try {
+      const payload = this.authService.verifyToken(refreshTokenDto.refreshToken);
+
+      const user = await this.prismaService.user.findUnique({
+        where: { id: payload.userId },
+        select: {
+          id: true,
+          phone: true,
+          email: true,
+          username: true,
+          avatarUrl: true,
+          status: true,
+          tokenVersion: true,
+        },
+      });
+
+      if (!user) {
+        return this.responseService.error(null, '用户不存在');
+      }
+
+      // 如果 tokenVersion 不匹配，说明令牌已过期
+      if (payload.tokenVersion !== user.tokenVersion) {
+        return this.responseService.error(null, '刷新令牌已过期，请重新登录');
+      }
+
+      return this.responseService.success<AuthToken>(
+        this.authService.generateToken({
+          userId: user.id,
+          phone: user.phone,
+          email: user.email ?? null,
+          tokenVersion: user.tokenVersion,
+        }),
+        '刷新令牌成功',
+      );
+    } catch {
+      return this.responseService.error(null, '无效的刷新令牌');
+    }
   }
 
   async logout(logoutUserDto: LogoutUserDto) {
