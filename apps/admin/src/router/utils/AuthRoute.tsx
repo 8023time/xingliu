@@ -9,10 +9,6 @@ export default function AuthRoute() {
   if (!isLogin) {
     return <Navigate to="/login" replace state={{ from: location.pathname }} />;
   }
-  // 如果用户已登录,但是访问了/login路径,重定向到主页
-  if (location.pathname === '/login' && isLogin) {
-    return <Navigate to="/home" replace />;
-  }
 
   return <Outlet />;
 }
