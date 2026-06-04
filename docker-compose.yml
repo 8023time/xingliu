@@ -34,6 +34,14 @@ services:
       DATABASE_URL: postgresql://xingliu:xingliu_password@postgres:5432/xingliu_db
       JWT_SECRET: ${JWT_SECRET:-your-secret-key-change-this}
       JWT_EXPIRATION: ${JWT_EXPIRATION:-86400}
+      ALIBABA_CLOUD_ACCESS_KEY_ID: ${ALIBABA_CLOUD_ACCESS_KEY_ID}
+      ALIBABA_CLOUD_ACCESS_KEY_SECRET: ${ALIBABA_CLOUD_ACCESS_KEY_SECRET}
+      ALIYUN_GREEN_ENDPOINT: ${ALIYUN_GREEN_ENDPOINT}
+      ALIYUN_GREEN_TEXT_SERVICE: ${ALIYUN_GREEN_TEXT_SERVICE}
+      ALIYUN_GREEN_IMAGE_SERVICE: ${ALIYUN_GREEN_IMAGE_SERVICE}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL}
+      OPENAI_MODEL: ${OPENAI_MODEL}
     ports:
       - '3000:3000'
     depends_on:
@@ -65,6 +73,7 @@ services:
     restart: unless-stopped
     environment:
       PORT: 8081
+      ADMIN_API_URL: ${ADMIN_API_URL:-http://localhost:3000}
     ports:
       - '8081:8081'
     depends_on:

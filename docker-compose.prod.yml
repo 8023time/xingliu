@@ -41,6 +41,14 @@ services:
       DATABASE_URL: postgresql://${DB_USER:-xingliu}:${DB_PASSWORD}@postgres:5432/${DB_NAME:-xingliu_db}
       JWT_SECRET: ${JWT_SECRET}
       JWT_EXPIRATION: ${JWT_EXPIRATION:-86400}
+      ALIBABA_CLOUD_ACCESS_KEY_ID: ${ALIBABA_CLOUD_ACCESS_KEY_ID}
+      ALIBABA_CLOUD_ACCESS_KEY_SECRET: ${ALIBABA_CLOUD_ACCESS_KEY_SECRET}
+      ALIYUN_GREEN_ENDPOINT: ${ALIYUN_GREEN_ENDPOINT}
+      ALIYUN_GREEN_TEXT_SERVICE: ${ALIYUN_GREEN_TEXT_SERVICE}
+      ALIYUN_GREEN_IMAGE_SERVICE: ${ALIYUN_GREEN_IMAGE_SERVICE}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL}
+      OPENAI_MODEL: ${OPENAI_MODEL}
     expose:
       - '3000'
     depends_on:
@@ -89,6 +97,8 @@ services:
       dockerfile: Dockerfile.admin
     container_name: xingliu-admin-prod
     restart: always
+    environment:
+      ADMIN_API_URL: ${ADMIN_API_URL}
     expose:
       - '8081'
     networks:
