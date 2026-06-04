@@ -3,6 +3,9 @@ import type {
   LoginUserRequest,
   LoginUserResponse,
   RegisterUserResponse,
+  RefreshTokenResponse,
+  RefreshTokenRequest,
+  LogoutUserRequest,
 } from '@xingliu/shared/user';
 import type { ResponseFormat } from '@xingliu/shared/common';
 import http from '@/configs/request';
@@ -25,8 +28,16 @@ export async function registerApi(data: RegisterUserRequest): Promise<ResponseFo
 
 /**
  * 登出接口
- * GET /api/user/logout
+ * POST /api/user/logout
  */
-export async function logoutApi(): Promise<ResponseFormat<null>> {
-  return http.get('/user/logout');
+export async function logoutApi(data: LogoutUserRequest): Promise<ResponseFormat<null>> {
+  return http.post('/user/logout', data);
+}
+
+/**
+ * 刷新token接口
+ * POST /api/user/refreshToken
+ */
+export async function refreshTokenApi(data: RefreshTokenRequest): Promise<ResponseFormat<RefreshTokenResponse>> {
+  return http.post('/user/refreshToken', data);
 }

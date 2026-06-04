@@ -55,7 +55,7 @@ export type RefreshTokenRequest = {
 };
 
 // 刷新令牌返回的数据类型
-export type RefreshTokenResponse = LoginUserResponse;
+export type RefreshTokenResponse = AuthToken;
 
 // 退出登录需要的数据类型
 export type LogoutUserRequest = {
