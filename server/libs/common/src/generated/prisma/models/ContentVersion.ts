@@ -274,6 +274,7 @@ export type ContentVersionWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"ContentVersion"> | Date | string
   content?: Prisma.XOR<Prisma.ContentScalarRelationFilter, Prisma.ContentWhereInput>
   currentForContent?: Prisma.XOR<Prisma.ContentNullableScalarRelationFilter, Prisma.ContentWhereInput> | null
+  publishedForContent?: Prisma.XOR<Prisma.ContentNullableScalarRelationFilter, Prisma.ContentWhereInput> | null
   coverAsset?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
   creator?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   basedDraftSnapshots?: Prisma.DraftSnapshotListRelationFilter
@@ -281,7 +282,6 @@ export type ContentVersionWhereInput = {
   qualityEvaluations?: Prisma.QualityEvaluationListRelationFilter
   rewriteSourceRecords?: Prisma.RewriteRecordListRelationFilter
   rewriteTargetRecords?: Prisma.RewriteRecordListRelationFilter
-  operationTargetVersions?: Prisma.ContentOperationListRelationFilter
 }
 
 export type ContentVersionOrderByWithRelationInput = {
@@ -300,6 +300,7 @@ export type ContentVersionOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   content?: Prisma.ContentOrderByWithRelationInput
   currentForContent?: Prisma.ContentOrderByWithRelationInput
+  publishedForContent?: Prisma.ContentOrderByWithRelationInput
   coverAsset?: Prisma.AssetOrderByWithRelationInput
   creator?: Prisma.UserOrderByWithRelationInput
   basedDraftSnapshots?: Prisma.DraftSnapshotOrderByRelationAggregateInput
@@ -307,7 +308,6 @@ export type ContentVersionOrderByWithRelationInput = {
   qualityEvaluations?: Prisma.QualityEvaluationOrderByRelationAggregateInput
   rewriteSourceRecords?: Prisma.RewriteRecordOrderByRelationAggregateInput
   rewriteTargetRecords?: Prisma.RewriteRecordOrderByRelationAggregateInput
-  operationTargetVersions?: Prisma.ContentOperationOrderByRelationAggregateInput
 }
 
 export type ContentVersionWhereUniqueInput = Prisma.AtLeast<{
@@ -330,6 +330,7 @@ export type ContentVersionWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"ContentVersion"> | Date | string
   content?: Prisma.XOR<Prisma.ContentScalarRelationFilter, Prisma.ContentWhereInput>
   currentForContent?: Prisma.XOR<Prisma.ContentNullableScalarRelationFilter, Prisma.ContentWhereInput> | null
+  publishedForContent?: Prisma.XOR<Prisma.ContentNullableScalarRelationFilter, Prisma.ContentWhereInput> | null
   coverAsset?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
   creator?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   basedDraftSnapshots?: Prisma.DraftSnapshotListRelationFilter
@@ -337,7 +338,6 @@ export type ContentVersionWhereUniqueInput = Prisma.AtLeast<{
   qualityEvaluations?: Prisma.QualityEvaluationListRelationFilter
   rewriteSourceRecords?: Prisma.RewriteRecordListRelationFilter
   rewriteTargetRecords?: Prisma.RewriteRecordListRelationFilter
-  operationTargetVersions?: Prisma.ContentOperationListRelationFilter
 }, "id" | "contentId_versionNo">
 
 export type ContentVersionOrderByWithAggregationInput = {
@@ -393,6 +393,7 @@ export type ContentVersionCreateInput = {
   createdAt?: Date | string
   content: Prisma.ContentCreateNestedOneWithoutVersionsInput
   currentForContent?: Prisma.ContentCreateNestedOneWithoutCurrentVersionInput
+  publishedForContent?: Prisma.ContentCreateNestedOneWithoutPublishedVersionInput
   coverAsset?: Prisma.AssetCreateNestedOneWithoutCoverVersionsInput
   creator?: Prisma.UserCreateNestedOneWithoutContentVersionsCreatedInput
   basedDraftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutBaseVersionInput
@@ -400,7 +401,6 @@ export type ContentVersionCreateInput = {
   qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutContentVersionInput
   rewriteSourceRecords?: Prisma.RewriteRecordCreateNestedManyWithoutSourceVersionInput
   rewriteTargetRecords?: Prisma.RewriteRecordCreateNestedManyWithoutRewrittenVersionInput
-  operationTargetVersions?: Prisma.ContentOperationCreateNestedManyWithoutTargetVersionInput
 }
 
 export type ContentVersionUncheckedCreateInput = {
@@ -418,12 +418,12 @@ export type ContentVersionUncheckedCreateInput = {
   createdBy?: string | null
   createdAt?: Date | string
   currentForContent?: Prisma.ContentUncheckedCreateNestedOneWithoutCurrentVersionInput
+  publishedForContent?: Prisma.ContentUncheckedCreateNestedOneWithoutPublishedVersionInput
   basedDraftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutBaseVersionInput
   safetyReviews?: Prisma.SafetyReviewUncheckedCreateNestedManyWithoutContentVersionInput
   qualityEvaluations?: Prisma.QualityEvaluationUncheckedCreateNestedManyWithoutContentVersionInput
   rewriteSourceRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutSourceVersionInput
   rewriteTargetRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutRewrittenVersionInput
-  operationTargetVersions?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutTargetVersionInput
 }
 
 export type ContentVersionUpdateInput = {
@@ -439,6 +439,7 @@ export type ContentVersionUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   content?: Prisma.ContentUpdateOneRequiredWithoutVersionsNestedInput
   currentForContent?: Prisma.ContentUpdateOneWithoutCurrentVersionNestedInput
+  publishedForContent?: Prisma.ContentUpdateOneWithoutPublishedVersionNestedInput
   coverAsset?: Prisma.AssetUpdateOneWithoutCoverVersionsNestedInput
   creator?: Prisma.UserUpdateOneWithoutContentVersionsCreatedNestedInput
   basedDraftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutBaseVersionNestedInput
@@ -446,7 +447,6 @@ export type ContentVersionUpdateInput = {
   qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutContentVersionNestedInput
   rewriteSourceRecords?: Prisma.RewriteRecordUpdateManyWithoutSourceVersionNestedInput
   rewriteTargetRecords?: Prisma.RewriteRecordUpdateManyWithoutRewrittenVersionNestedInput
-  operationTargetVersions?: Prisma.ContentOperationUpdateManyWithoutTargetVersionNestedInput
 }
 
 export type ContentVersionUncheckedUpdateInput = {
@@ -464,12 +464,12 @@ export type ContentVersionUncheckedUpdateInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   currentForContent?: Prisma.ContentUncheckedUpdateOneWithoutCurrentVersionNestedInput
+  publishedForContent?: Prisma.ContentUncheckedUpdateOneWithoutPublishedVersionNestedInput
   basedDraftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutBaseVersionNestedInput
   safetyReviews?: Prisma.SafetyReviewUncheckedUpdateManyWithoutContentVersionNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUncheckedUpdateManyWithoutContentVersionNestedInput
   rewriteSourceRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutSourceVersionNestedInput
   rewriteTargetRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutRewrittenVersionNestedInput
-  operationTargetVersions?: Prisma.ContentOperationUncheckedUpdateManyWithoutTargetVersionNestedInput
 }
 
 export type ContentVersionCreateManyInput = {
@@ -691,6 +691,12 @@ export type ContentVersionCreateNestedOneWithoutCurrentForContentInput = {
   connect?: Prisma.ContentVersionWhereUniqueInput
 }
 
+export type ContentVersionCreateNestedOneWithoutPublishedForContentInput = {
+  create?: Prisma.XOR<Prisma.ContentVersionCreateWithoutPublishedForContentInput, Prisma.ContentVersionUncheckedCreateWithoutPublishedForContentInput>
+  connectOrCreate?: Prisma.ContentVersionCreateOrConnectWithoutPublishedForContentInput
+  connect?: Prisma.ContentVersionWhereUniqueInput
+}
+
 export type ContentVersionUncheckedCreateNestedManyWithoutContentInput = {
   create?: Prisma.XOR<Prisma.ContentVersionCreateWithoutContentInput, Prisma.ContentVersionUncheckedCreateWithoutContentInput> | Prisma.ContentVersionCreateWithoutContentInput[] | Prisma.ContentVersionUncheckedCreateWithoutContentInput[]
   connectOrCreate?: Prisma.ContentVersionCreateOrConnectWithoutContentInput | Prisma.ContentVersionCreateOrConnectWithoutContentInput[]
@@ -720,6 +726,16 @@ export type ContentVersionUpdateOneWithoutCurrentForContentNestedInput = {
   delete?: Prisma.ContentVersionWhereInput | boolean
   connect?: Prisma.ContentVersionWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.ContentVersionUpdateToOneWithWhereWithoutCurrentForContentInput, Prisma.ContentVersionUpdateWithoutCurrentForContentInput>, Prisma.ContentVersionUncheckedUpdateWithoutCurrentForContentInput>
+}
+
+export type ContentVersionUpdateOneWithoutPublishedForContentNestedInput = {
+  create?: Prisma.XOR<Prisma.ContentVersionCreateWithoutPublishedForContentInput, Prisma.ContentVersionUncheckedCreateWithoutPublishedForContentInput>
+  connectOrCreate?: Prisma.ContentVersionCreateOrConnectWithoutPublishedForContentInput
+  upsert?: Prisma.ContentVersionUpsertWithoutPublishedForContentInput
+  disconnect?: Prisma.ContentVersionWhereInput | boolean
+  delete?: Prisma.ContentVersionWhereInput | boolean
+  connect?: Prisma.ContentVersionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ContentVersionUpdateToOneWithWhereWithoutPublishedForContentInput, Prisma.ContentVersionUpdateWithoutPublishedForContentInput>, Prisma.ContentVersionUncheckedUpdateWithoutPublishedForContentInput>
 }
 
 export type ContentVersionUncheckedUpdateManyWithoutContentNestedInput = {
@@ -814,22 +830,6 @@ export type ContentVersionUpdateOneWithoutRewriteTargetRecordsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ContentVersionUpdateToOneWithWhereWithoutRewriteTargetRecordsInput, Prisma.ContentVersionUpdateWithoutRewriteTargetRecordsInput>, Prisma.ContentVersionUncheckedUpdateWithoutRewriteTargetRecordsInput>
 }
 
-export type ContentVersionCreateNestedOneWithoutOperationTargetVersionsInput = {
-  create?: Prisma.XOR<Prisma.ContentVersionCreateWithoutOperationTargetVersionsInput, Prisma.ContentVersionUncheckedCreateWithoutOperationTargetVersionsInput>
-  connectOrCreate?: Prisma.ContentVersionCreateOrConnectWithoutOperationTargetVersionsInput
-  connect?: Prisma.ContentVersionWhereUniqueInput
-}
-
-export type ContentVersionUpdateOneWithoutOperationTargetVersionsNestedInput = {
-  create?: Prisma.XOR<Prisma.ContentVersionCreateWithoutOperationTargetVersionsInput, Prisma.ContentVersionUncheckedCreateWithoutOperationTargetVersionsInput>
-  connectOrCreate?: Prisma.ContentVersionCreateOrConnectWithoutOperationTargetVersionsInput
-  upsert?: Prisma.ContentVersionUpsertWithoutOperationTargetVersionsInput
-  disconnect?: Prisma.ContentVersionWhereInput | boolean
-  delete?: Prisma.ContentVersionWhereInput | boolean
-  connect?: Prisma.ContentVersionWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ContentVersionUpdateToOneWithWhereWithoutOperationTargetVersionsInput, Prisma.ContentVersionUpdateWithoutOperationTargetVersionsInput>, Prisma.ContentVersionUncheckedUpdateWithoutOperationTargetVersionsInput>
-}
-
 export type ContentVersionCreateWithoutCreatorInput = {
   id?: string
   versionNo: number
@@ -843,13 +843,13 @@ export type ContentVersionCreateWithoutCreatorInput = {
   createdAt?: Date | string
   content: Prisma.ContentCreateNestedOneWithoutVersionsInput
   currentForContent?: Prisma.ContentCreateNestedOneWithoutCurrentVersionInput
+  publishedForContent?: Prisma.ContentCreateNestedOneWithoutPublishedVersionInput
   coverAsset?: Prisma.AssetCreateNestedOneWithoutCoverVersionsInput
   basedDraftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutBaseVersionInput
   safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutContentVersionInput
   qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutContentVersionInput
   rewriteSourceRecords?: Prisma.RewriteRecordCreateNestedManyWithoutSourceVersionInput
   rewriteTargetRecords?: Prisma.RewriteRecordCreateNestedManyWithoutRewrittenVersionInput
-  operationTargetVersions?: Prisma.ContentOperationCreateNestedManyWithoutTargetVersionInput
 }
 
 export type ContentVersionUncheckedCreateWithoutCreatorInput = {
@@ -866,12 +866,12 @@ export type ContentVersionUncheckedCreateWithoutCreatorInput = {
   changeSummary?: string | null
   createdAt?: Date | string
   currentForContent?: Prisma.ContentUncheckedCreateNestedOneWithoutCurrentVersionInput
+  publishedForContent?: Prisma.ContentUncheckedCreateNestedOneWithoutPublishedVersionInput
   basedDraftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutBaseVersionInput
   safetyReviews?: Prisma.SafetyReviewUncheckedCreateNestedManyWithoutContentVersionInput
   qualityEvaluations?: Prisma.QualityEvaluationUncheckedCreateNestedManyWithoutContentVersionInput
   rewriteSourceRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutSourceVersionInput
   rewriteTargetRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutRewrittenVersionInput
-  operationTargetVersions?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutTargetVersionInput
 }
 
 export type ContentVersionCreateOrConnectWithoutCreatorInput = {
@@ -932,13 +932,13 @@ export type ContentVersionCreateWithoutCoverAssetInput = {
   createdAt?: Date | string
   content: Prisma.ContentCreateNestedOneWithoutVersionsInput
   currentForContent?: Prisma.ContentCreateNestedOneWithoutCurrentVersionInput
+  publishedForContent?: Prisma.ContentCreateNestedOneWithoutPublishedVersionInput
   creator?: Prisma.UserCreateNestedOneWithoutContentVersionsCreatedInput
   basedDraftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutBaseVersionInput
   safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutContentVersionInput
   qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutContentVersionInput
   rewriteSourceRecords?: Prisma.RewriteRecordCreateNestedManyWithoutSourceVersionInput
   rewriteTargetRecords?: Prisma.RewriteRecordCreateNestedManyWithoutRewrittenVersionInput
-  operationTargetVersions?: Prisma.ContentOperationCreateNestedManyWithoutTargetVersionInput
 }
 
 export type ContentVersionUncheckedCreateWithoutCoverAssetInput = {
@@ -955,12 +955,12 @@ export type ContentVersionUncheckedCreateWithoutCoverAssetInput = {
   createdBy?: string | null
   createdAt?: Date | string
   currentForContent?: Prisma.ContentUncheckedCreateNestedOneWithoutCurrentVersionInput
+  publishedForContent?: Prisma.ContentUncheckedCreateNestedOneWithoutPublishedVersionInput
   basedDraftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutBaseVersionInput
   safetyReviews?: Prisma.SafetyReviewUncheckedCreateNestedManyWithoutContentVersionInput
   qualityEvaluations?: Prisma.QualityEvaluationUncheckedCreateNestedManyWithoutContentVersionInput
   rewriteSourceRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutSourceVersionInput
   rewriteTargetRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutRewrittenVersionInput
-  operationTargetVersions?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutTargetVersionInput
 }
 
 export type ContentVersionCreateOrConnectWithoutCoverAssetInput = {
@@ -1001,6 +1001,7 @@ export type ContentVersionCreateWithoutContentInput = {
   changeSummary?: string | null
   createdAt?: Date | string
   currentForContent?: Prisma.ContentCreateNestedOneWithoutCurrentVersionInput
+  publishedForContent?: Prisma.ContentCreateNestedOneWithoutPublishedVersionInput
   coverAsset?: Prisma.AssetCreateNestedOneWithoutCoverVersionsInput
   creator?: Prisma.UserCreateNestedOneWithoutContentVersionsCreatedInput
   basedDraftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutBaseVersionInput
@@ -1008,7 +1009,6 @@ export type ContentVersionCreateWithoutContentInput = {
   qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutContentVersionInput
   rewriteSourceRecords?: Prisma.RewriteRecordCreateNestedManyWithoutSourceVersionInput
   rewriteTargetRecords?: Prisma.RewriteRecordCreateNestedManyWithoutRewrittenVersionInput
-  operationTargetVersions?: Prisma.ContentOperationCreateNestedManyWithoutTargetVersionInput
 }
 
 export type ContentVersionUncheckedCreateWithoutContentInput = {
@@ -1025,12 +1025,12 @@ export type ContentVersionUncheckedCreateWithoutContentInput = {
   createdBy?: string | null
   createdAt?: Date | string
   currentForContent?: Prisma.ContentUncheckedCreateNestedOneWithoutCurrentVersionInput
+  publishedForContent?: Prisma.ContentUncheckedCreateNestedOneWithoutPublishedVersionInput
   basedDraftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutBaseVersionInput
   safetyReviews?: Prisma.SafetyReviewUncheckedCreateNestedManyWithoutContentVersionInput
   qualityEvaluations?: Prisma.QualityEvaluationUncheckedCreateNestedManyWithoutContentVersionInput
   rewriteSourceRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutSourceVersionInput
   rewriteTargetRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutRewrittenVersionInput
-  operationTargetVersions?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutTargetVersionInput
 }
 
 export type ContentVersionCreateOrConnectWithoutContentInput = {
@@ -1055,6 +1055,7 @@ export type ContentVersionCreateWithoutCurrentForContentInput = {
   changeSummary?: string | null
   createdAt?: Date | string
   content: Prisma.ContentCreateNestedOneWithoutVersionsInput
+  publishedForContent?: Prisma.ContentCreateNestedOneWithoutPublishedVersionInput
   coverAsset?: Prisma.AssetCreateNestedOneWithoutCoverVersionsInput
   creator?: Prisma.UserCreateNestedOneWithoutContentVersionsCreatedInput
   basedDraftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutBaseVersionInput
@@ -1062,7 +1063,6 @@ export type ContentVersionCreateWithoutCurrentForContentInput = {
   qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutContentVersionInput
   rewriteSourceRecords?: Prisma.RewriteRecordCreateNestedManyWithoutSourceVersionInput
   rewriteTargetRecords?: Prisma.RewriteRecordCreateNestedManyWithoutRewrittenVersionInput
-  operationTargetVersions?: Prisma.ContentOperationCreateNestedManyWithoutTargetVersionInput
 }
 
 export type ContentVersionUncheckedCreateWithoutCurrentForContentInput = {
@@ -1079,17 +1079,66 @@ export type ContentVersionUncheckedCreateWithoutCurrentForContentInput = {
   changeSummary?: string | null
   createdBy?: string | null
   createdAt?: Date | string
+  publishedForContent?: Prisma.ContentUncheckedCreateNestedOneWithoutPublishedVersionInput
   basedDraftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutBaseVersionInput
   safetyReviews?: Prisma.SafetyReviewUncheckedCreateNestedManyWithoutContentVersionInput
   qualityEvaluations?: Prisma.QualityEvaluationUncheckedCreateNestedManyWithoutContentVersionInput
   rewriteSourceRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutSourceVersionInput
   rewriteTargetRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutRewrittenVersionInput
-  operationTargetVersions?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutTargetVersionInput
 }
 
 export type ContentVersionCreateOrConnectWithoutCurrentForContentInput = {
   where: Prisma.ContentVersionWhereUniqueInput
   create: Prisma.XOR<Prisma.ContentVersionCreateWithoutCurrentForContentInput, Prisma.ContentVersionUncheckedCreateWithoutCurrentForContentInput>
+}
+
+export type ContentVersionCreateWithoutPublishedForContentInput = {
+  id?: string
+  versionNo: number
+  title: string
+  summary?: string | null
+  body: string
+  bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  changeType: $Enums.ChangeType
+  changeSummary?: string | null
+  createdAt?: Date | string
+  content: Prisma.ContentCreateNestedOneWithoutVersionsInput
+  currentForContent?: Prisma.ContentCreateNestedOneWithoutCurrentVersionInput
+  coverAsset?: Prisma.AssetCreateNestedOneWithoutCoverVersionsInput
+  creator?: Prisma.UserCreateNestedOneWithoutContentVersionsCreatedInput
+  basedDraftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutBaseVersionInput
+  safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutContentVersionInput
+  qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutContentVersionInput
+  rewriteSourceRecords?: Prisma.RewriteRecordCreateNestedManyWithoutSourceVersionInput
+  rewriteTargetRecords?: Prisma.RewriteRecordCreateNestedManyWithoutRewrittenVersionInput
+}
+
+export type ContentVersionUncheckedCreateWithoutPublishedForContentInput = {
+  id?: string
+  contentId: string
+  versionNo: number
+  title: string
+  summary?: string | null
+  body: string
+  bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverAssetId?: string | null
+  changeType: $Enums.ChangeType
+  changeSummary?: string | null
+  createdBy?: string | null
+  createdAt?: Date | string
+  currentForContent?: Prisma.ContentUncheckedCreateNestedOneWithoutCurrentVersionInput
+  basedDraftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutBaseVersionInput
+  safetyReviews?: Prisma.SafetyReviewUncheckedCreateNestedManyWithoutContentVersionInput
+  qualityEvaluations?: Prisma.QualityEvaluationUncheckedCreateNestedManyWithoutContentVersionInput
+  rewriteSourceRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutSourceVersionInput
+  rewriteTargetRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutRewrittenVersionInput
+}
+
+export type ContentVersionCreateOrConnectWithoutPublishedForContentInput = {
+  where: Prisma.ContentVersionWhereUniqueInput
+  create: Prisma.XOR<Prisma.ContentVersionCreateWithoutPublishedForContentInput, Prisma.ContentVersionUncheckedCreateWithoutPublishedForContentInput>
 }
 
 export type ContentVersionUpsertWithWhereUniqueWithoutContentInput = {
@@ -1131,6 +1180,7 @@ export type ContentVersionUpdateWithoutCurrentForContentInput = {
   changeSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   content?: Prisma.ContentUpdateOneRequiredWithoutVersionsNestedInput
+  publishedForContent?: Prisma.ContentUpdateOneWithoutPublishedVersionNestedInput
   coverAsset?: Prisma.AssetUpdateOneWithoutCoverVersionsNestedInput
   creator?: Prisma.UserUpdateOneWithoutContentVersionsCreatedNestedInput
   basedDraftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutBaseVersionNestedInput
@@ -1138,7 +1188,6 @@ export type ContentVersionUpdateWithoutCurrentForContentInput = {
   qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutContentVersionNestedInput
   rewriteSourceRecords?: Prisma.RewriteRecordUpdateManyWithoutSourceVersionNestedInput
   rewriteTargetRecords?: Prisma.RewriteRecordUpdateManyWithoutRewrittenVersionNestedInput
-  operationTargetVersions?: Prisma.ContentOperationUpdateManyWithoutTargetVersionNestedInput
 }
 
 export type ContentVersionUncheckedUpdateWithoutCurrentForContentInput = {
@@ -1155,12 +1204,67 @@ export type ContentVersionUncheckedUpdateWithoutCurrentForContentInput = {
   changeSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  publishedForContent?: Prisma.ContentUncheckedUpdateOneWithoutPublishedVersionNestedInput
   basedDraftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutBaseVersionNestedInput
   safetyReviews?: Prisma.SafetyReviewUncheckedUpdateManyWithoutContentVersionNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUncheckedUpdateManyWithoutContentVersionNestedInput
   rewriteSourceRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutSourceVersionNestedInput
   rewriteTargetRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutRewrittenVersionNestedInput
-  operationTargetVersions?: Prisma.ContentOperationUncheckedUpdateManyWithoutTargetVersionNestedInput
+}
+
+export type ContentVersionUpsertWithoutPublishedForContentInput = {
+  update: Prisma.XOR<Prisma.ContentVersionUpdateWithoutPublishedForContentInput, Prisma.ContentVersionUncheckedUpdateWithoutPublishedForContentInput>
+  create: Prisma.XOR<Prisma.ContentVersionCreateWithoutPublishedForContentInput, Prisma.ContentVersionUncheckedCreateWithoutPublishedForContentInput>
+  where?: Prisma.ContentVersionWhereInput
+}
+
+export type ContentVersionUpdateToOneWithWhereWithoutPublishedForContentInput = {
+  where?: Prisma.ContentVersionWhereInput
+  data: Prisma.XOR<Prisma.ContentVersionUpdateWithoutPublishedForContentInput, Prisma.ContentVersionUncheckedUpdateWithoutPublishedForContentInput>
+}
+
+export type ContentVersionUpdateWithoutPublishedForContentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  versionNo?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  changeType?: Prisma.EnumChangeTypeFieldUpdateOperationsInput | $Enums.ChangeType
+  changeSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  content?: Prisma.ContentUpdateOneRequiredWithoutVersionsNestedInput
+  currentForContent?: Prisma.ContentUpdateOneWithoutCurrentVersionNestedInput
+  coverAsset?: Prisma.AssetUpdateOneWithoutCoverVersionsNestedInput
+  creator?: Prisma.UserUpdateOneWithoutContentVersionsCreatedNestedInput
+  basedDraftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutBaseVersionNestedInput
+  safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutContentVersionNestedInput
+  qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutContentVersionNestedInput
+  rewriteSourceRecords?: Prisma.RewriteRecordUpdateManyWithoutSourceVersionNestedInput
+  rewriteTargetRecords?: Prisma.RewriteRecordUpdateManyWithoutRewrittenVersionNestedInput
+}
+
+export type ContentVersionUncheckedUpdateWithoutPublishedForContentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  contentId?: Prisma.StringFieldUpdateOperationsInput | string
+  versionNo?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  changeType?: Prisma.EnumChangeTypeFieldUpdateOperationsInput | $Enums.ChangeType
+  changeSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  currentForContent?: Prisma.ContentUncheckedUpdateOneWithoutCurrentVersionNestedInput
+  basedDraftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutBaseVersionNestedInput
+  safetyReviews?: Prisma.SafetyReviewUncheckedUpdateManyWithoutContentVersionNestedInput
+  qualityEvaluations?: Prisma.QualityEvaluationUncheckedUpdateManyWithoutContentVersionNestedInput
+  rewriteSourceRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutSourceVersionNestedInput
+  rewriteTargetRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutRewrittenVersionNestedInput
 }
 
 export type ContentVersionCreateWithoutBasedDraftSnapshotsInput = {
@@ -1176,13 +1280,13 @@ export type ContentVersionCreateWithoutBasedDraftSnapshotsInput = {
   createdAt?: Date | string
   content: Prisma.ContentCreateNestedOneWithoutVersionsInput
   currentForContent?: Prisma.ContentCreateNestedOneWithoutCurrentVersionInput
+  publishedForContent?: Prisma.ContentCreateNestedOneWithoutPublishedVersionInput
   coverAsset?: Prisma.AssetCreateNestedOneWithoutCoverVersionsInput
   creator?: Prisma.UserCreateNestedOneWithoutContentVersionsCreatedInput
   safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutContentVersionInput
   qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutContentVersionInput
   rewriteSourceRecords?: Prisma.RewriteRecordCreateNestedManyWithoutSourceVersionInput
   rewriteTargetRecords?: Prisma.RewriteRecordCreateNestedManyWithoutRewrittenVersionInput
-  operationTargetVersions?: Prisma.ContentOperationCreateNestedManyWithoutTargetVersionInput
 }
 
 export type ContentVersionUncheckedCreateWithoutBasedDraftSnapshotsInput = {
@@ -1200,11 +1304,11 @@ export type ContentVersionUncheckedCreateWithoutBasedDraftSnapshotsInput = {
   createdBy?: string | null
   createdAt?: Date | string
   currentForContent?: Prisma.ContentUncheckedCreateNestedOneWithoutCurrentVersionInput
+  publishedForContent?: Prisma.ContentUncheckedCreateNestedOneWithoutPublishedVersionInput
   safetyReviews?: Prisma.SafetyReviewUncheckedCreateNestedManyWithoutContentVersionInput
   qualityEvaluations?: Prisma.QualityEvaluationUncheckedCreateNestedManyWithoutContentVersionInput
   rewriteSourceRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutSourceVersionInput
   rewriteTargetRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutRewrittenVersionInput
-  operationTargetVersions?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutTargetVersionInput
 }
 
 export type ContentVersionCreateOrConnectWithoutBasedDraftSnapshotsInput = {
@@ -1236,13 +1340,13 @@ export type ContentVersionUpdateWithoutBasedDraftSnapshotsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   content?: Prisma.ContentUpdateOneRequiredWithoutVersionsNestedInput
   currentForContent?: Prisma.ContentUpdateOneWithoutCurrentVersionNestedInput
+  publishedForContent?: Prisma.ContentUpdateOneWithoutPublishedVersionNestedInput
   coverAsset?: Prisma.AssetUpdateOneWithoutCoverVersionsNestedInput
   creator?: Prisma.UserUpdateOneWithoutContentVersionsCreatedNestedInput
   safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutContentVersionNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutContentVersionNestedInput
   rewriteSourceRecords?: Prisma.RewriteRecordUpdateManyWithoutSourceVersionNestedInput
   rewriteTargetRecords?: Prisma.RewriteRecordUpdateManyWithoutRewrittenVersionNestedInput
-  operationTargetVersions?: Prisma.ContentOperationUpdateManyWithoutTargetVersionNestedInput
 }
 
 export type ContentVersionUncheckedUpdateWithoutBasedDraftSnapshotsInput = {
@@ -1260,11 +1364,11 @@ export type ContentVersionUncheckedUpdateWithoutBasedDraftSnapshotsInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   currentForContent?: Prisma.ContentUncheckedUpdateOneWithoutCurrentVersionNestedInput
+  publishedForContent?: Prisma.ContentUncheckedUpdateOneWithoutPublishedVersionNestedInput
   safetyReviews?: Prisma.SafetyReviewUncheckedUpdateManyWithoutContentVersionNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUncheckedUpdateManyWithoutContentVersionNestedInput
   rewriteSourceRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutSourceVersionNestedInput
   rewriteTargetRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutRewrittenVersionNestedInput
-  operationTargetVersions?: Prisma.ContentOperationUncheckedUpdateManyWithoutTargetVersionNestedInput
 }
 
 export type ContentVersionCreateWithoutSafetyReviewsInput = {
@@ -1280,13 +1384,13 @@ export type ContentVersionCreateWithoutSafetyReviewsInput = {
   createdAt?: Date | string
   content: Prisma.ContentCreateNestedOneWithoutVersionsInput
   currentForContent?: Prisma.ContentCreateNestedOneWithoutCurrentVersionInput
+  publishedForContent?: Prisma.ContentCreateNestedOneWithoutPublishedVersionInput
   coverAsset?: Prisma.AssetCreateNestedOneWithoutCoverVersionsInput
   creator?: Prisma.UserCreateNestedOneWithoutContentVersionsCreatedInput
   basedDraftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutBaseVersionInput
   qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutContentVersionInput
   rewriteSourceRecords?: Prisma.RewriteRecordCreateNestedManyWithoutSourceVersionInput
   rewriteTargetRecords?: Prisma.RewriteRecordCreateNestedManyWithoutRewrittenVersionInput
-  operationTargetVersions?: Prisma.ContentOperationCreateNestedManyWithoutTargetVersionInput
 }
 
 export type ContentVersionUncheckedCreateWithoutSafetyReviewsInput = {
@@ -1304,11 +1408,11 @@ export type ContentVersionUncheckedCreateWithoutSafetyReviewsInput = {
   createdBy?: string | null
   createdAt?: Date | string
   currentForContent?: Prisma.ContentUncheckedCreateNestedOneWithoutCurrentVersionInput
+  publishedForContent?: Prisma.ContentUncheckedCreateNestedOneWithoutPublishedVersionInput
   basedDraftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutBaseVersionInput
   qualityEvaluations?: Prisma.QualityEvaluationUncheckedCreateNestedManyWithoutContentVersionInput
   rewriteSourceRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutSourceVersionInput
   rewriteTargetRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutRewrittenVersionInput
-  operationTargetVersions?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutTargetVersionInput
 }
 
 export type ContentVersionCreateOrConnectWithoutSafetyReviewsInput = {
@@ -1340,13 +1444,13 @@ export type ContentVersionUpdateWithoutSafetyReviewsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   content?: Prisma.ContentUpdateOneRequiredWithoutVersionsNestedInput
   currentForContent?: Prisma.ContentUpdateOneWithoutCurrentVersionNestedInput
+  publishedForContent?: Prisma.ContentUpdateOneWithoutPublishedVersionNestedInput
   coverAsset?: Prisma.AssetUpdateOneWithoutCoverVersionsNestedInput
   creator?: Prisma.UserUpdateOneWithoutContentVersionsCreatedNestedInput
   basedDraftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutBaseVersionNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutContentVersionNestedInput
   rewriteSourceRecords?: Prisma.RewriteRecordUpdateManyWithoutSourceVersionNestedInput
   rewriteTargetRecords?: Prisma.RewriteRecordUpdateManyWithoutRewrittenVersionNestedInput
-  operationTargetVersions?: Prisma.ContentOperationUpdateManyWithoutTargetVersionNestedInput
 }
 
 export type ContentVersionUncheckedUpdateWithoutSafetyReviewsInput = {
@@ -1364,11 +1468,11 @@ export type ContentVersionUncheckedUpdateWithoutSafetyReviewsInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   currentForContent?: Prisma.ContentUncheckedUpdateOneWithoutCurrentVersionNestedInput
+  publishedForContent?: Prisma.ContentUncheckedUpdateOneWithoutPublishedVersionNestedInput
   basedDraftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutBaseVersionNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUncheckedUpdateManyWithoutContentVersionNestedInput
   rewriteSourceRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutSourceVersionNestedInput
   rewriteTargetRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutRewrittenVersionNestedInput
-  operationTargetVersions?: Prisma.ContentOperationUncheckedUpdateManyWithoutTargetVersionNestedInput
 }
 
 export type ContentVersionCreateWithoutQualityEvaluationsInput = {
@@ -1384,13 +1488,13 @@ export type ContentVersionCreateWithoutQualityEvaluationsInput = {
   createdAt?: Date | string
   content: Prisma.ContentCreateNestedOneWithoutVersionsInput
   currentForContent?: Prisma.ContentCreateNestedOneWithoutCurrentVersionInput
+  publishedForContent?: Prisma.ContentCreateNestedOneWithoutPublishedVersionInput
   coverAsset?: Prisma.AssetCreateNestedOneWithoutCoverVersionsInput
   creator?: Prisma.UserCreateNestedOneWithoutContentVersionsCreatedInput
   basedDraftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutBaseVersionInput
   safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutContentVersionInput
   rewriteSourceRecords?: Prisma.RewriteRecordCreateNestedManyWithoutSourceVersionInput
   rewriteTargetRecords?: Prisma.RewriteRecordCreateNestedManyWithoutRewrittenVersionInput
-  operationTargetVersions?: Prisma.ContentOperationCreateNestedManyWithoutTargetVersionInput
 }
 
 export type ContentVersionUncheckedCreateWithoutQualityEvaluationsInput = {
@@ -1408,11 +1512,11 @@ export type ContentVersionUncheckedCreateWithoutQualityEvaluationsInput = {
   createdBy?: string | null
   createdAt?: Date | string
   currentForContent?: Prisma.ContentUncheckedCreateNestedOneWithoutCurrentVersionInput
+  publishedForContent?: Prisma.ContentUncheckedCreateNestedOneWithoutPublishedVersionInput
   basedDraftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutBaseVersionInput
   safetyReviews?: Prisma.SafetyReviewUncheckedCreateNestedManyWithoutContentVersionInput
   rewriteSourceRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutSourceVersionInput
   rewriteTargetRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutRewrittenVersionInput
-  operationTargetVersions?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutTargetVersionInput
 }
 
 export type ContentVersionCreateOrConnectWithoutQualityEvaluationsInput = {
@@ -1444,13 +1548,13 @@ export type ContentVersionUpdateWithoutQualityEvaluationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   content?: Prisma.ContentUpdateOneRequiredWithoutVersionsNestedInput
   currentForContent?: Prisma.ContentUpdateOneWithoutCurrentVersionNestedInput
+  publishedForContent?: Prisma.ContentUpdateOneWithoutPublishedVersionNestedInput
   coverAsset?: Prisma.AssetUpdateOneWithoutCoverVersionsNestedInput
   creator?: Prisma.UserUpdateOneWithoutContentVersionsCreatedNestedInput
   basedDraftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutBaseVersionNestedInput
   safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutContentVersionNestedInput
   rewriteSourceRecords?: Prisma.RewriteRecordUpdateManyWithoutSourceVersionNestedInput
   rewriteTargetRecords?: Prisma.RewriteRecordUpdateManyWithoutRewrittenVersionNestedInput
-  operationTargetVersions?: Prisma.ContentOperationUpdateManyWithoutTargetVersionNestedInput
 }
 
 export type ContentVersionUncheckedUpdateWithoutQualityEvaluationsInput = {
@@ -1468,11 +1572,11 @@ export type ContentVersionUncheckedUpdateWithoutQualityEvaluationsInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   currentForContent?: Prisma.ContentUncheckedUpdateOneWithoutCurrentVersionNestedInput
+  publishedForContent?: Prisma.ContentUncheckedUpdateOneWithoutPublishedVersionNestedInput
   basedDraftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutBaseVersionNestedInput
   safetyReviews?: Prisma.SafetyReviewUncheckedUpdateManyWithoutContentVersionNestedInput
   rewriteSourceRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutSourceVersionNestedInput
   rewriteTargetRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutRewrittenVersionNestedInput
-  operationTargetVersions?: Prisma.ContentOperationUncheckedUpdateManyWithoutTargetVersionNestedInput
 }
 
 export type ContentVersionCreateWithoutRewriteSourceRecordsInput = {
@@ -1488,13 +1592,13 @@ export type ContentVersionCreateWithoutRewriteSourceRecordsInput = {
   createdAt?: Date | string
   content: Prisma.ContentCreateNestedOneWithoutVersionsInput
   currentForContent?: Prisma.ContentCreateNestedOneWithoutCurrentVersionInput
+  publishedForContent?: Prisma.ContentCreateNestedOneWithoutPublishedVersionInput
   coverAsset?: Prisma.AssetCreateNestedOneWithoutCoverVersionsInput
   creator?: Prisma.UserCreateNestedOneWithoutContentVersionsCreatedInput
   basedDraftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutBaseVersionInput
   safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutContentVersionInput
   qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutContentVersionInput
   rewriteTargetRecords?: Prisma.RewriteRecordCreateNestedManyWithoutRewrittenVersionInput
-  operationTargetVersions?: Prisma.ContentOperationCreateNestedManyWithoutTargetVersionInput
 }
 
 export type ContentVersionUncheckedCreateWithoutRewriteSourceRecordsInput = {
@@ -1512,11 +1616,11 @@ export type ContentVersionUncheckedCreateWithoutRewriteSourceRecordsInput = {
   createdBy?: string | null
   createdAt?: Date | string
   currentForContent?: Prisma.ContentUncheckedCreateNestedOneWithoutCurrentVersionInput
+  publishedForContent?: Prisma.ContentUncheckedCreateNestedOneWithoutPublishedVersionInput
   basedDraftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutBaseVersionInput
   safetyReviews?: Prisma.SafetyReviewUncheckedCreateNestedManyWithoutContentVersionInput
   qualityEvaluations?: Prisma.QualityEvaluationUncheckedCreateNestedManyWithoutContentVersionInput
   rewriteTargetRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutRewrittenVersionInput
-  operationTargetVersions?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutTargetVersionInput
 }
 
 export type ContentVersionCreateOrConnectWithoutRewriteSourceRecordsInput = {
@@ -1537,13 +1641,13 @@ export type ContentVersionCreateWithoutRewriteTargetRecordsInput = {
   createdAt?: Date | string
   content: Prisma.ContentCreateNestedOneWithoutVersionsInput
   currentForContent?: Prisma.ContentCreateNestedOneWithoutCurrentVersionInput
+  publishedForContent?: Prisma.ContentCreateNestedOneWithoutPublishedVersionInput
   coverAsset?: Prisma.AssetCreateNestedOneWithoutCoverVersionsInput
   creator?: Prisma.UserCreateNestedOneWithoutContentVersionsCreatedInput
   basedDraftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutBaseVersionInput
   safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutContentVersionInput
   qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutContentVersionInput
   rewriteSourceRecords?: Prisma.RewriteRecordCreateNestedManyWithoutSourceVersionInput
-  operationTargetVersions?: Prisma.ContentOperationCreateNestedManyWithoutTargetVersionInput
 }
 
 export type ContentVersionUncheckedCreateWithoutRewriteTargetRecordsInput = {
@@ -1561,11 +1665,11 @@ export type ContentVersionUncheckedCreateWithoutRewriteTargetRecordsInput = {
   createdBy?: string | null
   createdAt?: Date | string
   currentForContent?: Prisma.ContentUncheckedCreateNestedOneWithoutCurrentVersionInput
+  publishedForContent?: Prisma.ContentUncheckedCreateNestedOneWithoutPublishedVersionInput
   basedDraftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutBaseVersionInput
   safetyReviews?: Prisma.SafetyReviewUncheckedCreateNestedManyWithoutContentVersionInput
   qualityEvaluations?: Prisma.QualityEvaluationUncheckedCreateNestedManyWithoutContentVersionInput
   rewriteSourceRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutSourceVersionInput
-  operationTargetVersions?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutTargetVersionInput
 }
 
 export type ContentVersionCreateOrConnectWithoutRewriteTargetRecordsInput = {
@@ -1597,13 +1701,13 @@ export type ContentVersionUpdateWithoutRewriteSourceRecordsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   content?: Prisma.ContentUpdateOneRequiredWithoutVersionsNestedInput
   currentForContent?: Prisma.ContentUpdateOneWithoutCurrentVersionNestedInput
+  publishedForContent?: Prisma.ContentUpdateOneWithoutPublishedVersionNestedInput
   coverAsset?: Prisma.AssetUpdateOneWithoutCoverVersionsNestedInput
   creator?: Prisma.UserUpdateOneWithoutContentVersionsCreatedNestedInput
   basedDraftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutBaseVersionNestedInput
   safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutContentVersionNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutContentVersionNestedInput
   rewriteTargetRecords?: Prisma.RewriteRecordUpdateManyWithoutRewrittenVersionNestedInput
-  operationTargetVersions?: Prisma.ContentOperationUpdateManyWithoutTargetVersionNestedInput
 }
 
 export type ContentVersionUncheckedUpdateWithoutRewriteSourceRecordsInput = {
@@ -1621,11 +1725,11 @@ export type ContentVersionUncheckedUpdateWithoutRewriteSourceRecordsInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   currentForContent?: Prisma.ContentUncheckedUpdateOneWithoutCurrentVersionNestedInput
+  publishedForContent?: Prisma.ContentUncheckedUpdateOneWithoutPublishedVersionNestedInput
   basedDraftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutBaseVersionNestedInput
   safetyReviews?: Prisma.SafetyReviewUncheckedUpdateManyWithoutContentVersionNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUncheckedUpdateManyWithoutContentVersionNestedInput
   rewriteTargetRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutRewrittenVersionNestedInput
-  operationTargetVersions?: Prisma.ContentOperationUncheckedUpdateManyWithoutTargetVersionNestedInput
 }
 
 export type ContentVersionUpsertWithoutRewriteTargetRecordsInput = {
@@ -1652,13 +1756,13 @@ export type ContentVersionUpdateWithoutRewriteTargetRecordsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   content?: Prisma.ContentUpdateOneRequiredWithoutVersionsNestedInput
   currentForContent?: Prisma.ContentUpdateOneWithoutCurrentVersionNestedInput
+  publishedForContent?: Prisma.ContentUpdateOneWithoutPublishedVersionNestedInput
   coverAsset?: Prisma.AssetUpdateOneWithoutCoverVersionsNestedInput
   creator?: Prisma.UserUpdateOneWithoutContentVersionsCreatedNestedInput
   basedDraftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutBaseVersionNestedInput
   safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutContentVersionNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutContentVersionNestedInput
   rewriteSourceRecords?: Prisma.RewriteRecordUpdateManyWithoutSourceVersionNestedInput
-  operationTargetVersions?: Prisma.ContentOperationUpdateManyWithoutTargetVersionNestedInput
 }
 
 export type ContentVersionUncheckedUpdateWithoutRewriteTargetRecordsInput = {
@@ -1676,115 +1780,11 @@ export type ContentVersionUncheckedUpdateWithoutRewriteTargetRecordsInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   currentForContent?: Prisma.ContentUncheckedUpdateOneWithoutCurrentVersionNestedInput
+  publishedForContent?: Prisma.ContentUncheckedUpdateOneWithoutPublishedVersionNestedInput
   basedDraftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutBaseVersionNestedInput
   safetyReviews?: Prisma.SafetyReviewUncheckedUpdateManyWithoutContentVersionNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUncheckedUpdateManyWithoutContentVersionNestedInput
   rewriteSourceRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutSourceVersionNestedInput
-  operationTargetVersions?: Prisma.ContentOperationUncheckedUpdateManyWithoutTargetVersionNestedInput
-}
-
-export type ContentVersionCreateWithoutOperationTargetVersionsInput = {
-  id?: string
-  versionNo: number
-  title: string
-  summary?: string | null
-  body: string
-  bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  changeType: $Enums.ChangeType
-  changeSummary?: string | null
-  createdAt?: Date | string
-  content: Prisma.ContentCreateNestedOneWithoutVersionsInput
-  currentForContent?: Prisma.ContentCreateNestedOneWithoutCurrentVersionInput
-  coverAsset?: Prisma.AssetCreateNestedOneWithoutCoverVersionsInput
-  creator?: Prisma.UserCreateNestedOneWithoutContentVersionsCreatedInput
-  basedDraftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutBaseVersionInput
-  safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutContentVersionInput
-  qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutContentVersionInput
-  rewriteSourceRecords?: Prisma.RewriteRecordCreateNestedManyWithoutSourceVersionInput
-  rewriteTargetRecords?: Prisma.RewriteRecordCreateNestedManyWithoutRewrittenVersionInput
-}
-
-export type ContentVersionUncheckedCreateWithoutOperationTargetVersionsInput = {
-  id?: string
-  contentId: string
-  versionNo: number
-  title: string
-  summary?: string | null
-  body: string
-  bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  coverAssetId?: string | null
-  changeType: $Enums.ChangeType
-  changeSummary?: string | null
-  createdBy?: string | null
-  createdAt?: Date | string
-  currentForContent?: Prisma.ContentUncheckedCreateNestedOneWithoutCurrentVersionInput
-  basedDraftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutBaseVersionInput
-  safetyReviews?: Prisma.SafetyReviewUncheckedCreateNestedManyWithoutContentVersionInput
-  qualityEvaluations?: Prisma.QualityEvaluationUncheckedCreateNestedManyWithoutContentVersionInput
-  rewriteSourceRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutSourceVersionInput
-  rewriteTargetRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutRewrittenVersionInput
-}
-
-export type ContentVersionCreateOrConnectWithoutOperationTargetVersionsInput = {
-  where: Prisma.ContentVersionWhereUniqueInput
-  create: Prisma.XOR<Prisma.ContentVersionCreateWithoutOperationTargetVersionsInput, Prisma.ContentVersionUncheckedCreateWithoutOperationTargetVersionsInput>
-}
-
-export type ContentVersionUpsertWithoutOperationTargetVersionsInput = {
-  update: Prisma.XOR<Prisma.ContentVersionUpdateWithoutOperationTargetVersionsInput, Prisma.ContentVersionUncheckedUpdateWithoutOperationTargetVersionsInput>
-  create: Prisma.XOR<Prisma.ContentVersionCreateWithoutOperationTargetVersionsInput, Prisma.ContentVersionUncheckedCreateWithoutOperationTargetVersionsInput>
-  where?: Prisma.ContentVersionWhereInput
-}
-
-export type ContentVersionUpdateToOneWithWhereWithoutOperationTargetVersionsInput = {
-  where?: Prisma.ContentVersionWhereInput
-  data: Prisma.XOR<Prisma.ContentVersionUpdateWithoutOperationTargetVersionsInput, Prisma.ContentVersionUncheckedUpdateWithoutOperationTargetVersionsInput>
-}
-
-export type ContentVersionUpdateWithoutOperationTargetVersionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  versionNo?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  body?: Prisma.StringFieldUpdateOperationsInput | string
-  bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  changeType?: Prisma.EnumChangeTypeFieldUpdateOperationsInput | $Enums.ChangeType
-  changeSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  content?: Prisma.ContentUpdateOneRequiredWithoutVersionsNestedInput
-  currentForContent?: Prisma.ContentUpdateOneWithoutCurrentVersionNestedInput
-  coverAsset?: Prisma.AssetUpdateOneWithoutCoverVersionsNestedInput
-  creator?: Prisma.UserUpdateOneWithoutContentVersionsCreatedNestedInput
-  basedDraftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutBaseVersionNestedInput
-  safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutContentVersionNestedInput
-  qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutContentVersionNestedInput
-  rewriteSourceRecords?: Prisma.RewriteRecordUpdateManyWithoutSourceVersionNestedInput
-  rewriteTargetRecords?: Prisma.RewriteRecordUpdateManyWithoutRewrittenVersionNestedInput
-}
-
-export type ContentVersionUncheckedUpdateWithoutOperationTargetVersionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  contentId?: Prisma.StringFieldUpdateOperationsInput | string
-  versionNo?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  body?: Prisma.StringFieldUpdateOperationsInput | string
-  bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  changeType?: Prisma.EnumChangeTypeFieldUpdateOperationsInput | $Enums.ChangeType
-  changeSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  currentForContent?: Prisma.ContentUncheckedUpdateOneWithoutCurrentVersionNestedInput
-  basedDraftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutBaseVersionNestedInput
-  safetyReviews?: Prisma.SafetyReviewUncheckedUpdateManyWithoutContentVersionNestedInput
-  qualityEvaluations?: Prisma.QualityEvaluationUncheckedUpdateManyWithoutContentVersionNestedInput
-  rewriteSourceRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutSourceVersionNestedInput
-  rewriteTargetRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutRewrittenVersionNestedInput
 }
 
 export type ContentVersionCreateManyCreatorInput = {
@@ -1815,13 +1815,13 @@ export type ContentVersionUpdateWithoutCreatorInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   content?: Prisma.ContentUpdateOneRequiredWithoutVersionsNestedInput
   currentForContent?: Prisma.ContentUpdateOneWithoutCurrentVersionNestedInput
+  publishedForContent?: Prisma.ContentUpdateOneWithoutPublishedVersionNestedInput
   coverAsset?: Prisma.AssetUpdateOneWithoutCoverVersionsNestedInput
   basedDraftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutBaseVersionNestedInput
   safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutContentVersionNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutContentVersionNestedInput
   rewriteSourceRecords?: Prisma.RewriteRecordUpdateManyWithoutSourceVersionNestedInput
   rewriteTargetRecords?: Prisma.RewriteRecordUpdateManyWithoutRewrittenVersionNestedInput
-  operationTargetVersions?: Prisma.ContentOperationUpdateManyWithoutTargetVersionNestedInput
 }
 
 export type ContentVersionUncheckedUpdateWithoutCreatorInput = {
@@ -1838,12 +1838,12 @@ export type ContentVersionUncheckedUpdateWithoutCreatorInput = {
   changeSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   currentForContent?: Prisma.ContentUncheckedUpdateOneWithoutCurrentVersionNestedInput
+  publishedForContent?: Prisma.ContentUncheckedUpdateOneWithoutPublishedVersionNestedInput
   basedDraftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutBaseVersionNestedInput
   safetyReviews?: Prisma.SafetyReviewUncheckedUpdateManyWithoutContentVersionNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUncheckedUpdateManyWithoutContentVersionNestedInput
   rewriteSourceRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutSourceVersionNestedInput
   rewriteTargetRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutRewrittenVersionNestedInput
-  operationTargetVersions?: Prisma.ContentOperationUncheckedUpdateManyWithoutTargetVersionNestedInput
 }
 
 export type ContentVersionUncheckedUpdateManyWithoutCreatorInput = {
@@ -1889,13 +1889,13 @@ export type ContentVersionUpdateWithoutCoverAssetInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   content?: Prisma.ContentUpdateOneRequiredWithoutVersionsNestedInput
   currentForContent?: Prisma.ContentUpdateOneWithoutCurrentVersionNestedInput
+  publishedForContent?: Prisma.ContentUpdateOneWithoutPublishedVersionNestedInput
   creator?: Prisma.UserUpdateOneWithoutContentVersionsCreatedNestedInput
   basedDraftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutBaseVersionNestedInput
   safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutContentVersionNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutContentVersionNestedInput
   rewriteSourceRecords?: Prisma.RewriteRecordUpdateManyWithoutSourceVersionNestedInput
   rewriteTargetRecords?: Prisma.RewriteRecordUpdateManyWithoutRewrittenVersionNestedInput
-  operationTargetVersions?: Prisma.ContentOperationUpdateManyWithoutTargetVersionNestedInput
 }
 
 export type ContentVersionUncheckedUpdateWithoutCoverAssetInput = {
@@ -1912,12 +1912,12 @@ export type ContentVersionUncheckedUpdateWithoutCoverAssetInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   currentForContent?: Prisma.ContentUncheckedUpdateOneWithoutCurrentVersionNestedInput
+  publishedForContent?: Prisma.ContentUncheckedUpdateOneWithoutPublishedVersionNestedInput
   basedDraftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutBaseVersionNestedInput
   safetyReviews?: Prisma.SafetyReviewUncheckedUpdateManyWithoutContentVersionNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUncheckedUpdateManyWithoutContentVersionNestedInput
   rewriteSourceRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutSourceVersionNestedInput
   rewriteTargetRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutRewrittenVersionNestedInput
-  operationTargetVersions?: Prisma.ContentOperationUncheckedUpdateManyWithoutTargetVersionNestedInput
 }
 
 export type ContentVersionUncheckedUpdateManyWithoutCoverAssetInput = {
@@ -1962,6 +1962,7 @@ export type ContentVersionUpdateWithoutContentInput = {
   changeSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   currentForContent?: Prisma.ContentUpdateOneWithoutCurrentVersionNestedInput
+  publishedForContent?: Prisma.ContentUpdateOneWithoutPublishedVersionNestedInput
   coverAsset?: Prisma.AssetUpdateOneWithoutCoverVersionsNestedInput
   creator?: Prisma.UserUpdateOneWithoutContentVersionsCreatedNestedInput
   basedDraftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutBaseVersionNestedInput
@@ -1969,7 +1970,6 @@ export type ContentVersionUpdateWithoutContentInput = {
   qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutContentVersionNestedInput
   rewriteSourceRecords?: Prisma.RewriteRecordUpdateManyWithoutSourceVersionNestedInput
   rewriteTargetRecords?: Prisma.RewriteRecordUpdateManyWithoutRewrittenVersionNestedInput
-  operationTargetVersions?: Prisma.ContentOperationUpdateManyWithoutTargetVersionNestedInput
 }
 
 export type ContentVersionUncheckedUpdateWithoutContentInput = {
@@ -1986,12 +1986,12 @@ export type ContentVersionUncheckedUpdateWithoutContentInput = {
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   currentForContent?: Prisma.ContentUncheckedUpdateOneWithoutCurrentVersionNestedInput
+  publishedForContent?: Prisma.ContentUncheckedUpdateOneWithoutPublishedVersionNestedInput
   basedDraftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutBaseVersionNestedInput
   safetyReviews?: Prisma.SafetyReviewUncheckedUpdateManyWithoutContentVersionNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUncheckedUpdateManyWithoutContentVersionNestedInput
   rewriteSourceRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutSourceVersionNestedInput
   rewriteTargetRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutRewrittenVersionNestedInput
-  operationTargetVersions?: Prisma.ContentOperationUncheckedUpdateManyWithoutTargetVersionNestedInput
 }
 
 export type ContentVersionUncheckedUpdateManyWithoutContentInput = {
@@ -2020,7 +2020,6 @@ export type ContentVersionCountOutputType = {
   qualityEvaluations: number
   rewriteSourceRecords: number
   rewriteTargetRecords: number
-  operationTargetVersions: number
 }
 
 export type ContentVersionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2029,7 +2028,6 @@ export type ContentVersionCountOutputTypeSelect<ExtArgs extends runtime.Types.Ex
   qualityEvaluations?: boolean | ContentVersionCountOutputTypeCountQualityEvaluationsArgs
   rewriteSourceRecords?: boolean | ContentVersionCountOutputTypeCountRewriteSourceRecordsArgs
   rewriteTargetRecords?: boolean | ContentVersionCountOutputTypeCountRewriteTargetRecordsArgs
-  operationTargetVersions?: boolean | ContentVersionCountOutputTypeCountOperationTargetVersionsArgs
 }
 
 /**
@@ -2077,13 +2075,6 @@ export type ContentVersionCountOutputTypeCountRewriteTargetRecordsArgs<ExtArgs e
   where?: Prisma.RewriteRecordWhereInput
 }
 
-/**
- * ContentVersionCountOutputType without action
- */
-export type ContentVersionCountOutputTypeCountOperationTargetVersionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ContentOperationWhereInput
-}
-
 
 export type ContentVersionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2101,6 +2092,7 @@ export type ContentVersionSelect<ExtArgs extends runtime.Types.Extensions.Intern
   createdAt?: boolean
   content?: boolean | Prisma.ContentDefaultArgs<ExtArgs>
   currentForContent?: boolean | Prisma.ContentVersion$currentForContentArgs<ExtArgs>
+  publishedForContent?: boolean | Prisma.ContentVersion$publishedForContentArgs<ExtArgs>
   coverAsset?: boolean | Prisma.ContentVersion$coverAssetArgs<ExtArgs>
   creator?: boolean | Prisma.ContentVersion$creatorArgs<ExtArgs>
   basedDraftSnapshots?: boolean | Prisma.ContentVersion$basedDraftSnapshotsArgs<ExtArgs>
@@ -2108,7 +2100,6 @@ export type ContentVersionSelect<ExtArgs extends runtime.Types.Extensions.Intern
   qualityEvaluations?: boolean | Prisma.ContentVersion$qualityEvaluationsArgs<ExtArgs>
   rewriteSourceRecords?: boolean | Prisma.ContentVersion$rewriteSourceRecordsArgs<ExtArgs>
   rewriteTargetRecords?: boolean | Prisma.ContentVersion$rewriteTargetRecordsArgs<ExtArgs>
-  operationTargetVersions?: boolean | Prisma.ContentVersion$operationTargetVersionsArgs<ExtArgs>
   _count?: boolean | Prisma.ContentVersionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["contentVersion"]>
 
@@ -2170,6 +2161,7 @@ export type ContentVersionOmit<ExtArgs extends runtime.Types.Extensions.Internal
 export type ContentVersionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   content?: boolean | Prisma.ContentDefaultArgs<ExtArgs>
   currentForContent?: boolean | Prisma.ContentVersion$currentForContentArgs<ExtArgs>
+  publishedForContent?: boolean | Prisma.ContentVersion$publishedForContentArgs<ExtArgs>
   coverAsset?: boolean | Prisma.ContentVersion$coverAssetArgs<ExtArgs>
   creator?: boolean | Prisma.ContentVersion$creatorArgs<ExtArgs>
   basedDraftSnapshots?: boolean | Prisma.ContentVersion$basedDraftSnapshotsArgs<ExtArgs>
@@ -2177,7 +2169,6 @@ export type ContentVersionInclude<ExtArgs extends runtime.Types.Extensions.Inter
   qualityEvaluations?: boolean | Prisma.ContentVersion$qualityEvaluationsArgs<ExtArgs>
   rewriteSourceRecords?: boolean | Prisma.ContentVersion$rewriteSourceRecordsArgs<ExtArgs>
   rewriteTargetRecords?: boolean | Prisma.ContentVersion$rewriteTargetRecordsArgs<ExtArgs>
-  operationTargetVersions?: boolean | Prisma.ContentVersion$operationTargetVersionsArgs<ExtArgs>
   _count?: boolean | Prisma.ContentVersionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ContentVersionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2196,6 +2187,7 @@ export type $ContentVersionPayload<ExtArgs extends runtime.Types.Extensions.Inte
   objects: {
     content: Prisma.$ContentPayload<ExtArgs>
     currentForContent: Prisma.$ContentPayload<ExtArgs> | null
+    publishedForContent: Prisma.$ContentPayload<ExtArgs> | null
     coverAsset: Prisma.$AssetPayload<ExtArgs> | null
     creator: Prisma.$UserPayload<ExtArgs> | null
     basedDraftSnapshots: Prisma.$DraftSnapshotPayload<ExtArgs>[]
@@ -2203,7 +2195,6 @@ export type $ContentVersionPayload<ExtArgs extends runtime.Types.Extensions.Inte
     qualityEvaluations: Prisma.$QualityEvaluationPayload<ExtArgs>[]
     rewriteSourceRecords: Prisma.$RewriteRecordPayload<ExtArgs>[]
     rewriteTargetRecords: Prisma.$RewriteRecordPayload<ExtArgs>[]
-    operationTargetVersions: Prisma.$ContentOperationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2615,6 +2606,7 @@ export interface Prisma__ContentVersionClient<T, Null = never, ExtArgs extends r
   readonly [Symbol.toStringTag]: "PrismaPromise"
   content<T extends Prisma.ContentDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ContentDefaultArgs<ExtArgs>>): Prisma.Prisma__ContentClient<runtime.Types.Result.GetResult<Prisma.$ContentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   currentForContent<T extends Prisma.ContentVersion$currentForContentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ContentVersion$currentForContentArgs<ExtArgs>>): Prisma.Prisma__ContentClient<runtime.Types.Result.GetResult<Prisma.$ContentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  publishedForContent<T extends Prisma.ContentVersion$publishedForContentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ContentVersion$publishedForContentArgs<ExtArgs>>): Prisma.Prisma__ContentClient<runtime.Types.Result.GetResult<Prisma.$ContentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   coverAsset<T extends Prisma.ContentVersion$coverAssetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ContentVersion$coverAssetArgs<ExtArgs>>): Prisma.Prisma__AssetClient<runtime.Types.Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   creator<T extends Prisma.ContentVersion$creatorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ContentVersion$creatorArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   basedDraftSnapshots<T extends Prisma.ContentVersion$basedDraftSnapshotsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ContentVersion$basedDraftSnapshotsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DraftSnapshotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2622,7 +2614,6 @@ export interface Prisma__ContentVersionClient<T, Null = never, ExtArgs extends r
   qualityEvaluations<T extends Prisma.ContentVersion$qualityEvaluationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ContentVersion$qualityEvaluationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QualityEvaluationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   rewriteSourceRecords<T extends Prisma.ContentVersion$rewriteSourceRecordsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ContentVersion$rewriteSourceRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RewriteRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   rewriteTargetRecords<T extends Prisma.ContentVersion$rewriteTargetRecordsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ContentVersion$rewriteTargetRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RewriteRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  operationTargetVersions<T extends Prisma.ContentVersion$operationTargetVersionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ContentVersion$operationTargetVersionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContentOperationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3085,6 +3076,25 @@ export type ContentVersion$currentForContentArgs<ExtArgs extends runtime.Types.E
 }
 
 /**
+ * ContentVersion.publishedForContent
+ */
+export type ContentVersion$publishedForContentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Content
+   */
+  select?: Prisma.ContentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Content
+   */
+  omit?: Prisma.ContentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContentInclude<ExtArgs> | null
+  where?: Prisma.ContentWhereInput
+}
+
+/**
  * ContentVersion.coverAsset
  */
 export type ContentVersion$coverAssetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3240,30 +3250,6 @@ export type ContentVersion$rewriteTargetRecordsArgs<ExtArgs extends runtime.Type
   take?: number
   skip?: number
   distinct?: Prisma.RewriteRecordScalarFieldEnum | Prisma.RewriteRecordScalarFieldEnum[]
-}
-
-/**
- * ContentVersion.operationTargetVersions
- */
-export type ContentVersion$operationTargetVersionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ContentOperation
-   */
-  select?: Prisma.ContentOperationSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ContentOperation
-   */
-  omit?: Prisma.ContentOperationOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ContentOperationInclude<ExtArgs> | null
-  where?: Prisma.ContentOperationWhereInput
-  orderBy?: Prisma.ContentOperationOrderByWithRelationInput | Prisma.ContentOperationOrderByWithRelationInput[]
-  cursor?: Prisma.ContentOperationWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ContentOperationScalarFieldEnum | Prisma.ContentOperationScalarFieldEnum[]
 }
 
 /**

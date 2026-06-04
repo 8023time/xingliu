@@ -41,7 +41,7 @@ export type QualityEvaluationMinAggregateOutputType = {
   aiTaskId: string | null
   totalScore: runtime.Decimal | null
   level: $Enums.QualityLevel | null
-  rubricVersion: string | null
+  standardVersion: string | null
   summary: string | null
   createdAt: Date | null
 }
@@ -53,7 +53,7 @@ export type QualityEvaluationMaxAggregateOutputType = {
   aiTaskId: string | null
   totalScore: runtime.Decimal | null
   level: $Enums.QualityLevel | null
-  rubricVersion: string | null
+  standardVersion: string | null
   summary: string | null
   createdAt: Date | null
 }
@@ -65,7 +65,8 @@ export type QualityEvaluationCountAggregateOutputType = {
   aiTaskId: number
   totalScore: number
   level: number
-  rubricVersion: number
+  standardVersion: number
+  dimensions: number
   summary: number
   improvements: number
   createdAt: number
@@ -88,7 +89,7 @@ export type QualityEvaluationMinAggregateInputType = {
   aiTaskId?: true
   totalScore?: true
   level?: true
-  rubricVersion?: true
+  standardVersion?: true
   summary?: true
   createdAt?: true
 }
@@ -100,7 +101,7 @@ export type QualityEvaluationMaxAggregateInputType = {
   aiTaskId?: true
   totalScore?: true
   level?: true
-  rubricVersion?: true
+  standardVersion?: true
   summary?: true
   createdAt?: true
 }
@@ -112,7 +113,8 @@ export type QualityEvaluationCountAggregateInputType = {
   aiTaskId?: true
   totalScore?: true
   level?: true
-  rubricVersion?: true
+  standardVersion?: true
+  dimensions?: true
   summary?: true
   improvements?: true
   createdAt?: true
@@ -212,7 +214,8 @@ export type QualityEvaluationGroupByOutputType = {
   aiTaskId: string | null
   totalScore: runtime.Decimal
   level: $Enums.QualityLevel
-  rubricVersion: string
+  standardVersion: string
+  dimensions: runtime.JsonValue
   summary: string | null
   improvements: runtime.JsonValue | null
   createdAt: Date
@@ -248,14 +251,14 @@ export type QualityEvaluationWhereInput = {
   aiTaskId?: Prisma.StringNullableFilter<"QualityEvaluation"> | string | null
   totalScore?: Prisma.DecimalFilter<"QualityEvaluation"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   level?: Prisma.EnumQualityLevelFilter<"QualityEvaluation"> | $Enums.QualityLevel
-  rubricVersion?: Prisma.StringFilter<"QualityEvaluation"> | string
+  standardVersion?: Prisma.StringFilter<"QualityEvaluation"> | string
+  dimensions?: Prisma.JsonFilter<"QualityEvaluation">
   summary?: Prisma.StringNullableFilter<"QualityEvaluation"> | string | null
   improvements?: Prisma.JsonNullableFilter<"QualityEvaluation">
   createdAt?: Prisma.DateTimeFilter<"QualityEvaluation"> | Date | string
   content?: Prisma.XOR<Prisma.ContentScalarRelationFilter, Prisma.ContentWhereInput>
   contentVersion?: Prisma.XOR<Prisma.ContentVersionScalarRelationFilter, Prisma.ContentVersionWhereInput>
   aiTask?: Prisma.XOR<Prisma.AiTaskNullableScalarRelationFilter, Prisma.AiTaskWhereInput> | null
-  dimensions?: Prisma.QualityEvaluationDimensionListRelationFilter
 }
 
 export type QualityEvaluationOrderByWithRelationInput = {
@@ -265,14 +268,14 @@ export type QualityEvaluationOrderByWithRelationInput = {
   aiTaskId?: Prisma.SortOrderInput | Prisma.SortOrder
   totalScore?: Prisma.SortOrder
   level?: Prisma.SortOrder
-  rubricVersion?: Prisma.SortOrder
+  standardVersion?: Prisma.SortOrder
+  dimensions?: Prisma.SortOrder
   summary?: Prisma.SortOrderInput | Prisma.SortOrder
   improvements?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   content?: Prisma.ContentOrderByWithRelationInput
   contentVersion?: Prisma.ContentVersionOrderByWithRelationInput
   aiTask?: Prisma.AiTaskOrderByWithRelationInput
-  dimensions?: Prisma.QualityEvaluationDimensionOrderByRelationAggregateInput
 }
 
 export type QualityEvaluationWhereUniqueInput = Prisma.AtLeast<{
@@ -285,14 +288,14 @@ export type QualityEvaluationWhereUniqueInput = Prisma.AtLeast<{
   aiTaskId?: Prisma.StringNullableFilter<"QualityEvaluation"> | string | null
   totalScore?: Prisma.DecimalFilter<"QualityEvaluation"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   level?: Prisma.EnumQualityLevelFilter<"QualityEvaluation"> | $Enums.QualityLevel
-  rubricVersion?: Prisma.StringFilter<"QualityEvaluation"> | string
+  standardVersion?: Prisma.StringFilter<"QualityEvaluation"> | string
+  dimensions?: Prisma.JsonFilter<"QualityEvaluation">
   summary?: Prisma.StringNullableFilter<"QualityEvaluation"> | string | null
   improvements?: Prisma.JsonNullableFilter<"QualityEvaluation">
   createdAt?: Prisma.DateTimeFilter<"QualityEvaluation"> | Date | string
   content?: Prisma.XOR<Prisma.ContentScalarRelationFilter, Prisma.ContentWhereInput>
   contentVersion?: Prisma.XOR<Prisma.ContentVersionScalarRelationFilter, Prisma.ContentVersionWhereInput>
   aiTask?: Prisma.XOR<Prisma.AiTaskNullableScalarRelationFilter, Prisma.AiTaskWhereInput> | null
-  dimensions?: Prisma.QualityEvaluationDimensionListRelationFilter
 }, "id">
 
 export type QualityEvaluationOrderByWithAggregationInput = {
@@ -302,7 +305,8 @@ export type QualityEvaluationOrderByWithAggregationInput = {
   aiTaskId?: Prisma.SortOrderInput | Prisma.SortOrder
   totalScore?: Prisma.SortOrder
   level?: Prisma.SortOrder
-  rubricVersion?: Prisma.SortOrder
+  standardVersion?: Prisma.SortOrder
+  dimensions?: Prisma.SortOrder
   summary?: Prisma.SortOrderInput | Prisma.SortOrder
   improvements?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -323,7 +327,8 @@ export type QualityEvaluationScalarWhereWithAggregatesInput = {
   aiTaskId?: Prisma.StringNullableWithAggregatesFilter<"QualityEvaluation"> | string | null
   totalScore?: Prisma.DecimalWithAggregatesFilter<"QualityEvaluation"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   level?: Prisma.EnumQualityLevelWithAggregatesFilter<"QualityEvaluation"> | $Enums.QualityLevel
-  rubricVersion?: Prisma.StringWithAggregatesFilter<"QualityEvaluation"> | string
+  standardVersion?: Prisma.StringWithAggregatesFilter<"QualityEvaluation"> | string
+  dimensions?: Prisma.JsonWithAggregatesFilter<"QualityEvaluation">
   summary?: Prisma.StringNullableWithAggregatesFilter<"QualityEvaluation"> | string | null
   improvements?: Prisma.JsonNullableWithAggregatesFilter<"QualityEvaluation">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"QualityEvaluation"> | Date | string
@@ -333,14 +338,14 @@ export type QualityEvaluationCreateInput = {
   id?: string
   totalScore: runtime.Decimal | runtime.DecimalJsLike | number | string
   level: $Enums.QualityLevel
-  rubricVersion: string
+  standardVersion: string
+  dimensions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   summary?: string | null
   improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   content: Prisma.ContentCreateNestedOneWithoutQualityEvaluationsInput
   contentVersion: Prisma.ContentVersionCreateNestedOneWithoutQualityEvaluationsInput
   aiTask?: Prisma.AiTaskCreateNestedOneWithoutQualityEvaluationsInput
-  dimensions?: Prisma.QualityEvaluationDimensionCreateNestedManyWithoutEvaluationInput
 }
 
 export type QualityEvaluationUncheckedCreateInput = {
@@ -350,25 +355,25 @@ export type QualityEvaluationUncheckedCreateInput = {
   aiTaskId?: string | null
   totalScore: runtime.Decimal | runtime.DecimalJsLike | number | string
   level: $Enums.QualityLevel
-  rubricVersion: string
+  standardVersion: string
+  dimensions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   summary?: string | null
   improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
-  dimensions?: Prisma.QualityEvaluationDimensionUncheckedCreateNestedManyWithoutEvaluationInput
 }
 
 export type QualityEvaluationUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   totalScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   level?: Prisma.EnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel
-  rubricVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  standardVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  dimensions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   content?: Prisma.ContentUpdateOneRequiredWithoutQualityEvaluationsNestedInput
   contentVersion?: Prisma.ContentVersionUpdateOneRequiredWithoutQualityEvaluationsNestedInput
   aiTask?: Prisma.AiTaskUpdateOneWithoutQualityEvaluationsNestedInput
-  dimensions?: Prisma.QualityEvaluationDimensionUpdateManyWithoutEvaluationNestedInput
 }
 
 export type QualityEvaluationUncheckedUpdateInput = {
@@ -378,11 +383,11 @@ export type QualityEvaluationUncheckedUpdateInput = {
   aiTaskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   level?: Prisma.EnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel
-  rubricVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  standardVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  dimensions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  dimensions?: Prisma.QualityEvaluationDimensionUncheckedUpdateManyWithoutEvaluationNestedInput
 }
 
 export type QualityEvaluationCreateManyInput = {
@@ -392,7 +397,8 @@ export type QualityEvaluationCreateManyInput = {
   aiTaskId?: string | null
   totalScore: runtime.Decimal | runtime.DecimalJsLike | number | string
   level: $Enums.QualityLevel
-  rubricVersion: string
+  standardVersion: string
+  dimensions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   summary?: string | null
   improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -402,7 +408,8 @@ export type QualityEvaluationUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   totalScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   level?: Prisma.EnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel
-  rubricVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  standardVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  dimensions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -415,7 +422,8 @@ export type QualityEvaluationUncheckedUpdateManyInput = {
   aiTaskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   level?: Prisma.EnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel
-  rubricVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  standardVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  dimensions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -438,7 +446,8 @@ export type QualityEvaluationCountOrderByAggregateInput = {
   aiTaskId?: Prisma.SortOrder
   totalScore?: Prisma.SortOrder
   level?: Prisma.SortOrder
-  rubricVersion?: Prisma.SortOrder
+  standardVersion?: Prisma.SortOrder
+  dimensions?: Prisma.SortOrder
   summary?: Prisma.SortOrder
   improvements?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -455,7 +464,7 @@ export type QualityEvaluationMaxOrderByAggregateInput = {
   aiTaskId?: Prisma.SortOrder
   totalScore?: Prisma.SortOrder
   level?: Prisma.SortOrder
-  rubricVersion?: Prisma.SortOrder
+  standardVersion?: Prisma.SortOrder
   summary?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -467,18 +476,13 @@ export type QualityEvaluationMinOrderByAggregateInput = {
   aiTaskId?: Prisma.SortOrder
   totalScore?: Prisma.SortOrder
   level?: Prisma.SortOrder
-  rubricVersion?: Prisma.SortOrder
+  standardVersion?: Prisma.SortOrder
   summary?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type QualityEvaluationSumOrderByAggregateInput = {
   totalScore?: Prisma.SortOrder
-}
-
-export type QualityEvaluationScalarRelationFilter = {
-  is?: Prisma.QualityEvaluationWhereInput
-  isNot?: Prisma.QualityEvaluationWhereInput
 }
 
 export type QualityEvaluationCreateNestedManyWithoutContentInput = {
@@ -611,31 +615,17 @@ export type EnumQualityLevelFieldUpdateOperationsInput = {
   set?: $Enums.QualityLevel
 }
 
-export type QualityEvaluationCreateNestedOneWithoutDimensionsInput = {
-  create?: Prisma.XOR<Prisma.QualityEvaluationCreateWithoutDimensionsInput, Prisma.QualityEvaluationUncheckedCreateWithoutDimensionsInput>
-  connectOrCreate?: Prisma.QualityEvaluationCreateOrConnectWithoutDimensionsInput
-  connect?: Prisma.QualityEvaluationWhereUniqueInput
-}
-
-export type QualityEvaluationUpdateOneRequiredWithoutDimensionsNestedInput = {
-  create?: Prisma.XOR<Prisma.QualityEvaluationCreateWithoutDimensionsInput, Prisma.QualityEvaluationUncheckedCreateWithoutDimensionsInput>
-  connectOrCreate?: Prisma.QualityEvaluationCreateOrConnectWithoutDimensionsInput
-  upsert?: Prisma.QualityEvaluationUpsertWithoutDimensionsInput
-  connect?: Prisma.QualityEvaluationWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.QualityEvaluationUpdateToOneWithWhereWithoutDimensionsInput, Prisma.QualityEvaluationUpdateWithoutDimensionsInput>, Prisma.QualityEvaluationUncheckedUpdateWithoutDimensionsInput>
-}
-
 export type QualityEvaluationCreateWithoutContentInput = {
   id?: string
   totalScore: runtime.Decimal | runtime.DecimalJsLike | number | string
   level: $Enums.QualityLevel
-  rubricVersion: string
+  standardVersion: string
+  dimensions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   summary?: string | null
   improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   contentVersion: Prisma.ContentVersionCreateNestedOneWithoutQualityEvaluationsInput
   aiTask?: Prisma.AiTaskCreateNestedOneWithoutQualityEvaluationsInput
-  dimensions?: Prisma.QualityEvaluationDimensionCreateNestedManyWithoutEvaluationInput
 }
 
 export type QualityEvaluationUncheckedCreateWithoutContentInput = {
@@ -644,11 +634,11 @@ export type QualityEvaluationUncheckedCreateWithoutContentInput = {
   aiTaskId?: string | null
   totalScore: runtime.Decimal | runtime.DecimalJsLike | number | string
   level: $Enums.QualityLevel
-  rubricVersion: string
+  standardVersion: string
+  dimensions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   summary?: string | null
   improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
-  dimensions?: Prisma.QualityEvaluationDimensionUncheckedCreateNestedManyWithoutEvaluationInput
 }
 
 export type QualityEvaluationCreateOrConnectWithoutContentInput = {
@@ -687,7 +677,8 @@ export type QualityEvaluationScalarWhereInput = {
   aiTaskId?: Prisma.StringNullableFilter<"QualityEvaluation"> | string | null
   totalScore?: Prisma.DecimalFilter<"QualityEvaluation"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   level?: Prisma.EnumQualityLevelFilter<"QualityEvaluation"> | $Enums.QualityLevel
-  rubricVersion?: Prisma.StringFilter<"QualityEvaluation"> | string
+  standardVersion?: Prisma.StringFilter<"QualityEvaluation"> | string
+  dimensions?: Prisma.JsonFilter<"QualityEvaluation">
   summary?: Prisma.StringNullableFilter<"QualityEvaluation"> | string | null
   improvements?: Prisma.JsonNullableFilter<"QualityEvaluation">
   createdAt?: Prisma.DateTimeFilter<"QualityEvaluation"> | Date | string
@@ -697,13 +688,13 @@ export type QualityEvaluationCreateWithoutContentVersionInput = {
   id?: string
   totalScore: runtime.Decimal | runtime.DecimalJsLike | number | string
   level: $Enums.QualityLevel
-  rubricVersion: string
+  standardVersion: string
+  dimensions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   summary?: string | null
   improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   content: Prisma.ContentCreateNestedOneWithoutQualityEvaluationsInput
   aiTask?: Prisma.AiTaskCreateNestedOneWithoutQualityEvaluationsInput
-  dimensions?: Prisma.QualityEvaluationDimensionCreateNestedManyWithoutEvaluationInput
 }
 
 export type QualityEvaluationUncheckedCreateWithoutContentVersionInput = {
@@ -712,11 +703,11 @@ export type QualityEvaluationUncheckedCreateWithoutContentVersionInput = {
   aiTaskId?: string | null
   totalScore: runtime.Decimal | runtime.DecimalJsLike | number | string
   level: $Enums.QualityLevel
-  rubricVersion: string
+  standardVersion: string
+  dimensions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   summary?: string | null
   improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
-  dimensions?: Prisma.QualityEvaluationDimensionUncheckedCreateNestedManyWithoutEvaluationInput
 }
 
 export type QualityEvaluationCreateOrConnectWithoutContentVersionInput = {
@@ -749,13 +740,13 @@ export type QualityEvaluationCreateWithoutAiTaskInput = {
   id?: string
   totalScore: runtime.Decimal | runtime.DecimalJsLike | number | string
   level: $Enums.QualityLevel
-  rubricVersion: string
+  standardVersion: string
+  dimensions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   summary?: string | null
   improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   content: Prisma.ContentCreateNestedOneWithoutQualityEvaluationsInput
   contentVersion: Prisma.ContentVersionCreateNestedOneWithoutQualityEvaluationsInput
-  dimensions?: Prisma.QualityEvaluationDimensionCreateNestedManyWithoutEvaluationInput
 }
 
 export type QualityEvaluationUncheckedCreateWithoutAiTaskInput = {
@@ -764,11 +755,11 @@ export type QualityEvaluationUncheckedCreateWithoutAiTaskInput = {
   contentVersionId: string
   totalScore: runtime.Decimal | runtime.DecimalJsLike | number | string
   level: $Enums.QualityLevel
-  rubricVersion: string
+  standardVersion: string
+  dimensions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   summary?: string | null
   improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
-  dimensions?: Prisma.QualityEvaluationDimensionUncheckedCreateNestedManyWithoutEvaluationInput
 }
 
 export type QualityEvaluationCreateOrConnectWithoutAiTaskInput = {
@@ -797,81 +788,14 @@ export type QualityEvaluationUpdateManyWithWhereWithoutAiTaskInput = {
   data: Prisma.XOR<Prisma.QualityEvaluationUpdateManyMutationInput, Prisma.QualityEvaluationUncheckedUpdateManyWithoutAiTaskInput>
 }
 
-export type QualityEvaluationCreateWithoutDimensionsInput = {
-  id?: string
-  totalScore: runtime.Decimal | runtime.DecimalJsLike | number | string
-  level: $Enums.QualityLevel
-  rubricVersion: string
-  summary?: string | null
-  improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  createdAt?: Date | string
-  content: Prisma.ContentCreateNestedOneWithoutQualityEvaluationsInput
-  contentVersion: Prisma.ContentVersionCreateNestedOneWithoutQualityEvaluationsInput
-  aiTask?: Prisma.AiTaskCreateNestedOneWithoutQualityEvaluationsInput
-}
-
-export type QualityEvaluationUncheckedCreateWithoutDimensionsInput = {
-  id?: string
-  contentId: string
-  contentVersionId: string
-  aiTaskId?: string | null
-  totalScore: runtime.Decimal | runtime.DecimalJsLike | number | string
-  level: $Enums.QualityLevel
-  rubricVersion: string
-  summary?: string | null
-  improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  createdAt?: Date | string
-}
-
-export type QualityEvaluationCreateOrConnectWithoutDimensionsInput = {
-  where: Prisma.QualityEvaluationWhereUniqueInput
-  create: Prisma.XOR<Prisma.QualityEvaluationCreateWithoutDimensionsInput, Prisma.QualityEvaluationUncheckedCreateWithoutDimensionsInput>
-}
-
-export type QualityEvaluationUpsertWithoutDimensionsInput = {
-  update: Prisma.XOR<Prisma.QualityEvaluationUpdateWithoutDimensionsInput, Prisma.QualityEvaluationUncheckedUpdateWithoutDimensionsInput>
-  create: Prisma.XOR<Prisma.QualityEvaluationCreateWithoutDimensionsInput, Prisma.QualityEvaluationUncheckedCreateWithoutDimensionsInput>
-  where?: Prisma.QualityEvaluationWhereInput
-}
-
-export type QualityEvaluationUpdateToOneWithWhereWithoutDimensionsInput = {
-  where?: Prisma.QualityEvaluationWhereInput
-  data: Prisma.XOR<Prisma.QualityEvaluationUpdateWithoutDimensionsInput, Prisma.QualityEvaluationUncheckedUpdateWithoutDimensionsInput>
-}
-
-export type QualityEvaluationUpdateWithoutDimensionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  totalScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  level?: Prisma.EnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel
-  rubricVersion?: Prisma.StringFieldUpdateOperationsInput | string
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  content?: Prisma.ContentUpdateOneRequiredWithoutQualityEvaluationsNestedInput
-  contentVersion?: Prisma.ContentVersionUpdateOneRequiredWithoutQualityEvaluationsNestedInput
-  aiTask?: Prisma.AiTaskUpdateOneWithoutQualityEvaluationsNestedInput
-}
-
-export type QualityEvaluationUncheckedUpdateWithoutDimensionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  contentId?: Prisma.StringFieldUpdateOperationsInput | string
-  contentVersionId?: Prisma.StringFieldUpdateOperationsInput | string
-  aiTaskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  level?: Prisma.EnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel
-  rubricVersion?: Prisma.StringFieldUpdateOperationsInput | string
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
 export type QualityEvaluationCreateManyContentInput = {
   id?: string
   contentVersionId: string
   aiTaskId?: string | null
   totalScore: runtime.Decimal | runtime.DecimalJsLike | number | string
   level: $Enums.QualityLevel
-  rubricVersion: string
+  standardVersion: string
+  dimensions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   summary?: string | null
   improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -881,13 +805,13 @@ export type QualityEvaluationUpdateWithoutContentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   totalScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   level?: Prisma.EnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel
-  rubricVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  standardVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  dimensions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contentVersion?: Prisma.ContentVersionUpdateOneRequiredWithoutQualityEvaluationsNestedInput
   aiTask?: Prisma.AiTaskUpdateOneWithoutQualityEvaluationsNestedInput
-  dimensions?: Prisma.QualityEvaluationDimensionUpdateManyWithoutEvaluationNestedInput
 }
 
 export type QualityEvaluationUncheckedUpdateWithoutContentInput = {
@@ -896,11 +820,11 @@ export type QualityEvaluationUncheckedUpdateWithoutContentInput = {
   aiTaskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   level?: Prisma.EnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel
-  rubricVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  standardVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  dimensions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  dimensions?: Prisma.QualityEvaluationDimensionUncheckedUpdateManyWithoutEvaluationNestedInput
 }
 
 export type QualityEvaluationUncheckedUpdateManyWithoutContentInput = {
@@ -909,7 +833,8 @@ export type QualityEvaluationUncheckedUpdateManyWithoutContentInput = {
   aiTaskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   level?: Prisma.EnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel
-  rubricVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  standardVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  dimensions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -921,7 +846,8 @@ export type QualityEvaluationCreateManyContentVersionInput = {
   aiTaskId?: string | null
   totalScore: runtime.Decimal | runtime.DecimalJsLike | number | string
   level: $Enums.QualityLevel
-  rubricVersion: string
+  standardVersion: string
+  dimensions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   summary?: string | null
   improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -931,13 +857,13 @@ export type QualityEvaluationUpdateWithoutContentVersionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   totalScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   level?: Prisma.EnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel
-  rubricVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  standardVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  dimensions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   content?: Prisma.ContentUpdateOneRequiredWithoutQualityEvaluationsNestedInput
   aiTask?: Prisma.AiTaskUpdateOneWithoutQualityEvaluationsNestedInput
-  dimensions?: Prisma.QualityEvaluationDimensionUpdateManyWithoutEvaluationNestedInput
 }
 
 export type QualityEvaluationUncheckedUpdateWithoutContentVersionInput = {
@@ -946,11 +872,11 @@ export type QualityEvaluationUncheckedUpdateWithoutContentVersionInput = {
   aiTaskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   level?: Prisma.EnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel
-  rubricVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  standardVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  dimensions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  dimensions?: Prisma.QualityEvaluationDimensionUncheckedUpdateManyWithoutEvaluationNestedInput
 }
 
 export type QualityEvaluationUncheckedUpdateManyWithoutContentVersionInput = {
@@ -959,7 +885,8 @@ export type QualityEvaluationUncheckedUpdateManyWithoutContentVersionInput = {
   aiTaskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   level?: Prisma.EnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel
-  rubricVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  standardVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  dimensions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -971,7 +898,8 @@ export type QualityEvaluationCreateManyAiTaskInput = {
   contentVersionId: string
   totalScore: runtime.Decimal | runtime.DecimalJsLike | number | string
   level: $Enums.QualityLevel
-  rubricVersion: string
+  standardVersion: string
+  dimensions: Prisma.JsonNullValueInput | runtime.InputJsonValue
   summary?: string | null
   improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -981,13 +909,13 @@ export type QualityEvaluationUpdateWithoutAiTaskInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   totalScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   level?: Prisma.EnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel
-  rubricVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  standardVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  dimensions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   content?: Prisma.ContentUpdateOneRequiredWithoutQualityEvaluationsNestedInput
   contentVersion?: Prisma.ContentVersionUpdateOneRequiredWithoutQualityEvaluationsNestedInput
-  dimensions?: Prisma.QualityEvaluationDimensionUpdateManyWithoutEvaluationNestedInput
 }
 
 export type QualityEvaluationUncheckedUpdateWithoutAiTaskInput = {
@@ -996,11 +924,11 @@ export type QualityEvaluationUncheckedUpdateWithoutAiTaskInput = {
   contentVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   totalScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   level?: Prisma.EnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel
-  rubricVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  standardVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  dimensions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  dimensions?: Prisma.QualityEvaluationDimensionUncheckedUpdateManyWithoutEvaluationNestedInput
 }
 
 export type QualityEvaluationUncheckedUpdateManyWithoutAiTaskInput = {
@@ -1009,41 +937,13 @@ export type QualityEvaluationUncheckedUpdateManyWithoutAiTaskInput = {
   contentVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   totalScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   level?: Prisma.EnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel
-  rubricVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  standardVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  dimensions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   improvements?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-
-/**
- * Count Type QualityEvaluationCountOutputType
- */
-
-export type QualityEvaluationCountOutputType = {
-  dimensions: number
-}
-
-export type QualityEvaluationCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  dimensions?: boolean | QualityEvaluationCountOutputTypeCountDimensionsArgs
-}
-
-/**
- * QualityEvaluationCountOutputType without action
- */
-export type QualityEvaluationCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the QualityEvaluationCountOutputType
-   */
-  select?: Prisma.QualityEvaluationCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * QualityEvaluationCountOutputType without action
- */
-export type QualityEvaluationCountOutputTypeCountDimensionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.QualityEvaluationDimensionWhereInput
-}
 
 
 export type QualityEvaluationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1053,15 +953,14 @@ export type QualityEvaluationSelect<ExtArgs extends runtime.Types.Extensions.Int
   aiTaskId?: boolean
   totalScore?: boolean
   level?: boolean
-  rubricVersion?: boolean
+  standardVersion?: boolean
+  dimensions?: boolean
   summary?: boolean
   improvements?: boolean
   createdAt?: boolean
   content?: boolean | Prisma.ContentDefaultArgs<ExtArgs>
   contentVersion?: boolean | Prisma.ContentVersionDefaultArgs<ExtArgs>
   aiTask?: boolean | Prisma.QualityEvaluation$aiTaskArgs<ExtArgs>
-  dimensions?: boolean | Prisma.QualityEvaluation$dimensionsArgs<ExtArgs>
-  _count?: boolean | Prisma.QualityEvaluationCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["qualityEvaluation"]>
 
 export type QualityEvaluationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1071,7 +970,8 @@ export type QualityEvaluationSelectCreateManyAndReturn<ExtArgs extends runtime.T
   aiTaskId?: boolean
   totalScore?: boolean
   level?: boolean
-  rubricVersion?: boolean
+  standardVersion?: boolean
+  dimensions?: boolean
   summary?: boolean
   improvements?: boolean
   createdAt?: boolean
@@ -1087,7 +987,8 @@ export type QualityEvaluationSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   aiTaskId?: boolean
   totalScore?: boolean
   level?: boolean
-  rubricVersion?: boolean
+  standardVersion?: boolean
+  dimensions?: boolean
   summary?: boolean
   improvements?: boolean
   createdAt?: boolean
@@ -1103,19 +1004,18 @@ export type QualityEvaluationSelectScalar = {
   aiTaskId?: boolean
   totalScore?: boolean
   level?: boolean
-  rubricVersion?: boolean
+  standardVersion?: boolean
+  dimensions?: boolean
   summary?: boolean
   improvements?: boolean
   createdAt?: boolean
 }
 
-export type QualityEvaluationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "contentId" | "contentVersionId" | "aiTaskId" | "totalScore" | "level" | "rubricVersion" | "summary" | "improvements" | "createdAt", ExtArgs["result"]["qualityEvaluation"]>
+export type QualityEvaluationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "contentId" | "contentVersionId" | "aiTaskId" | "totalScore" | "level" | "standardVersion" | "dimensions" | "summary" | "improvements" | "createdAt", ExtArgs["result"]["qualityEvaluation"]>
 export type QualityEvaluationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   content?: boolean | Prisma.ContentDefaultArgs<ExtArgs>
   contentVersion?: boolean | Prisma.ContentVersionDefaultArgs<ExtArgs>
   aiTask?: boolean | Prisma.QualityEvaluation$aiTaskArgs<ExtArgs>
-  dimensions?: boolean | Prisma.QualityEvaluation$dimensionsArgs<ExtArgs>
-  _count?: boolean | Prisma.QualityEvaluationCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type QualityEvaluationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   content?: boolean | Prisma.ContentDefaultArgs<ExtArgs>
@@ -1134,7 +1034,6 @@ export type $QualityEvaluationPayload<ExtArgs extends runtime.Types.Extensions.I
     content: Prisma.$ContentPayload<ExtArgs>
     contentVersion: Prisma.$ContentVersionPayload<ExtArgs>
     aiTask: Prisma.$AiTaskPayload<ExtArgs> | null
-    dimensions: Prisma.$QualityEvaluationDimensionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1143,7 +1042,8 @@ export type $QualityEvaluationPayload<ExtArgs extends runtime.Types.Extensions.I
     aiTaskId: string | null
     totalScore: runtime.Decimal
     level: $Enums.QualityLevel
-    rubricVersion: string
+    standardVersion: string
+    dimensions: runtime.JsonValue
     summary: string | null
     improvements: runtime.JsonValue | null
     createdAt: Date
@@ -1544,7 +1444,6 @@ export interface Prisma__QualityEvaluationClient<T, Null = never, ExtArgs extend
   content<T extends Prisma.ContentDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ContentDefaultArgs<ExtArgs>>): Prisma.Prisma__ContentClient<runtime.Types.Result.GetResult<Prisma.$ContentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   contentVersion<T extends Prisma.ContentVersionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ContentVersionDefaultArgs<ExtArgs>>): Prisma.Prisma__ContentVersionClient<runtime.Types.Result.GetResult<Prisma.$ContentVersionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   aiTask<T extends Prisma.QualityEvaluation$aiTaskArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.QualityEvaluation$aiTaskArgs<ExtArgs>>): Prisma.Prisma__AiTaskClient<runtime.Types.Result.GetResult<Prisma.$AiTaskPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  dimensions<T extends Prisma.QualityEvaluation$dimensionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.QualityEvaluation$dimensionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QualityEvaluationDimensionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1580,7 +1479,8 @@ export interface QualityEvaluationFieldRefs {
   readonly aiTaskId: Prisma.FieldRef<"QualityEvaluation", 'String'>
   readonly totalScore: Prisma.FieldRef<"QualityEvaluation", 'Decimal'>
   readonly level: Prisma.FieldRef<"QualityEvaluation", 'QualityLevel'>
-  readonly rubricVersion: Prisma.FieldRef<"QualityEvaluation", 'String'>
+  readonly standardVersion: Prisma.FieldRef<"QualityEvaluation", 'String'>
+  readonly dimensions: Prisma.FieldRef<"QualityEvaluation", 'Json'>
   readonly summary: Prisma.FieldRef<"QualityEvaluation", 'String'>
   readonly improvements: Prisma.FieldRef<"QualityEvaluation", 'Json'>
   readonly createdAt: Prisma.FieldRef<"QualityEvaluation", 'DateTime'>
@@ -2001,30 +1901,6 @@ export type QualityEvaluation$aiTaskArgs<ExtArgs extends runtime.Types.Extension
    */
   include?: Prisma.AiTaskInclude<ExtArgs> | null
   where?: Prisma.AiTaskWhereInput
-}
-
-/**
- * QualityEvaluation.dimensions
- */
-export type QualityEvaluation$dimensionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the QualityEvaluationDimension
-   */
-  select?: Prisma.QualityEvaluationDimensionSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the QualityEvaluationDimension
-   */
-  omit?: Prisma.QualityEvaluationDimensionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.QualityEvaluationDimensionInclude<ExtArgs> | null
-  where?: Prisma.QualityEvaluationDimensionWhereInput
-  orderBy?: Prisma.QualityEvaluationDimensionOrderByWithRelationInput | Prisma.QualityEvaluationDimensionOrderByWithRelationInput[]
-  cursor?: Prisma.QualityEvaluationDimensionWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.QualityEvaluationDimensionScalarFieldEnum | Prisma.QualityEvaluationDimensionScalarFieldEnum[]
 }
 
 /**

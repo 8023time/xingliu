@@ -23,30 +23,15 @@ export * from './enums.js';
  */
 export type User = Prisma.UserModel
 /**
- * Model UserRole
- * 
- */
-export type UserRole = Prisma.UserRoleModel
-/**
  * Model PromptTemplate
  * 
  */
 export type PromptTemplate = Prisma.PromptTemplateModel
 /**
- * Model PromptTemplateVersion
- * 
- */
-export type PromptTemplateVersion = Prisma.PromptTemplateVersionModel
-/**
  * Model Asset
  * 
  */
 export type Asset = Prisma.AssetModel
-/**
- * Model AssetSafetyCheck
- * 
- */
-export type AssetSafetyCheck = Prisma.AssetSafetyCheckModel
 /**
  * Model Content
  * 
@@ -78,35 +63,10 @@ export type SafetyReview = Prisma.SafetyReviewModel
  */
 export type QualityEvaluation = Prisma.QualityEvaluationModel
 /**
- * Model QualityEvaluationDimension
- * 
- */
-export type QualityEvaluationDimension = Prisma.QualityEvaluationDimensionModel
-/**
  * Model RewriteRecord
  * 
  */
 export type RewriteRecord = Prisma.RewriteRecordModel
-/**
- * Model AuditRuleSet
- * 
- */
-export type AuditRuleSet = Prisma.AuditRuleSetModel
-/**
- * Model AuditRule
- * 
- */
-export type AuditRule = Prisma.AuditRuleModel
-/**
- * Model QualityRubric
- * 
- */
-export type QualityRubric = Prisma.QualityRubricModel
-/**
- * Model QualityRubricDimension
- * 
- */
-export type QualityRubricDimension = Prisma.QualityRubricDimensionModel
 /**
  * Model ContentMetric
  * 
@@ -118,32 +78,12 @@ export type ContentMetric = Prisma.ContentMetricModel
  */
 export type ContentInteraction = Prisma.ContentInteractionModel
 /**
- * Model RankingScore
- * 
- */
-export type RankingScore = Prisma.RankingScoreModel
-/**
  * Model HotTopic
  * 
  */
 export type HotTopic = Prisma.HotTopicModel
 /**
- * Model ContentTopicRelation
- * 
- */
-export type ContentTopicRelation = Prisma.ContentTopicRelationModel
-/**
- * Model DistributionChannel
- * 
- */
-export type DistributionChannel = Prisma.DistributionChannelModel
-/**
  * Model DistributionTask
  * 
  */
 export type DistributionTask = Prisma.DistributionTaskModel
-/**
- * Model ContentOperation
- * 
- */
-export type ContentOperation = Prisma.ContentOperationModel

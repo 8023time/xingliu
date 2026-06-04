@@ -52,31 +52,19 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
-  UserRole: 'UserRole',
   PromptTemplate: 'PromptTemplate',
-  PromptTemplateVersion: 'PromptTemplateVersion',
   Asset: 'Asset',
-  AssetSafetyCheck: 'AssetSafetyCheck',
   Content: 'Content',
   ContentVersion: 'ContentVersion',
   DraftSnapshot: 'DraftSnapshot',
   AiTask: 'AiTask',
   SafetyReview: 'SafetyReview',
   QualityEvaluation: 'QualityEvaluation',
-  QualityEvaluationDimension: 'QualityEvaluationDimension',
   RewriteRecord: 'RewriteRecord',
-  AuditRuleSet: 'AuditRuleSet',
-  AuditRule: 'AuditRule',
-  QualityRubric: 'QualityRubric',
-  QualityRubricDimension: 'QualityRubricDimension',
   ContentMetric: 'ContentMetric',
   ContentInteraction: 'ContentInteraction',
-  RankingScore: 'RankingScore',
   HotTopic: 'HotTopic',
-  ContentTopicRelation: 'ContentTopicRelation',
-  DistributionChannel: 'DistributionChannel',
-  DistributionTask: 'DistributionTask',
-  ContentOperation: 'ContentOperation'
+  DistributionTask: 'DistributionTask'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -111,24 +99,16 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-export const UserRoleScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  role: 'role',
-  createdAt: 'createdAt'
-} as const
-
-export type UserRoleScalarFieldEnum = (typeof UserRoleScalarFieldEnum)[keyof typeof UserRoleScalarFieldEnum]
-
-
 export const PromptTemplateScalarFieldEnum = {
   id: 'id',
   ownerId: 'ownerId',
   name: 'name',
   category: 'category',
   description: 'description',
+  template: 'template',
+  variablesSchema: 'variablesSchema',
+  modelConfig: 'modelConfig',
   visibility: 'visibility',
-  currentVersionId: 'currentVersionId',
   usageCount: 'usageCount',
   status: 'status',
   createdAt: 'createdAt',
@@ -136,21 +116,6 @@ export const PromptTemplateScalarFieldEnum = {
 } as const
 
 export type PromptTemplateScalarFieldEnum = (typeof PromptTemplateScalarFieldEnum)[keyof typeof PromptTemplateScalarFieldEnum]
-
-
-export const PromptTemplateVersionScalarFieldEnum = {
-  id: 'id',
-  promptId: 'promptId',
-  versionNo: 'versionNo',
-  template: 'template',
-  variablesSchema: 'variablesSchema',
-  modelConfig: 'modelConfig',
-  changeSummary: 'changeSummary',
-  createdBy: 'createdBy',
-  createdAt: 'createdAt'
-} as const
-
-export type PromptTemplateVersionScalarFieldEnum = (typeof PromptTemplateVersionScalarFieldEnum)[keyof typeof PromptTemplateVersionScalarFieldEnum]
 
 
 export const AssetScalarFieldEnum = {
@@ -166,27 +131,17 @@ export const AssetScalarFieldEnum = {
   aiDescription: 'aiDescription',
   metadata: 'metadata',
   safetyStatus: 'safetyStatus',
+  safetyRiskLevel: 'safetyRiskLevel',
+  safetyLabels: 'safetyLabels',
+  safetyReason: 'safetyReason',
+  safetyRawOutput: 'safetyRawOutput',
+  safetyCheckedAt: 'safetyCheckedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
 } as const
 
 export type AssetScalarFieldEnum = (typeof AssetScalarFieldEnum)[keyof typeof AssetScalarFieldEnum]
-
-
-export const AssetSafetyCheckScalarFieldEnum = {
-  id: 'id',
-  assetId: 'assetId',
-  decision: 'decision',
-  riskLevel: 'riskLevel',
-  categories: 'categories',
-  aiReason: 'aiReason',
-  rawAiOutput: 'rawAiOutput',
-  modelName: 'modelName',
-  createdAt: 'createdAt'
-} as const
-
-export type AssetSafetyCheckScalarFieldEnum = (typeof AssetSafetyCheckScalarFieldEnum)[keyof typeof AssetSafetyCheckScalarFieldEnum]
 
 
 export const ContentScalarFieldEnum = {
@@ -197,13 +152,12 @@ export const ContentScalarFieldEnum = {
   summary: 'summary',
   coverAssetId: 'coverAssetId',
   currentVersionId: 'currentVersionId',
+  publishedVersionId: 'publishedVersionId',
   status: 'status',
   safetyStatus: 'safetyStatus',
   qualityLevel: 'qualityLevel',
   qualityScore: 'qualityScore',
   safetyScore: 'safetyScore',
-  hotScore: 'hotScore',
-  recommendScore: 'recommendScore',
   publishedAt: 'publishedAt',
   offlineAt: 'offlineAt',
   createdAt: 'createdAt',
@@ -258,7 +212,6 @@ export const AiTaskScalarFieldEnum = {
   contentId: 'contentId',
   assetId: 'assetId',
   promptId: 'promptId',
-  promptVersionId: 'promptVersionId',
   taskType: 'taskType',
   status: 'status',
   modelProvider: 'modelProvider',
@@ -289,9 +242,11 @@ export const SafetyReviewScalarFieldEnum = {
   riskSpans: 'riskSpans',
   ruleHits: 'ruleHits',
   safetyScore: 'safetyScore',
-  aiReason: 'aiReason',
+  reason: 'reason',
   suggestions: 'suggestions',
-  ruleSetVersion: 'ruleSetVersion',
+  provider: 'provider',
+  providerRequestId: 'providerRequestId',
+  rawProviderOutput: 'rawProviderOutput',
   createdAt: 'createdAt'
 } as const
 
@@ -305,26 +260,14 @@ export const QualityEvaluationScalarFieldEnum = {
   aiTaskId: 'aiTaskId',
   totalScore: 'totalScore',
   level: 'level',
-  rubricVersion: 'rubricVersion',
+  standardVersion: 'standardVersion',
+  dimensions: 'dimensions',
   summary: 'summary',
   improvements: 'improvements',
   createdAt: 'createdAt'
 } as const
 
 export type QualityEvaluationScalarFieldEnum = (typeof QualityEvaluationScalarFieldEnum)[keyof typeof QualityEvaluationScalarFieldEnum]
-
-
-export const QualityEvaluationDimensionScalarFieldEnum = {
-  id: 'id',
-  evaluationId: 'evaluationId',
-  dimensionKey: 'dimensionKey',
-  dimensionName: 'dimensionName',
-  score: 'score',
-  weight: 'weight',
-  reason: 'reason'
-} as const
-
-export type QualityEvaluationDimensionScalarFieldEnum = (typeof QualityEvaluationDimensionScalarFieldEnum)[keyof typeof QualityEvaluationDimensionScalarFieldEnum]
 
 
 export const RewriteRecordScalarFieldEnum = {
@@ -334,8 +277,6 @@ export const RewriteRecordScalarFieldEnum = {
   sourceVersionId: 'sourceVersionId',
   rewrittenVersionId: 'rewrittenVersionId',
   aiTaskId: 'aiTaskId',
-  sourceTitle: 'sourceTitle',
-  sourceBody: 'sourceBody',
   rewrittenTitle: 'rewrittenTitle',
   rewrittenBody: 'rewrittenBody',
   changedSpans: 'changedSpans',
@@ -347,70 +288,12 @@ export const RewriteRecordScalarFieldEnum = {
 export type RewriteRecordScalarFieldEnum = (typeof RewriteRecordScalarFieldEnum)[keyof typeof RewriteRecordScalarFieldEnum]
 
 
-export const AuditRuleSetScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  version: 'version',
-  description: 'description',
-  enabled: 'enabled',
-  createdBy: 'createdBy',
-  createdAt: 'createdAt'
-} as const
-
-export type AuditRuleSetScalarFieldEnum = (typeof AuditRuleSetScalarFieldEnum)[keyof typeof AuditRuleSetScalarFieldEnum]
-
-
-export const AuditRuleScalarFieldEnum = {
-  id: 'id',
-  ruleSetId: 'ruleSetId',
-  category: 'category',
-  patternType: 'patternType',
-  pattern: 'pattern',
-  riskLevel: 'riskLevel',
-  action: 'action',
-  description: 'description',
-  enabled: 'enabled',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type AuditRuleScalarFieldEnum = (typeof AuditRuleScalarFieldEnum)[keyof typeof AuditRuleScalarFieldEnum]
-
-
-export const QualityRubricScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  version: 'version',
-  description: 'description',
-  enabled: 'enabled',
-  createdAt: 'createdAt'
-} as const
-
-export type QualityRubricScalarFieldEnum = (typeof QualityRubricScalarFieldEnum)[keyof typeof QualityRubricScalarFieldEnum]
-
-
-export const QualityRubricDimensionScalarFieldEnum = {
-  id: 'id',
-  rubricId: 'rubricId',
-  dimensionKey: 'dimensionKey',
-  dimensionName: 'dimensionName',
-  description: 'description',
-  weight: 'weight',
-  maxScore: 'maxScore',
-  sortOrder: 'sortOrder',
-  enabled: 'enabled'
-} as const
-
-export type QualityRubricDimensionScalarFieldEnum = (typeof QualityRubricDimensionScalarFieldEnum)[keyof typeof QualityRubricDimensionScalarFieldEnum]
-
-
 export const ContentMetricScalarFieldEnum = {
   contentId: 'contentId',
   viewCount: 'viewCount',
   likeCount: 'likeCount',
   shareCount: 'shareCount',
   collectCount: 'collectCount',
-  commentCount: 'commentCount',
   reportCount: 'reportCount',
   updatedAt: 'updatedAt'
 } as const
@@ -431,28 +314,16 @@ export const ContentInteractionScalarFieldEnum = {
 export type ContentInteractionScalarFieldEnum = (typeof ContentInteractionScalarFieldEnum)[keyof typeof ContentInteractionScalarFieldEnum]
 
 
-export const RankingScoreScalarFieldEnum = {
-  id: 'id',
-  contentId: 'contentId',
-  rankingType: 'rankingType',
-  score: 'score',
-  qualityScore: 'qualityScore',
-  hotScore: 'hotScore',
-  freshnessScore: 'freshnessScore',
-  interactionScore: 'interactionScore',
-  calculatedAt: 'calculatedAt'
-} as const
-
-export type RankingScoreScalarFieldEnum = (typeof RankingScoreScalarFieldEnum)[keyof typeof RankingScoreScalarFieldEnum]
-
-
 export const HotTopicScalarFieldEnum = {
   id: 'id',
+  externalId: 'externalId',
   title: 'title',
   source: 'source',
+  sourceName: 'sourceName',
   category: 'category',
   heatScore: 'heatScore',
-  keywords: 'keywords',
+  url: 'url',
+  metadata: 'metadata',
   startedAt: 'startedAt',
   endedAt: 'endedAt',
   status: 'status',
@@ -463,35 +334,13 @@ export const HotTopicScalarFieldEnum = {
 export type HotTopicScalarFieldEnum = (typeof HotTopicScalarFieldEnum)[keyof typeof HotTopicScalarFieldEnum]
 
 
-export const ContentTopicRelationScalarFieldEnum = {
-  id: 'id',
-  contentId: 'contentId',
-  topicId: 'topicId',
-  relationScore: 'relationScore',
-  createdAt: 'createdAt'
-} as const
-
-export type ContentTopicRelationScalarFieldEnum = (typeof ContentTopicRelationScalarFieldEnum)[keyof typeof ContentTopicRelationScalarFieldEnum]
-
-
-export const DistributionChannelScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  channelType: 'channelType',
-  config: 'config',
-  enabled: 'enabled',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type DistributionChannelScalarFieldEnum = (typeof DistributionChannelScalarFieldEnum)[keyof typeof DistributionChannelScalarFieldEnum]
-
-
 export const DistributionTaskScalarFieldEnum = {
   id: 'id',
   contentId: 'contentId',
-  channelId: 'channelId',
+  platform: 'platform',
   status: 'status',
+  requestPayload: 'requestPayload',
+  responsePayload: 'responsePayload',
   externalContentId: 'externalContentId',
   errorMessage: 'errorMessage',
   distributedAt: 'distributedAt',
@@ -502,21 +351,6 @@ export const DistributionTaskScalarFieldEnum = {
 export type DistributionTaskScalarFieldEnum = (typeof DistributionTaskScalarFieldEnum)[keyof typeof DistributionTaskScalarFieldEnum]
 
 
-export const ContentOperationScalarFieldEnum = {
-  id: 'id',
-  contentId: 'contentId',
-  operatorId: 'operatorId',
-  operationType: 'operationType',
-  fromStatus: 'fromStatus',
-  toStatus: 'toStatus',
-  targetVersionId: 'targetVersionId',
-  reason: 'reason',
-  createdAt: 'createdAt'
-} as const
-
-export type ContentOperationScalarFieldEnum = (typeof ContentOperationScalarFieldEnum)[keyof typeof ContentOperationScalarFieldEnum]
-
-
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -525,19 +359,19 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-export const JsonNullValueInput = {
-  JsonNull: JsonNull
-} as const
-
-export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
-
-
 export const NullableJsonNullValueInput = {
   DbNull: DbNull,
   JsonNull: JsonNull
 } as const
 
 export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {

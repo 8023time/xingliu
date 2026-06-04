@@ -31,8 +31,6 @@ export type RewriteRecordMinAggregateOutputType = {
   sourceVersionId: string | null
   rewrittenVersionId: string | null
   aiTaskId: string | null
-  sourceTitle: string | null
-  sourceBody: string | null
   rewrittenTitle: string | null
   rewrittenBody: string | null
   reason: string | null
@@ -47,8 +45,6 @@ export type RewriteRecordMaxAggregateOutputType = {
   sourceVersionId: string | null
   rewrittenVersionId: string | null
   aiTaskId: string | null
-  sourceTitle: string | null
-  sourceBody: string | null
   rewrittenTitle: string | null
   rewrittenBody: string | null
   reason: string | null
@@ -63,8 +59,6 @@ export type RewriteRecordCountAggregateOutputType = {
   sourceVersionId: number
   rewrittenVersionId: number
   aiTaskId: number
-  sourceTitle: number
-  sourceBody: number
   rewrittenTitle: number
   rewrittenBody: number
   changedSpans: number
@@ -82,8 +76,6 @@ export type RewriteRecordMinAggregateInputType = {
   sourceVersionId?: true
   rewrittenVersionId?: true
   aiTaskId?: true
-  sourceTitle?: true
-  sourceBody?: true
   rewrittenTitle?: true
   rewrittenBody?: true
   reason?: true
@@ -98,8 +90,6 @@ export type RewriteRecordMaxAggregateInputType = {
   sourceVersionId?: true
   rewrittenVersionId?: true
   aiTaskId?: true
-  sourceTitle?: true
-  sourceBody?: true
   rewrittenTitle?: true
   rewrittenBody?: true
   reason?: true
@@ -114,8 +104,6 @@ export type RewriteRecordCountAggregateInputType = {
   sourceVersionId?: true
   rewrittenVersionId?: true
   aiTaskId?: true
-  sourceTitle?: true
-  sourceBody?: true
   rewrittenTitle?: true
   rewrittenBody?: true
   changedSpans?: true
@@ -204,8 +192,6 @@ export type RewriteRecordGroupByOutputType = {
   sourceVersionId: string
   rewrittenVersionId: string | null
   aiTaskId: string | null
-  sourceTitle: string
-  sourceBody: string
   rewrittenTitle: string
   rewrittenBody: string
   changedSpans: runtime.JsonValue | null
@@ -242,8 +228,6 @@ export type RewriteRecordWhereInput = {
   sourceVersionId?: Prisma.StringFilter<"RewriteRecord"> | string
   rewrittenVersionId?: Prisma.StringNullableFilter<"RewriteRecord"> | string | null
   aiTaskId?: Prisma.StringNullableFilter<"RewriteRecord"> | string | null
-  sourceTitle?: Prisma.StringFilter<"RewriteRecord"> | string
-  sourceBody?: Prisma.StringFilter<"RewriteRecord"> | string
   rewrittenTitle?: Prisma.StringFilter<"RewriteRecord"> | string
   rewrittenBody?: Prisma.StringFilter<"RewriteRecord"> | string
   changedSpans?: Prisma.JsonNullableFilter<"RewriteRecord">
@@ -264,8 +248,6 @@ export type RewriteRecordOrderByWithRelationInput = {
   sourceVersionId?: Prisma.SortOrder
   rewrittenVersionId?: Prisma.SortOrderInput | Prisma.SortOrder
   aiTaskId?: Prisma.SortOrderInput | Prisma.SortOrder
-  sourceTitle?: Prisma.SortOrder
-  sourceBody?: Prisma.SortOrder
   rewrittenTitle?: Prisma.SortOrder
   rewrittenBody?: Prisma.SortOrder
   changedSpans?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -289,8 +271,6 @@ export type RewriteRecordWhereUniqueInput = Prisma.AtLeast<{
   sourceVersionId?: Prisma.StringFilter<"RewriteRecord"> | string
   rewrittenVersionId?: Prisma.StringNullableFilter<"RewriteRecord"> | string | null
   aiTaskId?: Prisma.StringNullableFilter<"RewriteRecord"> | string | null
-  sourceTitle?: Prisma.StringFilter<"RewriteRecord"> | string
-  sourceBody?: Prisma.StringFilter<"RewriteRecord"> | string
   rewrittenTitle?: Prisma.StringFilter<"RewriteRecord"> | string
   rewrittenBody?: Prisma.StringFilter<"RewriteRecord"> | string
   changedSpans?: Prisma.JsonNullableFilter<"RewriteRecord">
@@ -311,8 +291,6 @@ export type RewriteRecordOrderByWithAggregationInput = {
   sourceVersionId?: Prisma.SortOrder
   rewrittenVersionId?: Prisma.SortOrderInput | Prisma.SortOrder
   aiTaskId?: Prisma.SortOrderInput | Prisma.SortOrder
-  sourceTitle?: Prisma.SortOrder
-  sourceBody?: Prisma.SortOrder
   rewrittenTitle?: Prisma.SortOrder
   rewrittenBody?: Prisma.SortOrder
   changedSpans?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -334,8 +312,6 @@ export type RewriteRecordScalarWhereWithAggregatesInput = {
   sourceVersionId?: Prisma.StringWithAggregatesFilter<"RewriteRecord"> | string
   rewrittenVersionId?: Prisma.StringNullableWithAggregatesFilter<"RewriteRecord"> | string | null
   aiTaskId?: Prisma.StringNullableWithAggregatesFilter<"RewriteRecord"> | string | null
-  sourceTitle?: Prisma.StringWithAggregatesFilter<"RewriteRecord"> | string
-  sourceBody?: Prisma.StringWithAggregatesFilter<"RewriteRecord"> | string
   rewrittenTitle?: Prisma.StringWithAggregatesFilter<"RewriteRecord"> | string
   rewrittenBody?: Prisma.StringWithAggregatesFilter<"RewriteRecord"> | string
   changedSpans?: Prisma.JsonNullableWithAggregatesFilter<"RewriteRecord">
@@ -346,8 +322,6 @@ export type RewriteRecordScalarWhereWithAggregatesInput = {
 
 export type RewriteRecordCreateInput = {
   id?: string
-  sourceTitle: string
-  sourceBody: string
   rewrittenTitle: string
   rewrittenBody: string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -368,8 +342,6 @@ export type RewriteRecordUncheckedCreateInput = {
   sourceVersionId: string
   rewrittenVersionId?: string | null
   aiTaskId?: string | null
-  sourceTitle: string
-  sourceBody: string
   rewrittenTitle: string
   rewrittenBody: string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -380,8 +352,6 @@ export type RewriteRecordUncheckedCreateInput = {
 
 export type RewriteRecordUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  sourceTitle?: Prisma.StringFieldUpdateOperationsInput | string
-  sourceBody?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenTitle?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenBody?: Prisma.StringFieldUpdateOperationsInput | string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -402,8 +372,6 @@ export type RewriteRecordUncheckedUpdateInput = {
   sourceVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiTaskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sourceTitle?: Prisma.StringFieldUpdateOperationsInput | string
-  sourceBody?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenTitle?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenBody?: Prisma.StringFieldUpdateOperationsInput | string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -419,8 +387,6 @@ export type RewriteRecordCreateManyInput = {
   sourceVersionId: string
   rewrittenVersionId?: string | null
   aiTaskId?: string | null
-  sourceTitle: string
-  sourceBody: string
   rewrittenTitle: string
   rewrittenBody: string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -431,8 +397,6 @@ export type RewriteRecordCreateManyInput = {
 
 export type RewriteRecordUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  sourceTitle?: Prisma.StringFieldUpdateOperationsInput | string
-  sourceBody?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenTitle?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenBody?: Prisma.StringFieldUpdateOperationsInput | string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -448,8 +412,6 @@ export type RewriteRecordUncheckedUpdateManyInput = {
   sourceVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiTaskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sourceTitle?: Prisma.StringFieldUpdateOperationsInput | string
-  sourceBody?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenTitle?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenBody?: Prisma.StringFieldUpdateOperationsInput | string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -475,8 +437,6 @@ export type RewriteRecordCountOrderByAggregateInput = {
   sourceVersionId?: Prisma.SortOrder
   rewrittenVersionId?: Prisma.SortOrder
   aiTaskId?: Prisma.SortOrder
-  sourceTitle?: Prisma.SortOrder
-  sourceBody?: Prisma.SortOrder
   rewrittenTitle?: Prisma.SortOrder
   rewrittenBody?: Prisma.SortOrder
   changedSpans?: Prisma.SortOrder
@@ -492,8 +452,6 @@ export type RewriteRecordMaxOrderByAggregateInput = {
   sourceVersionId?: Prisma.SortOrder
   rewrittenVersionId?: Prisma.SortOrder
   aiTaskId?: Prisma.SortOrder
-  sourceTitle?: Prisma.SortOrder
-  sourceBody?: Prisma.SortOrder
   rewrittenTitle?: Prisma.SortOrder
   rewrittenBody?: Prisma.SortOrder
   reason?: Prisma.SortOrder
@@ -508,8 +466,6 @@ export type RewriteRecordMinOrderByAggregateInput = {
   sourceVersionId?: Prisma.SortOrder
   rewrittenVersionId?: Prisma.SortOrder
   aiTaskId?: Prisma.SortOrder
-  sourceTitle?: Prisma.SortOrder
-  sourceBody?: Prisma.SortOrder
   rewrittenTitle?: Prisma.SortOrder
   rewrittenBody?: Prisma.SortOrder
   reason?: Prisma.SortOrder
@@ -733,8 +689,6 @@ export type BoolFieldUpdateOperationsInput = {
 
 export type RewriteRecordCreateWithoutUserInput = {
   id?: string
-  sourceTitle: string
-  sourceBody: string
   rewrittenTitle: string
   rewrittenBody: string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -753,8 +707,6 @@ export type RewriteRecordUncheckedCreateWithoutUserInput = {
   sourceVersionId: string
   rewrittenVersionId?: string | null
   aiTaskId?: string | null
-  sourceTitle: string
-  sourceBody: string
   rewrittenTitle: string
   rewrittenBody: string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -799,8 +751,6 @@ export type RewriteRecordScalarWhereInput = {
   sourceVersionId?: Prisma.StringFilter<"RewriteRecord"> | string
   rewrittenVersionId?: Prisma.StringNullableFilter<"RewriteRecord"> | string | null
   aiTaskId?: Prisma.StringNullableFilter<"RewriteRecord"> | string | null
-  sourceTitle?: Prisma.StringFilter<"RewriteRecord"> | string
-  sourceBody?: Prisma.StringFilter<"RewriteRecord"> | string
   rewrittenTitle?: Prisma.StringFilter<"RewriteRecord"> | string
   rewrittenBody?: Prisma.StringFilter<"RewriteRecord"> | string
   changedSpans?: Prisma.JsonNullableFilter<"RewriteRecord">
@@ -811,8 +761,6 @@ export type RewriteRecordScalarWhereInput = {
 
 export type RewriteRecordCreateWithoutContentInput = {
   id?: string
-  sourceTitle: string
-  sourceBody: string
   rewrittenTitle: string
   rewrittenBody: string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -831,8 +779,6 @@ export type RewriteRecordUncheckedCreateWithoutContentInput = {
   sourceVersionId: string
   rewrittenVersionId?: string | null
   aiTaskId?: string | null
-  sourceTitle: string
-  sourceBody: string
   rewrittenTitle: string
   rewrittenBody: string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -869,8 +815,6 @@ export type RewriteRecordUpdateManyWithWhereWithoutContentInput = {
 
 export type RewriteRecordCreateWithoutSourceVersionInput = {
   id?: string
-  sourceTitle: string
-  sourceBody: string
   rewrittenTitle: string
   rewrittenBody: string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -889,8 +833,6 @@ export type RewriteRecordUncheckedCreateWithoutSourceVersionInput = {
   userId?: string | null
   rewrittenVersionId?: string | null
   aiTaskId?: string | null
-  sourceTitle: string
-  sourceBody: string
   rewrittenTitle: string
   rewrittenBody: string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -911,8 +853,6 @@ export type RewriteRecordCreateManySourceVersionInputEnvelope = {
 
 export type RewriteRecordCreateWithoutRewrittenVersionInput = {
   id?: string
-  sourceTitle: string
-  sourceBody: string
   rewrittenTitle: string
   rewrittenBody: string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -931,8 +871,6 @@ export type RewriteRecordUncheckedCreateWithoutRewrittenVersionInput = {
   userId?: string | null
   sourceVersionId: string
   aiTaskId?: string | null
-  sourceTitle: string
-  sourceBody: string
   rewrittenTitle: string
   rewrittenBody: string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -985,8 +923,6 @@ export type RewriteRecordUpdateManyWithWhereWithoutRewrittenVersionInput = {
 
 export type RewriteRecordCreateWithoutAiTaskInput = {
   id?: string
-  sourceTitle: string
-  sourceBody: string
   rewrittenTitle: string
   rewrittenBody: string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1005,8 +941,6 @@ export type RewriteRecordUncheckedCreateWithoutAiTaskInput = {
   userId?: string | null
   sourceVersionId: string
   rewrittenVersionId?: string | null
-  sourceTitle: string
-  sourceBody: string
   rewrittenTitle: string
   rewrittenBody: string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1047,8 +981,6 @@ export type RewriteRecordCreateManyUserInput = {
   sourceVersionId: string
   rewrittenVersionId?: string | null
   aiTaskId?: string | null
-  sourceTitle: string
-  sourceBody: string
   rewrittenTitle: string
   rewrittenBody: string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1059,8 +991,6 @@ export type RewriteRecordCreateManyUserInput = {
 
 export type RewriteRecordUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  sourceTitle?: Prisma.StringFieldUpdateOperationsInput | string
-  sourceBody?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenTitle?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenBody?: Prisma.StringFieldUpdateOperationsInput | string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1079,8 +1009,6 @@ export type RewriteRecordUncheckedUpdateWithoutUserInput = {
   sourceVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiTaskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sourceTitle?: Prisma.StringFieldUpdateOperationsInput | string
-  sourceBody?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenTitle?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenBody?: Prisma.StringFieldUpdateOperationsInput | string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1095,8 +1023,6 @@ export type RewriteRecordUncheckedUpdateManyWithoutUserInput = {
   sourceVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiTaskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sourceTitle?: Prisma.StringFieldUpdateOperationsInput | string
-  sourceBody?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenTitle?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenBody?: Prisma.StringFieldUpdateOperationsInput | string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1111,8 +1037,6 @@ export type RewriteRecordCreateManyContentInput = {
   sourceVersionId: string
   rewrittenVersionId?: string | null
   aiTaskId?: string | null
-  sourceTitle: string
-  sourceBody: string
   rewrittenTitle: string
   rewrittenBody: string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1123,8 +1047,6 @@ export type RewriteRecordCreateManyContentInput = {
 
 export type RewriteRecordUpdateWithoutContentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  sourceTitle?: Prisma.StringFieldUpdateOperationsInput | string
-  sourceBody?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenTitle?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenBody?: Prisma.StringFieldUpdateOperationsInput | string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1143,8 +1065,6 @@ export type RewriteRecordUncheckedUpdateWithoutContentInput = {
   sourceVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiTaskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sourceTitle?: Prisma.StringFieldUpdateOperationsInput | string
-  sourceBody?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenTitle?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenBody?: Prisma.StringFieldUpdateOperationsInput | string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1159,8 +1079,6 @@ export type RewriteRecordUncheckedUpdateManyWithoutContentInput = {
   sourceVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiTaskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sourceTitle?: Prisma.StringFieldUpdateOperationsInput | string
-  sourceBody?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenTitle?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenBody?: Prisma.StringFieldUpdateOperationsInput | string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1175,8 +1093,6 @@ export type RewriteRecordCreateManySourceVersionInput = {
   userId?: string | null
   rewrittenVersionId?: string | null
   aiTaskId?: string | null
-  sourceTitle: string
-  sourceBody: string
   rewrittenTitle: string
   rewrittenBody: string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1191,8 +1107,6 @@ export type RewriteRecordCreateManyRewrittenVersionInput = {
   userId?: string | null
   sourceVersionId: string
   aiTaskId?: string | null
-  sourceTitle: string
-  sourceBody: string
   rewrittenTitle: string
   rewrittenBody: string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1203,8 +1117,6 @@ export type RewriteRecordCreateManyRewrittenVersionInput = {
 
 export type RewriteRecordUpdateWithoutSourceVersionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  sourceTitle?: Prisma.StringFieldUpdateOperationsInput | string
-  sourceBody?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenTitle?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenBody?: Prisma.StringFieldUpdateOperationsInput | string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1223,8 +1135,6 @@ export type RewriteRecordUncheckedUpdateWithoutSourceVersionInput = {
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rewrittenVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiTaskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sourceTitle?: Prisma.StringFieldUpdateOperationsInput | string
-  sourceBody?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenTitle?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenBody?: Prisma.StringFieldUpdateOperationsInput | string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1239,8 +1149,6 @@ export type RewriteRecordUncheckedUpdateManyWithoutSourceVersionInput = {
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rewrittenVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiTaskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sourceTitle?: Prisma.StringFieldUpdateOperationsInput | string
-  sourceBody?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenTitle?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenBody?: Prisma.StringFieldUpdateOperationsInput | string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1251,8 +1159,6 @@ export type RewriteRecordUncheckedUpdateManyWithoutSourceVersionInput = {
 
 export type RewriteRecordUpdateWithoutRewrittenVersionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  sourceTitle?: Prisma.StringFieldUpdateOperationsInput | string
-  sourceBody?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenTitle?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenBody?: Prisma.StringFieldUpdateOperationsInput | string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1271,8 +1177,6 @@ export type RewriteRecordUncheckedUpdateWithoutRewrittenVersionInput = {
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   aiTaskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sourceTitle?: Prisma.StringFieldUpdateOperationsInput | string
-  sourceBody?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenTitle?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenBody?: Prisma.StringFieldUpdateOperationsInput | string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1287,8 +1191,6 @@ export type RewriteRecordUncheckedUpdateManyWithoutRewrittenVersionInput = {
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   aiTaskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sourceTitle?: Prisma.StringFieldUpdateOperationsInput | string
-  sourceBody?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenTitle?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenBody?: Prisma.StringFieldUpdateOperationsInput | string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1303,8 +1205,6 @@ export type RewriteRecordCreateManyAiTaskInput = {
   userId?: string | null
   sourceVersionId: string
   rewrittenVersionId?: string | null
-  sourceTitle: string
-  sourceBody: string
   rewrittenTitle: string
   rewrittenBody: string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1315,8 +1215,6 @@ export type RewriteRecordCreateManyAiTaskInput = {
 
 export type RewriteRecordUpdateWithoutAiTaskInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  sourceTitle?: Prisma.StringFieldUpdateOperationsInput | string
-  sourceBody?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenTitle?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenBody?: Prisma.StringFieldUpdateOperationsInput | string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1335,8 +1233,6 @@ export type RewriteRecordUncheckedUpdateWithoutAiTaskInput = {
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sourceTitle?: Prisma.StringFieldUpdateOperationsInput | string
-  sourceBody?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenTitle?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenBody?: Prisma.StringFieldUpdateOperationsInput | string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1351,8 +1247,6 @@ export type RewriteRecordUncheckedUpdateManyWithoutAiTaskInput = {
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceVersionId?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sourceTitle?: Prisma.StringFieldUpdateOperationsInput | string
-  sourceBody?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenTitle?: Prisma.StringFieldUpdateOperationsInput | string
   rewrittenBody?: Prisma.StringFieldUpdateOperationsInput | string
   changedSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1370,8 +1264,6 @@ export type RewriteRecordSelect<ExtArgs extends runtime.Types.Extensions.Interna
   sourceVersionId?: boolean
   rewrittenVersionId?: boolean
   aiTaskId?: boolean
-  sourceTitle?: boolean
-  sourceBody?: boolean
   rewrittenTitle?: boolean
   rewrittenBody?: boolean
   changedSpans?: boolean
@@ -1392,8 +1284,6 @@ export type RewriteRecordSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   sourceVersionId?: boolean
   rewrittenVersionId?: boolean
   aiTaskId?: boolean
-  sourceTitle?: boolean
-  sourceBody?: boolean
   rewrittenTitle?: boolean
   rewrittenBody?: boolean
   changedSpans?: boolean
@@ -1414,8 +1304,6 @@ export type RewriteRecordSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   sourceVersionId?: boolean
   rewrittenVersionId?: boolean
   aiTaskId?: boolean
-  sourceTitle?: boolean
-  sourceBody?: boolean
   rewrittenTitle?: boolean
   rewrittenBody?: boolean
   changedSpans?: boolean
@@ -1436,8 +1324,6 @@ export type RewriteRecordSelectScalar = {
   sourceVersionId?: boolean
   rewrittenVersionId?: boolean
   aiTaskId?: boolean
-  sourceTitle?: boolean
-  sourceBody?: boolean
   rewrittenTitle?: boolean
   rewrittenBody?: boolean
   changedSpans?: boolean
@@ -1446,7 +1332,7 @@ export type RewriteRecordSelectScalar = {
   createdAt?: boolean
 }
 
-export type RewriteRecordOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "contentId" | "userId" | "sourceVersionId" | "rewrittenVersionId" | "aiTaskId" | "sourceTitle" | "sourceBody" | "rewrittenTitle" | "rewrittenBody" | "changedSpans" | "reason" | "accepted" | "createdAt", ExtArgs["result"]["rewriteRecord"]>
+export type RewriteRecordOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "contentId" | "userId" | "sourceVersionId" | "rewrittenVersionId" | "aiTaskId" | "rewrittenTitle" | "rewrittenBody" | "changedSpans" | "reason" | "accepted" | "createdAt", ExtArgs["result"]["rewriteRecord"]>
 export type RewriteRecordInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   content?: boolean | Prisma.ContentDefaultArgs<ExtArgs>
   user?: boolean | Prisma.RewriteRecord$userArgs<ExtArgs>
@@ -1485,8 +1371,6 @@ export type $RewriteRecordPayload<ExtArgs extends runtime.Types.Extensions.Inter
     sourceVersionId: string
     rewrittenVersionId: string | null
     aiTaskId: string | null
-    sourceTitle: string
-    sourceBody: string
     rewrittenTitle: string
     rewrittenBody: string
     changedSpans: runtime.JsonValue | null
@@ -1927,8 +1811,6 @@ export interface RewriteRecordFieldRefs {
   readonly sourceVersionId: Prisma.FieldRef<"RewriteRecord", 'String'>
   readonly rewrittenVersionId: Prisma.FieldRef<"RewriteRecord", 'String'>
   readonly aiTaskId: Prisma.FieldRef<"RewriteRecord", 'String'>
-  readonly sourceTitle: Prisma.FieldRef<"RewriteRecord", 'String'>
-  readonly sourceBody: Prisma.FieldRef<"RewriteRecord", 'String'>
   readonly rewrittenTitle: Prisma.FieldRef<"RewriteRecord", 'String'>
   readonly rewrittenBody: Prisma.FieldRef<"RewriteRecord", 'String'>
   readonly changedSpans: Prisma.FieldRef<"RewriteRecord", 'Json'>

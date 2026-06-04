@@ -40,8 +40,8 @@ export type PromptTemplateMinAggregateOutputType = {
   name: string | null
   category: string | null
   description: string | null
+  template: string | null
   visibility: $Enums.Visibility | null
-  currentVersionId: string | null
   usageCount: number | null
   status: $Enums.CommonStatus | null
   createdAt: Date | null
@@ -54,8 +54,8 @@ export type PromptTemplateMaxAggregateOutputType = {
   name: string | null
   category: string | null
   description: string | null
+  template: string | null
   visibility: $Enums.Visibility | null
-  currentVersionId: string | null
   usageCount: number | null
   status: $Enums.CommonStatus | null
   createdAt: Date | null
@@ -68,8 +68,10 @@ export type PromptTemplateCountAggregateOutputType = {
   name: number
   category: number
   description: number
+  template: number
+  variablesSchema: number
+  modelConfig: number
   visibility: number
-  currentVersionId: number
   usageCount: number
   status: number
   createdAt: number
@@ -92,8 +94,8 @@ export type PromptTemplateMinAggregateInputType = {
   name?: true
   category?: true
   description?: true
+  template?: true
   visibility?: true
-  currentVersionId?: true
   usageCount?: true
   status?: true
   createdAt?: true
@@ -106,8 +108,8 @@ export type PromptTemplateMaxAggregateInputType = {
   name?: true
   category?: true
   description?: true
+  template?: true
   visibility?: true
-  currentVersionId?: true
   usageCount?: true
   status?: true
   createdAt?: true
@@ -120,8 +122,10 @@ export type PromptTemplateCountAggregateInputType = {
   name?: true
   category?: true
   description?: true
+  template?: true
+  variablesSchema?: true
+  modelConfig?: true
   visibility?: true
-  currentVersionId?: true
   usageCount?: true
   status?: true
   createdAt?: true
@@ -221,8 +225,10 @@ export type PromptTemplateGroupByOutputType = {
   name: string
   category: string
   description: string | null
+  template: string
+  variablesSchema: runtime.JsonValue | null
+  modelConfig: runtime.JsonValue | null
   visibility: $Enums.Visibility
-  currentVersionId: string | null
   usageCount: number
   status: $Enums.CommonStatus
   createdAt: Date
@@ -258,15 +264,15 @@ export type PromptTemplateWhereInput = {
   name?: Prisma.StringFilter<"PromptTemplate"> | string
   category?: Prisma.StringFilter<"PromptTemplate"> | string
   description?: Prisma.StringNullableFilter<"PromptTemplate"> | string | null
+  template?: Prisma.StringFilter<"PromptTemplate"> | string
+  variablesSchema?: Prisma.JsonNullableFilter<"PromptTemplate">
+  modelConfig?: Prisma.JsonNullableFilter<"PromptTemplate">
   visibility?: Prisma.EnumVisibilityFilter<"PromptTemplate"> | $Enums.Visibility
-  currentVersionId?: Prisma.StringNullableFilter<"PromptTemplate"> | string | null
   usageCount?: Prisma.IntFilter<"PromptTemplate"> | number
   status?: Prisma.EnumCommonStatusFilter<"PromptTemplate"> | $Enums.CommonStatus
   createdAt?: Prisma.DateTimeFilter<"PromptTemplate"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PromptTemplate"> | Date | string
   owner?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
-  versions?: Prisma.PromptTemplateVersionListRelationFilter
-  currentVersion?: Prisma.XOR<Prisma.PromptTemplateVersionNullableScalarRelationFilter, Prisma.PromptTemplateVersionWhereInput> | null
   aiTasks?: Prisma.AiTaskListRelationFilter
 }
 
@@ -276,21 +282,20 @@ export type PromptTemplateOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   category?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  template?: Prisma.SortOrder
+  variablesSchema?: Prisma.SortOrderInput | Prisma.SortOrder
+  modelConfig?: Prisma.SortOrderInput | Prisma.SortOrder
   visibility?: Prisma.SortOrder
-  currentVersionId?: Prisma.SortOrderInput | Prisma.SortOrder
   usageCount?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   owner?: Prisma.UserOrderByWithRelationInput
-  versions?: Prisma.PromptTemplateVersionOrderByRelationAggregateInput
-  currentVersion?: Prisma.PromptTemplateVersionOrderByWithRelationInput
   aiTasks?: Prisma.AiTaskOrderByRelationAggregateInput
 }
 
 export type PromptTemplateWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  currentVersionId?: string
   AND?: Prisma.PromptTemplateWhereInput | Prisma.PromptTemplateWhereInput[]
   OR?: Prisma.PromptTemplateWhereInput[]
   NOT?: Prisma.PromptTemplateWhereInput | Prisma.PromptTemplateWhereInput[]
@@ -298,16 +303,17 @@ export type PromptTemplateWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"PromptTemplate"> | string
   category?: Prisma.StringFilter<"PromptTemplate"> | string
   description?: Prisma.StringNullableFilter<"PromptTemplate"> | string | null
+  template?: Prisma.StringFilter<"PromptTemplate"> | string
+  variablesSchema?: Prisma.JsonNullableFilter<"PromptTemplate">
+  modelConfig?: Prisma.JsonNullableFilter<"PromptTemplate">
   visibility?: Prisma.EnumVisibilityFilter<"PromptTemplate"> | $Enums.Visibility
   usageCount?: Prisma.IntFilter<"PromptTemplate"> | number
   status?: Prisma.EnumCommonStatusFilter<"PromptTemplate"> | $Enums.CommonStatus
   createdAt?: Prisma.DateTimeFilter<"PromptTemplate"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PromptTemplate"> | Date | string
   owner?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
-  versions?: Prisma.PromptTemplateVersionListRelationFilter
-  currentVersion?: Prisma.XOR<Prisma.PromptTemplateVersionNullableScalarRelationFilter, Prisma.PromptTemplateVersionWhereInput> | null
   aiTasks?: Prisma.AiTaskListRelationFilter
-}, "id" | "currentVersionId">
+}, "id">
 
 export type PromptTemplateOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -315,8 +321,10 @@ export type PromptTemplateOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   category?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  template?: Prisma.SortOrder
+  variablesSchema?: Prisma.SortOrderInput | Prisma.SortOrder
+  modelConfig?: Prisma.SortOrderInput | Prisma.SortOrder
   visibility?: Prisma.SortOrder
-  currentVersionId?: Prisma.SortOrderInput | Prisma.SortOrder
   usageCount?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -337,8 +345,10 @@ export type PromptTemplateScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"PromptTemplate"> | string
   category?: Prisma.StringWithAggregatesFilter<"PromptTemplate"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"PromptTemplate"> | string | null
+  template?: Prisma.StringWithAggregatesFilter<"PromptTemplate"> | string
+  variablesSchema?: Prisma.JsonNullableWithAggregatesFilter<"PromptTemplate">
+  modelConfig?: Prisma.JsonNullableWithAggregatesFilter<"PromptTemplate">
   visibility?: Prisma.EnumVisibilityWithAggregatesFilter<"PromptTemplate"> | $Enums.Visibility
-  currentVersionId?: Prisma.StringNullableWithAggregatesFilter<"PromptTemplate"> | string | null
   usageCount?: Prisma.IntWithAggregatesFilter<"PromptTemplate"> | number
   status?: Prisma.EnumCommonStatusWithAggregatesFilter<"PromptTemplate"> | $Enums.CommonStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"PromptTemplate"> | Date | string
@@ -350,14 +360,15 @@ export type PromptTemplateCreateInput = {
   name: string
   category: string
   description?: string | null
+  template: string
+  variablesSchema?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  modelConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   visibility?: $Enums.Visibility
   usageCount?: number
   status?: $Enums.CommonStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   owner?: Prisma.UserCreateNestedOneWithoutPromptTemplatesInput
-  versions?: Prisma.PromptTemplateVersionCreateNestedManyWithoutPromptInput
-  currentVersion?: Prisma.PromptTemplateVersionCreateNestedOneWithoutCurrentForPromptInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutPromptInput
 }
 
@@ -367,13 +378,14 @@ export type PromptTemplateUncheckedCreateInput = {
   name: string
   category: string
   description?: string | null
+  template: string
+  variablesSchema?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  modelConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   visibility?: $Enums.Visibility
-  currentVersionId?: string | null
   usageCount?: number
   status?: $Enums.CommonStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  versions?: Prisma.PromptTemplateVersionUncheckedCreateNestedManyWithoutPromptInput
   aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutPromptInput
 }
 
@@ -382,14 +394,15 @@ export type PromptTemplateUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  template?: Prisma.StringFieldUpdateOperationsInput | string
+  variablesSchema?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  modelConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   usageCount?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneWithoutPromptTemplatesNestedInput
-  versions?: Prisma.PromptTemplateVersionUpdateManyWithoutPromptNestedInput
-  currentVersion?: Prisma.PromptTemplateVersionUpdateOneWithoutCurrentForPromptNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutPromptNestedInput
 }
 
@@ -399,13 +412,14 @@ export type PromptTemplateUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  template?: Prisma.StringFieldUpdateOperationsInput | string
+  variablesSchema?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  modelConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   usageCount?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  versions?: Prisma.PromptTemplateVersionUncheckedUpdateManyWithoutPromptNestedInput
   aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutPromptNestedInput
 }
 
@@ -415,8 +429,10 @@ export type PromptTemplateCreateManyInput = {
   name: string
   category: string
   description?: string | null
+  template: string
+  variablesSchema?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  modelConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   visibility?: $Enums.Visibility
-  currentVersionId?: string | null
   usageCount?: number
   status?: $Enums.CommonStatus
   createdAt?: Date | string
@@ -428,6 +444,9 @@ export type PromptTemplateUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  template?: Prisma.StringFieldUpdateOperationsInput | string
+  variablesSchema?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  modelConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   usageCount?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
@@ -441,8 +460,10 @@ export type PromptTemplateUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  template?: Prisma.StringFieldUpdateOperationsInput | string
+  variablesSchema?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  modelConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   usageCount?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -465,8 +486,10 @@ export type PromptTemplateCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   category?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  template?: Prisma.SortOrder
+  variablesSchema?: Prisma.SortOrder
+  modelConfig?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
-  currentVersionId?: Prisma.SortOrder
   usageCount?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -483,8 +506,8 @@ export type PromptTemplateMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   category?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  template?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
-  currentVersionId?: Prisma.SortOrder
   usageCount?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -497,8 +520,8 @@ export type PromptTemplateMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   category?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  template?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
-  currentVersionId?: Prisma.SortOrder
   usageCount?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -507,11 +530,6 @@ export type PromptTemplateMinOrderByAggregateInput = {
 
 export type PromptTemplateSumOrderByAggregateInput = {
   usageCount?: Prisma.SortOrder
-}
-
-export type PromptTemplateScalarRelationFilter = {
-  is?: Prisma.PromptTemplateWhereInput
-  isNot?: Prisma.PromptTemplateWhereInput
 }
 
 export type PromptTemplateNullableScalarRelationFilter = {
@@ -569,52 +587,6 @@ export type EnumCommonStatusFieldUpdateOperationsInput = {
   set?: $Enums.CommonStatus
 }
 
-export type PromptTemplateCreateNestedOneWithoutVersionsInput = {
-  create?: Prisma.XOR<Prisma.PromptTemplateCreateWithoutVersionsInput, Prisma.PromptTemplateUncheckedCreateWithoutVersionsInput>
-  connectOrCreate?: Prisma.PromptTemplateCreateOrConnectWithoutVersionsInput
-  connect?: Prisma.PromptTemplateWhereUniqueInput
-}
-
-export type PromptTemplateCreateNestedOneWithoutCurrentVersionInput = {
-  create?: Prisma.XOR<Prisma.PromptTemplateCreateWithoutCurrentVersionInput, Prisma.PromptTemplateUncheckedCreateWithoutCurrentVersionInput>
-  connectOrCreate?: Prisma.PromptTemplateCreateOrConnectWithoutCurrentVersionInput
-  connect?: Prisma.PromptTemplateWhereUniqueInput
-}
-
-export type PromptTemplateUncheckedCreateNestedOneWithoutCurrentVersionInput = {
-  create?: Prisma.XOR<Prisma.PromptTemplateCreateWithoutCurrentVersionInput, Prisma.PromptTemplateUncheckedCreateWithoutCurrentVersionInput>
-  connectOrCreate?: Prisma.PromptTemplateCreateOrConnectWithoutCurrentVersionInput
-  connect?: Prisma.PromptTemplateWhereUniqueInput
-}
-
-export type PromptTemplateUpdateOneRequiredWithoutVersionsNestedInput = {
-  create?: Prisma.XOR<Prisma.PromptTemplateCreateWithoutVersionsInput, Prisma.PromptTemplateUncheckedCreateWithoutVersionsInput>
-  connectOrCreate?: Prisma.PromptTemplateCreateOrConnectWithoutVersionsInput
-  upsert?: Prisma.PromptTemplateUpsertWithoutVersionsInput
-  connect?: Prisma.PromptTemplateWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.PromptTemplateUpdateToOneWithWhereWithoutVersionsInput, Prisma.PromptTemplateUpdateWithoutVersionsInput>, Prisma.PromptTemplateUncheckedUpdateWithoutVersionsInput>
-}
-
-export type PromptTemplateUpdateOneWithoutCurrentVersionNestedInput = {
-  create?: Prisma.XOR<Prisma.PromptTemplateCreateWithoutCurrentVersionInput, Prisma.PromptTemplateUncheckedCreateWithoutCurrentVersionInput>
-  connectOrCreate?: Prisma.PromptTemplateCreateOrConnectWithoutCurrentVersionInput
-  upsert?: Prisma.PromptTemplateUpsertWithoutCurrentVersionInput
-  disconnect?: Prisma.PromptTemplateWhereInput | boolean
-  delete?: Prisma.PromptTemplateWhereInput | boolean
-  connect?: Prisma.PromptTemplateWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.PromptTemplateUpdateToOneWithWhereWithoutCurrentVersionInput, Prisma.PromptTemplateUpdateWithoutCurrentVersionInput>, Prisma.PromptTemplateUncheckedUpdateWithoutCurrentVersionInput>
-}
-
-export type PromptTemplateUncheckedUpdateOneWithoutCurrentVersionNestedInput = {
-  create?: Prisma.XOR<Prisma.PromptTemplateCreateWithoutCurrentVersionInput, Prisma.PromptTemplateUncheckedCreateWithoutCurrentVersionInput>
-  connectOrCreate?: Prisma.PromptTemplateCreateOrConnectWithoutCurrentVersionInput
-  upsert?: Prisma.PromptTemplateUpsertWithoutCurrentVersionInput
-  disconnect?: Prisma.PromptTemplateWhereInput | boolean
-  delete?: Prisma.PromptTemplateWhereInput | boolean
-  connect?: Prisma.PromptTemplateWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.PromptTemplateUpdateToOneWithWhereWithoutCurrentVersionInput, Prisma.PromptTemplateUpdateWithoutCurrentVersionInput>, Prisma.PromptTemplateUncheckedUpdateWithoutCurrentVersionInput>
-}
-
 export type PromptTemplateCreateNestedOneWithoutAiTasksInput = {
   create?: Prisma.XOR<Prisma.PromptTemplateCreateWithoutAiTasksInput, Prisma.PromptTemplateUncheckedCreateWithoutAiTasksInput>
   connectOrCreate?: Prisma.PromptTemplateCreateOrConnectWithoutAiTasksInput
@@ -636,13 +608,14 @@ export type PromptTemplateCreateWithoutOwnerInput = {
   name: string
   category: string
   description?: string | null
+  template: string
+  variablesSchema?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  modelConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   visibility?: $Enums.Visibility
   usageCount?: number
   status?: $Enums.CommonStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  versions?: Prisma.PromptTemplateVersionCreateNestedManyWithoutPromptInput
-  currentVersion?: Prisma.PromptTemplateVersionCreateNestedOneWithoutCurrentForPromptInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutPromptInput
 }
 
@@ -651,13 +624,14 @@ export type PromptTemplateUncheckedCreateWithoutOwnerInput = {
   name: string
   category: string
   description?: string | null
+  template: string
+  variablesSchema?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  modelConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   visibility?: $Enums.Visibility
-  currentVersionId?: string | null
   usageCount?: number
   status?: $Enums.CommonStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  versions?: Prisma.PromptTemplateVersionUncheckedCreateNestedManyWithoutPromptInput
   aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutPromptInput
 }
 
@@ -696,164 +670,14 @@ export type PromptTemplateScalarWhereInput = {
   name?: Prisma.StringFilter<"PromptTemplate"> | string
   category?: Prisma.StringFilter<"PromptTemplate"> | string
   description?: Prisma.StringNullableFilter<"PromptTemplate"> | string | null
+  template?: Prisma.StringFilter<"PromptTemplate"> | string
+  variablesSchema?: Prisma.JsonNullableFilter<"PromptTemplate">
+  modelConfig?: Prisma.JsonNullableFilter<"PromptTemplate">
   visibility?: Prisma.EnumVisibilityFilter<"PromptTemplate"> | $Enums.Visibility
-  currentVersionId?: Prisma.StringNullableFilter<"PromptTemplate"> | string | null
   usageCount?: Prisma.IntFilter<"PromptTemplate"> | number
   status?: Prisma.EnumCommonStatusFilter<"PromptTemplate"> | $Enums.CommonStatus
   createdAt?: Prisma.DateTimeFilter<"PromptTemplate"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PromptTemplate"> | Date | string
-}
-
-export type PromptTemplateCreateWithoutVersionsInput = {
-  id?: string
-  name: string
-  category: string
-  description?: string | null
-  visibility?: $Enums.Visibility
-  usageCount?: number
-  status?: $Enums.CommonStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  owner?: Prisma.UserCreateNestedOneWithoutPromptTemplatesInput
-  currentVersion?: Prisma.PromptTemplateVersionCreateNestedOneWithoutCurrentForPromptInput
-  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutPromptInput
-}
-
-export type PromptTemplateUncheckedCreateWithoutVersionsInput = {
-  id?: string
-  ownerId?: string | null
-  name: string
-  category: string
-  description?: string | null
-  visibility?: $Enums.Visibility
-  currentVersionId?: string | null
-  usageCount?: number
-  status?: $Enums.CommonStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutPromptInput
-}
-
-export type PromptTemplateCreateOrConnectWithoutVersionsInput = {
-  where: Prisma.PromptTemplateWhereUniqueInput
-  create: Prisma.XOR<Prisma.PromptTemplateCreateWithoutVersionsInput, Prisma.PromptTemplateUncheckedCreateWithoutVersionsInput>
-}
-
-export type PromptTemplateCreateWithoutCurrentVersionInput = {
-  id?: string
-  name: string
-  category: string
-  description?: string | null
-  visibility?: $Enums.Visibility
-  usageCount?: number
-  status?: $Enums.CommonStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  owner?: Prisma.UserCreateNestedOneWithoutPromptTemplatesInput
-  versions?: Prisma.PromptTemplateVersionCreateNestedManyWithoutPromptInput
-  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutPromptInput
-}
-
-export type PromptTemplateUncheckedCreateWithoutCurrentVersionInput = {
-  id?: string
-  ownerId?: string | null
-  name: string
-  category: string
-  description?: string | null
-  visibility?: $Enums.Visibility
-  usageCount?: number
-  status?: $Enums.CommonStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  versions?: Prisma.PromptTemplateVersionUncheckedCreateNestedManyWithoutPromptInput
-  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutPromptInput
-}
-
-export type PromptTemplateCreateOrConnectWithoutCurrentVersionInput = {
-  where: Prisma.PromptTemplateWhereUniqueInput
-  create: Prisma.XOR<Prisma.PromptTemplateCreateWithoutCurrentVersionInput, Prisma.PromptTemplateUncheckedCreateWithoutCurrentVersionInput>
-}
-
-export type PromptTemplateUpsertWithoutVersionsInput = {
-  update: Prisma.XOR<Prisma.PromptTemplateUpdateWithoutVersionsInput, Prisma.PromptTemplateUncheckedUpdateWithoutVersionsInput>
-  create: Prisma.XOR<Prisma.PromptTemplateCreateWithoutVersionsInput, Prisma.PromptTemplateUncheckedCreateWithoutVersionsInput>
-  where?: Prisma.PromptTemplateWhereInput
-}
-
-export type PromptTemplateUpdateToOneWithWhereWithoutVersionsInput = {
-  where?: Prisma.PromptTemplateWhereInput
-  data: Prisma.XOR<Prisma.PromptTemplateUpdateWithoutVersionsInput, Prisma.PromptTemplateUncheckedUpdateWithoutVersionsInput>
-}
-
-export type PromptTemplateUpdateWithoutVersionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  category?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  usageCount?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  owner?: Prisma.UserUpdateOneWithoutPromptTemplatesNestedInput
-  currentVersion?: Prisma.PromptTemplateVersionUpdateOneWithoutCurrentForPromptNestedInput
-  aiTasks?: Prisma.AiTaskUpdateManyWithoutPromptNestedInput
-}
-
-export type PromptTemplateUncheckedUpdateWithoutVersionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  ownerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  category?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  usageCount?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutPromptNestedInput
-}
-
-export type PromptTemplateUpsertWithoutCurrentVersionInput = {
-  update: Prisma.XOR<Prisma.PromptTemplateUpdateWithoutCurrentVersionInput, Prisma.PromptTemplateUncheckedUpdateWithoutCurrentVersionInput>
-  create: Prisma.XOR<Prisma.PromptTemplateCreateWithoutCurrentVersionInput, Prisma.PromptTemplateUncheckedCreateWithoutCurrentVersionInput>
-  where?: Prisma.PromptTemplateWhereInput
-}
-
-export type PromptTemplateUpdateToOneWithWhereWithoutCurrentVersionInput = {
-  where?: Prisma.PromptTemplateWhereInput
-  data: Prisma.XOR<Prisma.PromptTemplateUpdateWithoutCurrentVersionInput, Prisma.PromptTemplateUncheckedUpdateWithoutCurrentVersionInput>
-}
-
-export type PromptTemplateUpdateWithoutCurrentVersionInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  category?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  usageCount?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  owner?: Prisma.UserUpdateOneWithoutPromptTemplatesNestedInput
-  versions?: Prisma.PromptTemplateVersionUpdateManyWithoutPromptNestedInput
-  aiTasks?: Prisma.AiTaskUpdateManyWithoutPromptNestedInput
-}
-
-export type PromptTemplateUncheckedUpdateWithoutCurrentVersionInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  ownerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  category?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  usageCount?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  versions?: Prisma.PromptTemplateVersionUncheckedUpdateManyWithoutPromptNestedInput
-  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutPromptNestedInput
 }
 
 export type PromptTemplateCreateWithoutAiTasksInput = {
@@ -861,14 +685,15 @@ export type PromptTemplateCreateWithoutAiTasksInput = {
   name: string
   category: string
   description?: string | null
+  template: string
+  variablesSchema?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  modelConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   visibility?: $Enums.Visibility
   usageCount?: number
   status?: $Enums.CommonStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   owner?: Prisma.UserCreateNestedOneWithoutPromptTemplatesInput
-  versions?: Prisma.PromptTemplateVersionCreateNestedManyWithoutPromptInput
-  currentVersion?: Prisma.PromptTemplateVersionCreateNestedOneWithoutCurrentForPromptInput
 }
 
 export type PromptTemplateUncheckedCreateWithoutAiTasksInput = {
@@ -877,13 +702,14 @@ export type PromptTemplateUncheckedCreateWithoutAiTasksInput = {
   name: string
   category: string
   description?: string | null
+  template: string
+  variablesSchema?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  modelConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   visibility?: $Enums.Visibility
-  currentVersionId?: string | null
   usageCount?: number
   status?: $Enums.CommonStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  versions?: Prisma.PromptTemplateVersionUncheckedCreateNestedManyWithoutPromptInput
 }
 
 export type PromptTemplateCreateOrConnectWithoutAiTasksInput = {
@@ -907,14 +733,15 @@ export type PromptTemplateUpdateWithoutAiTasksInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  template?: Prisma.StringFieldUpdateOperationsInput | string
+  variablesSchema?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  modelConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   usageCount?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneWithoutPromptTemplatesNestedInput
-  versions?: Prisma.PromptTemplateVersionUpdateManyWithoutPromptNestedInput
-  currentVersion?: Prisma.PromptTemplateVersionUpdateOneWithoutCurrentForPromptNestedInput
 }
 
 export type PromptTemplateUncheckedUpdateWithoutAiTasksInput = {
@@ -923,13 +750,14 @@ export type PromptTemplateUncheckedUpdateWithoutAiTasksInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  template?: Prisma.StringFieldUpdateOperationsInput | string
+  variablesSchema?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  modelConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   usageCount?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  versions?: Prisma.PromptTemplateVersionUncheckedUpdateManyWithoutPromptNestedInput
 }
 
 export type PromptTemplateCreateManyOwnerInput = {
@@ -937,8 +765,10 @@ export type PromptTemplateCreateManyOwnerInput = {
   name: string
   category: string
   description?: string | null
+  template: string
+  variablesSchema?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  modelConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   visibility?: $Enums.Visibility
-  currentVersionId?: string | null
   usageCount?: number
   status?: $Enums.CommonStatus
   createdAt?: Date | string
@@ -950,13 +780,14 @@ export type PromptTemplateUpdateWithoutOwnerInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  template?: Prisma.StringFieldUpdateOperationsInput | string
+  variablesSchema?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  modelConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
   usageCount?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  versions?: Prisma.PromptTemplateVersionUpdateManyWithoutPromptNestedInput
-  currentVersion?: Prisma.PromptTemplateVersionUpdateOneWithoutCurrentForPromptNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutPromptNestedInput
 }
 
@@ -965,13 +796,14 @@ export type PromptTemplateUncheckedUpdateWithoutOwnerInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  template?: Prisma.StringFieldUpdateOperationsInput | string
+  variablesSchema?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  modelConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   usageCount?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  versions?: Prisma.PromptTemplateVersionUncheckedUpdateManyWithoutPromptNestedInput
   aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutPromptNestedInput
 }
 
@@ -980,8 +812,10 @@ export type PromptTemplateUncheckedUpdateManyWithoutOwnerInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  template?: Prisma.StringFieldUpdateOperationsInput | string
+  variablesSchema?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  modelConfig?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   visibility?: Prisma.EnumVisibilityFieldUpdateOperationsInput | $Enums.Visibility
-  currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   usageCount?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -994,12 +828,10 @@ export type PromptTemplateUncheckedUpdateManyWithoutOwnerInput = {
  */
 
 export type PromptTemplateCountOutputType = {
-  versions: number
   aiTasks: number
 }
 
 export type PromptTemplateCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  versions?: boolean | PromptTemplateCountOutputTypeCountVersionsArgs
   aiTasks?: boolean | PromptTemplateCountOutputTypeCountAiTasksArgs
 }
 
@@ -1016,13 +848,6 @@ export type PromptTemplateCountOutputTypeDefaultArgs<ExtArgs extends runtime.Typ
 /**
  * PromptTemplateCountOutputType without action
  */
-export type PromptTemplateCountOutputTypeCountVersionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.PromptTemplateVersionWhereInput
-}
-
-/**
- * PromptTemplateCountOutputType without action
- */
 export type PromptTemplateCountOutputTypeCountAiTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.AiTaskWhereInput
 }
@@ -1034,15 +859,15 @@ export type PromptTemplateSelect<ExtArgs extends runtime.Types.Extensions.Intern
   name?: boolean
   category?: boolean
   description?: boolean
+  template?: boolean
+  variablesSchema?: boolean
+  modelConfig?: boolean
   visibility?: boolean
-  currentVersionId?: boolean
   usageCount?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   owner?: boolean | Prisma.PromptTemplate$ownerArgs<ExtArgs>
-  versions?: boolean | Prisma.PromptTemplate$versionsArgs<ExtArgs>
-  currentVersion?: boolean | Prisma.PromptTemplate$currentVersionArgs<ExtArgs>
   aiTasks?: boolean | Prisma.PromptTemplate$aiTasksArgs<ExtArgs>
   _count?: boolean | Prisma.PromptTemplateCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["promptTemplate"]>
@@ -1053,14 +878,15 @@ export type PromptTemplateSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   name?: boolean
   category?: boolean
   description?: boolean
+  template?: boolean
+  variablesSchema?: boolean
+  modelConfig?: boolean
   visibility?: boolean
-  currentVersionId?: boolean
   usageCount?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   owner?: boolean | Prisma.PromptTemplate$ownerArgs<ExtArgs>
-  currentVersion?: boolean | Prisma.PromptTemplate$currentVersionArgs<ExtArgs>
 }, ExtArgs["result"]["promptTemplate"]>
 
 export type PromptTemplateSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1069,14 +895,15 @@ export type PromptTemplateSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   name?: boolean
   category?: boolean
   description?: boolean
+  template?: boolean
+  variablesSchema?: boolean
+  modelConfig?: boolean
   visibility?: boolean
-  currentVersionId?: boolean
   usageCount?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   owner?: boolean | Prisma.PromptTemplate$ownerArgs<ExtArgs>
-  currentVersion?: boolean | Prisma.PromptTemplate$currentVersionArgs<ExtArgs>
 }, ExtArgs["result"]["promptTemplate"]>
 
 export type PromptTemplateSelectScalar = {
@@ -1085,37 +912,33 @@ export type PromptTemplateSelectScalar = {
   name?: boolean
   category?: boolean
   description?: boolean
+  template?: boolean
+  variablesSchema?: boolean
+  modelConfig?: boolean
   visibility?: boolean
-  currentVersionId?: boolean
   usageCount?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PromptTemplateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerId" | "name" | "category" | "description" | "visibility" | "currentVersionId" | "usageCount" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["promptTemplate"]>
+export type PromptTemplateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerId" | "name" | "category" | "description" | "template" | "variablesSchema" | "modelConfig" | "visibility" | "usageCount" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["promptTemplate"]>
 export type PromptTemplateInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.PromptTemplate$ownerArgs<ExtArgs>
-  versions?: boolean | Prisma.PromptTemplate$versionsArgs<ExtArgs>
-  currentVersion?: boolean | Prisma.PromptTemplate$currentVersionArgs<ExtArgs>
   aiTasks?: boolean | Prisma.PromptTemplate$aiTasksArgs<ExtArgs>
   _count?: boolean | Prisma.PromptTemplateCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PromptTemplateIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.PromptTemplate$ownerArgs<ExtArgs>
-  currentVersion?: boolean | Prisma.PromptTemplate$currentVersionArgs<ExtArgs>
 }
 export type PromptTemplateIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.PromptTemplate$ownerArgs<ExtArgs>
-  currentVersion?: boolean | Prisma.PromptTemplate$currentVersionArgs<ExtArgs>
 }
 
 export type $PromptTemplatePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "PromptTemplate"
   objects: {
     owner: Prisma.$UserPayload<ExtArgs> | null
-    versions: Prisma.$PromptTemplateVersionPayload<ExtArgs>[]
-    currentVersion: Prisma.$PromptTemplateVersionPayload<ExtArgs> | null
     aiTasks: Prisma.$AiTaskPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1124,8 +947,10 @@ export type $PromptTemplatePayload<ExtArgs extends runtime.Types.Extensions.Inte
     name: string
     category: string
     description: string | null
+    template: string
+    variablesSchema: runtime.JsonValue | null
+    modelConfig: runtime.JsonValue | null
     visibility: $Enums.Visibility
-    currentVersionId: string | null
     usageCount: number
     status: $Enums.CommonStatus
     createdAt: Date
@@ -1525,8 +1350,6 @@ readonly fields: PromptTemplateFieldRefs;
 export interface Prisma__PromptTemplateClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   owner<T extends Prisma.PromptTemplate$ownerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PromptTemplate$ownerArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  versions<T extends Prisma.PromptTemplate$versionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PromptTemplate$versionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PromptTemplateVersionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  currentVersion<T extends Prisma.PromptTemplate$currentVersionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PromptTemplate$currentVersionArgs<ExtArgs>>): Prisma.Prisma__PromptTemplateVersionClient<runtime.Types.Result.GetResult<Prisma.$PromptTemplateVersionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   aiTasks<T extends Prisma.PromptTemplate$aiTasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PromptTemplate$aiTasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AiTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1562,8 +1385,10 @@ export interface PromptTemplateFieldRefs {
   readonly name: Prisma.FieldRef<"PromptTemplate", 'String'>
   readonly category: Prisma.FieldRef<"PromptTemplate", 'String'>
   readonly description: Prisma.FieldRef<"PromptTemplate", 'String'>
+  readonly template: Prisma.FieldRef<"PromptTemplate", 'String'>
+  readonly variablesSchema: Prisma.FieldRef<"PromptTemplate", 'Json'>
+  readonly modelConfig: Prisma.FieldRef<"PromptTemplate", 'Json'>
   readonly visibility: Prisma.FieldRef<"PromptTemplate", 'Visibility'>
-  readonly currentVersionId: Prisma.FieldRef<"PromptTemplate", 'String'>
   readonly usageCount: Prisma.FieldRef<"PromptTemplate", 'Int'>
   readonly status: Prisma.FieldRef<"PromptTemplate", 'CommonStatus'>
   readonly createdAt: Prisma.FieldRef<"PromptTemplate", 'DateTime'>
@@ -1985,49 +1810,6 @@ export type PromptTemplate$ownerArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   include?: Prisma.UserInclude<ExtArgs> | null
   where?: Prisma.UserWhereInput
-}
-
-/**
- * PromptTemplate.versions
- */
-export type PromptTemplate$versionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the PromptTemplateVersion
-   */
-  select?: Prisma.PromptTemplateVersionSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the PromptTemplateVersion
-   */
-  omit?: Prisma.PromptTemplateVersionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.PromptTemplateVersionInclude<ExtArgs> | null
-  where?: Prisma.PromptTemplateVersionWhereInput
-  orderBy?: Prisma.PromptTemplateVersionOrderByWithRelationInput | Prisma.PromptTemplateVersionOrderByWithRelationInput[]
-  cursor?: Prisma.PromptTemplateVersionWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.PromptTemplateVersionScalarFieldEnum | Prisma.PromptTemplateVersionScalarFieldEnum[]
-}
-
-/**
- * PromptTemplate.currentVersion
- */
-export type PromptTemplate$currentVersionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the PromptTemplateVersion
-   */
-  select?: Prisma.PromptTemplateVersionSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the PromptTemplateVersion
-   */
-  omit?: Prisma.PromptTemplateVersionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.PromptTemplateVersionInclude<ExtArgs> | null
-  where?: Prisma.PromptTemplateVersionWhereInput
 }
 
 /**

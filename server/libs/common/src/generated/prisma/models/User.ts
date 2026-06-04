@@ -256,18 +256,14 @@ export type UserWhereInput = {
   tokenVersion?: Prisma.IntFilter<"User"> | number
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  roles?: Prisma.UserRoleListRelationFilter
   promptTemplates?: Prisma.PromptTemplateListRelationFilter
-  promptVersionsCreated?: Prisma.PromptTemplateVersionListRelationFilter
   assets?: Prisma.AssetListRelationFilter
   contents?: Prisma.ContentListRelationFilter
   contentVersionsCreated?: Prisma.ContentVersionListRelationFilter
   draftSnapshots?: Prisma.DraftSnapshotListRelationFilter
   aiTasks?: Prisma.AiTaskListRelationFilter
   rewriteRecords?: Prisma.RewriteRecordListRelationFilter
-  auditRuleSetsCreated?: Prisma.AuditRuleSetListRelationFilter
   interactions?: Prisma.ContentInteractionListRelationFilter
-  contentOperations?: Prisma.ContentOperationListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -281,18 +277,14 @@ export type UserOrderByWithRelationInput = {
   tokenVersion?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  roles?: Prisma.UserRoleOrderByRelationAggregateInput
   promptTemplates?: Prisma.PromptTemplateOrderByRelationAggregateInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionOrderByRelationAggregateInput
   assets?: Prisma.AssetOrderByRelationAggregateInput
   contents?: Prisma.ContentOrderByRelationAggregateInput
   contentVersionsCreated?: Prisma.ContentVersionOrderByRelationAggregateInput
   draftSnapshots?: Prisma.DraftSnapshotOrderByRelationAggregateInput
   aiTasks?: Prisma.AiTaskOrderByRelationAggregateInput
   rewriteRecords?: Prisma.RewriteRecordOrderByRelationAggregateInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetOrderByRelationAggregateInput
   interactions?: Prisma.ContentInteractionOrderByRelationAggregateInput
-  contentOperations?: Prisma.ContentOperationOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -309,18 +301,14 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   tokenVersion?: Prisma.IntFilter<"User"> | number
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  roles?: Prisma.UserRoleListRelationFilter
   promptTemplates?: Prisma.PromptTemplateListRelationFilter
-  promptVersionsCreated?: Prisma.PromptTemplateVersionListRelationFilter
   assets?: Prisma.AssetListRelationFilter
   contents?: Prisma.ContentListRelationFilter
   contentVersionsCreated?: Prisma.ContentVersionListRelationFilter
   draftSnapshots?: Prisma.DraftSnapshotListRelationFilter
   aiTasks?: Prisma.AiTaskListRelationFilter
   rewriteRecords?: Prisma.RewriteRecordListRelationFilter
-  auditRuleSetsCreated?: Prisma.AuditRuleSetListRelationFilter
   interactions?: Prisma.ContentInteractionListRelationFilter
-  contentOperations?: Prisma.ContentOperationListRelationFilter
 }, "id" | "email" | "phone">
 
 export type UserOrderByWithAggregationInput = {
@@ -368,18 +356,14 @@ export type UserCreateInput = {
   tokenVersion?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
   promptTemplates?: Prisma.PromptTemplateCreateNestedManyWithoutOwnerInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionCreateNestedManyWithoutCreatorInput
   assets?: Prisma.AssetCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutUserInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutUserInput
   rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutUserInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetCreateNestedManyWithoutCreatorInput
   interactions?: Prisma.ContentInteractionCreateNestedManyWithoutUserInput
-  contentOperations?: Prisma.ContentOperationCreateNestedManyWithoutOperatorInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -393,18 +377,14 @@ export type UserUncheckedCreateInput = {
   tokenVersion?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   promptTemplates?: Prisma.PromptTemplateUncheckedCreateNestedManyWithoutOwnerInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUncheckedCreateNestedManyWithoutCreatorInput
   assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutUserInput
   aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutUserInput
   rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutUserInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUncheckedCreateNestedManyWithoutCreatorInput
   interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutUserInput
-  contentOperations?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutOperatorInput
 }
 
 export type UserUpdateInput = {
@@ -418,18 +398,14 @@ export type UserUpdateInput = {
   tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
   promptTemplates?: Prisma.PromptTemplateUpdateManyWithoutOwnerNestedInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUpdateManyWithoutCreatorNestedInput
   assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutUserNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutUserNestedInput
   rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutUserNestedInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUpdateManyWithoutCreatorNestedInput
   interactions?: Prisma.ContentInteractionUpdateManyWithoutUserNestedInput
-  contentOperations?: Prisma.ContentOperationUpdateManyWithoutOperatorNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -443,18 +419,14 @@ export type UserUncheckedUpdateInput = {
   tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   promptTemplates?: Prisma.PromptTemplateUncheckedUpdateManyWithoutOwnerNestedInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUncheckedUpdateManyWithoutCreatorNestedInput
   assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUncheckedUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutUserNestedInput
   aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutUserNestedInput
   rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutUserNestedInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUncheckedUpdateManyWithoutCreatorNestedInput
   interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutUserNestedInput
-  contentOperations?: Prisma.ContentOperationUncheckedUpdateManyWithoutOperatorNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -543,14 +515,14 @@ export type UserSumOrderByAggregateInput = {
   tokenVersion?: Prisma.SortOrder
 }
 
-export type UserScalarRelationFilter = {
-  is?: Prisma.UserWhereInput
-  isNot?: Prisma.UserWhereInput
-}
-
 export type UserNullableScalarRelationFilter = {
   is?: Prisma.UserWhereInput | null
   isNot?: Prisma.UserWhereInput | null
+}
+
+export type UserScalarRelationFilter = {
+  is?: Prisma.UserWhereInput
+  isNot?: Prisma.UserWhereInput
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -577,20 +549,6 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
-export type UserCreateNestedOneWithoutRolesInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutRolesInput, Prisma.UserUncheckedCreateWithoutRolesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRolesInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutRolesNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutRolesInput, Prisma.UserUncheckedCreateWithoutRolesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRolesInput
-  upsert?: Prisma.UserUpsertWithoutRolesInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRolesInput, Prisma.UserUpdateWithoutRolesInput>, Prisma.UserUncheckedUpdateWithoutRolesInput>
-}
-
 export type UserCreateNestedOneWithoutPromptTemplatesInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutPromptTemplatesInput, Prisma.UserUncheckedCreateWithoutPromptTemplatesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutPromptTemplatesInput
@@ -605,22 +563,6 @@ export type UserUpdateOneWithoutPromptTemplatesNestedInput = {
   delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPromptTemplatesInput, Prisma.UserUpdateWithoutPromptTemplatesInput>, Prisma.UserUncheckedUpdateWithoutPromptTemplatesInput>
-}
-
-export type UserCreateNestedOneWithoutPromptVersionsCreatedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutPromptVersionsCreatedInput, Prisma.UserUncheckedCreateWithoutPromptVersionsCreatedInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPromptVersionsCreatedInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneWithoutPromptVersionsCreatedNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutPromptVersionsCreatedInput, Prisma.UserUncheckedCreateWithoutPromptVersionsCreatedInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPromptVersionsCreatedInput
-  upsert?: Prisma.UserUpsertWithoutPromptVersionsCreatedInput
-  disconnect?: Prisma.UserWhereInput | boolean
-  delete?: Prisma.UserWhereInput | boolean
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPromptVersionsCreatedInput, Prisma.UserUpdateWithoutPromptVersionsCreatedInput>, Prisma.UserUncheckedUpdateWithoutPromptVersionsCreatedInput>
 }
 
 export type UserCreateNestedOneWithoutAssetsInput = {
@@ -713,22 +655,6 @@ export type UserUpdateOneWithoutRewriteRecordsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRewriteRecordsInput, Prisma.UserUpdateWithoutRewriteRecordsInput>, Prisma.UserUncheckedUpdateWithoutRewriteRecordsInput>
 }
 
-export type UserCreateNestedOneWithoutAuditRuleSetsCreatedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutAuditRuleSetsCreatedInput, Prisma.UserUncheckedCreateWithoutAuditRuleSetsCreatedInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditRuleSetsCreatedInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneWithoutAuditRuleSetsCreatedNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutAuditRuleSetsCreatedInput, Prisma.UserUncheckedCreateWithoutAuditRuleSetsCreatedInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditRuleSetsCreatedInput
-  upsert?: Prisma.UserUpsertWithoutAuditRuleSetsCreatedInput
-  disconnect?: Prisma.UserWhereInput | boolean
-  delete?: Prisma.UserWhereInput | boolean
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAuditRuleSetsCreatedInput, Prisma.UserUpdateWithoutAuditRuleSetsCreatedInput>, Prisma.UserUncheckedUpdateWithoutAuditRuleSetsCreatedInput>
-}
-
 export type UserCreateNestedOneWithoutInteractionsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutInteractionsInput, Prisma.UserUncheckedCreateWithoutInteractionsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutInteractionsInput
@@ -745,134 +671,6 @@ export type UserUpdateOneWithoutInteractionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutInteractionsInput, Prisma.UserUpdateWithoutInteractionsInput>, Prisma.UserUncheckedUpdateWithoutInteractionsInput>
 }
 
-export type UserCreateNestedOneWithoutContentOperationsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutContentOperationsInput, Prisma.UserUncheckedCreateWithoutContentOperationsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutContentOperationsInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneWithoutContentOperationsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutContentOperationsInput, Prisma.UserUncheckedCreateWithoutContentOperationsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutContentOperationsInput
-  upsert?: Prisma.UserUpsertWithoutContentOperationsInput
-  disconnect?: Prisma.UserWhereInput | boolean
-  delete?: Prisma.UserWhereInput | boolean
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutContentOperationsInput, Prisma.UserUpdateWithoutContentOperationsInput>, Prisma.UserUncheckedUpdateWithoutContentOperationsInput>
-}
-
-export type UserCreateWithoutRolesInput = {
-  id?: string
-  email?: string | null
-  phone: string
-  passwordHash: string
-  username: string
-  avatarUrl?: string | null
-  status?: $Enums.UserStatus
-  tokenVersion?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  promptTemplates?: Prisma.PromptTemplateCreateNestedManyWithoutOwnerInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionCreateNestedManyWithoutCreatorInput
-  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
-  contents?: Prisma.ContentCreateNestedManyWithoutAuthorInput
-  contentVersionsCreated?: Prisma.ContentVersionCreateNestedManyWithoutCreatorInput
-  draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutUserInput
-  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutUserInput
-  rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutUserInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetCreateNestedManyWithoutCreatorInput
-  interactions?: Prisma.ContentInteractionCreateNestedManyWithoutUserInput
-  contentOperations?: Prisma.ContentOperationCreateNestedManyWithoutOperatorInput
-}
-
-export type UserUncheckedCreateWithoutRolesInput = {
-  id?: string
-  email?: string | null
-  phone: string
-  passwordHash: string
-  username: string
-  avatarUrl?: string | null
-  status?: $Enums.UserStatus
-  tokenVersion?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  promptTemplates?: Prisma.PromptTemplateUncheckedCreateNestedManyWithoutOwnerInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUncheckedCreateNestedManyWithoutCreatorInput
-  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
-  contents?: Prisma.ContentUncheckedCreateNestedManyWithoutAuthorInput
-  contentVersionsCreated?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutCreatorInput
-  draftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutUserInput
-  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutUserInput
-  rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutUserInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUncheckedCreateNestedManyWithoutCreatorInput
-  interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutUserInput
-  contentOperations?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutOperatorInput
-}
-
-export type UserCreateOrConnectWithoutRolesInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutRolesInput, Prisma.UserUncheckedCreateWithoutRolesInput>
-}
-
-export type UserUpsertWithoutRolesInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutRolesInput, Prisma.UserUncheckedUpdateWithoutRolesInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutRolesInput, Prisma.UserUncheckedCreateWithoutRolesInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutRolesInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutRolesInput, Prisma.UserUncheckedUpdateWithoutRolesInput>
-}
-
-export type UserUpdateWithoutRolesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
-  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  username?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  promptTemplates?: Prisma.PromptTemplateUpdateManyWithoutOwnerNestedInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUpdateManyWithoutCreatorNestedInput
-  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
-  contents?: Prisma.ContentUpdateManyWithoutAuthorNestedInput
-  contentVersionsCreated?: Prisma.ContentVersionUpdateManyWithoutCreatorNestedInput
-  draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutUserNestedInput
-  aiTasks?: Prisma.AiTaskUpdateManyWithoutUserNestedInput
-  rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutUserNestedInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUpdateManyWithoutCreatorNestedInput
-  interactions?: Prisma.ContentInteractionUpdateManyWithoutUserNestedInput
-  contentOperations?: Prisma.ContentOperationUpdateManyWithoutOperatorNestedInput
-}
-
-export type UserUncheckedUpdateWithoutRolesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
-  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  username?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  promptTemplates?: Prisma.PromptTemplateUncheckedUpdateManyWithoutOwnerNestedInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUncheckedUpdateManyWithoutCreatorNestedInput
-  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
-  contents?: Prisma.ContentUncheckedUpdateManyWithoutAuthorNestedInput
-  contentVersionsCreated?: Prisma.ContentVersionUncheckedUpdateManyWithoutCreatorNestedInput
-  draftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutUserNestedInput
-  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutUserNestedInput
-  rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutUserNestedInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUncheckedUpdateManyWithoutCreatorNestedInput
-  interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutUserNestedInput
-  contentOperations?: Prisma.ContentOperationUncheckedUpdateManyWithoutOperatorNestedInput
-}
-
 export type UserCreateWithoutPromptTemplatesInput = {
   id?: string
   email?: string | null
@@ -884,17 +682,13 @@ export type UserCreateWithoutPromptTemplatesInput = {
   tokenVersion?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionCreateNestedManyWithoutCreatorInput
   assets?: Prisma.AssetCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutUserInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutUserInput
   rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutUserInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetCreateNestedManyWithoutCreatorInput
   interactions?: Prisma.ContentInteractionCreateNestedManyWithoutUserInput
-  contentOperations?: Prisma.ContentOperationCreateNestedManyWithoutOperatorInput
 }
 
 export type UserUncheckedCreateWithoutPromptTemplatesInput = {
@@ -908,17 +702,13 @@ export type UserUncheckedCreateWithoutPromptTemplatesInput = {
   tokenVersion?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUncheckedCreateNestedManyWithoutCreatorInput
   assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutUserInput
   aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutUserInput
   rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutUserInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUncheckedCreateNestedManyWithoutCreatorInput
   interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutUserInput
-  contentOperations?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutOperatorInput
 }
 
 export type UserCreateOrConnectWithoutPromptTemplatesInput = {
@@ -948,17 +738,13 @@ export type UserUpdateWithoutPromptTemplatesInput = {
   tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUpdateManyWithoutCreatorNestedInput
   assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutUserNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutUserNestedInput
   rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutUserNestedInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUpdateManyWithoutCreatorNestedInput
   interactions?: Prisma.ContentInteractionUpdateManyWithoutUserNestedInput
-  contentOperations?: Prisma.ContentOperationUpdateManyWithoutOperatorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPromptTemplatesInput = {
@@ -972,129 +758,13 @@ export type UserUncheckedUpdateWithoutPromptTemplatesInput = {
   tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUncheckedUpdateManyWithoutCreatorNestedInput
   assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUncheckedUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutUserNestedInput
   aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutUserNestedInput
   rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutUserNestedInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUncheckedUpdateManyWithoutCreatorNestedInput
   interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutUserNestedInput
-  contentOperations?: Prisma.ContentOperationUncheckedUpdateManyWithoutOperatorNestedInput
-}
-
-export type UserCreateWithoutPromptVersionsCreatedInput = {
-  id?: string
-  email?: string | null
-  phone: string
-  passwordHash: string
-  username: string
-  avatarUrl?: string | null
-  status?: $Enums.UserStatus
-  tokenVersion?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
-  promptTemplates?: Prisma.PromptTemplateCreateNestedManyWithoutOwnerInput
-  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
-  contents?: Prisma.ContentCreateNestedManyWithoutAuthorInput
-  contentVersionsCreated?: Prisma.ContentVersionCreateNestedManyWithoutCreatorInput
-  draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutUserInput
-  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutUserInput
-  rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutUserInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetCreateNestedManyWithoutCreatorInput
-  interactions?: Prisma.ContentInteractionCreateNestedManyWithoutUserInput
-  contentOperations?: Prisma.ContentOperationCreateNestedManyWithoutOperatorInput
-}
-
-export type UserUncheckedCreateWithoutPromptVersionsCreatedInput = {
-  id?: string
-  email?: string | null
-  phone: string
-  passwordHash: string
-  username: string
-  avatarUrl?: string | null
-  status?: $Enums.UserStatus
-  tokenVersion?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
-  promptTemplates?: Prisma.PromptTemplateUncheckedCreateNestedManyWithoutOwnerInput
-  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
-  contents?: Prisma.ContentUncheckedCreateNestedManyWithoutAuthorInput
-  contentVersionsCreated?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutCreatorInput
-  draftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutUserInput
-  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutUserInput
-  rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutUserInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUncheckedCreateNestedManyWithoutCreatorInput
-  interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutUserInput
-  contentOperations?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutOperatorInput
-}
-
-export type UserCreateOrConnectWithoutPromptVersionsCreatedInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutPromptVersionsCreatedInput, Prisma.UserUncheckedCreateWithoutPromptVersionsCreatedInput>
-}
-
-export type UserUpsertWithoutPromptVersionsCreatedInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutPromptVersionsCreatedInput, Prisma.UserUncheckedUpdateWithoutPromptVersionsCreatedInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutPromptVersionsCreatedInput, Prisma.UserUncheckedCreateWithoutPromptVersionsCreatedInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutPromptVersionsCreatedInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutPromptVersionsCreatedInput, Prisma.UserUncheckedUpdateWithoutPromptVersionsCreatedInput>
-}
-
-export type UserUpdateWithoutPromptVersionsCreatedInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
-  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  username?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
-  promptTemplates?: Prisma.PromptTemplateUpdateManyWithoutOwnerNestedInput
-  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
-  contents?: Prisma.ContentUpdateManyWithoutAuthorNestedInput
-  contentVersionsCreated?: Prisma.ContentVersionUpdateManyWithoutCreatorNestedInput
-  draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutUserNestedInput
-  aiTasks?: Prisma.AiTaskUpdateManyWithoutUserNestedInput
-  rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutUserNestedInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUpdateManyWithoutCreatorNestedInput
-  interactions?: Prisma.ContentInteractionUpdateManyWithoutUserNestedInput
-  contentOperations?: Prisma.ContentOperationUpdateManyWithoutOperatorNestedInput
-}
-
-export type UserUncheckedUpdateWithoutPromptVersionsCreatedInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
-  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  username?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
-  promptTemplates?: Prisma.PromptTemplateUncheckedUpdateManyWithoutOwnerNestedInput
-  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
-  contents?: Prisma.ContentUncheckedUpdateManyWithoutAuthorNestedInput
-  contentVersionsCreated?: Prisma.ContentVersionUncheckedUpdateManyWithoutCreatorNestedInput
-  draftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutUserNestedInput
-  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutUserNestedInput
-  rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutUserNestedInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUncheckedUpdateManyWithoutCreatorNestedInput
-  interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutUserNestedInput
-  contentOperations?: Prisma.ContentOperationUncheckedUpdateManyWithoutOperatorNestedInput
 }
 
 export type UserCreateWithoutAssetsInput = {
@@ -1108,17 +778,13 @@ export type UserCreateWithoutAssetsInput = {
   tokenVersion?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
   promptTemplates?: Prisma.PromptTemplateCreateNestedManyWithoutOwnerInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionCreateNestedManyWithoutCreatorInput
   contents?: Prisma.ContentCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutUserInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutUserInput
   rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutUserInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetCreateNestedManyWithoutCreatorInput
   interactions?: Prisma.ContentInteractionCreateNestedManyWithoutUserInput
-  contentOperations?: Prisma.ContentOperationCreateNestedManyWithoutOperatorInput
 }
 
 export type UserUncheckedCreateWithoutAssetsInput = {
@@ -1132,17 +798,13 @@ export type UserUncheckedCreateWithoutAssetsInput = {
   tokenVersion?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   promptTemplates?: Prisma.PromptTemplateUncheckedCreateNestedManyWithoutOwnerInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUncheckedCreateNestedManyWithoutCreatorInput
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutUserInput
   aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutUserInput
   rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutUserInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUncheckedCreateNestedManyWithoutCreatorInput
   interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutUserInput
-  contentOperations?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutOperatorInput
 }
 
 export type UserCreateOrConnectWithoutAssetsInput = {
@@ -1172,17 +834,13 @@ export type UserUpdateWithoutAssetsInput = {
   tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
   promptTemplates?: Prisma.PromptTemplateUpdateManyWithoutOwnerNestedInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUpdateManyWithoutCreatorNestedInput
   contents?: Prisma.ContentUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutUserNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutUserNestedInput
   rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutUserNestedInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUpdateManyWithoutCreatorNestedInput
   interactions?: Prisma.ContentInteractionUpdateManyWithoutUserNestedInput
-  contentOperations?: Prisma.ContentOperationUpdateManyWithoutOperatorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssetsInput = {
@@ -1196,17 +854,13 @@ export type UserUncheckedUpdateWithoutAssetsInput = {
   tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   promptTemplates?: Prisma.PromptTemplateUncheckedUpdateManyWithoutOwnerNestedInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUncheckedUpdateManyWithoutCreatorNestedInput
   contents?: Prisma.ContentUncheckedUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutUserNestedInput
   aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutUserNestedInput
   rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutUserNestedInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUncheckedUpdateManyWithoutCreatorNestedInput
   interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutUserNestedInput
-  contentOperations?: Prisma.ContentOperationUncheckedUpdateManyWithoutOperatorNestedInput
 }
 
 export type UserCreateWithoutContentsInput = {
@@ -1220,17 +874,13 @@ export type UserCreateWithoutContentsInput = {
   tokenVersion?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
   promptTemplates?: Prisma.PromptTemplateCreateNestedManyWithoutOwnerInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionCreateNestedManyWithoutCreatorInput
   assets?: Prisma.AssetCreateNestedManyWithoutUserInput
   contentVersionsCreated?: Prisma.ContentVersionCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutUserInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutUserInput
   rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutUserInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetCreateNestedManyWithoutCreatorInput
   interactions?: Prisma.ContentInteractionCreateNestedManyWithoutUserInput
-  contentOperations?: Prisma.ContentOperationCreateNestedManyWithoutOperatorInput
 }
 
 export type UserUncheckedCreateWithoutContentsInput = {
@@ -1244,17 +894,13 @@ export type UserUncheckedCreateWithoutContentsInput = {
   tokenVersion?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   promptTemplates?: Prisma.PromptTemplateUncheckedCreateNestedManyWithoutOwnerInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUncheckedCreateNestedManyWithoutCreatorInput
   assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutUserInput
   aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutUserInput
   rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutUserInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUncheckedCreateNestedManyWithoutCreatorInput
   interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutUserInput
-  contentOperations?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutOperatorInput
 }
 
 export type UserCreateOrConnectWithoutContentsInput = {
@@ -1284,17 +930,13 @@ export type UserUpdateWithoutContentsInput = {
   tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
   promptTemplates?: Prisma.PromptTemplateUpdateManyWithoutOwnerNestedInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUpdateManyWithoutCreatorNestedInput
   assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutUserNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutUserNestedInput
   rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutUserNestedInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUpdateManyWithoutCreatorNestedInput
   interactions?: Prisma.ContentInteractionUpdateManyWithoutUserNestedInput
-  contentOperations?: Prisma.ContentOperationUpdateManyWithoutOperatorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutContentsInput = {
@@ -1308,17 +950,13 @@ export type UserUncheckedUpdateWithoutContentsInput = {
   tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   promptTemplates?: Prisma.PromptTemplateUncheckedUpdateManyWithoutOwnerNestedInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUncheckedUpdateManyWithoutCreatorNestedInput
   assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutUserNestedInput
   aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutUserNestedInput
   rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutUserNestedInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUncheckedUpdateManyWithoutCreatorNestedInput
   interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutUserNestedInput
-  contentOperations?: Prisma.ContentOperationUncheckedUpdateManyWithoutOperatorNestedInput
 }
 
 export type UserCreateWithoutContentVersionsCreatedInput = {
@@ -1332,17 +970,13 @@ export type UserCreateWithoutContentVersionsCreatedInput = {
   tokenVersion?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
   promptTemplates?: Prisma.PromptTemplateCreateNestedManyWithoutOwnerInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionCreateNestedManyWithoutCreatorInput
   assets?: Prisma.AssetCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentCreateNestedManyWithoutAuthorInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutUserInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutUserInput
   rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutUserInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetCreateNestedManyWithoutCreatorInput
   interactions?: Prisma.ContentInteractionCreateNestedManyWithoutUserInput
-  contentOperations?: Prisma.ContentOperationCreateNestedManyWithoutOperatorInput
 }
 
 export type UserUncheckedCreateWithoutContentVersionsCreatedInput = {
@@ -1356,17 +990,13 @@ export type UserUncheckedCreateWithoutContentVersionsCreatedInput = {
   tokenVersion?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   promptTemplates?: Prisma.PromptTemplateUncheckedCreateNestedManyWithoutOwnerInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUncheckedCreateNestedManyWithoutCreatorInput
   assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutAuthorInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutUserInput
   aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutUserInput
   rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutUserInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUncheckedCreateNestedManyWithoutCreatorInput
   interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutUserInput
-  contentOperations?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutOperatorInput
 }
 
 export type UserCreateOrConnectWithoutContentVersionsCreatedInput = {
@@ -1396,17 +1026,13 @@ export type UserUpdateWithoutContentVersionsCreatedInput = {
   tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
   promptTemplates?: Prisma.PromptTemplateUpdateManyWithoutOwnerNestedInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUpdateManyWithoutCreatorNestedInput
   assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUpdateManyWithoutAuthorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutUserNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutUserNestedInput
   rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutUserNestedInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUpdateManyWithoutCreatorNestedInput
   interactions?: Prisma.ContentInteractionUpdateManyWithoutUserNestedInput
-  contentOperations?: Prisma.ContentOperationUpdateManyWithoutOperatorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutContentVersionsCreatedInput = {
@@ -1420,17 +1046,13 @@ export type UserUncheckedUpdateWithoutContentVersionsCreatedInput = {
   tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   promptTemplates?: Prisma.PromptTemplateUncheckedUpdateManyWithoutOwnerNestedInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUncheckedUpdateManyWithoutCreatorNestedInput
   assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUncheckedUpdateManyWithoutAuthorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutUserNestedInput
   aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutUserNestedInput
   rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutUserNestedInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUncheckedUpdateManyWithoutCreatorNestedInput
   interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutUserNestedInput
-  contentOperations?: Prisma.ContentOperationUncheckedUpdateManyWithoutOperatorNestedInput
 }
 
 export type UserCreateWithoutDraftSnapshotsInput = {
@@ -1444,17 +1066,13 @@ export type UserCreateWithoutDraftSnapshotsInput = {
   tokenVersion?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
   promptTemplates?: Prisma.PromptTemplateCreateNestedManyWithoutOwnerInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionCreateNestedManyWithoutCreatorInput
   assets?: Prisma.AssetCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionCreateNestedManyWithoutCreatorInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutUserInput
   rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutUserInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetCreateNestedManyWithoutCreatorInput
   interactions?: Prisma.ContentInteractionCreateNestedManyWithoutUserInput
-  contentOperations?: Prisma.ContentOperationCreateNestedManyWithoutOperatorInput
 }
 
 export type UserUncheckedCreateWithoutDraftSnapshotsInput = {
@@ -1468,17 +1086,13 @@ export type UserUncheckedCreateWithoutDraftSnapshotsInput = {
   tokenVersion?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   promptTemplates?: Prisma.PromptTemplateUncheckedCreateNestedManyWithoutOwnerInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUncheckedCreateNestedManyWithoutCreatorInput
   assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutCreatorInput
   aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutUserInput
   rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutUserInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUncheckedCreateNestedManyWithoutCreatorInput
   interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutUserInput
-  contentOperations?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutOperatorInput
 }
 
 export type UserCreateOrConnectWithoutDraftSnapshotsInput = {
@@ -1508,17 +1122,13 @@ export type UserUpdateWithoutDraftSnapshotsInput = {
   tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
   promptTemplates?: Prisma.PromptTemplateUpdateManyWithoutOwnerNestedInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUpdateManyWithoutCreatorNestedInput
   assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUpdateManyWithoutCreatorNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutUserNestedInput
   rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutUserNestedInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUpdateManyWithoutCreatorNestedInput
   interactions?: Prisma.ContentInteractionUpdateManyWithoutUserNestedInput
-  contentOperations?: Prisma.ContentOperationUpdateManyWithoutOperatorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDraftSnapshotsInput = {
@@ -1532,17 +1142,13 @@ export type UserUncheckedUpdateWithoutDraftSnapshotsInput = {
   tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   promptTemplates?: Prisma.PromptTemplateUncheckedUpdateManyWithoutOwnerNestedInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUncheckedUpdateManyWithoutCreatorNestedInput
   assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUncheckedUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedUpdateManyWithoutCreatorNestedInput
   aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutUserNestedInput
   rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutUserNestedInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUncheckedUpdateManyWithoutCreatorNestedInput
   interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutUserNestedInput
-  contentOperations?: Prisma.ContentOperationUncheckedUpdateManyWithoutOperatorNestedInput
 }
 
 export type UserCreateWithoutAiTasksInput = {
@@ -1556,17 +1162,13 @@ export type UserCreateWithoutAiTasksInput = {
   tokenVersion?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
   promptTemplates?: Prisma.PromptTemplateCreateNestedManyWithoutOwnerInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionCreateNestedManyWithoutCreatorInput
   assets?: Prisma.AssetCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutUserInput
   rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutUserInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetCreateNestedManyWithoutCreatorInput
   interactions?: Prisma.ContentInteractionCreateNestedManyWithoutUserInput
-  contentOperations?: Prisma.ContentOperationCreateNestedManyWithoutOperatorInput
 }
 
 export type UserUncheckedCreateWithoutAiTasksInput = {
@@ -1580,17 +1182,13 @@ export type UserUncheckedCreateWithoutAiTasksInput = {
   tokenVersion?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   promptTemplates?: Prisma.PromptTemplateUncheckedCreateNestedManyWithoutOwnerInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUncheckedCreateNestedManyWithoutCreatorInput
   assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutUserInput
   rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutUserInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUncheckedCreateNestedManyWithoutCreatorInput
   interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutUserInput
-  contentOperations?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutOperatorInput
 }
 
 export type UserCreateOrConnectWithoutAiTasksInput = {
@@ -1620,17 +1218,13 @@ export type UserUpdateWithoutAiTasksInput = {
   tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
   promptTemplates?: Prisma.PromptTemplateUpdateManyWithoutOwnerNestedInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUpdateManyWithoutCreatorNestedInput
   assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutUserNestedInput
   rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutUserNestedInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUpdateManyWithoutCreatorNestedInput
   interactions?: Prisma.ContentInteractionUpdateManyWithoutUserNestedInput
-  contentOperations?: Prisma.ContentOperationUpdateManyWithoutOperatorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAiTasksInput = {
@@ -1644,17 +1238,13 @@ export type UserUncheckedUpdateWithoutAiTasksInput = {
   tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   promptTemplates?: Prisma.PromptTemplateUncheckedUpdateManyWithoutOwnerNestedInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUncheckedUpdateManyWithoutCreatorNestedInput
   assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUncheckedUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutUserNestedInput
   rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutUserNestedInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUncheckedUpdateManyWithoutCreatorNestedInput
   interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutUserNestedInput
-  contentOperations?: Prisma.ContentOperationUncheckedUpdateManyWithoutOperatorNestedInput
 }
 
 export type UserCreateWithoutRewriteRecordsInput = {
@@ -1668,17 +1258,13 @@ export type UserCreateWithoutRewriteRecordsInput = {
   tokenVersion?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
   promptTemplates?: Prisma.PromptTemplateCreateNestedManyWithoutOwnerInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionCreateNestedManyWithoutCreatorInput
   assets?: Prisma.AssetCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutUserInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutUserInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetCreateNestedManyWithoutCreatorInput
   interactions?: Prisma.ContentInteractionCreateNestedManyWithoutUserInput
-  contentOperations?: Prisma.ContentOperationCreateNestedManyWithoutOperatorInput
 }
 
 export type UserUncheckedCreateWithoutRewriteRecordsInput = {
@@ -1692,17 +1278,13 @@ export type UserUncheckedCreateWithoutRewriteRecordsInput = {
   tokenVersion?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   promptTemplates?: Prisma.PromptTemplateUncheckedCreateNestedManyWithoutOwnerInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUncheckedCreateNestedManyWithoutCreatorInput
   assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutUserInput
   aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutUserInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUncheckedCreateNestedManyWithoutCreatorInput
   interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutUserInput
-  contentOperations?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutOperatorInput
 }
 
 export type UserCreateOrConnectWithoutRewriteRecordsInput = {
@@ -1732,17 +1314,13 @@ export type UserUpdateWithoutRewriteRecordsInput = {
   tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
   promptTemplates?: Prisma.PromptTemplateUpdateManyWithoutOwnerNestedInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUpdateManyWithoutCreatorNestedInput
   assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutUserNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutUserNestedInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUpdateManyWithoutCreatorNestedInput
   interactions?: Prisma.ContentInteractionUpdateManyWithoutUserNestedInput
-  contentOperations?: Prisma.ContentOperationUpdateManyWithoutOperatorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRewriteRecordsInput = {
@@ -1756,129 +1334,13 @@ export type UserUncheckedUpdateWithoutRewriteRecordsInput = {
   tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   promptTemplates?: Prisma.PromptTemplateUncheckedUpdateManyWithoutOwnerNestedInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUncheckedUpdateManyWithoutCreatorNestedInput
   assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUncheckedUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutUserNestedInput
   aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutUserNestedInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUncheckedUpdateManyWithoutCreatorNestedInput
   interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutUserNestedInput
-  contentOperations?: Prisma.ContentOperationUncheckedUpdateManyWithoutOperatorNestedInput
-}
-
-export type UserCreateWithoutAuditRuleSetsCreatedInput = {
-  id?: string
-  email?: string | null
-  phone: string
-  passwordHash: string
-  username: string
-  avatarUrl?: string | null
-  status?: $Enums.UserStatus
-  tokenVersion?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
-  promptTemplates?: Prisma.PromptTemplateCreateNestedManyWithoutOwnerInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionCreateNestedManyWithoutCreatorInput
-  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
-  contents?: Prisma.ContentCreateNestedManyWithoutAuthorInput
-  contentVersionsCreated?: Prisma.ContentVersionCreateNestedManyWithoutCreatorInput
-  draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutUserInput
-  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutUserInput
-  rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutUserInput
-  interactions?: Prisma.ContentInteractionCreateNestedManyWithoutUserInput
-  contentOperations?: Prisma.ContentOperationCreateNestedManyWithoutOperatorInput
-}
-
-export type UserUncheckedCreateWithoutAuditRuleSetsCreatedInput = {
-  id?: string
-  email?: string | null
-  phone: string
-  passwordHash: string
-  username: string
-  avatarUrl?: string | null
-  status?: $Enums.UserStatus
-  tokenVersion?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
-  promptTemplates?: Prisma.PromptTemplateUncheckedCreateNestedManyWithoutOwnerInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUncheckedCreateNestedManyWithoutCreatorInput
-  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
-  contents?: Prisma.ContentUncheckedCreateNestedManyWithoutAuthorInput
-  contentVersionsCreated?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutCreatorInput
-  draftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutUserInput
-  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutUserInput
-  rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutUserInput
-  interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutUserInput
-  contentOperations?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutOperatorInput
-}
-
-export type UserCreateOrConnectWithoutAuditRuleSetsCreatedInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutAuditRuleSetsCreatedInput, Prisma.UserUncheckedCreateWithoutAuditRuleSetsCreatedInput>
-}
-
-export type UserUpsertWithoutAuditRuleSetsCreatedInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutAuditRuleSetsCreatedInput, Prisma.UserUncheckedUpdateWithoutAuditRuleSetsCreatedInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutAuditRuleSetsCreatedInput, Prisma.UserUncheckedCreateWithoutAuditRuleSetsCreatedInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutAuditRuleSetsCreatedInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutAuditRuleSetsCreatedInput, Prisma.UserUncheckedUpdateWithoutAuditRuleSetsCreatedInput>
-}
-
-export type UserUpdateWithoutAuditRuleSetsCreatedInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
-  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  username?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
-  promptTemplates?: Prisma.PromptTemplateUpdateManyWithoutOwnerNestedInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUpdateManyWithoutCreatorNestedInput
-  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
-  contents?: Prisma.ContentUpdateManyWithoutAuthorNestedInput
-  contentVersionsCreated?: Prisma.ContentVersionUpdateManyWithoutCreatorNestedInput
-  draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutUserNestedInput
-  aiTasks?: Prisma.AiTaskUpdateManyWithoutUserNestedInput
-  rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutUserNestedInput
-  interactions?: Prisma.ContentInteractionUpdateManyWithoutUserNestedInput
-  contentOperations?: Prisma.ContentOperationUpdateManyWithoutOperatorNestedInput
-}
-
-export type UserUncheckedUpdateWithoutAuditRuleSetsCreatedInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
-  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  username?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
-  promptTemplates?: Prisma.PromptTemplateUncheckedUpdateManyWithoutOwnerNestedInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUncheckedUpdateManyWithoutCreatorNestedInput
-  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
-  contents?: Prisma.ContentUncheckedUpdateManyWithoutAuthorNestedInput
-  contentVersionsCreated?: Prisma.ContentVersionUncheckedUpdateManyWithoutCreatorNestedInput
-  draftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutUserNestedInput
-  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutUserNestedInput
-  rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutUserNestedInput
-  interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutUserNestedInput
-  contentOperations?: Prisma.ContentOperationUncheckedUpdateManyWithoutOperatorNestedInput
 }
 
 export type UserCreateWithoutInteractionsInput = {
@@ -1892,17 +1354,13 @@ export type UserCreateWithoutInteractionsInput = {
   tokenVersion?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
   promptTemplates?: Prisma.PromptTemplateCreateNestedManyWithoutOwnerInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionCreateNestedManyWithoutCreatorInput
   assets?: Prisma.AssetCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutUserInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutUserInput
   rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutUserInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetCreateNestedManyWithoutCreatorInput
-  contentOperations?: Prisma.ContentOperationCreateNestedManyWithoutOperatorInput
 }
 
 export type UserUncheckedCreateWithoutInteractionsInput = {
@@ -1916,17 +1374,13 @@ export type UserUncheckedCreateWithoutInteractionsInput = {
   tokenVersion?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
   promptTemplates?: Prisma.PromptTemplateUncheckedCreateNestedManyWithoutOwnerInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUncheckedCreateNestedManyWithoutCreatorInput
   assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutUserInput
   aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutUserInput
   rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutUserInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUncheckedCreateNestedManyWithoutCreatorInput
-  contentOperations?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutOperatorInput
 }
 
 export type UserCreateOrConnectWithoutInteractionsInput = {
@@ -1956,17 +1410,13 @@ export type UserUpdateWithoutInteractionsInput = {
   tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
   promptTemplates?: Prisma.PromptTemplateUpdateManyWithoutOwnerNestedInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUpdateManyWithoutCreatorNestedInput
   assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutUserNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutUserNestedInput
   rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutUserNestedInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUpdateManyWithoutCreatorNestedInput
-  contentOperations?: Prisma.ContentOperationUpdateManyWithoutOperatorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInteractionsInput = {
@@ -1980,129 +1430,13 @@ export type UserUncheckedUpdateWithoutInteractionsInput = {
   tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
   promptTemplates?: Prisma.PromptTemplateUncheckedUpdateManyWithoutOwnerNestedInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUncheckedUpdateManyWithoutCreatorNestedInput
   assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUncheckedUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutUserNestedInput
   aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutUserNestedInput
   rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutUserNestedInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUncheckedUpdateManyWithoutCreatorNestedInput
-  contentOperations?: Prisma.ContentOperationUncheckedUpdateManyWithoutOperatorNestedInput
-}
-
-export type UserCreateWithoutContentOperationsInput = {
-  id?: string
-  email?: string | null
-  phone: string
-  passwordHash: string
-  username: string
-  avatarUrl?: string | null
-  status?: $Enums.UserStatus
-  tokenVersion?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
-  promptTemplates?: Prisma.PromptTemplateCreateNestedManyWithoutOwnerInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionCreateNestedManyWithoutCreatorInput
-  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
-  contents?: Prisma.ContentCreateNestedManyWithoutAuthorInput
-  contentVersionsCreated?: Prisma.ContentVersionCreateNestedManyWithoutCreatorInput
-  draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutUserInput
-  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutUserInput
-  rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutUserInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetCreateNestedManyWithoutCreatorInput
-  interactions?: Prisma.ContentInteractionCreateNestedManyWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutContentOperationsInput = {
-  id?: string
-  email?: string | null
-  phone: string
-  passwordHash: string
-  username: string
-  avatarUrl?: string | null
-  status?: $Enums.UserStatus
-  tokenVersion?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
-  promptTemplates?: Prisma.PromptTemplateUncheckedCreateNestedManyWithoutOwnerInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUncheckedCreateNestedManyWithoutCreatorInput
-  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
-  contents?: Prisma.ContentUncheckedCreateNestedManyWithoutAuthorInput
-  contentVersionsCreated?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutCreatorInput
-  draftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutUserInput
-  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutUserInput
-  rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutUserInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUncheckedCreateNestedManyWithoutCreatorInput
-  interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutContentOperationsInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutContentOperationsInput, Prisma.UserUncheckedCreateWithoutContentOperationsInput>
-}
-
-export type UserUpsertWithoutContentOperationsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutContentOperationsInput, Prisma.UserUncheckedUpdateWithoutContentOperationsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutContentOperationsInput, Prisma.UserUncheckedCreateWithoutContentOperationsInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutContentOperationsInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutContentOperationsInput, Prisma.UserUncheckedUpdateWithoutContentOperationsInput>
-}
-
-export type UserUpdateWithoutContentOperationsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
-  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  username?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
-  promptTemplates?: Prisma.PromptTemplateUpdateManyWithoutOwnerNestedInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUpdateManyWithoutCreatorNestedInput
-  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
-  contents?: Prisma.ContentUpdateManyWithoutAuthorNestedInput
-  contentVersionsCreated?: Prisma.ContentVersionUpdateManyWithoutCreatorNestedInput
-  draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutUserNestedInput
-  aiTasks?: Prisma.AiTaskUpdateManyWithoutUserNestedInput
-  rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutUserNestedInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUpdateManyWithoutCreatorNestedInput
-  interactions?: Prisma.ContentInteractionUpdateManyWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutContentOperationsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
-  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  username?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
-  promptTemplates?: Prisma.PromptTemplateUncheckedUpdateManyWithoutOwnerNestedInput
-  promptVersionsCreated?: Prisma.PromptTemplateVersionUncheckedUpdateManyWithoutCreatorNestedInput
-  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
-  contents?: Prisma.ContentUncheckedUpdateManyWithoutAuthorNestedInput
-  contentVersionsCreated?: Prisma.ContentVersionUncheckedUpdateManyWithoutCreatorNestedInput
-  draftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutUserNestedInput
-  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutUserNestedInput
-  rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutUserNestedInput
-  auditRuleSetsCreated?: Prisma.AuditRuleSetUncheckedUpdateManyWithoutCreatorNestedInput
-  interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -2111,33 +1445,25 @@ export type UserUncheckedUpdateWithoutContentOperationsInput = {
  */
 
 export type UserCountOutputType = {
-  roles: number
   promptTemplates: number
-  promptVersionsCreated: number
   assets: number
   contents: number
   contentVersionsCreated: number
   draftSnapshots: number
   aiTasks: number
   rewriteRecords: number
-  auditRuleSetsCreated: number
   interactions: number
-  contentOperations: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  roles?: boolean | UserCountOutputTypeCountRolesArgs
   promptTemplates?: boolean | UserCountOutputTypeCountPromptTemplatesArgs
-  promptVersionsCreated?: boolean | UserCountOutputTypeCountPromptVersionsCreatedArgs
   assets?: boolean | UserCountOutputTypeCountAssetsArgs
   contents?: boolean | UserCountOutputTypeCountContentsArgs
   contentVersionsCreated?: boolean | UserCountOutputTypeCountContentVersionsCreatedArgs
   draftSnapshots?: boolean | UserCountOutputTypeCountDraftSnapshotsArgs
   aiTasks?: boolean | UserCountOutputTypeCountAiTasksArgs
   rewriteRecords?: boolean | UserCountOutputTypeCountRewriteRecordsArgs
-  auditRuleSetsCreated?: boolean | UserCountOutputTypeCountAuditRuleSetsCreatedArgs
   interactions?: boolean | UserCountOutputTypeCountInteractionsArgs
-  contentOperations?: boolean | UserCountOutputTypeCountContentOperationsArgs
 }
 
 /**
@@ -2153,22 +1479,8 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountRolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.UserRoleWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
 export type UserCountOutputTypeCountPromptTemplatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.PromptTemplateWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountPromptVersionsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.PromptTemplateVersionWhereInput
 }
 
 /**
@@ -2216,22 +1528,8 @@ export type UserCountOutputTypeCountRewriteRecordsArgs<ExtArgs extends runtime.T
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountAuditRuleSetsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AuditRuleSetWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
 export type UserCountOutputTypeCountInteractionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ContentInteractionWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountContentOperationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ContentOperationWhereInput
 }
 
 
@@ -2246,18 +1544,14 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   tokenVersion?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  roles?: boolean | Prisma.User$rolesArgs<ExtArgs>
   promptTemplates?: boolean | Prisma.User$promptTemplatesArgs<ExtArgs>
-  promptVersionsCreated?: boolean | Prisma.User$promptVersionsCreatedArgs<ExtArgs>
   assets?: boolean | Prisma.User$assetsArgs<ExtArgs>
   contents?: boolean | Prisma.User$contentsArgs<ExtArgs>
   contentVersionsCreated?: boolean | Prisma.User$contentVersionsCreatedArgs<ExtArgs>
   draftSnapshots?: boolean | Prisma.User$draftSnapshotsArgs<ExtArgs>
   aiTasks?: boolean | Prisma.User$aiTasksArgs<ExtArgs>
   rewriteRecords?: boolean | Prisma.User$rewriteRecordsArgs<ExtArgs>
-  auditRuleSetsCreated?: boolean | Prisma.User$auditRuleSetsCreatedArgs<ExtArgs>
   interactions?: boolean | Prisma.User$interactionsArgs<ExtArgs>
-  contentOperations?: boolean | Prisma.User$contentOperationsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2302,18 +1596,14 @@ export type UserSelectScalar = {
 
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "phone" | "passwordHash" | "username" | "avatarUrl" | "status" | "tokenVersion" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  roles?: boolean | Prisma.User$rolesArgs<ExtArgs>
   promptTemplates?: boolean | Prisma.User$promptTemplatesArgs<ExtArgs>
-  promptVersionsCreated?: boolean | Prisma.User$promptVersionsCreatedArgs<ExtArgs>
   assets?: boolean | Prisma.User$assetsArgs<ExtArgs>
   contents?: boolean | Prisma.User$contentsArgs<ExtArgs>
   contentVersionsCreated?: boolean | Prisma.User$contentVersionsCreatedArgs<ExtArgs>
   draftSnapshots?: boolean | Prisma.User$draftSnapshotsArgs<ExtArgs>
   aiTasks?: boolean | Prisma.User$aiTasksArgs<ExtArgs>
   rewriteRecords?: boolean | Prisma.User$rewriteRecordsArgs<ExtArgs>
-  auditRuleSetsCreated?: boolean | Prisma.User$auditRuleSetsCreatedArgs<ExtArgs>
   interactions?: boolean | Prisma.User$interactionsArgs<ExtArgs>
-  contentOperations?: boolean | Prisma.User$contentOperationsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2322,18 +1612,14 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
-    roles: Prisma.$UserRolePayload<ExtArgs>[]
     promptTemplates: Prisma.$PromptTemplatePayload<ExtArgs>[]
-    promptVersionsCreated: Prisma.$PromptTemplateVersionPayload<ExtArgs>[]
     assets: Prisma.$AssetPayload<ExtArgs>[]
     contents: Prisma.$ContentPayload<ExtArgs>[]
     contentVersionsCreated: Prisma.$ContentVersionPayload<ExtArgs>[]
     draftSnapshots: Prisma.$DraftSnapshotPayload<ExtArgs>[]
     aiTasks: Prisma.$AiTaskPayload<ExtArgs>[]
     rewriteRecords: Prisma.$RewriteRecordPayload<ExtArgs>[]
-    auditRuleSetsCreated: Prisma.$AuditRuleSetPayload<ExtArgs>[]
     interactions: Prisma.$ContentInteractionPayload<ExtArgs>[]
-    contentOperations: Prisma.$ContentOperationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2740,18 +2026,14 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  roles<T extends Prisma.User$rolesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$rolesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   promptTemplates<T extends Prisma.User$promptTemplatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$promptTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PromptTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  promptVersionsCreated<T extends Prisma.User$promptVersionsCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$promptVersionsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PromptTemplateVersionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   assets<T extends Prisma.User$assetsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assetsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   contents<T extends Prisma.User$contentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$contentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   contentVersionsCreated<T extends Prisma.User$contentVersionsCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$contentVersionsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContentVersionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   draftSnapshots<T extends Prisma.User$draftSnapshotsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$draftSnapshotsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DraftSnapshotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   aiTasks<T extends Prisma.User$aiTasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$aiTasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AiTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   rewriteRecords<T extends Prisma.User$rewriteRecordsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$rewriteRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RewriteRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  auditRuleSetsCreated<T extends Prisma.User$auditRuleSetsCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditRuleSetsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditRuleSetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   interactions<T extends Prisma.User$interactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$interactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContentInteractionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  contentOperations<T extends Prisma.User$contentOperationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$contentOperationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContentOperationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3184,30 +2466,6 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * User.roles
- */
-export type User$rolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the UserRole
-   */
-  select?: Prisma.UserRoleSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the UserRole
-   */
-  omit?: Prisma.UserRoleOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserRoleInclude<ExtArgs> | null
-  where?: Prisma.UserRoleWhereInput
-  orderBy?: Prisma.UserRoleOrderByWithRelationInput | Prisma.UserRoleOrderByWithRelationInput[]
-  cursor?: Prisma.UserRoleWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.UserRoleScalarFieldEnum | Prisma.UserRoleScalarFieldEnum[]
-}
-
-/**
  * User.promptTemplates
  */
 export type User$promptTemplatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3229,30 +2487,6 @@ export type User$promptTemplatesArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.PromptTemplateScalarFieldEnum | Prisma.PromptTemplateScalarFieldEnum[]
-}
-
-/**
- * User.promptVersionsCreated
- */
-export type User$promptVersionsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the PromptTemplateVersion
-   */
-  select?: Prisma.PromptTemplateVersionSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the PromptTemplateVersion
-   */
-  omit?: Prisma.PromptTemplateVersionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.PromptTemplateVersionInclude<ExtArgs> | null
-  where?: Prisma.PromptTemplateVersionWhereInput
-  orderBy?: Prisma.PromptTemplateVersionOrderByWithRelationInput | Prisma.PromptTemplateVersionOrderByWithRelationInput[]
-  cursor?: Prisma.PromptTemplateVersionWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.PromptTemplateVersionScalarFieldEnum | Prisma.PromptTemplateVersionScalarFieldEnum[]
 }
 
 /**
@@ -3400,30 +2634,6 @@ export type User$rewriteRecordsArgs<ExtArgs extends runtime.Types.Extensions.Int
 }
 
 /**
- * User.auditRuleSetsCreated
- */
-export type User$auditRuleSetsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the AuditRuleSet
-   */
-  select?: Prisma.AuditRuleSetSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the AuditRuleSet
-   */
-  omit?: Prisma.AuditRuleSetOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.AuditRuleSetInclude<ExtArgs> | null
-  where?: Prisma.AuditRuleSetWhereInput
-  orderBy?: Prisma.AuditRuleSetOrderByWithRelationInput | Prisma.AuditRuleSetOrderByWithRelationInput[]
-  cursor?: Prisma.AuditRuleSetWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.AuditRuleSetScalarFieldEnum | Prisma.AuditRuleSetScalarFieldEnum[]
-}
-
-/**
  * User.interactions
  */
 export type User$interactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3445,30 +2655,6 @@ export type User$interactionsArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.ContentInteractionScalarFieldEnum | Prisma.ContentInteractionScalarFieldEnum[]
-}
-
-/**
- * User.contentOperations
- */
-export type User$contentOperationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ContentOperation
-   */
-  select?: Prisma.ContentOperationSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ContentOperation
-   */
-  omit?: Prisma.ContentOperationOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ContentOperationInclude<ExtArgs> | null
-  where?: Prisma.ContentOperationWhereInput
-  orderBy?: Prisma.ContentOperationOrderByWithRelationInput | Prisma.ContentOperationOrderByWithRelationInput[]
-  cursor?: Prisma.ContentOperationWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ContentOperationScalarFieldEnum | Prisma.ContentOperationScalarFieldEnum[]
 }
 
 /**

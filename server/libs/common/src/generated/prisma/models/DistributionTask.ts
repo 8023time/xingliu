@@ -27,7 +27,7 @@ export type AggregateDistributionTask = {
 export type DistributionTaskMinAggregateOutputType = {
   id: string | null
   contentId: string | null
-  channelId: string | null
+  platform: string | null
   status: $Enums.DistributionStatus | null
   externalContentId: string | null
   errorMessage: string | null
@@ -39,7 +39,7 @@ export type DistributionTaskMinAggregateOutputType = {
 export type DistributionTaskMaxAggregateOutputType = {
   id: string | null
   contentId: string | null
-  channelId: string | null
+  platform: string | null
   status: $Enums.DistributionStatus | null
   externalContentId: string | null
   errorMessage: string | null
@@ -51,8 +51,10 @@ export type DistributionTaskMaxAggregateOutputType = {
 export type DistributionTaskCountAggregateOutputType = {
   id: number
   contentId: number
-  channelId: number
+  platform: number
   status: number
+  requestPayload: number
+  responsePayload: number
   externalContentId: number
   errorMessage: number
   distributedAt: number
@@ -65,7 +67,7 @@ export type DistributionTaskCountAggregateOutputType = {
 export type DistributionTaskMinAggregateInputType = {
   id?: true
   contentId?: true
-  channelId?: true
+  platform?: true
   status?: true
   externalContentId?: true
   errorMessage?: true
@@ -77,7 +79,7 @@ export type DistributionTaskMinAggregateInputType = {
 export type DistributionTaskMaxAggregateInputType = {
   id?: true
   contentId?: true
-  channelId?: true
+  platform?: true
   status?: true
   externalContentId?: true
   errorMessage?: true
@@ -89,8 +91,10 @@ export type DistributionTaskMaxAggregateInputType = {
 export type DistributionTaskCountAggregateInputType = {
   id?: true
   contentId?: true
-  channelId?: true
+  platform?: true
   status?: true
+  requestPayload?: true
+  responsePayload?: true
   externalContentId?: true
   errorMessage?: true
   distributedAt?: true
@@ -174,8 +178,10 @@ export type DistributionTaskGroupByArgs<ExtArgs extends runtime.Types.Extensions
 export type DistributionTaskGroupByOutputType = {
   id: string
   contentId: string
-  channelId: string
+  platform: string
   status: $Enums.DistributionStatus
+  requestPayload: runtime.JsonValue | null
+  responsePayload: runtime.JsonValue | null
   externalContentId: string | null
   errorMessage: string | null
   distributedAt: Date | null
@@ -207,29 +213,31 @@ export type DistributionTaskWhereInput = {
   NOT?: Prisma.DistributionTaskWhereInput | Prisma.DistributionTaskWhereInput[]
   id?: Prisma.StringFilter<"DistributionTask"> | string
   contentId?: Prisma.StringFilter<"DistributionTask"> | string
-  channelId?: Prisma.StringFilter<"DistributionTask"> | string
+  platform?: Prisma.StringFilter<"DistributionTask"> | string
   status?: Prisma.EnumDistributionStatusFilter<"DistributionTask"> | $Enums.DistributionStatus
+  requestPayload?: Prisma.JsonNullableFilter<"DistributionTask">
+  responsePayload?: Prisma.JsonNullableFilter<"DistributionTask">
   externalContentId?: Prisma.StringNullableFilter<"DistributionTask"> | string | null
   errorMessage?: Prisma.StringNullableFilter<"DistributionTask"> | string | null
   distributedAt?: Prisma.DateTimeNullableFilter<"DistributionTask"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"DistributionTask"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"DistributionTask"> | Date | string
   content?: Prisma.XOR<Prisma.ContentScalarRelationFilter, Prisma.ContentWhereInput>
-  channel?: Prisma.XOR<Prisma.DistributionChannelScalarRelationFilter, Prisma.DistributionChannelWhereInput>
 }
 
 export type DistributionTaskOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   contentId?: Prisma.SortOrder
-  channelId?: Prisma.SortOrder
+  platform?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  requestPayload?: Prisma.SortOrderInput | Prisma.SortOrder
+  responsePayload?: Prisma.SortOrderInput | Prisma.SortOrder
   externalContentId?: Prisma.SortOrderInput | Prisma.SortOrder
   errorMessage?: Prisma.SortOrderInput | Prisma.SortOrder
   distributedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   content?: Prisma.ContentOrderByWithRelationInput
-  channel?: Prisma.DistributionChannelOrderByWithRelationInput
 }
 
 export type DistributionTaskWhereUniqueInput = Prisma.AtLeast<{
@@ -238,22 +246,25 @@ export type DistributionTaskWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.DistributionTaskWhereInput[]
   NOT?: Prisma.DistributionTaskWhereInput | Prisma.DistributionTaskWhereInput[]
   contentId?: Prisma.StringFilter<"DistributionTask"> | string
-  channelId?: Prisma.StringFilter<"DistributionTask"> | string
+  platform?: Prisma.StringFilter<"DistributionTask"> | string
   status?: Prisma.EnumDistributionStatusFilter<"DistributionTask"> | $Enums.DistributionStatus
+  requestPayload?: Prisma.JsonNullableFilter<"DistributionTask">
+  responsePayload?: Prisma.JsonNullableFilter<"DistributionTask">
   externalContentId?: Prisma.StringNullableFilter<"DistributionTask"> | string | null
   errorMessage?: Prisma.StringNullableFilter<"DistributionTask"> | string | null
   distributedAt?: Prisma.DateTimeNullableFilter<"DistributionTask"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"DistributionTask"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"DistributionTask"> | Date | string
   content?: Prisma.XOR<Prisma.ContentScalarRelationFilter, Prisma.ContentWhereInput>
-  channel?: Prisma.XOR<Prisma.DistributionChannelScalarRelationFilter, Prisma.DistributionChannelWhereInput>
 }, "id">
 
 export type DistributionTaskOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   contentId?: Prisma.SortOrder
-  channelId?: Prisma.SortOrder
+  platform?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  requestPayload?: Prisma.SortOrderInput | Prisma.SortOrder
+  responsePayload?: Prisma.SortOrderInput | Prisma.SortOrder
   externalContentId?: Prisma.SortOrderInput | Prisma.SortOrder
   errorMessage?: Prisma.SortOrderInput | Prisma.SortOrder
   distributedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -270,8 +281,10 @@ export type DistributionTaskScalarWhereWithAggregatesInput = {
   NOT?: Prisma.DistributionTaskScalarWhereWithAggregatesInput | Prisma.DistributionTaskScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"DistributionTask"> | string
   contentId?: Prisma.StringWithAggregatesFilter<"DistributionTask"> | string
-  channelId?: Prisma.StringWithAggregatesFilter<"DistributionTask"> | string
+  platform?: Prisma.StringWithAggregatesFilter<"DistributionTask"> | string
   status?: Prisma.EnumDistributionStatusWithAggregatesFilter<"DistributionTask"> | $Enums.DistributionStatus
+  requestPayload?: Prisma.JsonNullableWithAggregatesFilter<"DistributionTask">
+  responsePayload?: Prisma.JsonNullableWithAggregatesFilter<"DistributionTask">
   externalContentId?: Prisma.StringNullableWithAggregatesFilter<"DistributionTask"> | string | null
   errorMessage?: Prisma.StringNullableWithAggregatesFilter<"DistributionTask"> | string | null
   distributedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"DistributionTask"> | Date | string | null
@@ -281,21 +294,25 @@ export type DistributionTaskScalarWhereWithAggregatesInput = {
 
 export type DistributionTaskCreateInput = {
   id?: string
+  platform: string
   status?: $Enums.DistributionStatus
+  requestPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  responsePayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   externalContentId?: string | null
   errorMessage?: string | null
   distributedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   content: Prisma.ContentCreateNestedOneWithoutDistributionTasksInput
-  channel: Prisma.DistributionChannelCreateNestedOneWithoutTasksInput
 }
 
 export type DistributionTaskUncheckedCreateInput = {
   id?: string
   contentId: string
-  channelId: string
+  platform: string
   status?: $Enums.DistributionStatus
+  requestPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  responsePayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   externalContentId?: string | null
   errorMessage?: string | null
   distributedAt?: Date | string | null
@@ -305,21 +322,25 @@ export type DistributionTaskUncheckedCreateInput = {
 
 export type DistributionTaskUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  platform?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDistributionStatusFieldUpdateOperationsInput | $Enums.DistributionStatus
+  requestPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  responsePayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   externalContentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   content?: Prisma.ContentUpdateOneRequiredWithoutDistributionTasksNestedInput
-  channel?: Prisma.DistributionChannelUpdateOneRequiredWithoutTasksNestedInput
 }
 
 export type DistributionTaskUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   contentId?: Prisma.StringFieldUpdateOperationsInput | string
-  channelId?: Prisma.StringFieldUpdateOperationsInput | string
+  platform?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDistributionStatusFieldUpdateOperationsInput | $Enums.DistributionStatus
+  requestPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  responsePayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   externalContentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -330,8 +351,10 @@ export type DistributionTaskUncheckedUpdateInput = {
 export type DistributionTaskCreateManyInput = {
   id?: string
   contentId: string
-  channelId: string
+  platform: string
   status?: $Enums.DistributionStatus
+  requestPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  responsePayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   externalContentId?: string | null
   errorMessage?: string | null
   distributedAt?: Date | string | null
@@ -341,7 +364,10 @@ export type DistributionTaskCreateManyInput = {
 
 export type DistributionTaskUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  platform?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDistributionStatusFieldUpdateOperationsInput | $Enums.DistributionStatus
+  requestPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  responsePayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   externalContentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -352,8 +378,10 @@ export type DistributionTaskUpdateManyMutationInput = {
 export type DistributionTaskUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   contentId?: Prisma.StringFieldUpdateOperationsInput | string
-  channelId?: Prisma.StringFieldUpdateOperationsInput | string
+  platform?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDistributionStatusFieldUpdateOperationsInput | $Enums.DistributionStatus
+  requestPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  responsePayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   externalContentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -374,8 +402,10 @@ export type DistributionTaskOrderByRelationAggregateInput = {
 export type DistributionTaskCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   contentId?: Prisma.SortOrder
-  channelId?: Prisma.SortOrder
+  platform?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  requestPayload?: Prisma.SortOrder
+  responsePayload?: Prisma.SortOrder
   externalContentId?: Prisma.SortOrder
   errorMessage?: Prisma.SortOrder
   distributedAt?: Prisma.SortOrder
@@ -386,7 +416,7 @@ export type DistributionTaskCountOrderByAggregateInput = {
 export type DistributionTaskMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   contentId?: Prisma.SortOrder
-  channelId?: Prisma.SortOrder
+  platform?: Prisma.SortOrder
   status?: Prisma.SortOrder
   externalContentId?: Prisma.SortOrder
   errorMessage?: Prisma.SortOrder
@@ -398,7 +428,7 @@ export type DistributionTaskMaxOrderByAggregateInput = {
 export type DistributionTaskMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   contentId?: Prisma.SortOrder
-  channelId?: Prisma.SortOrder
+  platform?: Prisma.SortOrder
   status?: Prisma.SortOrder
   externalContentId?: Prisma.SortOrder
   errorMessage?: Prisma.SortOrder
@@ -449,67 +479,29 @@ export type DistributionTaskUncheckedUpdateManyWithoutContentNestedInput = {
   deleteMany?: Prisma.DistributionTaskScalarWhereInput | Prisma.DistributionTaskScalarWhereInput[]
 }
 
-export type DistributionTaskCreateNestedManyWithoutChannelInput = {
-  create?: Prisma.XOR<Prisma.DistributionTaskCreateWithoutChannelInput, Prisma.DistributionTaskUncheckedCreateWithoutChannelInput> | Prisma.DistributionTaskCreateWithoutChannelInput[] | Prisma.DistributionTaskUncheckedCreateWithoutChannelInput[]
-  connectOrCreate?: Prisma.DistributionTaskCreateOrConnectWithoutChannelInput | Prisma.DistributionTaskCreateOrConnectWithoutChannelInput[]
-  createMany?: Prisma.DistributionTaskCreateManyChannelInputEnvelope
-  connect?: Prisma.DistributionTaskWhereUniqueInput | Prisma.DistributionTaskWhereUniqueInput[]
-}
-
-export type DistributionTaskUncheckedCreateNestedManyWithoutChannelInput = {
-  create?: Prisma.XOR<Prisma.DistributionTaskCreateWithoutChannelInput, Prisma.DistributionTaskUncheckedCreateWithoutChannelInput> | Prisma.DistributionTaskCreateWithoutChannelInput[] | Prisma.DistributionTaskUncheckedCreateWithoutChannelInput[]
-  connectOrCreate?: Prisma.DistributionTaskCreateOrConnectWithoutChannelInput | Prisma.DistributionTaskCreateOrConnectWithoutChannelInput[]
-  createMany?: Prisma.DistributionTaskCreateManyChannelInputEnvelope
-  connect?: Prisma.DistributionTaskWhereUniqueInput | Prisma.DistributionTaskWhereUniqueInput[]
-}
-
-export type DistributionTaskUpdateManyWithoutChannelNestedInput = {
-  create?: Prisma.XOR<Prisma.DistributionTaskCreateWithoutChannelInput, Prisma.DistributionTaskUncheckedCreateWithoutChannelInput> | Prisma.DistributionTaskCreateWithoutChannelInput[] | Prisma.DistributionTaskUncheckedCreateWithoutChannelInput[]
-  connectOrCreate?: Prisma.DistributionTaskCreateOrConnectWithoutChannelInput | Prisma.DistributionTaskCreateOrConnectWithoutChannelInput[]
-  upsert?: Prisma.DistributionTaskUpsertWithWhereUniqueWithoutChannelInput | Prisma.DistributionTaskUpsertWithWhereUniqueWithoutChannelInput[]
-  createMany?: Prisma.DistributionTaskCreateManyChannelInputEnvelope
-  set?: Prisma.DistributionTaskWhereUniqueInput | Prisma.DistributionTaskWhereUniqueInput[]
-  disconnect?: Prisma.DistributionTaskWhereUniqueInput | Prisma.DistributionTaskWhereUniqueInput[]
-  delete?: Prisma.DistributionTaskWhereUniqueInput | Prisma.DistributionTaskWhereUniqueInput[]
-  connect?: Prisma.DistributionTaskWhereUniqueInput | Prisma.DistributionTaskWhereUniqueInput[]
-  update?: Prisma.DistributionTaskUpdateWithWhereUniqueWithoutChannelInput | Prisma.DistributionTaskUpdateWithWhereUniqueWithoutChannelInput[]
-  updateMany?: Prisma.DistributionTaskUpdateManyWithWhereWithoutChannelInput | Prisma.DistributionTaskUpdateManyWithWhereWithoutChannelInput[]
-  deleteMany?: Prisma.DistributionTaskScalarWhereInput | Prisma.DistributionTaskScalarWhereInput[]
-}
-
-export type DistributionTaskUncheckedUpdateManyWithoutChannelNestedInput = {
-  create?: Prisma.XOR<Prisma.DistributionTaskCreateWithoutChannelInput, Prisma.DistributionTaskUncheckedCreateWithoutChannelInput> | Prisma.DistributionTaskCreateWithoutChannelInput[] | Prisma.DistributionTaskUncheckedCreateWithoutChannelInput[]
-  connectOrCreate?: Prisma.DistributionTaskCreateOrConnectWithoutChannelInput | Prisma.DistributionTaskCreateOrConnectWithoutChannelInput[]
-  upsert?: Prisma.DistributionTaskUpsertWithWhereUniqueWithoutChannelInput | Prisma.DistributionTaskUpsertWithWhereUniqueWithoutChannelInput[]
-  createMany?: Prisma.DistributionTaskCreateManyChannelInputEnvelope
-  set?: Prisma.DistributionTaskWhereUniqueInput | Prisma.DistributionTaskWhereUniqueInput[]
-  disconnect?: Prisma.DistributionTaskWhereUniqueInput | Prisma.DistributionTaskWhereUniqueInput[]
-  delete?: Prisma.DistributionTaskWhereUniqueInput | Prisma.DistributionTaskWhereUniqueInput[]
-  connect?: Prisma.DistributionTaskWhereUniqueInput | Prisma.DistributionTaskWhereUniqueInput[]
-  update?: Prisma.DistributionTaskUpdateWithWhereUniqueWithoutChannelInput | Prisma.DistributionTaskUpdateWithWhereUniqueWithoutChannelInput[]
-  updateMany?: Prisma.DistributionTaskUpdateManyWithWhereWithoutChannelInput | Prisma.DistributionTaskUpdateManyWithWhereWithoutChannelInput[]
-  deleteMany?: Prisma.DistributionTaskScalarWhereInput | Prisma.DistributionTaskScalarWhereInput[]
-}
-
 export type EnumDistributionStatusFieldUpdateOperationsInput = {
   set?: $Enums.DistributionStatus
 }
 
 export type DistributionTaskCreateWithoutContentInput = {
   id?: string
+  platform: string
   status?: $Enums.DistributionStatus
+  requestPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  responsePayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   externalContentId?: string | null
   errorMessage?: string | null
   distributedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  channel: Prisma.DistributionChannelCreateNestedOneWithoutTasksInput
 }
 
 export type DistributionTaskUncheckedCreateWithoutContentInput = {
   id?: string
-  channelId: string
+  platform: string
   status?: $Enums.DistributionStatus
+  requestPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  responsePayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   externalContentId?: string | null
   errorMessage?: string | null
   distributedAt?: Date | string | null
@@ -549,8 +541,10 @@ export type DistributionTaskScalarWhereInput = {
   NOT?: Prisma.DistributionTaskScalarWhereInput | Prisma.DistributionTaskScalarWhereInput[]
   id?: Prisma.StringFilter<"DistributionTask"> | string
   contentId?: Prisma.StringFilter<"DistributionTask"> | string
-  channelId?: Prisma.StringFilter<"DistributionTask"> | string
+  platform?: Prisma.StringFilter<"DistributionTask"> | string
   status?: Prisma.EnumDistributionStatusFilter<"DistributionTask"> | $Enums.DistributionStatus
+  requestPayload?: Prisma.JsonNullableFilter<"DistributionTask">
+  responsePayload?: Prisma.JsonNullableFilter<"DistributionTask">
   externalContentId?: Prisma.StringNullableFilter<"DistributionTask"> | string | null
   errorMessage?: Prisma.StringNullableFilter<"DistributionTask"> | string | null
   distributedAt?: Prisma.DateTimeNullableFilter<"DistributionTask"> | Date | string | null
@@ -558,58 +552,12 @@ export type DistributionTaskScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"DistributionTask"> | Date | string
 }
 
-export type DistributionTaskCreateWithoutChannelInput = {
-  id?: string
-  status?: $Enums.DistributionStatus
-  externalContentId?: string | null
-  errorMessage?: string | null
-  distributedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  content: Prisma.ContentCreateNestedOneWithoutDistributionTasksInput
-}
-
-export type DistributionTaskUncheckedCreateWithoutChannelInput = {
-  id?: string
-  contentId: string
-  status?: $Enums.DistributionStatus
-  externalContentId?: string | null
-  errorMessage?: string | null
-  distributedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type DistributionTaskCreateOrConnectWithoutChannelInput = {
-  where: Prisma.DistributionTaskWhereUniqueInput
-  create: Prisma.XOR<Prisma.DistributionTaskCreateWithoutChannelInput, Prisma.DistributionTaskUncheckedCreateWithoutChannelInput>
-}
-
-export type DistributionTaskCreateManyChannelInputEnvelope = {
-  data: Prisma.DistributionTaskCreateManyChannelInput | Prisma.DistributionTaskCreateManyChannelInput[]
-  skipDuplicates?: boolean
-}
-
-export type DistributionTaskUpsertWithWhereUniqueWithoutChannelInput = {
-  where: Prisma.DistributionTaskWhereUniqueInput
-  update: Prisma.XOR<Prisma.DistributionTaskUpdateWithoutChannelInput, Prisma.DistributionTaskUncheckedUpdateWithoutChannelInput>
-  create: Prisma.XOR<Prisma.DistributionTaskCreateWithoutChannelInput, Prisma.DistributionTaskUncheckedCreateWithoutChannelInput>
-}
-
-export type DistributionTaskUpdateWithWhereUniqueWithoutChannelInput = {
-  where: Prisma.DistributionTaskWhereUniqueInput
-  data: Prisma.XOR<Prisma.DistributionTaskUpdateWithoutChannelInput, Prisma.DistributionTaskUncheckedUpdateWithoutChannelInput>
-}
-
-export type DistributionTaskUpdateManyWithWhereWithoutChannelInput = {
-  where: Prisma.DistributionTaskScalarWhereInput
-  data: Prisma.XOR<Prisma.DistributionTaskUpdateManyMutationInput, Prisma.DistributionTaskUncheckedUpdateManyWithoutChannelInput>
-}
-
 export type DistributionTaskCreateManyContentInput = {
   id?: string
-  channelId: string
+  platform: string
   status?: $Enums.DistributionStatus
+  requestPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  responsePayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   externalContentId?: string | null
   errorMessage?: string | null
   distributedAt?: Date | string | null
@@ -619,19 +567,23 @@ export type DistributionTaskCreateManyContentInput = {
 
 export type DistributionTaskUpdateWithoutContentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  platform?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDistributionStatusFieldUpdateOperationsInput | $Enums.DistributionStatus
+  requestPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  responsePayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   externalContentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  channel?: Prisma.DistributionChannelUpdateOneRequiredWithoutTasksNestedInput
 }
 
 export type DistributionTaskUncheckedUpdateWithoutContentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  channelId?: Prisma.StringFieldUpdateOperationsInput | string
+  platform?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDistributionStatusFieldUpdateOperationsInput | $Enums.DistributionStatus
+  requestPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  responsePayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   externalContentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -641,52 +593,10 @@ export type DistributionTaskUncheckedUpdateWithoutContentInput = {
 
 export type DistributionTaskUncheckedUpdateManyWithoutContentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  channelId?: Prisma.StringFieldUpdateOperationsInput | string
+  platform?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDistributionStatusFieldUpdateOperationsInput | $Enums.DistributionStatus
-  externalContentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type DistributionTaskCreateManyChannelInput = {
-  id?: string
-  contentId: string
-  status?: $Enums.DistributionStatus
-  externalContentId?: string | null
-  errorMessage?: string | null
-  distributedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type DistributionTaskUpdateWithoutChannelInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumDistributionStatusFieldUpdateOperationsInput | $Enums.DistributionStatus
-  externalContentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  content?: Prisma.ContentUpdateOneRequiredWithoutDistributionTasksNestedInput
-}
-
-export type DistributionTaskUncheckedUpdateWithoutChannelInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  contentId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumDistributionStatusFieldUpdateOperationsInput | $Enums.DistributionStatus
-  externalContentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type DistributionTaskUncheckedUpdateManyWithoutChannelInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  contentId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumDistributionStatusFieldUpdateOperationsInput | $Enums.DistributionStatus
+  requestPayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  responsePayload?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   externalContentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -699,50 +609,55 @@ export type DistributionTaskUncheckedUpdateManyWithoutChannelInput = {
 export type DistributionTaskSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   contentId?: boolean
-  channelId?: boolean
+  platform?: boolean
   status?: boolean
+  requestPayload?: boolean
+  responsePayload?: boolean
   externalContentId?: boolean
   errorMessage?: boolean
   distributedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   content?: boolean | Prisma.ContentDefaultArgs<ExtArgs>
-  channel?: boolean | Prisma.DistributionChannelDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["distributionTask"]>
 
 export type DistributionTaskSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   contentId?: boolean
-  channelId?: boolean
+  platform?: boolean
   status?: boolean
+  requestPayload?: boolean
+  responsePayload?: boolean
   externalContentId?: boolean
   errorMessage?: boolean
   distributedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   content?: boolean | Prisma.ContentDefaultArgs<ExtArgs>
-  channel?: boolean | Prisma.DistributionChannelDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["distributionTask"]>
 
 export type DistributionTaskSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   contentId?: boolean
-  channelId?: boolean
+  platform?: boolean
   status?: boolean
+  requestPayload?: boolean
+  responsePayload?: boolean
   externalContentId?: boolean
   errorMessage?: boolean
   distributedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   content?: boolean | Prisma.ContentDefaultArgs<ExtArgs>
-  channel?: boolean | Prisma.DistributionChannelDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["distributionTask"]>
 
 export type DistributionTaskSelectScalar = {
   id?: boolean
   contentId?: boolean
-  channelId?: boolean
+  platform?: boolean
   status?: boolean
+  requestPayload?: boolean
+  responsePayload?: boolean
   externalContentId?: boolean
   errorMessage?: boolean
   distributedAt?: boolean
@@ -750,31 +665,29 @@ export type DistributionTaskSelectScalar = {
   updatedAt?: boolean
 }
 
-export type DistributionTaskOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "contentId" | "channelId" | "status" | "externalContentId" | "errorMessage" | "distributedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["distributionTask"]>
+export type DistributionTaskOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "contentId" | "platform" | "status" | "requestPayload" | "responsePayload" | "externalContentId" | "errorMessage" | "distributedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["distributionTask"]>
 export type DistributionTaskInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   content?: boolean | Prisma.ContentDefaultArgs<ExtArgs>
-  channel?: boolean | Prisma.DistributionChannelDefaultArgs<ExtArgs>
 }
 export type DistributionTaskIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   content?: boolean | Prisma.ContentDefaultArgs<ExtArgs>
-  channel?: boolean | Prisma.DistributionChannelDefaultArgs<ExtArgs>
 }
 export type DistributionTaskIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   content?: boolean | Prisma.ContentDefaultArgs<ExtArgs>
-  channel?: boolean | Prisma.DistributionChannelDefaultArgs<ExtArgs>
 }
 
 export type $DistributionTaskPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "DistributionTask"
   objects: {
     content: Prisma.$ContentPayload<ExtArgs>
-    channel: Prisma.$DistributionChannelPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     contentId: string
-    channelId: string
+    platform: string
     status: $Enums.DistributionStatus
+    requestPayload: runtime.JsonValue | null
+    responsePayload: runtime.JsonValue | null
     externalContentId: string | null
     errorMessage: string | null
     distributedAt: Date | null
@@ -1175,7 +1088,6 @@ readonly fields: DistributionTaskFieldRefs;
 export interface Prisma__DistributionTaskClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   content<T extends Prisma.ContentDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ContentDefaultArgs<ExtArgs>>): Prisma.Prisma__ContentClient<runtime.Types.Result.GetResult<Prisma.$ContentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  channel<T extends Prisma.DistributionChannelDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DistributionChannelDefaultArgs<ExtArgs>>): Prisma.Prisma__DistributionChannelClient<runtime.Types.Result.GetResult<Prisma.$DistributionChannelPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1207,8 +1119,10 @@ export interface Prisma__DistributionTaskClient<T, Null = never, ExtArgs extends
 export interface DistributionTaskFieldRefs {
   readonly id: Prisma.FieldRef<"DistributionTask", 'String'>
   readonly contentId: Prisma.FieldRef<"DistributionTask", 'String'>
-  readonly channelId: Prisma.FieldRef<"DistributionTask", 'String'>
+  readonly platform: Prisma.FieldRef<"DistributionTask", 'String'>
   readonly status: Prisma.FieldRef<"DistributionTask", 'DistributionStatus'>
+  readonly requestPayload: Prisma.FieldRef<"DistributionTask", 'Json'>
+  readonly responsePayload: Prisma.FieldRef<"DistributionTask", 'Json'>
   readonly externalContentId: Prisma.FieldRef<"DistributionTask", 'String'>
   readonly errorMessage: Prisma.FieldRef<"DistributionTask", 'String'>
   readonly distributedAt: Prisma.FieldRef<"DistributionTask", 'DateTime'>

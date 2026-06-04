@@ -31,7 +31,6 @@ export type ContentMetricAvgAggregateOutputType = {
   likeCount: number | null
   shareCount: number | null
   collectCount: number | null
-  commentCount: number | null
   reportCount: number | null
 }
 
@@ -40,7 +39,6 @@ export type ContentMetricSumAggregateOutputType = {
   likeCount: number | null
   shareCount: number | null
   collectCount: number | null
-  commentCount: number | null
   reportCount: number | null
 }
 
@@ -50,7 +48,6 @@ export type ContentMetricMinAggregateOutputType = {
   likeCount: number | null
   shareCount: number | null
   collectCount: number | null
-  commentCount: number | null
   reportCount: number | null
   updatedAt: Date | null
 }
@@ -61,7 +58,6 @@ export type ContentMetricMaxAggregateOutputType = {
   likeCount: number | null
   shareCount: number | null
   collectCount: number | null
-  commentCount: number | null
   reportCount: number | null
   updatedAt: Date | null
 }
@@ -72,7 +68,6 @@ export type ContentMetricCountAggregateOutputType = {
   likeCount: number
   shareCount: number
   collectCount: number
-  commentCount: number
   reportCount: number
   updatedAt: number
   _all: number
@@ -84,7 +79,6 @@ export type ContentMetricAvgAggregateInputType = {
   likeCount?: true
   shareCount?: true
   collectCount?: true
-  commentCount?: true
   reportCount?: true
 }
 
@@ -93,7 +87,6 @@ export type ContentMetricSumAggregateInputType = {
   likeCount?: true
   shareCount?: true
   collectCount?: true
-  commentCount?: true
   reportCount?: true
 }
 
@@ -103,7 +96,6 @@ export type ContentMetricMinAggregateInputType = {
   likeCount?: true
   shareCount?: true
   collectCount?: true
-  commentCount?: true
   reportCount?: true
   updatedAt?: true
 }
@@ -114,7 +106,6 @@ export type ContentMetricMaxAggregateInputType = {
   likeCount?: true
   shareCount?: true
   collectCount?: true
-  commentCount?: true
   reportCount?: true
   updatedAt?: true
 }
@@ -125,7 +116,6 @@ export type ContentMetricCountAggregateInputType = {
   likeCount?: true
   shareCount?: true
   collectCount?: true
-  commentCount?: true
   reportCount?: true
   updatedAt?: true
   _all?: true
@@ -223,7 +213,6 @@ export type ContentMetricGroupByOutputType = {
   likeCount: number
   shareCount: number
   collectCount: number
-  commentCount: number
   reportCount: number
   updatedAt: Date
   _count: ContentMetricCountAggregateOutputType | null
@@ -257,7 +246,6 @@ export type ContentMetricWhereInput = {
   likeCount?: Prisma.IntFilter<"ContentMetric"> | number
   shareCount?: Prisma.IntFilter<"ContentMetric"> | number
   collectCount?: Prisma.IntFilter<"ContentMetric"> | number
-  commentCount?: Prisma.IntFilter<"ContentMetric"> | number
   reportCount?: Prisma.IntFilter<"ContentMetric"> | number
   updatedAt?: Prisma.DateTimeFilter<"ContentMetric"> | Date | string
   content?: Prisma.XOR<Prisma.ContentScalarRelationFilter, Prisma.ContentWhereInput>
@@ -269,7 +257,6 @@ export type ContentMetricOrderByWithRelationInput = {
   likeCount?: Prisma.SortOrder
   shareCount?: Prisma.SortOrder
   collectCount?: Prisma.SortOrder
-  commentCount?: Prisma.SortOrder
   reportCount?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   content?: Prisma.ContentOrderByWithRelationInput
@@ -284,7 +271,6 @@ export type ContentMetricWhereUniqueInput = Prisma.AtLeast<{
   likeCount?: Prisma.IntFilter<"ContentMetric"> | number
   shareCount?: Prisma.IntFilter<"ContentMetric"> | number
   collectCount?: Prisma.IntFilter<"ContentMetric"> | number
-  commentCount?: Prisma.IntFilter<"ContentMetric"> | number
   reportCount?: Prisma.IntFilter<"ContentMetric"> | number
   updatedAt?: Prisma.DateTimeFilter<"ContentMetric"> | Date | string
   content?: Prisma.XOR<Prisma.ContentScalarRelationFilter, Prisma.ContentWhereInput>
@@ -296,7 +282,6 @@ export type ContentMetricOrderByWithAggregationInput = {
   likeCount?: Prisma.SortOrder
   shareCount?: Prisma.SortOrder
   collectCount?: Prisma.SortOrder
-  commentCount?: Prisma.SortOrder
   reportCount?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ContentMetricCountOrderByAggregateInput
@@ -315,7 +300,6 @@ export type ContentMetricScalarWhereWithAggregatesInput = {
   likeCount?: Prisma.IntWithAggregatesFilter<"ContentMetric"> | number
   shareCount?: Prisma.IntWithAggregatesFilter<"ContentMetric"> | number
   collectCount?: Prisma.IntWithAggregatesFilter<"ContentMetric"> | number
-  commentCount?: Prisma.IntWithAggregatesFilter<"ContentMetric"> | number
   reportCount?: Prisma.IntWithAggregatesFilter<"ContentMetric"> | number
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ContentMetric"> | Date | string
 }
@@ -325,7 +309,6 @@ export type ContentMetricCreateInput = {
   likeCount?: number
   shareCount?: number
   collectCount?: number
-  commentCount?: number
   reportCount?: number
   updatedAt?: Date | string
   content: Prisma.ContentCreateNestedOneWithoutMetricsInput
@@ -337,7 +320,6 @@ export type ContentMetricUncheckedCreateInput = {
   likeCount?: number
   shareCount?: number
   collectCount?: number
-  commentCount?: number
   reportCount?: number
   updatedAt?: Date | string
 }
@@ -347,7 +329,6 @@ export type ContentMetricUpdateInput = {
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   shareCount?: Prisma.IntFieldUpdateOperationsInput | number
   collectCount?: Prisma.IntFieldUpdateOperationsInput | number
-  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   reportCount?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   content?: Prisma.ContentUpdateOneRequiredWithoutMetricsNestedInput
@@ -359,7 +340,6 @@ export type ContentMetricUncheckedUpdateInput = {
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   shareCount?: Prisma.IntFieldUpdateOperationsInput | number
   collectCount?: Prisma.IntFieldUpdateOperationsInput | number
-  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   reportCount?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -370,7 +350,6 @@ export type ContentMetricCreateManyInput = {
   likeCount?: number
   shareCount?: number
   collectCount?: number
-  commentCount?: number
   reportCount?: number
   updatedAt?: Date | string
 }
@@ -380,7 +359,6 @@ export type ContentMetricUpdateManyMutationInput = {
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   shareCount?: Prisma.IntFieldUpdateOperationsInput | number
   collectCount?: Prisma.IntFieldUpdateOperationsInput | number
-  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   reportCount?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -391,7 +369,6 @@ export type ContentMetricUncheckedUpdateManyInput = {
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   shareCount?: Prisma.IntFieldUpdateOperationsInput | number
   collectCount?: Prisma.IntFieldUpdateOperationsInput | number
-  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   reportCount?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -407,7 +384,6 @@ export type ContentMetricCountOrderByAggregateInput = {
   likeCount?: Prisma.SortOrder
   shareCount?: Prisma.SortOrder
   collectCount?: Prisma.SortOrder
-  commentCount?: Prisma.SortOrder
   reportCount?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -417,7 +393,6 @@ export type ContentMetricAvgOrderByAggregateInput = {
   likeCount?: Prisma.SortOrder
   shareCount?: Prisma.SortOrder
   collectCount?: Prisma.SortOrder
-  commentCount?: Prisma.SortOrder
   reportCount?: Prisma.SortOrder
 }
 
@@ -427,7 +402,6 @@ export type ContentMetricMaxOrderByAggregateInput = {
   likeCount?: Prisma.SortOrder
   shareCount?: Prisma.SortOrder
   collectCount?: Prisma.SortOrder
-  commentCount?: Prisma.SortOrder
   reportCount?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -438,7 +412,6 @@ export type ContentMetricMinOrderByAggregateInput = {
   likeCount?: Prisma.SortOrder
   shareCount?: Prisma.SortOrder
   collectCount?: Prisma.SortOrder
-  commentCount?: Prisma.SortOrder
   reportCount?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -448,7 +421,6 @@ export type ContentMetricSumOrderByAggregateInput = {
   likeCount?: Prisma.SortOrder
   shareCount?: Prisma.SortOrder
   collectCount?: Prisma.SortOrder
-  commentCount?: Prisma.SortOrder
   reportCount?: Prisma.SortOrder
 }
 
@@ -489,7 +461,6 @@ export type ContentMetricCreateWithoutContentInput = {
   likeCount?: number
   shareCount?: number
   collectCount?: number
-  commentCount?: number
   reportCount?: number
   updatedAt?: Date | string
 }
@@ -499,7 +470,6 @@ export type ContentMetricUncheckedCreateWithoutContentInput = {
   likeCount?: number
   shareCount?: number
   collectCount?: number
-  commentCount?: number
   reportCount?: number
   updatedAt?: Date | string
 }
@@ -525,7 +495,6 @@ export type ContentMetricUpdateWithoutContentInput = {
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   shareCount?: Prisma.IntFieldUpdateOperationsInput | number
   collectCount?: Prisma.IntFieldUpdateOperationsInput | number
-  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   reportCount?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -535,7 +504,6 @@ export type ContentMetricUncheckedUpdateWithoutContentInput = {
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
   shareCount?: Prisma.IntFieldUpdateOperationsInput | number
   collectCount?: Prisma.IntFieldUpdateOperationsInput | number
-  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
   reportCount?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -548,7 +516,6 @@ export type ContentMetricSelect<ExtArgs extends runtime.Types.Extensions.Interna
   likeCount?: boolean
   shareCount?: boolean
   collectCount?: boolean
-  commentCount?: boolean
   reportCount?: boolean
   updatedAt?: boolean
   content?: boolean | Prisma.ContentDefaultArgs<ExtArgs>
@@ -560,7 +527,6 @@ export type ContentMetricSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   likeCount?: boolean
   shareCount?: boolean
   collectCount?: boolean
-  commentCount?: boolean
   reportCount?: boolean
   updatedAt?: boolean
   content?: boolean | Prisma.ContentDefaultArgs<ExtArgs>
@@ -572,7 +538,6 @@ export type ContentMetricSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   likeCount?: boolean
   shareCount?: boolean
   collectCount?: boolean
-  commentCount?: boolean
   reportCount?: boolean
   updatedAt?: boolean
   content?: boolean | Prisma.ContentDefaultArgs<ExtArgs>
@@ -584,12 +549,11 @@ export type ContentMetricSelectScalar = {
   likeCount?: boolean
   shareCount?: boolean
   collectCount?: boolean
-  commentCount?: boolean
   reportCount?: boolean
   updatedAt?: boolean
 }
 
-export type ContentMetricOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"contentId" | "viewCount" | "likeCount" | "shareCount" | "collectCount" | "commentCount" | "reportCount" | "updatedAt", ExtArgs["result"]["contentMetric"]>
+export type ContentMetricOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"contentId" | "viewCount" | "likeCount" | "shareCount" | "collectCount" | "reportCount" | "updatedAt", ExtArgs["result"]["contentMetric"]>
 export type ContentMetricInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   content?: boolean | Prisma.ContentDefaultArgs<ExtArgs>
 }
@@ -611,7 +575,6 @@ export type $ContentMetricPayload<ExtArgs extends runtime.Types.Extensions.Inter
     likeCount: number
     shareCount: number
     collectCount: number
-    commentCount: number
     reportCount: number
     updatedAt: Date
   }, ExtArgs["result"]["contentMetric"]>
@@ -1043,7 +1006,6 @@ export interface ContentMetricFieldRefs {
   readonly likeCount: Prisma.FieldRef<"ContentMetric", 'Int'>
   readonly shareCount: Prisma.FieldRef<"ContentMetric", 'Int'>
   readonly collectCount: Prisma.FieldRef<"ContentMetric", 'Int'>
-  readonly commentCount: Prisma.FieldRef<"ContentMetric", 'Int'>
   readonly reportCount: Prisma.FieldRef<"ContentMetric", 'Int'>
   readonly updatedAt: Prisma.FieldRef<"ContentMetric", 'DateTime'>
 }

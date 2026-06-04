@@ -42,8 +42,9 @@ export type SafetyReviewMinAggregateOutputType = {
   decision: $Enums.SafetyReviewDecision | null
   riskLevel: $Enums.RiskLevel | null
   safetyScore: runtime.Decimal | null
-  aiReason: string | null
-  ruleSetVersion: string | null
+  reason: string | null
+  provider: string | null
+  providerRequestId: string | null
   createdAt: Date | null
 }
 
@@ -55,8 +56,9 @@ export type SafetyReviewMaxAggregateOutputType = {
   decision: $Enums.SafetyReviewDecision | null
   riskLevel: $Enums.RiskLevel | null
   safetyScore: runtime.Decimal | null
-  aiReason: string | null
-  ruleSetVersion: string | null
+  reason: string | null
+  provider: string | null
+  providerRequestId: string | null
   createdAt: Date | null
 }
 
@@ -71,9 +73,11 @@ export type SafetyReviewCountAggregateOutputType = {
   riskSpans: number
   ruleHits: number
   safetyScore: number
-  aiReason: number
+  reason: number
   suggestions: number
-  ruleSetVersion: number
+  provider: number
+  providerRequestId: number
+  rawProviderOutput: number
   createdAt: number
   _all: number
 }
@@ -95,8 +99,9 @@ export type SafetyReviewMinAggregateInputType = {
   decision?: true
   riskLevel?: true
   safetyScore?: true
-  aiReason?: true
-  ruleSetVersion?: true
+  reason?: true
+  provider?: true
+  providerRequestId?: true
   createdAt?: true
 }
 
@@ -108,8 +113,9 @@ export type SafetyReviewMaxAggregateInputType = {
   decision?: true
   riskLevel?: true
   safetyScore?: true
-  aiReason?: true
-  ruleSetVersion?: true
+  reason?: true
+  provider?: true
+  providerRequestId?: true
   createdAt?: true
 }
 
@@ -124,9 +130,11 @@ export type SafetyReviewCountAggregateInputType = {
   riskSpans?: true
   ruleHits?: true
   safetyScore?: true
-  aiReason?: true
+  reason?: true
   suggestions?: true
-  ruleSetVersion?: true
+  provider?: true
+  providerRequestId?: true
+  rawProviderOutput?: true
   createdAt?: true
   _all?: true
 }
@@ -228,9 +236,11 @@ export type SafetyReviewGroupByOutputType = {
   riskSpans: runtime.JsonValue | null
   ruleHits: runtime.JsonValue | null
   safetyScore: runtime.Decimal
-  aiReason: string | null
+  reason: string | null
   suggestions: runtime.JsonValue | null
-  ruleSetVersion: string
+  provider: string
+  providerRequestId: string | null
+  rawProviderOutput: runtime.JsonValue | null
   createdAt: Date
   _count: SafetyReviewCountAggregateOutputType | null
   _avg: SafetyReviewAvgAggregateOutputType | null
@@ -268,9 +278,11 @@ export type SafetyReviewWhereInput = {
   riskSpans?: Prisma.JsonNullableFilter<"SafetyReview">
   ruleHits?: Prisma.JsonNullableFilter<"SafetyReview">
   safetyScore?: Prisma.DecimalFilter<"SafetyReview"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: Prisma.StringNullableFilter<"SafetyReview"> | string | null
+  reason?: Prisma.StringNullableFilter<"SafetyReview"> | string | null
   suggestions?: Prisma.JsonNullableFilter<"SafetyReview">
-  ruleSetVersion?: Prisma.StringFilter<"SafetyReview"> | string
+  provider?: Prisma.StringFilter<"SafetyReview"> | string
+  providerRequestId?: Prisma.StringNullableFilter<"SafetyReview"> | string | null
+  rawProviderOutput?: Prisma.JsonNullableFilter<"SafetyReview">
   createdAt?: Prisma.DateTimeFilter<"SafetyReview"> | Date | string
   content?: Prisma.XOR<Prisma.ContentScalarRelationFilter, Prisma.ContentWhereInput>
   contentVersion?: Prisma.XOR<Prisma.ContentVersionScalarRelationFilter, Prisma.ContentVersionWhereInput>
@@ -288,9 +300,11 @@ export type SafetyReviewOrderByWithRelationInput = {
   riskSpans?: Prisma.SortOrderInput | Prisma.SortOrder
   ruleHits?: Prisma.SortOrderInput | Prisma.SortOrder
   safetyScore?: Prisma.SortOrder
-  aiReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  reason?: Prisma.SortOrderInput | Prisma.SortOrder
   suggestions?: Prisma.SortOrderInput | Prisma.SortOrder
-  ruleSetVersion?: Prisma.SortOrder
+  provider?: Prisma.SortOrder
+  providerRequestId?: Prisma.SortOrderInput | Prisma.SortOrder
+  rawProviderOutput?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   content?: Prisma.ContentOrderByWithRelationInput
   contentVersion?: Prisma.ContentVersionOrderByWithRelationInput
@@ -311,9 +325,11 @@ export type SafetyReviewWhereUniqueInput = Prisma.AtLeast<{
   riskSpans?: Prisma.JsonNullableFilter<"SafetyReview">
   ruleHits?: Prisma.JsonNullableFilter<"SafetyReview">
   safetyScore?: Prisma.DecimalFilter<"SafetyReview"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: Prisma.StringNullableFilter<"SafetyReview"> | string | null
+  reason?: Prisma.StringNullableFilter<"SafetyReview"> | string | null
   suggestions?: Prisma.JsonNullableFilter<"SafetyReview">
-  ruleSetVersion?: Prisma.StringFilter<"SafetyReview"> | string
+  provider?: Prisma.StringFilter<"SafetyReview"> | string
+  providerRequestId?: Prisma.StringNullableFilter<"SafetyReview"> | string | null
+  rawProviderOutput?: Prisma.JsonNullableFilter<"SafetyReview">
   createdAt?: Prisma.DateTimeFilter<"SafetyReview"> | Date | string
   content?: Prisma.XOR<Prisma.ContentScalarRelationFilter, Prisma.ContentWhereInput>
   contentVersion?: Prisma.XOR<Prisma.ContentVersionScalarRelationFilter, Prisma.ContentVersionWhereInput>
@@ -331,9 +347,11 @@ export type SafetyReviewOrderByWithAggregationInput = {
   riskSpans?: Prisma.SortOrderInput | Prisma.SortOrder
   ruleHits?: Prisma.SortOrderInput | Prisma.SortOrder
   safetyScore?: Prisma.SortOrder
-  aiReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  reason?: Prisma.SortOrderInput | Prisma.SortOrder
   suggestions?: Prisma.SortOrderInput | Prisma.SortOrder
-  ruleSetVersion?: Prisma.SortOrder
+  provider?: Prisma.SortOrder
+  providerRequestId?: Prisma.SortOrderInput | Prisma.SortOrder
+  rawProviderOutput?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.SafetyReviewCountOrderByAggregateInput
   _avg?: Prisma.SafetyReviewAvgOrderByAggregateInput
@@ -356,9 +374,11 @@ export type SafetyReviewScalarWhereWithAggregatesInput = {
   riskSpans?: Prisma.JsonNullableWithAggregatesFilter<"SafetyReview">
   ruleHits?: Prisma.JsonNullableWithAggregatesFilter<"SafetyReview">
   safetyScore?: Prisma.DecimalWithAggregatesFilter<"SafetyReview"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: Prisma.StringNullableWithAggregatesFilter<"SafetyReview"> | string | null
+  reason?: Prisma.StringNullableWithAggregatesFilter<"SafetyReview"> | string | null
   suggestions?: Prisma.JsonNullableWithAggregatesFilter<"SafetyReview">
-  ruleSetVersion?: Prisma.StringWithAggregatesFilter<"SafetyReview"> | string
+  provider?: Prisma.StringWithAggregatesFilter<"SafetyReview"> | string
+  providerRequestId?: Prisma.StringNullableWithAggregatesFilter<"SafetyReview"> | string | null
+  rawProviderOutput?: Prisma.JsonNullableWithAggregatesFilter<"SafetyReview">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"SafetyReview"> | Date | string
 }
 
@@ -370,9 +390,11 @@ export type SafetyReviewCreateInput = {
   riskSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ruleHits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyScore: runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: string | null
+  reason?: string | null
   suggestions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruleSetVersion: string
+  provider?: string
+  providerRequestId?: string | null
+  rawProviderOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   content: Prisma.ContentCreateNestedOneWithoutSafetyReviewsInput
   contentVersion: Prisma.ContentVersionCreateNestedOneWithoutSafetyReviewsInput
@@ -390,9 +412,11 @@ export type SafetyReviewUncheckedCreateInput = {
   riskSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ruleHits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyScore: runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: string | null
+  reason?: string | null
   suggestions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruleSetVersion: string
+  provider?: string
+  providerRequestId?: string | null
+  rawProviderOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
 }
 
@@ -404,9 +428,11 @@ export type SafetyReviewUpdateInput = {
   riskSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ruleHits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   suggestions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruleSetVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerRequestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rawProviderOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   content?: Prisma.ContentUpdateOneRequiredWithoutSafetyReviewsNestedInput
   contentVersion?: Prisma.ContentVersionUpdateOneRequiredWithoutSafetyReviewsNestedInput
@@ -424,9 +450,11 @@ export type SafetyReviewUncheckedUpdateInput = {
   riskSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ruleHits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   suggestions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruleSetVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerRequestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rawProviderOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -441,9 +469,11 @@ export type SafetyReviewCreateManyInput = {
   riskSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ruleHits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyScore: runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: string | null
+  reason?: string | null
   suggestions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruleSetVersion: string
+  provider?: string
+  providerRequestId?: string | null
+  rawProviderOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
 }
 
@@ -455,9 +485,11 @@ export type SafetyReviewUpdateManyMutationInput = {
   riskSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ruleHits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   suggestions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruleSetVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerRequestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rawProviderOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -472,9 +504,11 @@ export type SafetyReviewUncheckedUpdateManyInput = {
   riskSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ruleHits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   suggestions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruleSetVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerRequestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rawProviderOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -499,9 +533,11 @@ export type SafetyReviewCountOrderByAggregateInput = {
   riskSpans?: Prisma.SortOrder
   ruleHits?: Prisma.SortOrder
   safetyScore?: Prisma.SortOrder
-  aiReason?: Prisma.SortOrder
+  reason?: Prisma.SortOrder
   suggestions?: Prisma.SortOrder
-  ruleSetVersion?: Prisma.SortOrder
+  provider?: Prisma.SortOrder
+  providerRequestId?: Prisma.SortOrder
+  rawProviderOutput?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -517,8 +553,9 @@ export type SafetyReviewMaxOrderByAggregateInput = {
   decision?: Prisma.SortOrder
   riskLevel?: Prisma.SortOrder
   safetyScore?: Prisma.SortOrder
-  aiReason?: Prisma.SortOrder
-  ruleSetVersion?: Prisma.SortOrder
+  reason?: Prisma.SortOrder
+  provider?: Prisma.SortOrder
+  providerRequestId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -530,8 +567,9 @@ export type SafetyReviewMinOrderByAggregateInput = {
   decision?: Prisma.SortOrder
   riskLevel?: Prisma.SortOrder
   safetyScore?: Prisma.SortOrder
-  aiReason?: Prisma.SortOrder
-  ruleSetVersion?: Prisma.SortOrder
+  reason?: Prisma.SortOrder
+  provider?: Prisma.SortOrder
+  providerRequestId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -669,6 +707,10 @@ export type EnumSafetyReviewDecisionFieldUpdateOperationsInput = {
   set?: $Enums.SafetyReviewDecision
 }
 
+export type EnumRiskLevelFieldUpdateOperationsInput = {
+  set?: $Enums.RiskLevel
+}
+
 export type DecimalFieldUpdateOperationsInput = {
   set?: runtime.Decimal | runtime.DecimalJsLike | number | string
   increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -685,9 +727,11 @@ export type SafetyReviewCreateWithoutContentInput = {
   riskSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ruleHits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyScore: runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: string | null
+  reason?: string | null
   suggestions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruleSetVersion: string
+  provider?: string
+  providerRequestId?: string | null
+  rawProviderOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   contentVersion: Prisma.ContentVersionCreateNestedOneWithoutSafetyReviewsInput
   aiTask?: Prisma.AiTaskCreateNestedOneWithoutSafetyReviewsInput
@@ -703,9 +747,11 @@ export type SafetyReviewUncheckedCreateWithoutContentInput = {
   riskSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ruleHits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyScore: runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: string | null
+  reason?: string | null
   suggestions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruleSetVersion: string
+  provider?: string
+  providerRequestId?: string | null
+  rawProviderOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
 }
 
@@ -749,9 +795,11 @@ export type SafetyReviewScalarWhereInput = {
   riskSpans?: Prisma.JsonNullableFilter<"SafetyReview">
   ruleHits?: Prisma.JsonNullableFilter<"SafetyReview">
   safetyScore?: Prisma.DecimalFilter<"SafetyReview"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: Prisma.StringNullableFilter<"SafetyReview"> | string | null
+  reason?: Prisma.StringNullableFilter<"SafetyReview"> | string | null
   suggestions?: Prisma.JsonNullableFilter<"SafetyReview">
-  ruleSetVersion?: Prisma.StringFilter<"SafetyReview"> | string
+  provider?: Prisma.StringFilter<"SafetyReview"> | string
+  providerRequestId?: Prisma.StringNullableFilter<"SafetyReview"> | string | null
+  rawProviderOutput?: Prisma.JsonNullableFilter<"SafetyReview">
   createdAt?: Prisma.DateTimeFilter<"SafetyReview"> | Date | string
 }
 
@@ -763,9 +811,11 @@ export type SafetyReviewCreateWithoutContentVersionInput = {
   riskSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ruleHits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyScore: runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: string | null
+  reason?: string | null
   suggestions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruleSetVersion: string
+  provider?: string
+  providerRequestId?: string | null
+  rawProviderOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   content: Prisma.ContentCreateNestedOneWithoutSafetyReviewsInput
   aiTask?: Prisma.AiTaskCreateNestedOneWithoutSafetyReviewsInput
@@ -781,9 +831,11 @@ export type SafetyReviewUncheckedCreateWithoutContentVersionInput = {
   riskSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ruleHits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyScore: runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: string | null
+  reason?: string | null
   suggestions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruleSetVersion: string
+  provider?: string
+  providerRequestId?: string | null
+  rawProviderOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
 }
 
@@ -821,9 +873,11 @@ export type SafetyReviewCreateWithoutAiTaskInput = {
   riskSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ruleHits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyScore: runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: string | null
+  reason?: string | null
   suggestions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruleSetVersion: string
+  provider?: string
+  providerRequestId?: string | null
+  rawProviderOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   content: Prisma.ContentCreateNestedOneWithoutSafetyReviewsInput
   contentVersion: Prisma.ContentVersionCreateNestedOneWithoutSafetyReviewsInput
@@ -839,9 +893,11 @@ export type SafetyReviewUncheckedCreateWithoutAiTaskInput = {
   riskSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ruleHits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyScore: runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: string | null
+  reason?: string | null
   suggestions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruleSetVersion: string
+  provider?: string
+  providerRequestId?: string | null
+  rawProviderOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
 }
 
@@ -881,9 +937,11 @@ export type SafetyReviewCreateManyContentInput = {
   riskSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ruleHits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyScore: runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: string | null
+  reason?: string | null
   suggestions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruleSetVersion: string
+  provider?: string
+  providerRequestId?: string | null
+  rawProviderOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
 }
 
@@ -895,9 +953,11 @@ export type SafetyReviewUpdateWithoutContentInput = {
   riskSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ruleHits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   suggestions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruleSetVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerRequestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rawProviderOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contentVersion?: Prisma.ContentVersionUpdateOneRequiredWithoutSafetyReviewsNestedInput
   aiTask?: Prisma.AiTaskUpdateOneWithoutSafetyReviewsNestedInput
@@ -913,9 +973,11 @@ export type SafetyReviewUncheckedUpdateWithoutContentInput = {
   riskSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ruleHits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   suggestions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruleSetVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerRequestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rawProviderOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -929,9 +991,11 @@ export type SafetyReviewUncheckedUpdateManyWithoutContentInput = {
   riskSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ruleHits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   suggestions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruleSetVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerRequestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rawProviderOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -945,9 +1009,11 @@ export type SafetyReviewCreateManyContentVersionInput = {
   riskSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ruleHits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyScore: runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: string | null
+  reason?: string | null
   suggestions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruleSetVersion: string
+  provider?: string
+  providerRequestId?: string | null
+  rawProviderOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
 }
 
@@ -959,9 +1025,11 @@ export type SafetyReviewUpdateWithoutContentVersionInput = {
   riskSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ruleHits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   suggestions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruleSetVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerRequestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rawProviderOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   content?: Prisma.ContentUpdateOneRequiredWithoutSafetyReviewsNestedInput
   aiTask?: Prisma.AiTaskUpdateOneWithoutSafetyReviewsNestedInput
@@ -977,9 +1045,11 @@ export type SafetyReviewUncheckedUpdateWithoutContentVersionInput = {
   riskSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ruleHits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   suggestions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruleSetVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerRequestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rawProviderOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -993,9 +1063,11 @@ export type SafetyReviewUncheckedUpdateManyWithoutContentVersionInput = {
   riskSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ruleHits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   suggestions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruleSetVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerRequestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rawProviderOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1009,9 +1081,11 @@ export type SafetyReviewCreateManyAiTaskInput = {
   riskSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ruleHits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyScore: runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: string | null
+  reason?: string | null
   suggestions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruleSetVersion: string
+  provider?: string
+  providerRequestId?: string | null
+  rawProviderOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
 }
 
@@ -1023,9 +1097,11 @@ export type SafetyReviewUpdateWithoutAiTaskInput = {
   riskSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ruleHits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   suggestions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruleSetVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerRequestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rawProviderOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   content?: Prisma.ContentUpdateOneRequiredWithoutSafetyReviewsNestedInput
   contentVersion?: Prisma.ContentVersionUpdateOneRequiredWithoutSafetyReviewsNestedInput
@@ -1041,9 +1117,11 @@ export type SafetyReviewUncheckedUpdateWithoutAiTaskInput = {
   riskSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ruleHits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   suggestions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruleSetVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerRequestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rawProviderOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1057,9 +1135,11 @@ export type SafetyReviewUncheckedUpdateManyWithoutAiTaskInput = {
   riskSpans?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   ruleHits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   suggestions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruleSetVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerRequestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rawProviderOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1076,9 +1156,11 @@ export type SafetyReviewSelect<ExtArgs extends runtime.Types.Extensions.Internal
   riskSpans?: boolean
   ruleHits?: boolean
   safetyScore?: boolean
-  aiReason?: boolean
+  reason?: boolean
   suggestions?: boolean
-  ruleSetVersion?: boolean
+  provider?: boolean
+  providerRequestId?: boolean
+  rawProviderOutput?: boolean
   createdAt?: boolean
   content?: boolean | Prisma.ContentDefaultArgs<ExtArgs>
   contentVersion?: boolean | Prisma.ContentVersionDefaultArgs<ExtArgs>
@@ -1096,9 +1178,11 @@ export type SafetyReviewSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   riskSpans?: boolean
   ruleHits?: boolean
   safetyScore?: boolean
-  aiReason?: boolean
+  reason?: boolean
   suggestions?: boolean
-  ruleSetVersion?: boolean
+  provider?: boolean
+  providerRequestId?: boolean
+  rawProviderOutput?: boolean
   createdAt?: boolean
   content?: boolean | Prisma.ContentDefaultArgs<ExtArgs>
   contentVersion?: boolean | Prisma.ContentVersionDefaultArgs<ExtArgs>
@@ -1116,9 +1200,11 @@ export type SafetyReviewSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   riskSpans?: boolean
   ruleHits?: boolean
   safetyScore?: boolean
-  aiReason?: boolean
+  reason?: boolean
   suggestions?: boolean
-  ruleSetVersion?: boolean
+  provider?: boolean
+  providerRequestId?: boolean
+  rawProviderOutput?: boolean
   createdAt?: boolean
   content?: boolean | Prisma.ContentDefaultArgs<ExtArgs>
   contentVersion?: boolean | Prisma.ContentVersionDefaultArgs<ExtArgs>
@@ -1136,13 +1222,15 @@ export type SafetyReviewSelectScalar = {
   riskSpans?: boolean
   ruleHits?: boolean
   safetyScore?: boolean
-  aiReason?: boolean
+  reason?: boolean
   suggestions?: boolean
-  ruleSetVersion?: boolean
+  provider?: boolean
+  providerRequestId?: boolean
+  rawProviderOutput?: boolean
   createdAt?: boolean
 }
 
-export type SafetyReviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "contentId" | "contentVersionId" | "aiTaskId" | "decision" | "riskLevel" | "riskCategories" | "riskSpans" | "ruleHits" | "safetyScore" | "aiReason" | "suggestions" | "ruleSetVersion" | "createdAt", ExtArgs["result"]["safetyReview"]>
+export type SafetyReviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "contentId" | "contentVersionId" | "aiTaskId" | "decision" | "riskLevel" | "riskCategories" | "riskSpans" | "ruleHits" | "safetyScore" | "reason" | "suggestions" | "provider" | "providerRequestId" | "rawProviderOutput" | "createdAt", ExtArgs["result"]["safetyReview"]>
 export type SafetyReviewInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   content?: boolean | Prisma.ContentDefaultArgs<ExtArgs>
   contentVersion?: boolean | Prisma.ContentVersionDefaultArgs<ExtArgs>
@@ -1177,9 +1265,11 @@ export type $SafetyReviewPayload<ExtArgs extends runtime.Types.Extensions.Intern
     riskSpans: runtime.JsonValue | null
     ruleHits: runtime.JsonValue | null
     safetyScore: runtime.Decimal
-    aiReason: string | null
+    reason: string | null
     suggestions: runtime.JsonValue | null
-    ruleSetVersion: string
+    provider: string
+    providerRequestId: string | null
+    rawProviderOutput: runtime.JsonValue | null
     createdAt: Date
   }, ExtArgs["result"]["safetyReview"]>
   composites: {}
@@ -1617,9 +1707,11 @@ export interface SafetyReviewFieldRefs {
   readonly riskSpans: Prisma.FieldRef<"SafetyReview", 'Json'>
   readonly ruleHits: Prisma.FieldRef<"SafetyReview", 'Json'>
   readonly safetyScore: Prisma.FieldRef<"SafetyReview", 'Decimal'>
-  readonly aiReason: Prisma.FieldRef<"SafetyReview", 'String'>
+  readonly reason: Prisma.FieldRef<"SafetyReview", 'String'>
   readonly suggestions: Prisma.FieldRef<"SafetyReview", 'Json'>
-  readonly ruleSetVersion: Prisma.FieldRef<"SafetyReview", 'String'>
+  readonly provider: Prisma.FieldRef<"SafetyReview", 'String'>
+  readonly providerRequestId: Prisma.FieldRef<"SafetyReview", 'String'>
+  readonly rawProviderOutput: Prisma.FieldRef<"SafetyReview", 'Json'>
   readonly createdAt: Prisma.FieldRef<"SafetyReview", 'DateTime'>
 }
     

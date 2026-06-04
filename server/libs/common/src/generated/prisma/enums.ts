@@ -18,16 +18,6 @@ export const UserStatus = {
 export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
 
 
-export const UserRoleType = {
-  READER: 'READER',
-  CREATOR: 'CREATOR',
-  OPERATOR: 'OPERATOR',
-  ADMIN: 'ADMIN'
-} as const
-
-export type UserRoleType = (typeof UserRoleType)[keyof typeof UserRoleType]
-
-
 export const Visibility = {
   PRIVATE: 'PRIVATE',
   PUBLIC: 'PUBLIC',
@@ -64,15 +54,6 @@ export const SafetyStatus = {
 } as const
 
 export type SafetyStatus = (typeof SafetyStatus)[keyof typeof SafetyStatus]
-
-
-export const AssetSafetyDecision = {
-  PASS: 'PASS',
-  REJECT: 'REJECT',
-  MANUAL_REVIEW: 'MANUAL_REVIEW'
-} as const
-
-export type AssetSafetyDecision = (typeof AssetSafetyDecision)[keyof typeof AssetSafetyDecision]
 
 
 export const RiskLevel = {
@@ -177,24 +158,6 @@ export const SafetyReviewDecision = {
 export type SafetyReviewDecision = (typeof SafetyReviewDecision)[keyof typeof SafetyReviewDecision]
 
 
-export const PatternType = {
-  KEYWORD: 'KEYWORD',
-  REGEX: 'REGEX',
-  MODEL_INSTRUCTION: 'MODEL_INSTRUCTION'
-} as const
-
-export type PatternType = (typeof PatternType)[keyof typeof PatternType]
-
-
-export const AuditAction = {
-  WARN: 'WARN',
-  REWRITE: 'REWRITE',
-  REJECT: 'REJECT'
-} as const
-
-export type AuditAction = (typeof AuditAction)[keyof typeof AuditAction]
-
-
 export const InteractionType = {
   VIEW: 'VIEW',
   LIKE: 'LIKE',
@@ -207,21 +170,9 @@ export const InteractionType = {
 export type InteractionType = (typeof InteractionType)[keyof typeof InteractionType]
 
 
-export const RankingType = {
-  HOT: 'HOT',
-  QUALITY: 'QUALITY',
-  RECOMMEND: 'RECOMMEND',
-  LATEST: 'LATEST'
-} as const
-
-export type RankingType = (typeof RankingType)[keyof typeof RankingType]
-
-
 export const TopicSource = {
   MANUAL: 'MANUAL',
-  API: 'API',
-  CRAWLER: 'CRAWLER',
-  SYSTEM: 'SYSTEM'
+  API: 'API'
 } as const
 
 export type TopicSource = (typeof TopicSource)[keyof typeof TopicSource]
@@ -236,14 +187,6 @@ export const TopicStatus = {
 export type TopicStatus = (typeof TopicStatus)[keyof typeof TopicStatus]
 
 
-export const ChannelType = {
-  INTERNAL: 'INTERNAL',
-  EXTERNAL: 'EXTERNAL'
-} as const
-
-export type ChannelType = (typeof ChannelType)[keyof typeof ChannelType]
-
-
 export const DistributionStatus = {
   PENDING: 'PENDING',
   SUCCESS: 'SUCCESS',
@@ -251,14 +194,3 @@ export const DistributionStatus = {
 } as const
 
 export type DistributionStatus = (typeof DistributionStatus)[keyof typeof DistributionStatus]
-
-
-export const ContentOperationType = {
-  PUBLISH: 'PUBLISH',
-  OFFLINE: 'OFFLINE',
-  ROLLBACK: 'ROLLBACK',
-  REJECT: 'REJECT',
-  APPROVE: 'APPROVE'
-} as const
-
-export type ContentOperationType = (typeof ContentOperationType)[keyof typeof ContentOperationType]

@@ -45,6 +45,9 @@ export type AssetMinAggregateOutputType = {
   sizeBytes: number | null
   aiDescription: string | null
   safetyStatus: $Enums.SafetyStatus | null
+  safetyRiskLevel: $Enums.RiskLevel | null
+  safetyReason: string | null
+  safetyCheckedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -61,6 +64,9 @@ export type AssetMaxAggregateOutputType = {
   sizeBytes: number | null
   aiDescription: string | null
   safetyStatus: $Enums.SafetyStatus | null
+  safetyRiskLevel: $Enums.RiskLevel | null
+  safetyReason: string | null
+  safetyCheckedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -79,6 +85,11 @@ export type AssetCountAggregateOutputType = {
   aiDescription: number
   metadata: number
   safetyStatus: number
+  safetyRiskLevel: number
+  safetyLabels: number
+  safetyReason: number
+  safetyRawOutput: number
+  safetyCheckedAt: number
   createdAt: number
   updatedAt: number
   deletedAt: number
@@ -105,6 +116,9 @@ export type AssetMinAggregateInputType = {
   sizeBytes?: true
   aiDescription?: true
   safetyStatus?: true
+  safetyRiskLevel?: true
+  safetyReason?: true
+  safetyCheckedAt?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -121,6 +135,9 @@ export type AssetMaxAggregateInputType = {
   sizeBytes?: true
   aiDescription?: true
   safetyStatus?: true
+  safetyRiskLevel?: true
+  safetyReason?: true
+  safetyCheckedAt?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -139,6 +156,11 @@ export type AssetCountAggregateInputType = {
   aiDescription?: true
   metadata?: true
   safetyStatus?: true
+  safetyRiskLevel?: true
+  safetyLabels?: true
+  safetyReason?: true
+  safetyRawOutput?: true
+  safetyCheckedAt?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -244,6 +266,11 @@ export type AssetGroupByOutputType = {
   aiDescription: string | null
   metadata: runtime.JsonValue | null
   safetyStatus: $Enums.SafetyStatus
+  safetyRiskLevel: $Enums.RiskLevel | null
+  safetyLabels: runtime.JsonValue | null
+  safetyReason: string | null
+  safetyRawOutput: runtime.JsonValue | null
+  safetyCheckedAt: Date | null
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
@@ -285,11 +312,15 @@ export type AssetWhereInput = {
   aiDescription?: Prisma.StringNullableFilter<"Asset"> | string | null
   metadata?: Prisma.JsonNullableFilter<"Asset">
   safetyStatus?: Prisma.EnumSafetyStatusFilter<"Asset"> | $Enums.SafetyStatus
+  safetyRiskLevel?: Prisma.EnumRiskLevelNullableFilter<"Asset"> | $Enums.RiskLevel | null
+  safetyLabels?: Prisma.JsonNullableFilter<"Asset">
+  safetyReason?: Prisma.StringNullableFilter<"Asset"> | string | null
+  safetyRawOutput?: Prisma.JsonNullableFilter<"Asset">
+  safetyCheckedAt?: Prisma.DateTimeNullableFilter<"Asset"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Asset"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  safetyChecks?: Prisma.AssetSafetyCheckListRelationFilter
   aiTasks?: Prisma.AiTaskListRelationFilter
   coverContents?: Prisma.ContentListRelationFilter
   coverVersions?: Prisma.ContentVersionListRelationFilter
@@ -308,11 +339,15 @@ export type AssetOrderByWithRelationInput = {
   aiDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrderInput | Prisma.SortOrder
   safetyStatus?: Prisma.SortOrder
+  safetyRiskLevel?: Prisma.SortOrderInput | Prisma.SortOrder
+  safetyLabels?: Prisma.SortOrderInput | Prisma.SortOrder
+  safetyReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  safetyRawOutput?: Prisma.SortOrderInput | Prisma.SortOrder
+  safetyCheckedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
-  safetyChecks?: Prisma.AssetSafetyCheckOrderByRelationAggregateInput
   aiTasks?: Prisma.AiTaskOrderByRelationAggregateInput
   coverContents?: Prisma.ContentOrderByRelationAggregateInput
   coverVersions?: Prisma.ContentVersionOrderByRelationAggregateInput
@@ -334,11 +369,15 @@ export type AssetWhereUniqueInput = Prisma.AtLeast<{
   aiDescription?: Prisma.StringNullableFilter<"Asset"> | string | null
   metadata?: Prisma.JsonNullableFilter<"Asset">
   safetyStatus?: Prisma.EnumSafetyStatusFilter<"Asset"> | $Enums.SafetyStatus
+  safetyRiskLevel?: Prisma.EnumRiskLevelNullableFilter<"Asset"> | $Enums.RiskLevel | null
+  safetyLabels?: Prisma.JsonNullableFilter<"Asset">
+  safetyReason?: Prisma.StringNullableFilter<"Asset"> | string | null
+  safetyRawOutput?: Prisma.JsonNullableFilter<"Asset">
+  safetyCheckedAt?: Prisma.DateTimeNullableFilter<"Asset"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Asset"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  safetyChecks?: Prisma.AssetSafetyCheckListRelationFilter
   aiTasks?: Prisma.AiTaskListRelationFilter
   coverContents?: Prisma.ContentListRelationFilter
   coverVersions?: Prisma.ContentVersionListRelationFilter
@@ -357,6 +396,11 @@ export type AssetOrderByWithAggregationInput = {
   aiDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrderInput | Prisma.SortOrder
   safetyStatus?: Prisma.SortOrder
+  safetyRiskLevel?: Prisma.SortOrderInput | Prisma.SortOrder
+  safetyLabels?: Prisma.SortOrderInput | Prisma.SortOrder
+  safetyReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  safetyRawOutput?: Prisma.SortOrderInput | Prisma.SortOrder
+  safetyCheckedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -383,6 +427,11 @@ export type AssetScalarWhereWithAggregatesInput = {
   aiDescription?: Prisma.StringNullableWithAggregatesFilter<"Asset"> | string | null
   metadata?: Prisma.JsonNullableWithAggregatesFilter<"Asset">
   safetyStatus?: Prisma.EnumSafetyStatusWithAggregatesFilter<"Asset"> | $Enums.SafetyStatus
+  safetyRiskLevel?: Prisma.EnumRiskLevelNullableWithAggregatesFilter<"Asset"> | $Enums.RiskLevel | null
+  safetyLabels?: Prisma.JsonNullableWithAggregatesFilter<"Asset">
+  safetyReason?: Prisma.StringNullableWithAggregatesFilter<"Asset"> | string | null
+  safetyRawOutput?: Prisma.JsonNullableWithAggregatesFilter<"Asset">
+  safetyCheckedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Asset"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Asset"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Asset"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Asset"> | Date | string | null
@@ -400,11 +449,15 @@ export type AssetCreateInput = {
   aiDescription?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyStatus?: $Enums.SafetyStatus
+  safetyRiskLevel?: $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutAssetsInput
-  safetyChecks?: Prisma.AssetSafetyCheckCreateNestedManyWithoutAssetInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutAssetInput
   coverContents?: Prisma.ContentCreateNestedManyWithoutCoverAssetInput
   coverVersions?: Prisma.ContentVersionCreateNestedManyWithoutCoverAssetInput
@@ -423,10 +476,14 @@ export type AssetUncheckedCreateInput = {
   aiDescription?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyStatus?: $Enums.SafetyStatus
+  safetyRiskLevel?: $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
-  safetyChecks?: Prisma.AssetSafetyCheckUncheckedCreateNestedManyWithoutAssetInput
   aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutAssetInput
   coverContents?: Prisma.ContentUncheckedCreateNestedManyWithoutCoverAssetInput
   coverVersions?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutCoverAssetInput
@@ -444,11 +501,15 @@ export type AssetUpdateInput = {
   aiDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
+  safetyRiskLevel?: Prisma.NullableEnumRiskLevelFieldUpdateOperationsInput | $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutAssetsNestedInput
-  safetyChecks?: Prisma.AssetSafetyCheckUpdateManyWithoutAssetNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutAssetNestedInput
   coverContents?: Prisma.ContentUpdateManyWithoutCoverAssetNestedInput
   coverVersions?: Prisma.ContentVersionUpdateManyWithoutCoverAssetNestedInput
@@ -467,10 +528,14 @@ export type AssetUncheckedUpdateInput = {
   aiDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
+  safetyRiskLevel?: Prisma.NullableEnumRiskLevelFieldUpdateOperationsInput | $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  safetyChecks?: Prisma.AssetSafetyCheckUncheckedUpdateManyWithoutAssetNestedInput
   aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutAssetNestedInput
   coverContents?: Prisma.ContentUncheckedUpdateManyWithoutCoverAssetNestedInput
   coverVersions?: Prisma.ContentVersionUncheckedUpdateManyWithoutCoverAssetNestedInput
@@ -489,6 +554,11 @@ export type AssetCreateManyInput = {
   aiDescription?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyStatus?: $Enums.SafetyStatus
+  safetyRiskLevel?: $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -506,6 +576,11 @@ export type AssetUpdateManyMutationInput = {
   aiDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
+  safetyRiskLevel?: Prisma.NullableEnumRiskLevelFieldUpdateOperationsInput | $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -524,6 +599,11 @@ export type AssetUncheckedUpdateManyInput = {
   aiDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
+  safetyRiskLevel?: Prisma.NullableEnumRiskLevelFieldUpdateOperationsInput | $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -552,6 +632,11 @@ export type AssetCountOrderByAggregateInput = {
   aiDescription?: Prisma.SortOrder
   metadata?: Prisma.SortOrder
   safetyStatus?: Prisma.SortOrder
+  safetyRiskLevel?: Prisma.SortOrder
+  safetyLabels?: Prisma.SortOrder
+  safetyReason?: Prisma.SortOrder
+  safetyRawOutput?: Prisma.SortOrder
+  safetyCheckedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -572,6 +657,9 @@ export type AssetMaxOrderByAggregateInput = {
   sizeBytes?: Prisma.SortOrder
   aiDescription?: Prisma.SortOrder
   safetyStatus?: Prisma.SortOrder
+  safetyRiskLevel?: Prisma.SortOrder
+  safetyReason?: Prisma.SortOrder
+  safetyCheckedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -588,6 +676,9 @@ export type AssetMinOrderByAggregateInput = {
   sizeBytes?: Prisma.SortOrder
   aiDescription?: Prisma.SortOrder
   safetyStatus?: Prisma.SortOrder
+  safetyRiskLevel?: Prisma.SortOrder
+  safetyReason?: Prisma.SortOrder
+  safetyCheckedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -595,11 +686,6 @@ export type AssetMinOrderByAggregateInput = {
 
 export type AssetSumOrderByAggregateInput = {
   sizeBytes?: Prisma.SortOrder
-}
-
-export type AssetScalarRelationFilter = {
-  is?: Prisma.AssetWhereInput
-  isNot?: Prisma.AssetWhereInput
 }
 
 export type AssetNullableScalarRelationFilter = {
@@ -665,22 +751,12 @@ export type EnumSafetyStatusFieldUpdateOperationsInput = {
   set?: $Enums.SafetyStatus
 }
 
+export type NullableEnumRiskLevelFieldUpdateOperationsInput = {
+  set?: $Enums.RiskLevel | null
+}
+
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
-}
-
-export type AssetCreateNestedOneWithoutSafetyChecksInput = {
-  create?: Prisma.XOR<Prisma.AssetCreateWithoutSafetyChecksInput, Prisma.AssetUncheckedCreateWithoutSafetyChecksInput>
-  connectOrCreate?: Prisma.AssetCreateOrConnectWithoutSafetyChecksInput
-  connect?: Prisma.AssetWhereUniqueInput
-}
-
-export type AssetUpdateOneRequiredWithoutSafetyChecksNestedInput = {
-  create?: Prisma.XOR<Prisma.AssetCreateWithoutSafetyChecksInput, Prisma.AssetUncheckedCreateWithoutSafetyChecksInput>
-  connectOrCreate?: Prisma.AssetCreateOrConnectWithoutSafetyChecksInput
-  upsert?: Prisma.AssetUpsertWithoutSafetyChecksInput
-  connect?: Prisma.AssetWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.AssetUpdateToOneWithWhereWithoutSafetyChecksInput, Prisma.AssetUpdateWithoutSafetyChecksInput>, Prisma.AssetUncheckedUpdateWithoutSafetyChecksInput>
 }
 
 export type AssetCreateNestedOneWithoutCoverContentsInput = {
@@ -743,10 +819,14 @@ export type AssetCreateWithoutUserInput = {
   aiDescription?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyStatus?: $Enums.SafetyStatus
+  safetyRiskLevel?: $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
-  safetyChecks?: Prisma.AssetSafetyCheckCreateNestedManyWithoutAssetInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutAssetInput
   coverContents?: Prisma.ContentCreateNestedManyWithoutCoverAssetInput
   coverVersions?: Prisma.ContentVersionCreateNestedManyWithoutCoverAssetInput
@@ -764,10 +844,14 @@ export type AssetUncheckedCreateWithoutUserInput = {
   aiDescription?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyStatus?: $Enums.SafetyStatus
+  safetyRiskLevel?: $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
-  safetyChecks?: Prisma.AssetSafetyCheckUncheckedCreateNestedManyWithoutAssetInput
   aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutAssetInput
   coverContents?: Prisma.ContentUncheckedCreateNestedManyWithoutCoverAssetInput
   coverVersions?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutCoverAssetInput
@@ -815,109 +899,14 @@ export type AssetScalarWhereInput = {
   aiDescription?: Prisma.StringNullableFilter<"Asset"> | string | null
   metadata?: Prisma.JsonNullableFilter<"Asset">
   safetyStatus?: Prisma.EnumSafetyStatusFilter<"Asset"> | $Enums.SafetyStatus
+  safetyRiskLevel?: Prisma.EnumRiskLevelNullableFilter<"Asset"> | $Enums.RiskLevel | null
+  safetyLabels?: Prisma.JsonNullableFilter<"Asset">
+  safetyReason?: Prisma.StringNullableFilter<"Asset"> | string | null
+  safetyRawOutput?: Prisma.JsonNullableFilter<"Asset">
+  safetyCheckedAt?: Prisma.DateTimeNullableFilter<"Asset"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Asset"> | Date | string | null
-}
-
-export type AssetCreateWithoutSafetyChecksInput = {
-  id?: string
-  type: $Enums.AssetType
-  name: string
-  url: string
-  storageKey: string
-  mimeType?: string | null
-  sizeBytes?: number | null
-  tags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  aiDescription?: string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  safetyStatus?: $Enums.SafetyStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutAssetsInput
-  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutAssetInput
-  coverContents?: Prisma.ContentCreateNestedManyWithoutCoverAssetInput
-  coverVersions?: Prisma.ContentVersionCreateNestedManyWithoutCoverAssetInput
-}
-
-export type AssetUncheckedCreateWithoutSafetyChecksInput = {
-  id?: string
-  userId: string
-  type: $Enums.AssetType
-  name: string
-  url: string
-  storageKey: string
-  mimeType?: string | null
-  sizeBytes?: number | null
-  tags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  aiDescription?: string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  safetyStatus?: $Enums.SafetyStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutAssetInput
-  coverContents?: Prisma.ContentUncheckedCreateNestedManyWithoutCoverAssetInput
-  coverVersions?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutCoverAssetInput
-}
-
-export type AssetCreateOrConnectWithoutSafetyChecksInput = {
-  where: Prisma.AssetWhereUniqueInput
-  create: Prisma.XOR<Prisma.AssetCreateWithoutSafetyChecksInput, Prisma.AssetUncheckedCreateWithoutSafetyChecksInput>
-}
-
-export type AssetUpsertWithoutSafetyChecksInput = {
-  update: Prisma.XOR<Prisma.AssetUpdateWithoutSafetyChecksInput, Prisma.AssetUncheckedUpdateWithoutSafetyChecksInput>
-  create: Prisma.XOR<Prisma.AssetCreateWithoutSafetyChecksInput, Prisma.AssetUncheckedCreateWithoutSafetyChecksInput>
-  where?: Prisma.AssetWhereInput
-}
-
-export type AssetUpdateToOneWithWhereWithoutSafetyChecksInput = {
-  where?: Prisma.AssetWhereInput
-  data: Prisma.XOR<Prisma.AssetUpdateWithoutSafetyChecksInput, Prisma.AssetUncheckedUpdateWithoutSafetyChecksInput>
-}
-
-export type AssetUpdateWithoutSafetyChecksInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  url?: Prisma.StringFieldUpdateOperationsInput | string
-  storageKey?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  tags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  aiDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutAssetsNestedInput
-  aiTasks?: Prisma.AiTaskUpdateManyWithoutAssetNestedInput
-  coverContents?: Prisma.ContentUpdateManyWithoutCoverAssetNestedInput
-  coverVersions?: Prisma.ContentVersionUpdateManyWithoutCoverAssetNestedInput
-}
-
-export type AssetUncheckedUpdateWithoutSafetyChecksInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  url?: Prisma.StringFieldUpdateOperationsInput | string
-  storageKey?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  tags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  aiDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutAssetNestedInput
-  coverContents?: Prisma.ContentUncheckedUpdateManyWithoutCoverAssetNestedInput
-  coverVersions?: Prisma.ContentVersionUncheckedUpdateManyWithoutCoverAssetNestedInput
 }
 
 export type AssetCreateWithoutCoverContentsInput = {
@@ -932,11 +921,15 @@ export type AssetCreateWithoutCoverContentsInput = {
   aiDescription?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyStatus?: $Enums.SafetyStatus
+  safetyRiskLevel?: $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutAssetsInput
-  safetyChecks?: Prisma.AssetSafetyCheckCreateNestedManyWithoutAssetInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutAssetInput
   coverVersions?: Prisma.ContentVersionCreateNestedManyWithoutCoverAssetInput
 }
@@ -954,10 +947,14 @@ export type AssetUncheckedCreateWithoutCoverContentsInput = {
   aiDescription?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyStatus?: $Enums.SafetyStatus
+  safetyRiskLevel?: $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
-  safetyChecks?: Prisma.AssetSafetyCheckUncheckedCreateNestedManyWithoutAssetInput
   aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutAssetInput
   coverVersions?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutCoverAssetInput
 }
@@ -990,11 +987,15 @@ export type AssetUpdateWithoutCoverContentsInput = {
   aiDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
+  safetyRiskLevel?: Prisma.NullableEnumRiskLevelFieldUpdateOperationsInput | $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutAssetsNestedInput
-  safetyChecks?: Prisma.AssetSafetyCheckUpdateManyWithoutAssetNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutAssetNestedInput
   coverVersions?: Prisma.ContentVersionUpdateManyWithoutCoverAssetNestedInput
 }
@@ -1012,10 +1013,14 @@ export type AssetUncheckedUpdateWithoutCoverContentsInput = {
   aiDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
+  safetyRiskLevel?: Prisma.NullableEnumRiskLevelFieldUpdateOperationsInput | $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  safetyChecks?: Prisma.AssetSafetyCheckUncheckedUpdateManyWithoutAssetNestedInput
   aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutAssetNestedInput
   coverVersions?: Prisma.ContentVersionUncheckedUpdateManyWithoutCoverAssetNestedInput
 }
@@ -1032,11 +1037,15 @@ export type AssetCreateWithoutCoverVersionsInput = {
   aiDescription?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyStatus?: $Enums.SafetyStatus
+  safetyRiskLevel?: $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutAssetsInput
-  safetyChecks?: Prisma.AssetSafetyCheckCreateNestedManyWithoutAssetInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutAssetInput
   coverContents?: Prisma.ContentCreateNestedManyWithoutCoverAssetInput
 }
@@ -1054,10 +1063,14 @@ export type AssetUncheckedCreateWithoutCoverVersionsInput = {
   aiDescription?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyStatus?: $Enums.SafetyStatus
+  safetyRiskLevel?: $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
-  safetyChecks?: Prisma.AssetSafetyCheckUncheckedCreateNestedManyWithoutAssetInput
   aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutAssetInput
   coverContents?: Prisma.ContentUncheckedCreateNestedManyWithoutCoverAssetInput
 }
@@ -1090,11 +1103,15 @@ export type AssetUpdateWithoutCoverVersionsInput = {
   aiDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
+  safetyRiskLevel?: Prisma.NullableEnumRiskLevelFieldUpdateOperationsInput | $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutAssetsNestedInput
-  safetyChecks?: Prisma.AssetSafetyCheckUpdateManyWithoutAssetNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutAssetNestedInput
   coverContents?: Prisma.ContentUpdateManyWithoutCoverAssetNestedInput
 }
@@ -1112,10 +1129,14 @@ export type AssetUncheckedUpdateWithoutCoverVersionsInput = {
   aiDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
+  safetyRiskLevel?: Prisma.NullableEnumRiskLevelFieldUpdateOperationsInput | $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  safetyChecks?: Prisma.AssetSafetyCheckUncheckedUpdateManyWithoutAssetNestedInput
   aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutAssetNestedInput
   coverContents?: Prisma.ContentUncheckedUpdateManyWithoutCoverAssetNestedInput
 }
@@ -1132,11 +1153,15 @@ export type AssetCreateWithoutAiTasksInput = {
   aiDescription?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyStatus?: $Enums.SafetyStatus
+  safetyRiskLevel?: $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutAssetsInput
-  safetyChecks?: Prisma.AssetSafetyCheckCreateNestedManyWithoutAssetInput
   coverContents?: Prisma.ContentCreateNestedManyWithoutCoverAssetInput
   coverVersions?: Prisma.ContentVersionCreateNestedManyWithoutCoverAssetInput
 }
@@ -1154,10 +1179,14 @@ export type AssetUncheckedCreateWithoutAiTasksInput = {
   aiDescription?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyStatus?: $Enums.SafetyStatus
+  safetyRiskLevel?: $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
-  safetyChecks?: Prisma.AssetSafetyCheckUncheckedCreateNestedManyWithoutAssetInput
   coverContents?: Prisma.ContentUncheckedCreateNestedManyWithoutCoverAssetInput
   coverVersions?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutCoverAssetInput
 }
@@ -1190,11 +1219,15 @@ export type AssetUpdateWithoutAiTasksInput = {
   aiDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
+  safetyRiskLevel?: Prisma.NullableEnumRiskLevelFieldUpdateOperationsInput | $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutAssetsNestedInput
-  safetyChecks?: Prisma.AssetSafetyCheckUpdateManyWithoutAssetNestedInput
   coverContents?: Prisma.ContentUpdateManyWithoutCoverAssetNestedInput
   coverVersions?: Prisma.ContentVersionUpdateManyWithoutCoverAssetNestedInput
 }
@@ -1212,10 +1245,14 @@ export type AssetUncheckedUpdateWithoutAiTasksInput = {
   aiDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
+  safetyRiskLevel?: Prisma.NullableEnumRiskLevelFieldUpdateOperationsInput | $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  safetyChecks?: Prisma.AssetSafetyCheckUncheckedUpdateManyWithoutAssetNestedInput
   coverContents?: Prisma.ContentUncheckedUpdateManyWithoutCoverAssetNestedInput
   coverVersions?: Prisma.ContentVersionUncheckedUpdateManyWithoutCoverAssetNestedInput
 }
@@ -1232,6 +1269,11 @@ export type AssetCreateManyUserInput = {
   aiDescription?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyStatus?: $Enums.SafetyStatus
+  safetyRiskLevel?: $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1249,10 +1291,14 @@ export type AssetUpdateWithoutUserInput = {
   aiDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
+  safetyRiskLevel?: Prisma.NullableEnumRiskLevelFieldUpdateOperationsInput | $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  safetyChecks?: Prisma.AssetSafetyCheckUpdateManyWithoutAssetNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutAssetNestedInput
   coverContents?: Prisma.ContentUpdateManyWithoutCoverAssetNestedInput
   coverVersions?: Prisma.ContentVersionUpdateManyWithoutCoverAssetNestedInput
@@ -1270,10 +1316,14 @@ export type AssetUncheckedUpdateWithoutUserInput = {
   aiDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
+  safetyRiskLevel?: Prisma.NullableEnumRiskLevelFieldUpdateOperationsInput | $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  safetyChecks?: Prisma.AssetSafetyCheckUncheckedUpdateManyWithoutAssetNestedInput
   aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutAssetNestedInput
   coverContents?: Prisma.ContentUncheckedUpdateManyWithoutCoverAssetNestedInput
   coverVersions?: Prisma.ContentVersionUncheckedUpdateManyWithoutCoverAssetNestedInput
@@ -1291,6 +1341,11 @@ export type AssetUncheckedUpdateManyWithoutUserInput = {
   aiDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
+  safetyRiskLevel?: Prisma.NullableEnumRiskLevelFieldUpdateOperationsInput | $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1302,14 +1357,12 @@ export type AssetUncheckedUpdateManyWithoutUserInput = {
  */
 
 export type AssetCountOutputType = {
-  safetyChecks: number
   aiTasks: number
   coverContents: number
   coverVersions: number
 }
 
 export type AssetCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  safetyChecks?: boolean | AssetCountOutputTypeCountSafetyChecksArgs
   aiTasks?: boolean | AssetCountOutputTypeCountAiTasksArgs
   coverContents?: boolean | AssetCountOutputTypeCountCoverContentsArgs
   coverVersions?: boolean | AssetCountOutputTypeCountCoverVersionsArgs
@@ -1323,13 +1376,6 @@ export type AssetCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extens
    * Select specific fields to fetch from the AssetCountOutputType
    */
   select?: Prisma.AssetCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * AssetCountOutputType without action
- */
-export type AssetCountOutputTypeCountSafetyChecksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AssetSafetyCheckWhereInput
 }
 
 /**
@@ -1367,11 +1413,15 @@ export type AssetSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   aiDescription?: boolean
   metadata?: boolean
   safetyStatus?: boolean
+  safetyRiskLevel?: boolean
+  safetyLabels?: boolean
+  safetyReason?: boolean
+  safetyRawOutput?: boolean
+  safetyCheckedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  safetyChecks?: boolean | Prisma.Asset$safetyChecksArgs<ExtArgs>
   aiTasks?: boolean | Prisma.Asset$aiTasksArgs<ExtArgs>
   coverContents?: boolean | Prisma.Asset$coverContentsArgs<ExtArgs>
   coverVersions?: boolean | Prisma.Asset$coverVersionsArgs<ExtArgs>
@@ -1391,6 +1441,11 @@ export type AssetSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   aiDescription?: boolean
   metadata?: boolean
   safetyStatus?: boolean
+  safetyRiskLevel?: boolean
+  safetyLabels?: boolean
+  safetyReason?: boolean
+  safetyRawOutput?: boolean
+  safetyCheckedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -1410,6 +1465,11 @@ export type AssetSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   aiDescription?: boolean
   metadata?: boolean
   safetyStatus?: boolean
+  safetyRiskLevel?: boolean
+  safetyLabels?: boolean
+  safetyReason?: boolean
+  safetyRawOutput?: boolean
+  safetyCheckedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -1429,15 +1489,19 @@ export type AssetSelectScalar = {
   aiDescription?: boolean
   metadata?: boolean
   safetyStatus?: boolean
+  safetyRiskLevel?: boolean
+  safetyLabels?: boolean
+  safetyReason?: boolean
+  safetyRawOutput?: boolean
+  safetyCheckedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
 }
 
-export type AssetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "type" | "name" | "url" | "storageKey" | "mimeType" | "sizeBytes" | "tags" | "aiDescription" | "metadata" | "safetyStatus" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["asset"]>
+export type AssetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "type" | "name" | "url" | "storageKey" | "mimeType" | "sizeBytes" | "tags" | "aiDescription" | "metadata" | "safetyStatus" | "safetyRiskLevel" | "safetyLabels" | "safetyReason" | "safetyRawOutput" | "safetyCheckedAt" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["asset"]>
 export type AssetInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  safetyChecks?: boolean | Prisma.Asset$safetyChecksArgs<ExtArgs>
   aiTasks?: boolean | Prisma.Asset$aiTasksArgs<ExtArgs>
   coverContents?: boolean | Prisma.Asset$coverContentsArgs<ExtArgs>
   coverVersions?: boolean | Prisma.Asset$coverVersionsArgs<ExtArgs>
@@ -1454,7 +1518,6 @@ export type $AssetPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   name: "Asset"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
-    safetyChecks: Prisma.$AssetSafetyCheckPayload<ExtArgs>[]
     aiTasks: Prisma.$AiTaskPayload<ExtArgs>[]
     coverContents: Prisma.$ContentPayload<ExtArgs>[]
     coverVersions: Prisma.$ContentVersionPayload<ExtArgs>[]
@@ -1472,6 +1535,11 @@ export type $AssetPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     aiDescription: string | null
     metadata: runtime.JsonValue | null
     safetyStatus: $Enums.SafetyStatus
+    safetyRiskLevel: $Enums.RiskLevel | null
+    safetyLabels: runtime.JsonValue | null
+    safetyReason: string | null
+    safetyRawOutput: runtime.JsonValue | null
+    safetyCheckedAt: Date | null
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -1870,7 +1938,6 @@ readonly fields: AssetFieldRefs;
 export interface Prisma__AssetClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  safetyChecks<T extends Prisma.Asset$safetyChecksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Asset$safetyChecksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AssetSafetyCheckPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   aiTasks<T extends Prisma.Asset$aiTasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Asset$aiTasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AiTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   coverContents<T extends Prisma.Asset$coverContentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Asset$coverContentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   coverVersions<T extends Prisma.Asset$coverVersionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Asset$coverVersionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContentVersionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -1915,6 +1982,11 @@ export interface AssetFieldRefs {
   readonly aiDescription: Prisma.FieldRef<"Asset", 'String'>
   readonly metadata: Prisma.FieldRef<"Asset", 'Json'>
   readonly safetyStatus: Prisma.FieldRef<"Asset", 'SafetyStatus'>
+  readonly safetyRiskLevel: Prisma.FieldRef<"Asset", 'RiskLevel'>
+  readonly safetyLabels: Prisma.FieldRef<"Asset", 'Json'>
+  readonly safetyReason: Prisma.FieldRef<"Asset", 'String'>
+  readonly safetyRawOutput: Prisma.FieldRef<"Asset", 'Json'>
+  readonly safetyCheckedAt: Prisma.FieldRef<"Asset", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Asset", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Asset", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"Asset", 'DateTime'>
@@ -2316,30 +2388,6 @@ export type AssetDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Limit how many Assets to delete.
    */
   limit?: number
-}
-
-/**
- * Asset.safetyChecks
- */
-export type Asset$safetyChecksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the AssetSafetyCheck
-   */
-  select?: Prisma.AssetSafetyCheckSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the AssetSafetyCheck
-   */
-  omit?: Prisma.AssetSafetyCheckOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.AssetSafetyCheckInclude<ExtArgs> | null
-  where?: Prisma.AssetSafetyCheckWhereInput
-  orderBy?: Prisma.AssetSafetyCheckOrderByWithRelationInput | Prisma.AssetSafetyCheckOrderByWithRelationInput[]
-  cursor?: Prisma.AssetSafetyCheckWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.AssetSafetyCheckScalarFieldEnum | Prisma.AssetSafetyCheckScalarFieldEnum[]
 }
 
 /**

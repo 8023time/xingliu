@@ -36,10 +36,13 @@ export type HotTopicSumAggregateOutputType = {
 
 export type HotTopicMinAggregateOutputType = {
   id: string | null
+  externalId: string | null
   title: string | null
   source: $Enums.TopicSource | null
+  sourceName: string | null
   category: string | null
   heatScore: runtime.Decimal | null
+  url: string | null
   startedAt: Date | null
   endedAt: Date | null
   status: $Enums.TopicStatus | null
@@ -49,10 +52,13 @@ export type HotTopicMinAggregateOutputType = {
 
 export type HotTopicMaxAggregateOutputType = {
   id: string | null
+  externalId: string | null
   title: string | null
   source: $Enums.TopicSource | null
+  sourceName: string | null
   category: string | null
   heatScore: runtime.Decimal | null
+  url: string | null
   startedAt: Date | null
   endedAt: Date | null
   status: $Enums.TopicStatus | null
@@ -62,11 +68,14 @@ export type HotTopicMaxAggregateOutputType = {
 
 export type HotTopicCountAggregateOutputType = {
   id: number
+  externalId: number
   title: number
   source: number
+  sourceName: number
   category: number
   heatScore: number
-  keywords: number
+  url: number
+  metadata: number
   startedAt: number
   endedAt: number
   status: number
@@ -86,10 +95,13 @@ export type HotTopicSumAggregateInputType = {
 
 export type HotTopicMinAggregateInputType = {
   id?: true
+  externalId?: true
   title?: true
   source?: true
+  sourceName?: true
   category?: true
   heatScore?: true
+  url?: true
   startedAt?: true
   endedAt?: true
   status?: true
@@ -99,10 +111,13 @@ export type HotTopicMinAggregateInputType = {
 
 export type HotTopicMaxAggregateInputType = {
   id?: true
+  externalId?: true
   title?: true
   source?: true
+  sourceName?: true
   category?: true
   heatScore?: true
+  url?: true
   startedAt?: true
   endedAt?: true
   status?: true
@@ -112,11 +127,14 @@ export type HotTopicMaxAggregateInputType = {
 
 export type HotTopicCountAggregateInputType = {
   id?: true
+  externalId?: true
   title?: true
   source?: true
+  sourceName?: true
   category?: true
   heatScore?: true
-  keywords?: true
+  url?: true
+  metadata?: true
   startedAt?: true
   endedAt?: true
   status?: true
@@ -213,11 +231,14 @@ export type HotTopicGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 
 export type HotTopicGroupByOutputType = {
   id: string
+  externalId: string | null
   title: string
   source: $Enums.TopicSource
+  sourceName: string | null
   category: string | null
   heatScore: runtime.Decimal
-  keywords: runtime.JsonValue | null
+  url: string | null
+  metadata: runtime.JsonValue | null
   startedAt: Date | null
   endedAt: Date | null
   status: $Enums.TopicStatus
@@ -250,59 +271,69 @@ export type HotTopicWhereInput = {
   OR?: Prisma.HotTopicWhereInput[]
   NOT?: Prisma.HotTopicWhereInput | Prisma.HotTopicWhereInput[]
   id?: Prisma.StringFilter<"HotTopic"> | string
+  externalId?: Prisma.StringNullableFilter<"HotTopic"> | string | null
   title?: Prisma.StringFilter<"HotTopic"> | string
   source?: Prisma.EnumTopicSourceFilter<"HotTopic"> | $Enums.TopicSource
+  sourceName?: Prisma.StringNullableFilter<"HotTopic"> | string | null
   category?: Prisma.StringNullableFilter<"HotTopic"> | string | null
   heatScore?: Prisma.DecimalFilter<"HotTopic"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  keywords?: Prisma.JsonNullableFilter<"HotTopic">
+  url?: Prisma.StringNullableFilter<"HotTopic"> | string | null
+  metadata?: Prisma.JsonNullableFilter<"HotTopic">
   startedAt?: Prisma.DateTimeNullableFilter<"HotTopic"> | Date | string | null
   endedAt?: Prisma.DateTimeNullableFilter<"HotTopic"> | Date | string | null
   status?: Prisma.EnumTopicStatusFilter<"HotTopic"> | $Enums.TopicStatus
   createdAt?: Prisma.DateTimeFilter<"HotTopic"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"HotTopic"> | Date | string
-  contentRelations?: Prisma.ContentTopicRelationListRelationFilter
 }
 
 export type HotTopicOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  externalId?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   source?: Prisma.SortOrder
+  sourceName?: Prisma.SortOrderInput | Prisma.SortOrder
   category?: Prisma.SortOrderInput | Prisma.SortOrder
   heatScore?: Prisma.SortOrder
-  keywords?: Prisma.SortOrderInput | Prisma.SortOrder
+  url?: Prisma.SortOrderInput | Prisma.SortOrder
+  metadata?: Prisma.SortOrderInput | Prisma.SortOrder
   startedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   endedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  contentRelations?: Prisma.ContentTopicRelationOrderByRelationAggregateInput
 }
 
 export type HotTopicWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  sourceName_externalId?: Prisma.HotTopicSourceNameExternalIdCompoundUniqueInput
   AND?: Prisma.HotTopicWhereInput | Prisma.HotTopicWhereInput[]
   OR?: Prisma.HotTopicWhereInput[]
   NOT?: Prisma.HotTopicWhereInput | Prisma.HotTopicWhereInput[]
+  externalId?: Prisma.StringNullableFilter<"HotTopic"> | string | null
   title?: Prisma.StringFilter<"HotTopic"> | string
   source?: Prisma.EnumTopicSourceFilter<"HotTopic"> | $Enums.TopicSource
+  sourceName?: Prisma.StringNullableFilter<"HotTopic"> | string | null
   category?: Prisma.StringNullableFilter<"HotTopic"> | string | null
   heatScore?: Prisma.DecimalFilter<"HotTopic"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  keywords?: Prisma.JsonNullableFilter<"HotTopic">
+  url?: Prisma.StringNullableFilter<"HotTopic"> | string | null
+  metadata?: Prisma.JsonNullableFilter<"HotTopic">
   startedAt?: Prisma.DateTimeNullableFilter<"HotTopic"> | Date | string | null
   endedAt?: Prisma.DateTimeNullableFilter<"HotTopic"> | Date | string | null
   status?: Prisma.EnumTopicStatusFilter<"HotTopic"> | $Enums.TopicStatus
   createdAt?: Prisma.DateTimeFilter<"HotTopic"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"HotTopic"> | Date | string
-  contentRelations?: Prisma.ContentTopicRelationListRelationFilter
-}, "id">
+}, "id" | "sourceName_externalId">
 
 export type HotTopicOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  externalId?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   source?: Prisma.SortOrder
+  sourceName?: Prisma.SortOrderInput | Prisma.SortOrder
   category?: Prisma.SortOrderInput | Prisma.SortOrder
   heatScore?: Prisma.SortOrder
-  keywords?: Prisma.SortOrderInput | Prisma.SortOrder
+  url?: Prisma.SortOrderInput | Prisma.SortOrder
+  metadata?: Prisma.SortOrderInput | Prisma.SortOrder
   startedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   endedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -320,11 +351,14 @@ export type HotTopicScalarWhereWithAggregatesInput = {
   OR?: Prisma.HotTopicScalarWhereWithAggregatesInput[]
   NOT?: Prisma.HotTopicScalarWhereWithAggregatesInput | Prisma.HotTopicScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"HotTopic"> | string
+  externalId?: Prisma.StringNullableWithAggregatesFilter<"HotTopic"> | string | null
   title?: Prisma.StringWithAggregatesFilter<"HotTopic"> | string
   source?: Prisma.EnumTopicSourceWithAggregatesFilter<"HotTopic"> | $Enums.TopicSource
+  sourceName?: Prisma.StringNullableWithAggregatesFilter<"HotTopic"> | string | null
   category?: Prisma.StringNullableWithAggregatesFilter<"HotTopic"> | string | null
   heatScore?: Prisma.DecimalWithAggregatesFilter<"HotTopic"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  keywords?: Prisma.JsonNullableWithAggregatesFilter<"HotTopic">
+  url?: Prisma.StringNullableWithAggregatesFilter<"HotTopic"> | string | null
+  metadata?: Prisma.JsonNullableWithAggregatesFilter<"HotTopic">
   startedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"HotTopic"> | Date | string | null
   endedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"HotTopic"> | Date | string | null
   status?: Prisma.EnumTopicStatusWithAggregatesFilter<"HotTopic"> | $Enums.TopicStatus
@@ -334,71 +368,82 @@ export type HotTopicScalarWhereWithAggregatesInput = {
 
 export type HotTopicCreateInput = {
   id?: string
+  externalId?: string | null
   title: string
   source: $Enums.TopicSource
+  sourceName?: string | null
   category?: string | null
   heatScore: runtime.Decimal | runtime.DecimalJsLike | number | string
-  keywords?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  url?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   startedAt?: Date | string | null
   endedAt?: Date | string | null
   status?: $Enums.TopicStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  contentRelations?: Prisma.ContentTopicRelationCreateNestedManyWithoutTopicInput
 }
 
 export type HotTopicUncheckedCreateInput = {
   id?: string
+  externalId?: string | null
   title: string
   source: $Enums.TopicSource
+  sourceName?: string | null
   category?: string | null
   heatScore: runtime.Decimal | runtime.DecimalJsLike | number | string
-  keywords?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  url?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   startedAt?: Date | string | null
   endedAt?: Date | string | null
   status?: $Enums.TopicStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  contentRelations?: Prisma.ContentTopicRelationUncheckedCreateNestedManyWithoutTopicInput
 }
 
 export type HotTopicUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   source?: Prisma.EnumTopicSourceFieldUpdateOperationsInput | $Enums.TopicSource
+  sourceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heatScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  keywords?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentRelations?: Prisma.ContentTopicRelationUpdateManyWithoutTopicNestedInput
 }
 
 export type HotTopicUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   source?: Prisma.EnumTopicSourceFieldUpdateOperationsInput | $Enums.TopicSource
+  sourceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heatScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  keywords?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentRelations?: Prisma.ContentTopicRelationUncheckedUpdateManyWithoutTopicNestedInput
 }
 
 export type HotTopicCreateManyInput = {
   id?: string
+  externalId?: string | null
   title: string
   source: $Enums.TopicSource
+  sourceName?: string | null
   category?: string | null
   heatScore: runtime.Decimal | runtime.DecimalJsLike | number | string
-  keywords?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  url?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   startedAt?: Date | string | null
   endedAt?: Date | string | null
   status?: $Enums.TopicStatus
@@ -408,11 +453,14 @@ export type HotTopicCreateManyInput = {
 
 export type HotTopicUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   source?: Prisma.EnumTopicSourceFieldUpdateOperationsInput | $Enums.TopicSource
+  sourceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heatScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  keywords?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
@@ -422,11 +470,14 @@ export type HotTopicUpdateManyMutationInput = {
 
 export type HotTopicUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   source?: Prisma.EnumTopicSourceFieldUpdateOperationsInput | $Enums.TopicSource
+  sourceName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   heatScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  keywords?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
@@ -434,13 +485,21 @@ export type HotTopicUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type HotTopicSourceNameExternalIdCompoundUniqueInput = {
+  sourceName: string
+  externalId: string
+}
+
 export type HotTopicCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  externalId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   source?: Prisma.SortOrder
+  sourceName?: Prisma.SortOrder
   category?: Prisma.SortOrder
   heatScore?: Prisma.SortOrder
-  keywords?: Prisma.SortOrder
+  url?: Prisma.SortOrder
+  metadata?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
   endedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -454,10 +513,13 @@ export type HotTopicAvgOrderByAggregateInput = {
 
 export type HotTopicMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  externalId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   source?: Prisma.SortOrder
+  sourceName?: Prisma.SortOrder
   category?: Prisma.SortOrder
   heatScore?: Prisma.SortOrder
+  url?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
   endedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -467,10 +529,13 @@ export type HotTopicMaxOrderByAggregateInput = {
 
 export type HotTopicMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  externalId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   source?: Prisma.SortOrder
+  sourceName?: Prisma.SortOrder
   category?: Prisma.SortOrder
   heatScore?: Prisma.SortOrder
+  url?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
   endedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -482,11 +547,6 @@ export type HotTopicSumOrderByAggregateInput = {
   heatScore?: Prisma.SortOrder
 }
 
-export type HotTopicScalarRelationFilter = {
-  is?: Prisma.HotTopicWhereInput
-  isNot?: Prisma.HotTopicWhereInput
-}
-
 export type EnumTopicSourceFieldUpdateOperationsInput = {
   set?: $Enums.TopicSource
 }
@@ -495,146 +555,35 @@ export type EnumTopicStatusFieldUpdateOperationsInput = {
   set?: $Enums.TopicStatus
 }
 
-export type HotTopicCreateNestedOneWithoutContentRelationsInput = {
-  create?: Prisma.XOR<Prisma.HotTopicCreateWithoutContentRelationsInput, Prisma.HotTopicUncheckedCreateWithoutContentRelationsInput>
-  connectOrCreate?: Prisma.HotTopicCreateOrConnectWithoutContentRelationsInput
-  connect?: Prisma.HotTopicWhereUniqueInput
-}
-
-export type HotTopicUpdateOneRequiredWithoutContentRelationsNestedInput = {
-  create?: Prisma.XOR<Prisma.HotTopicCreateWithoutContentRelationsInput, Prisma.HotTopicUncheckedCreateWithoutContentRelationsInput>
-  connectOrCreate?: Prisma.HotTopicCreateOrConnectWithoutContentRelationsInput
-  upsert?: Prisma.HotTopicUpsertWithoutContentRelationsInput
-  connect?: Prisma.HotTopicWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.HotTopicUpdateToOneWithWhereWithoutContentRelationsInput, Prisma.HotTopicUpdateWithoutContentRelationsInput>, Prisma.HotTopicUncheckedUpdateWithoutContentRelationsInput>
-}
-
-export type HotTopicCreateWithoutContentRelationsInput = {
-  id?: string
-  title: string
-  source: $Enums.TopicSource
-  category?: string | null
-  heatScore: runtime.Decimal | runtime.DecimalJsLike | number | string
-  keywords?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  startedAt?: Date | string | null
-  endedAt?: Date | string | null
-  status?: $Enums.TopicStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type HotTopicUncheckedCreateWithoutContentRelationsInput = {
-  id?: string
-  title: string
-  source: $Enums.TopicSource
-  category?: string | null
-  heatScore: runtime.Decimal | runtime.DecimalJsLike | number | string
-  keywords?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  startedAt?: Date | string | null
-  endedAt?: Date | string | null
-  status?: $Enums.TopicStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type HotTopicCreateOrConnectWithoutContentRelationsInput = {
-  where: Prisma.HotTopicWhereUniqueInput
-  create: Prisma.XOR<Prisma.HotTopicCreateWithoutContentRelationsInput, Prisma.HotTopicUncheckedCreateWithoutContentRelationsInput>
-}
-
-export type HotTopicUpsertWithoutContentRelationsInput = {
-  update: Prisma.XOR<Prisma.HotTopicUpdateWithoutContentRelationsInput, Prisma.HotTopicUncheckedUpdateWithoutContentRelationsInput>
-  create: Prisma.XOR<Prisma.HotTopicCreateWithoutContentRelationsInput, Prisma.HotTopicUncheckedCreateWithoutContentRelationsInput>
-  where?: Prisma.HotTopicWhereInput
-}
-
-export type HotTopicUpdateToOneWithWhereWithoutContentRelationsInput = {
-  where?: Prisma.HotTopicWhereInput
-  data: Prisma.XOR<Prisma.HotTopicUpdateWithoutContentRelationsInput, Prisma.HotTopicUncheckedUpdateWithoutContentRelationsInput>
-}
-
-export type HotTopicUpdateWithoutContentRelationsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  source?: Prisma.EnumTopicSourceFieldUpdateOperationsInput | $Enums.TopicSource
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heatScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  keywords?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  endedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type HotTopicUncheckedUpdateWithoutContentRelationsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  source?: Prisma.EnumTopicSourceFieldUpdateOperationsInput | $Enums.TopicSource
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heatScore?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  keywords?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  endedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-
-/**
- * Count Type HotTopicCountOutputType
- */
-
-export type HotTopicCountOutputType = {
-  contentRelations: number
-}
-
-export type HotTopicCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  contentRelations?: boolean | HotTopicCountOutputTypeCountContentRelationsArgs
-}
-
-/**
- * HotTopicCountOutputType without action
- */
-export type HotTopicCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the HotTopicCountOutputType
-   */
-  select?: Prisma.HotTopicCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * HotTopicCountOutputType without action
- */
-export type HotTopicCountOutputTypeCountContentRelationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ContentTopicRelationWhereInput
-}
 
 
 export type HotTopicSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  externalId?: boolean
   title?: boolean
   source?: boolean
+  sourceName?: boolean
   category?: boolean
   heatScore?: boolean
-  keywords?: boolean
+  url?: boolean
+  metadata?: boolean
   startedAt?: boolean
   endedAt?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  contentRelations?: boolean | Prisma.HotTopic$contentRelationsArgs<ExtArgs>
-  _count?: boolean | Prisma.HotTopicCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["hotTopic"]>
 
 export type HotTopicSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  externalId?: boolean
   title?: boolean
   source?: boolean
+  sourceName?: boolean
   category?: boolean
   heatScore?: boolean
-  keywords?: boolean
+  url?: boolean
+  metadata?: boolean
   startedAt?: boolean
   endedAt?: boolean
   status?: boolean
@@ -644,11 +593,14 @@ export type HotTopicSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
 
 export type HotTopicSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  externalId?: boolean
   title?: boolean
   source?: boolean
+  sourceName?: boolean
   category?: boolean
   heatScore?: boolean
-  keywords?: boolean
+  url?: boolean
+  metadata?: boolean
   startedAt?: boolean
   endedAt?: boolean
   status?: boolean
@@ -658,11 +610,14 @@ export type HotTopicSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
 
 export type HotTopicSelectScalar = {
   id?: boolean
+  externalId?: boolean
   title?: boolean
   source?: boolean
+  sourceName?: boolean
   category?: boolean
   heatScore?: boolean
-  keywords?: boolean
+  url?: boolean
+  metadata?: boolean
   startedAt?: boolean
   endedAt?: boolean
   status?: boolean
@@ -670,26 +625,21 @@ export type HotTopicSelectScalar = {
   updatedAt?: boolean
 }
 
-export type HotTopicOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "source" | "category" | "heatScore" | "keywords" | "startedAt" | "endedAt" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["hotTopic"]>
-export type HotTopicInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  contentRelations?: boolean | Prisma.HotTopic$contentRelationsArgs<ExtArgs>
-  _count?: boolean | Prisma.HotTopicCountOutputTypeDefaultArgs<ExtArgs>
-}
-export type HotTopicIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type HotTopicIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type HotTopicOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "externalId" | "title" | "source" | "sourceName" | "category" | "heatScore" | "url" | "metadata" | "startedAt" | "endedAt" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["hotTopic"]>
 
 export type $HotTopicPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "HotTopic"
-  objects: {
-    contentRelations: Prisma.$ContentTopicRelationPayload<ExtArgs>[]
-  }
+  objects: {}
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    externalId: string | null
     title: string
     source: $Enums.TopicSource
+    sourceName: string | null
     category: string | null
     heatScore: runtime.Decimal
-    keywords: runtime.JsonValue | null
+    url: string | null
+    metadata: runtime.JsonValue | null
     startedAt: Date | null
     endedAt: Date | null
     status: $Enums.TopicStatus
@@ -1089,7 +1039,6 @@ readonly fields: HotTopicFieldRefs;
  */
 export interface Prisma__HotTopicClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  contentRelations<T extends Prisma.HotTopic$contentRelationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.HotTopic$contentRelationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContentTopicRelationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1120,11 +1069,14 @@ export interface Prisma__HotTopicClient<T, Null = never, ExtArgs extends runtime
  */
 export interface HotTopicFieldRefs {
   readonly id: Prisma.FieldRef<"HotTopic", 'String'>
+  readonly externalId: Prisma.FieldRef<"HotTopic", 'String'>
   readonly title: Prisma.FieldRef<"HotTopic", 'String'>
   readonly source: Prisma.FieldRef<"HotTopic", 'TopicSource'>
+  readonly sourceName: Prisma.FieldRef<"HotTopic", 'String'>
   readonly category: Prisma.FieldRef<"HotTopic", 'String'>
   readonly heatScore: Prisma.FieldRef<"HotTopic", 'Decimal'>
-  readonly keywords: Prisma.FieldRef<"HotTopic", 'Json'>
+  readonly url: Prisma.FieldRef<"HotTopic", 'String'>
+  readonly metadata: Prisma.FieldRef<"HotTopic", 'Json'>
   readonly startedAt: Prisma.FieldRef<"HotTopic", 'DateTime'>
   readonly endedAt: Prisma.FieldRef<"HotTopic", 'DateTime'>
   readonly status: Prisma.FieldRef<"HotTopic", 'TopicStatus'>
@@ -1147,10 +1099,6 @@ export type HotTopicFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Inte
    */
   omit?: Prisma.HotTopicOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.HotTopicInclude<ExtArgs> | null
-  /**
    * Filter, which HotTopic to fetch.
    */
   where: Prisma.HotTopicWhereUniqueInput
@@ -1169,10 +1117,6 @@ export type HotTopicFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensio
    */
   omit?: Prisma.HotTopicOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.HotTopicInclude<ExtArgs> | null
-  /**
    * Filter, which HotTopic to fetch.
    */
   where: Prisma.HotTopicWhereUniqueInput
@@ -1190,10 +1134,6 @@ export type HotTopicFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the HotTopic
    */
   omit?: Prisma.HotTopicOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.HotTopicInclude<ExtArgs> | null
   /**
    * Filter, which HotTopic to fetch.
    */
@@ -1243,10 +1183,6 @@ export type HotTopicFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.HotTopicOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.HotTopicInclude<ExtArgs> | null
-  /**
    * Filter, which HotTopic to fetch.
    */
   where?: Prisma.HotTopicWhereInput
@@ -1294,10 +1230,6 @@ export type HotTopicFindManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the HotTopic
    */
   omit?: Prisma.HotTopicOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.HotTopicInclude<ExtArgs> | null
   /**
    * Filter, which HotTopics to fetch.
    */
@@ -1347,10 +1279,6 @@ export type HotTopicCreateArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   omit?: Prisma.HotTopicOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.HotTopicInclude<ExtArgs> | null
-  /**
    * The data needed to create a HotTopic.
    */
   data: Prisma.XOR<Prisma.HotTopicCreateInput, Prisma.HotTopicUncheckedCreateInput>
@@ -1398,10 +1326,6 @@ export type HotTopicUpdateArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the HotTopic
    */
   omit?: Prisma.HotTopicOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.HotTopicInclude<ExtArgs> | null
   /**
    * The data needed to update a HotTopic.
    */
@@ -1469,10 +1393,6 @@ export type HotTopicUpsertArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   omit?: Prisma.HotTopicOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.HotTopicInclude<ExtArgs> | null
-  /**
    * The filter to search for the HotTopic to update in case it exists.
    */
   where: Prisma.HotTopicWhereUniqueInput
@@ -1499,10 +1419,6 @@ export type HotTopicDeleteArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   omit?: Prisma.HotTopicOmit<ExtArgs> | null
   /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.HotTopicInclude<ExtArgs> | null
-  /**
    * Filter which HotTopic to delete.
    */
   where: Prisma.HotTopicWhereUniqueInput
@@ -1523,30 +1439,6 @@ export type HotTopicDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
- * HotTopic.contentRelations
- */
-export type HotTopic$contentRelationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ContentTopicRelation
-   */
-  select?: Prisma.ContentTopicRelationSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ContentTopicRelation
-   */
-  omit?: Prisma.ContentTopicRelationOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ContentTopicRelationInclude<ExtArgs> | null
-  where?: Prisma.ContentTopicRelationWhereInput
-  orderBy?: Prisma.ContentTopicRelationOrderByWithRelationInput | Prisma.ContentTopicRelationOrderByWithRelationInput[]
-  cursor?: Prisma.ContentTopicRelationWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ContentTopicRelationScalarFieldEnum | Prisma.ContentTopicRelationScalarFieldEnum[]
-}
-
-/**
  * HotTopic without action
  */
 export type HotTopicDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1558,8 +1450,4 @@ export type HotTopicDefaultArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the HotTopic
    */
   omit?: Prisma.HotTopicOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.HotTopicInclude<ExtArgs> | null
 }

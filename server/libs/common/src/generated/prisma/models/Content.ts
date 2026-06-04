@@ -29,15 +29,11 @@ export type AggregateContent = {
 export type ContentAvgAggregateOutputType = {
   qualityScore: runtime.Decimal | null
   safetyScore: runtime.Decimal | null
-  hotScore: runtime.Decimal | null
-  recommendScore: runtime.Decimal | null
 }
 
 export type ContentSumAggregateOutputType = {
   qualityScore: runtime.Decimal | null
   safetyScore: runtime.Decimal | null
-  hotScore: runtime.Decimal | null
-  recommendScore: runtime.Decimal | null
 }
 
 export type ContentMinAggregateOutputType = {
@@ -48,13 +44,12 @@ export type ContentMinAggregateOutputType = {
   summary: string | null
   coverAssetId: string | null
   currentVersionId: string | null
+  publishedVersionId: string | null
   status: $Enums.ContentStatus | null
   safetyStatus: $Enums.SafetyStatus | null
   qualityLevel: $Enums.QualityLevel | null
   qualityScore: runtime.Decimal | null
   safetyScore: runtime.Decimal | null
-  hotScore: runtime.Decimal | null
-  recommendScore: runtime.Decimal | null
   publishedAt: Date | null
   offlineAt: Date | null
   createdAt: Date | null
@@ -70,13 +65,12 @@ export type ContentMaxAggregateOutputType = {
   summary: string | null
   coverAssetId: string | null
   currentVersionId: string | null
+  publishedVersionId: string | null
   status: $Enums.ContentStatus | null
   safetyStatus: $Enums.SafetyStatus | null
   qualityLevel: $Enums.QualityLevel | null
   qualityScore: runtime.Decimal | null
   safetyScore: runtime.Decimal | null
-  hotScore: runtime.Decimal | null
-  recommendScore: runtime.Decimal | null
   publishedAt: Date | null
   offlineAt: Date | null
   createdAt: Date | null
@@ -92,13 +86,12 @@ export type ContentCountAggregateOutputType = {
   summary: number
   coverAssetId: number
   currentVersionId: number
+  publishedVersionId: number
   status: number
   safetyStatus: number
   qualityLevel: number
   qualityScore: number
   safetyScore: number
-  hotScore: number
-  recommendScore: number
   publishedAt: number
   offlineAt: number
   createdAt: number
@@ -111,15 +104,11 @@ export type ContentCountAggregateOutputType = {
 export type ContentAvgAggregateInputType = {
   qualityScore?: true
   safetyScore?: true
-  hotScore?: true
-  recommendScore?: true
 }
 
 export type ContentSumAggregateInputType = {
   qualityScore?: true
   safetyScore?: true
-  hotScore?: true
-  recommendScore?: true
 }
 
 export type ContentMinAggregateInputType = {
@@ -130,13 +119,12 @@ export type ContentMinAggregateInputType = {
   summary?: true
   coverAssetId?: true
   currentVersionId?: true
+  publishedVersionId?: true
   status?: true
   safetyStatus?: true
   qualityLevel?: true
   qualityScore?: true
   safetyScore?: true
-  hotScore?: true
-  recommendScore?: true
   publishedAt?: true
   offlineAt?: true
   createdAt?: true
@@ -152,13 +140,12 @@ export type ContentMaxAggregateInputType = {
   summary?: true
   coverAssetId?: true
   currentVersionId?: true
+  publishedVersionId?: true
   status?: true
   safetyStatus?: true
   qualityLevel?: true
   qualityScore?: true
   safetyScore?: true
-  hotScore?: true
-  recommendScore?: true
   publishedAt?: true
   offlineAt?: true
   createdAt?: true
@@ -174,13 +161,12 @@ export type ContentCountAggregateInputType = {
   summary?: true
   coverAssetId?: true
   currentVersionId?: true
+  publishedVersionId?: true
   status?: true
   safetyStatus?: true
   qualityLevel?: true
   qualityScore?: true
   safetyScore?: true
-  hotScore?: true
-  recommendScore?: true
   publishedAt?: true
   offlineAt?: true
   createdAt?: true
@@ -283,13 +269,12 @@ export type ContentGroupByOutputType = {
   summary: string | null
   coverAssetId: string | null
   currentVersionId: string | null
+  publishedVersionId: string | null
   status: $Enums.ContentStatus
   safetyStatus: $Enums.SafetyStatus
   qualityLevel: $Enums.QualityLevel | null
   qualityScore: runtime.Decimal | null
   safetyScore: runtime.Decimal | null
-  hotScore: runtime.Decimal | null
-  recommendScore: runtime.Decimal | null
   publishedAt: Date | null
   offlineAt: Date | null
   createdAt: Date
@@ -328,13 +313,12 @@ export type ContentWhereInput = {
   summary?: Prisma.StringNullableFilter<"Content"> | string | null
   coverAssetId?: Prisma.StringNullableFilter<"Content"> | string | null
   currentVersionId?: Prisma.StringNullableFilter<"Content"> | string | null
+  publishedVersionId?: Prisma.StringNullableFilter<"Content"> | string | null
   status?: Prisma.EnumContentStatusFilter<"Content"> | $Enums.ContentStatus
   safetyStatus?: Prisma.EnumSafetyStatusFilter<"Content"> | $Enums.SafetyStatus
   qualityLevel?: Prisma.EnumQualityLevelNullableFilter<"Content"> | $Enums.QualityLevel | null
   qualityScore?: Prisma.DecimalNullableFilter<"Content"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.DecimalNullableFilter<"Content"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.DecimalNullableFilter<"Content"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.DecimalNullableFilter<"Content"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.DateTimeNullableFilter<"Content"> | Date | string | null
   offlineAt?: Prisma.DateTimeNullableFilter<"Content"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Content"> | Date | string
@@ -344,6 +328,7 @@ export type ContentWhereInput = {
   coverAsset?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
   versions?: Prisma.ContentVersionListRelationFilter
   currentVersion?: Prisma.XOR<Prisma.ContentVersionNullableScalarRelationFilter, Prisma.ContentVersionWhereInput> | null
+  publishedVersion?: Prisma.XOR<Prisma.ContentVersionNullableScalarRelationFilter, Prisma.ContentVersionWhereInput> | null
   draftSnapshots?: Prisma.DraftSnapshotListRelationFilter
   aiTasks?: Prisma.AiTaskListRelationFilter
   safetyReviews?: Prisma.SafetyReviewListRelationFilter
@@ -351,10 +336,7 @@ export type ContentWhereInput = {
   rewriteRecords?: Prisma.RewriteRecordListRelationFilter
   metrics?: Prisma.XOR<Prisma.ContentMetricNullableScalarRelationFilter, Prisma.ContentMetricWhereInput> | null
   interactions?: Prisma.ContentInteractionListRelationFilter
-  rankingScores?: Prisma.RankingScoreListRelationFilter
-  topicRelations?: Prisma.ContentTopicRelationListRelationFilter
   distributionTasks?: Prisma.DistributionTaskListRelationFilter
-  operations?: Prisma.ContentOperationListRelationFilter
 }
 
 export type ContentOrderByWithRelationInput = {
@@ -365,13 +347,12 @@ export type ContentOrderByWithRelationInput = {
   summary?: Prisma.SortOrderInput | Prisma.SortOrder
   coverAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
   currentVersionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  publishedVersionId?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   safetyStatus?: Prisma.SortOrder
   qualityLevel?: Prisma.SortOrderInput | Prisma.SortOrder
   qualityScore?: Prisma.SortOrderInput | Prisma.SortOrder
   safetyScore?: Prisma.SortOrderInput | Prisma.SortOrder
-  hotScore?: Prisma.SortOrderInput | Prisma.SortOrder
-  recommendScore?: Prisma.SortOrderInput | Prisma.SortOrder
   publishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   offlineAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -381,6 +362,7 @@ export type ContentOrderByWithRelationInput = {
   coverAsset?: Prisma.AssetOrderByWithRelationInput
   versions?: Prisma.ContentVersionOrderByRelationAggregateInput
   currentVersion?: Prisma.ContentVersionOrderByWithRelationInput
+  publishedVersion?: Prisma.ContentVersionOrderByWithRelationInput
   draftSnapshots?: Prisma.DraftSnapshotOrderByRelationAggregateInput
   aiTasks?: Prisma.AiTaskOrderByRelationAggregateInput
   safetyReviews?: Prisma.SafetyReviewOrderByRelationAggregateInput
@@ -388,15 +370,13 @@ export type ContentOrderByWithRelationInput = {
   rewriteRecords?: Prisma.RewriteRecordOrderByRelationAggregateInput
   metrics?: Prisma.ContentMetricOrderByWithRelationInput
   interactions?: Prisma.ContentInteractionOrderByRelationAggregateInput
-  rankingScores?: Prisma.RankingScoreOrderByRelationAggregateInput
-  topicRelations?: Prisma.ContentTopicRelationOrderByRelationAggregateInput
   distributionTasks?: Prisma.DistributionTaskOrderByRelationAggregateInput
-  operations?: Prisma.ContentOperationOrderByRelationAggregateInput
 }
 
 export type ContentWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   currentVersionId?: string
+  publishedVersionId?: string
   AND?: Prisma.ContentWhereInput | Prisma.ContentWhereInput[]
   OR?: Prisma.ContentWhereInput[]
   NOT?: Prisma.ContentWhereInput | Prisma.ContentWhereInput[]
@@ -410,8 +390,6 @@ export type ContentWhereUniqueInput = Prisma.AtLeast<{
   qualityLevel?: Prisma.EnumQualityLevelNullableFilter<"Content"> | $Enums.QualityLevel | null
   qualityScore?: Prisma.DecimalNullableFilter<"Content"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.DecimalNullableFilter<"Content"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.DecimalNullableFilter<"Content"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.DecimalNullableFilter<"Content"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.DateTimeNullableFilter<"Content"> | Date | string | null
   offlineAt?: Prisma.DateTimeNullableFilter<"Content"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Content"> | Date | string
@@ -421,6 +399,7 @@ export type ContentWhereUniqueInput = Prisma.AtLeast<{
   coverAsset?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
   versions?: Prisma.ContentVersionListRelationFilter
   currentVersion?: Prisma.XOR<Prisma.ContentVersionNullableScalarRelationFilter, Prisma.ContentVersionWhereInput> | null
+  publishedVersion?: Prisma.XOR<Prisma.ContentVersionNullableScalarRelationFilter, Prisma.ContentVersionWhereInput> | null
   draftSnapshots?: Prisma.DraftSnapshotListRelationFilter
   aiTasks?: Prisma.AiTaskListRelationFilter
   safetyReviews?: Prisma.SafetyReviewListRelationFilter
@@ -428,11 +407,8 @@ export type ContentWhereUniqueInput = Prisma.AtLeast<{
   rewriteRecords?: Prisma.RewriteRecordListRelationFilter
   metrics?: Prisma.XOR<Prisma.ContentMetricNullableScalarRelationFilter, Prisma.ContentMetricWhereInput> | null
   interactions?: Prisma.ContentInteractionListRelationFilter
-  rankingScores?: Prisma.RankingScoreListRelationFilter
-  topicRelations?: Prisma.ContentTopicRelationListRelationFilter
   distributionTasks?: Prisma.DistributionTaskListRelationFilter
-  operations?: Prisma.ContentOperationListRelationFilter
-}, "id" | "currentVersionId">
+}, "id" | "currentVersionId" | "publishedVersionId">
 
 export type ContentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -442,13 +418,12 @@ export type ContentOrderByWithAggregationInput = {
   summary?: Prisma.SortOrderInput | Prisma.SortOrder
   coverAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
   currentVersionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  publishedVersionId?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   safetyStatus?: Prisma.SortOrder
   qualityLevel?: Prisma.SortOrderInput | Prisma.SortOrder
   qualityScore?: Prisma.SortOrderInput | Prisma.SortOrder
   safetyScore?: Prisma.SortOrderInput | Prisma.SortOrder
-  hotScore?: Prisma.SortOrderInput | Prisma.SortOrder
-  recommendScore?: Prisma.SortOrderInput | Prisma.SortOrder
   publishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   offlineAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -472,13 +447,12 @@ export type ContentScalarWhereWithAggregatesInput = {
   summary?: Prisma.StringNullableWithAggregatesFilter<"Content"> | string | null
   coverAssetId?: Prisma.StringNullableWithAggregatesFilter<"Content"> | string | null
   currentVersionId?: Prisma.StringNullableWithAggregatesFilter<"Content"> | string | null
+  publishedVersionId?: Prisma.StringNullableWithAggregatesFilter<"Content"> | string | null
   status?: Prisma.EnumContentStatusWithAggregatesFilter<"Content"> | $Enums.ContentStatus
   safetyStatus?: Prisma.EnumSafetyStatusWithAggregatesFilter<"Content"> | $Enums.SafetyStatus
   qualityLevel?: Prisma.EnumQualityLevelNullableWithAggregatesFilter<"Content"> | $Enums.QualityLevel | null
   qualityScore?: Prisma.DecimalNullableWithAggregatesFilter<"Content"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.DecimalNullableWithAggregatesFilter<"Content"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.DecimalNullableWithAggregatesFilter<"Content"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.DecimalNullableWithAggregatesFilter<"Content"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Content"> | Date | string | null
   offlineAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Content"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Content"> | Date | string
@@ -496,8 +470,6 @@ export type ContentCreateInput = {
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -507,6 +479,7 @@ export type ContentCreateInput = {
   coverAsset?: Prisma.AssetCreateNestedOneWithoutCoverContentsInput
   versions?: Prisma.ContentVersionCreateNestedManyWithoutContentInput
   currentVersion?: Prisma.ContentVersionCreateNestedOneWithoutCurrentForContentInput
+  publishedVersion?: Prisma.ContentVersionCreateNestedOneWithoutPublishedForContentInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutContentInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutContentInput
   safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutContentInput
@@ -514,10 +487,7 @@ export type ContentCreateInput = {
   rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutContentInput
   metrics?: Prisma.ContentMetricCreateNestedOneWithoutContentInput
   interactions?: Prisma.ContentInteractionCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationCreateNestedManyWithoutContentInput
   distributionTasks?: Prisma.DistributionTaskCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationCreateNestedManyWithoutContentInput
 }
 
 export type ContentUncheckedCreateInput = {
@@ -528,13 +498,12 @@ export type ContentUncheckedCreateInput = {
   summary?: string | null
   coverAssetId?: string | null
   currentVersionId?: string | null
+  publishedVersionId?: string | null
   status?: $Enums.ContentStatus
   safetyStatus?: $Enums.SafetyStatus
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -548,10 +517,7 @@ export type ContentUncheckedCreateInput = {
   rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutContentInput
   metrics?: Prisma.ContentMetricUncheckedCreateNestedOneWithoutContentInput
   interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreUncheckedCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedCreateNestedManyWithoutContentInput
   distributionTasks?: Prisma.DistributionTaskUncheckedCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutContentInput
 }
 
 export type ContentUpdateInput = {
@@ -564,8 +530,6 @@ export type ContentUpdateInput = {
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -575,6 +539,7 @@ export type ContentUpdateInput = {
   coverAsset?: Prisma.AssetUpdateOneWithoutCoverContentsNestedInput
   versions?: Prisma.ContentVersionUpdateManyWithoutContentNestedInput
   currentVersion?: Prisma.ContentVersionUpdateOneWithoutCurrentForContentNestedInput
+  publishedVersion?: Prisma.ContentVersionUpdateOneWithoutPublishedForContentNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutContentNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutContentNestedInput
   safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutContentNestedInput
@@ -582,10 +547,7 @@ export type ContentUpdateInput = {
   rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutContentNestedInput
   metrics?: Prisma.ContentMetricUpdateOneWithoutContentNestedInput
   interactions?: Prisma.ContentInteractionUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUpdateManyWithoutContentNestedInput
   distributionTasks?: Prisma.DistributionTaskUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUpdateManyWithoutContentNestedInput
 }
 
 export type ContentUncheckedUpdateInput = {
@@ -596,13 +558,12 @@ export type ContentUncheckedUpdateInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publishedVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -616,10 +577,7 @@ export type ContentUncheckedUpdateInput = {
   rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutContentNestedInput
   metrics?: Prisma.ContentMetricUncheckedUpdateOneWithoutContentNestedInput
   interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUncheckedUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedUpdateManyWithoutContentNestedInput
   distributionTasks?: Prisma.DistributionTaskUncheckedUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUncheckedUpdateManyWithoutContentNestedInput
 }
 
 export type ContentCreateManyInput = {
@@ -630,13 +588,12 @@ export type ContentCreateManyInput = {
   summary?: string | null
   coverAssetId?: string | null
   currentVersionId?: string | null
+  publishedVersionId?: string | null
   status?: $Enums.ContentStatus
   safetyStatus?: $Enums.SafetyStatus
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -654,8 +611,6 @@ export type ContentUpdateManyMutationInput = {
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -671,13 +626,12 @@ export type ContentUncheckedUpdateManyInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publishedVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -703,13 +657,12 @@ export type ContentCountOrderByAggregateInput = {
   summary?: Prisma.SortOrder
   coverAssetId?: Prisma.SortOrder
   currentVersionId?: Prisma.SortOrder
+  publishedVersionId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   safetyStatus?: Prisma.SortOrder
   qualityLevel?: Prisma.SortOrder
   qualityScore?: Prisma.SortOrder
   safetyScore?: Prisma.SortOrder
-  hotScore?: Prisma.SortOrder
-  recommendScore?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
   offlineAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -720,8 +673,6 @@ export type ContentCountOrderByAggregateInput = {
 export type ContentAvgOrderByAggregateInput = {
   qualityScore?: Prisma.SortOrder
   safetyScore?: Prisma.SortOrder
-  hotScore?: Prisma.SortOrder
-  recommendScore?: Prisma.SortOrder
 }
 
 export type ContentMaxOrderByAggregateInput = {
@@ -732,13 +683,12 @@ export type ContentMaxOrderByAggregateInput = {
   summary?: Prisma.SortOrder
   coverAssetId?: Prisma.SortOrder
   currentVersionId?: Prisma.SortOrder
+  publishedVersionId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   safetyStatus?: Prisma.SortOrder
   qualityLevel?: Prisma.SortOrder
   qualityScore?: Prisma.SortOrder
   safetyScore?: Prisma.SortOrder
-  hotScore?: Prisma.SortOrder
-  recommendScore?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
   offlineAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -754,13 +704,12 @@ export type ContentMinOrderByAggregateInput = {
   summary?: Prisma.SortOrder
   coverAssetId?: Prisma.SortOrder
   currentVersionId?: Prisma.SortOrder
+  publishedVersionId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   safetyStatus?: Prisma.SortOrder
   qualityLevel?: Prisma.SortOrder
   qualityScore?: Prisma.SortOrder
   safetyScore?: Prisma.SortOrder
-  hotScore?: Prisma.SortOrder
-  recommendScore?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
   offlineAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -771,8 +720,6 @@ export type ContentMinOrderByAggregateInput = {
 export type ContentSumOrderByAggregateInput = {
   qualityScore?: Prisma.SortOrder
   safetyScore?: Prisma.SortOrder
-  hotScore?: Prisma.SortOrder
-  recommendScore?: Prisma.SortOrder
 }
 
 export type ContentScalarRelationFilter = {
@@ -901,9 +848,21 @@ export type ContentCreateNestedOneWithoutCurrentVersionInput = {
   connect?: Prisma.ContentWhereUniqueInput
 }
 
+export type ContentCreateNestedOneWithoutPublishedVersionInput = {
+  create?: Prisma.XOR<Prisma.ContentCreateWithoutPublishedVersionInput, Prisma.ContentUncheckedCreateWithoutPublishedVersionInput>
+  connectOrCreate?: Prisma.ContentCreateOrConnectWithoutPublishedVersionInput
+  connect?: Prisma.ContentWhereUniqueInput
+}
+
 export type ContentUncheckedCreateNestedOneWithoutCurrentVersionInput = {
   create?: Prisma.XOR<Prisma.ContentCreateWithoutCurrentVersionInput, Prisma.ContentUncheckedCreateWithoutCurrentVersionInput>
   connectOrCreate?: Prisma.ContentCreateOrConnectWithoutCurrentVersionInput
+  connect?: Prisma.ContentWhereUniqueInput
+}
+
+export type ContentUncheckedCreateNestedOneWithoutPublishedVersionInput = {
+  create?: Prisma.XOR<Prisma.ContentCreateWithoutPublishedVersionInput, Prisma.ContentUncheckedCreateWithoutPublishedVersionInput>
+  connectOrCreate?: Prisma.ContentCreateOrConnectWithoutPublishedVersionInput
   connect?: Prisma.ContentWhereUniqueInput
 }
 
@@ -925,6 +884,16 @@ export type ContentUpdateOneWithoutCurrentVersionNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ContentUpdateToOneWithWhereWithoutCurrentVersionInput, Prisma.ContentUpdateWithoutCurrentVersionInput>, Prisma.ContentUncheckedUpdateWithoutCurrentVersionInput>
 }
 
+export type ContentUpdateOneWithoutPublishedVersionNestedInput = {
+  create?: Prisma.XOR<Prisma.ContentCreateWithoutPublishedVersionInput, Prisma.ContentUncheckedCreateWithoutPublishedVersionInput>
+  connectOrCreate?: Prisma.ContentCreateOrConnectWithoutPublishedVersionInput
+  upsert?: Prisma.ContentUpsertWithoutPublishedVersionInput
+  disconnect?: Prisma.ContentWhereInput | boolean
+  delete?: Prisma.ContentWhereInput | boolean
+  connect?: Prisma.ContentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ContentUpdateToOneWithWhereWithoutPublishedVersionInput, Prisma.ContentUpdateWithoutPublishedVersionInput>, Prisma.ContentUncheckedUpdateWithoutPublishedVersionInput>
+}
+
 export type ContentUncheckedUpdateOneWithoutCurrentVersionNestedInput = {
   create?: Prisma.XOR<Prisma.ContentCreateWithoutCurrentVersionInput, Prisma.ContentUncheckedCreateWithoutCurrentVersionInput>
   connectOrCreate?: Prisma.ContentCreateOrConnectWithoutCurrentVersionInput
@@ -933,6 +902,16 @@ export type ContentUncheckedUpdateOneWithoutCurrentVersionNestedInput = {
   delete?: Prisma.ContentWhereInput | boolean
   connect?: Prisma.ContentWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.ContentUpdateToOneWithWhereWithoutCurrentVersionInput, Prisma.ContentUpdateWithoutCurrentVersionInput>, Prisma.ContentUncheckedUpdateWithoutCurrentVersionInput>
+}
+
+export type ContentUncheckedUpdateOneWithoutPublishedVersionNestedInput = {
+  create?: Prisma.XOR<Prisma.ContentCreateWithoutPublishedVersionInput, Prisma.ContentUncheckedCreateWithoutPublishedVersionInput>
+  connectOrCreate?: Prisma.ContentCreateOrConnectWithoutPublishedVersionInput
+  upsert?: Prisma.ContentUpsertWithoutPublishedVersionInput
+  disconnect?: Prisma.ContentWhereInput | boolean
+  delete?: Prisma.ContentWhereInput | boolean
+  connect?: Prisma.ContentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ContentUpdateToOneWithWhereWithoutPublishedVersionInput, Prisma.ContentUpdateWithoutPublishedVersionInput>, Prisma.ContentUncheckedUpdateWithoutPublishedVersionInput>
 }
 
 export type ContentCreateNestedOneWithoutDraftSnapshotsInput = {
@@ -1035,34 +1014,6 @@ export type ContentUpdateOneRequiredWithoutInteractionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ContentUpdateToOneWithWhereWithoutInteractionsInput, Prisma.ContentUpdateWithoutInteractionsInput>, Prisma.ContentUncheckedUpdateWithoutInteractionsInput>
 }
 
-export type ContentCreateNestedOneWithoutRankingScoresInput = {
-  create?: Prisma.XOR<Prisma.ContentCreateWithoutRankingScoresInput, Prisma.ContentUncheckedCreateWithoutRankingScoresInput>
-  connectOrCreate?: Prisma.ContentCreateOrConnectWithoutRankingScoresInput
-  connect?: Prisma.ContentWhereUniqueInput
-}
-
-export type ContentUpdateOneRequiredWithoutRankingScoresNestedInput = {
-  create?: Prisma.XOR<Prisma.ContentCreateWithoutRankingScoresInput, Prisma.ContentUncheckedCreateWithoutRankingScoresInput>
-  connectOrCreate?: Prisma.ContentCreateOrConnectWithoutRankingScoresInput
-  upsert?: Prisma.ContentUpsertWithoutRankingScoresInput
-  connect?: Prisma.ContentWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ContentUpdateToOneWithWhereWithoutRankingScoresInput, Prisma.ContentUpdateWithoutRankingScoresInput>, Prisma.ContentUncheckedUpdateWithoutRankingScoresInput>
-}
-
-export type ContentCreateNestedOneWithoutTopicRelationsInput = {
-  create?: Prisma.XOR<Prisma.ContentCreateWithoutTopicRelationsInput, Prisma.ContentUncheckedCreateWithoutTopicRelationsInput>
-  connectOrCreate?: Prisma.ContentCreateOrConnectWithoutTopicRelationsInput
-  connect?: Prisma.ContentWhereUniqueInput
-}
-
-export type ContentUpdateOneRequiredWithoutTopicRelationsNestedInput = {
-  create?: Prisma.XOR<Prisma.ContentCreateWithoutTopicRelationsInput, Prisma.ContentUncheckedCreateWithoutTopicRelationsInput>
-  connectOrCreate?: Prisma.ContentCreateOrConnectWithoutTopicRelationsInput
-  upsert?: Prisma.ContentUpsertWithoutTopicRelationsInput
-  connect?: Prisma.ContentWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ContentUpdateToOneWithWhereWithoutTopicRelationsInput, Prisma.ContentUpdateWithoutTopicRelationsInput>, Prisma.ContentUncheckedUpdateWithoutTopicRelationsInput>
-}
-
 export type ContentCreateNestedOneWithoutDistributionTasksInput = {
   create?: Prisma.XOR<Prisma.ContentCreateWithoutDistributionTasksInput, Prisma.ContentUncheckedCreateWithoutDistributionTasksInput>
   connectOrCreate?: Prisma.ContentCreateOrConnectWithoutDistributionTasksInput
@@ -1077,20 +1028,6 @@ export type ContentUpdateOneRequiredWithoutDistributionTasksNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ContentUpdateToOneWithWhereWithoutDistributionTasksInput, Prisma.ContentUpdateWithoutDistributionTasksInput>, Prisma.ContentUncheckedUpdateWithoutDistributionTasksInput>
 }
 
-export type ContentCreateNestedOneWithoutOperationsInput = {
-  create?: Prisma.XOR<Prisma.ContentCreateWithoutOperationsInput, Prisma.ContentUncheckedCreateWithoutOperationsInput>
-  connectOrCreate?: Prisma.ContentCreateOrConnectWithoutOperationsInput
-  connect?: Prisma.ContentWhereUniqueInput
-}
-
-export type ContentUpdateOneRequiredWithoutOperationsNestedInput = {
-  create?: Prisma.XOR<Prisma.ContentCreateWithoutOperationsInput, Prisma.ContentUncheckedCreateWithoutOperationsInput>
-  connectOrCreate?: Prisma.ContentCreateOrConnectWithoutOperationsInput
-  upsert?: Prisma.ContentUpsertWithoutOperationsInput
-  connect?: Prisma.ContentWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ContentUpdateToOneWithWhereWithoutOperationsInput, Prisma.ContentUpdateWithoutOperationsInput>, Prisma.ContentUncheckedUpdateWithoutOperationsInput>
-}
-
 export type ContentCreateWithoutAuthorInput = {
   id?: string
   contentType: $Enums.ContentType
@@ -1101,8 +1038,6 @@ export type ContentCreateWithoutAuthorInput = {
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -1111,6 +1046,7 @@ export type ContentCreateWithoutAuthorInput = {
   coverAsset?: Prisma.AssetCreateNestedOneWithoutCoverContentsInput
   versions?: Prisma.ContentVersionCreateNestedManyWithoutContentInput
   currentVersion?: Prisma.ContentVersionCreateNestedOneWithoutCurrentForContentInput
+  publishedVersion?: Prisma.ContentVersionCreateNestedOneWithoutPublishedForContentInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutContentInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutContentInput
   safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutContentInput
@@ -1118,10 +1054,7 @@ export type ContentCreateWithoutAuthorInput = {
   rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutContentInput
   metrics?: Prisma.ContentMetricCreateNestedOneWithoutContentInput
   interactions?: Prisma.ContentInteractionCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationCreateNestedManyWithoutContentInput
   distributionTasks?: Prisma.DistributionTaskCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationCreateNestedManyWithoutContentInput
 }
 
 export type ContentUncheckedCreateWithoutAuthorInput = {
@@ -1131,13 +1064,12 @@ export type ContentUncheckedCreateWithoutAuthorInput = {
   summary?: string | null
   coverAssetId?: string | null
   currentVersionId?: string | null
+  publishedVersionId?: string | null
   status?: $Enums.ContentStatus
   safetyStatus?: $Enums.SafetyStatus
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -1151,10 +1083,7 @@ export type ContentUncheckedCreateWithoutAuthorInput = {
   rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutContentInput
   metrics?: Prisma.ContentMetricUncheckedCreateNestedOneWithoutContentInput
   interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreUncheckedCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedCreateNestedManyWithoutContentInput
   distributionTasks?: Prisma.DistributionTaskUncheckedCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutContentInput
 }
 
 export type ContentCreateOrConnectWithoutAuthorInput = {
@@ -1194,13 +1123,12 @@ export type ContentScalarWhereInput = {
   summary?: Prisma.StringNullableFilter<"Content"> | string | null
   coverAssetId?: Prisma.StringNullableFilter<"Content"> | string | null
   currentVersionId?: Prisma.StringNullableFilter<"Content"> | string | null
+  publishedVersionId?: Prisma.StringNullableFilter<"Content"> | string | null
   status?: Prisma.EnumContentStatusFilter<"Content"> | $Enums.ContentStatus
   safetyStatus?: Prisma.EnumSafetyStatusFilter<"Content"> | $Enums.SafetyStatus
   qualityLevel?: Prisma.EnumQualityLevelNullableFilter<"Content"> | $Enums.QualityLevel | null
   qualityScore?: Prisma.DecimalNullableFilter<"Content"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.DecimalNullableFilter<"Content"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.DecimalNullableFilter<"Content"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.DecimalNullableFilter<"Content"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.DateTimeNullableFilter<"Content"> | Date | string | null
   offlineAt?: Prisma.DateTimeNullableFilter<"Content"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Content"> | Date | string
@@ -1218,8 +1146,6 @@ export type ContentCreateWithoutCoverAssetInput = {
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -1228,6 +1154,7 @@ export type ContentCreateWithoutCoverAssetInput = {
   author: Prisma.UserCreateNestedOneWithoutContentsInput
   versions?: Prisma.ContentVersionCreateNestedManyWithoutContentInput
   currentVersion?: Prisma.ContentVersionCreateNestedOneWithoutCurrentForContentInput
+  publishedVersion?: Prisma.ContentVersionCreateNestedOneWithoutPublishedForContentInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutContentInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutContentInput
   safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutContentInput
@@ -1235,10 +1162,7 @@ export type ContentCreateWithoutCoverAssetInput = {
   rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutContentInput
   metrics?: Prisma.ContentMetricCreateNestedOneWithoutContentInput
   interactions?: Prisma.ContentInteractionCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationCreateNestedManyWithoutContentInput
   distributionTasks?: Prisma.DistributionTaskCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationCreateNestedManyWithoutContentInput
 }
 
 export type ContentUncheckedCreateWithoutCoverAssetInput = {
@@ -1248,13 +1172,12 @@ export type ContentUncheckedCreateWithoutCoverAssetInput = {
   title: string
   summary?: string | null
   currentVersionId?: string | null
+  publishedVersionId?: string | null
   status?: $Enums.ContentStatus
   safetyStatus?: $Enums.SafetyStatus
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -1268,10 +1191,7 @@ export type ContentUncheckedCreateWithoutCoverAssetInput = {
   rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutContentInput
   metrics?: Prisma.ContentMetricUncheckedCreateNestedOneWithoutContentInput
   interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreUncheckedCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedCreateNestedManyWithoutContentInput
   distributionTasks?: Prisma.DistributionTaskUncheckedCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutContentInput
 }
 
 export type ContentCreateOrConnectWithoutCoverAssetInput = {
@@ -1310,8 +1230,6 @@ export type ContentCreateWithoutVersionsInput = {
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -1320,6 +1238,7 @@ export type ContentCreateWithoutVersionsInput = {
   author: Prisma.UserCreateNestedOneWithoutContentsInput
   coverAsset?: Prisma.AssetCreateNestedOneWithoutCoverContentsInput
   currentVersion?: Prisma.ContentVersionCreateNestedOneWithoutCurrentForContentInput
+  publishedVersion?: Prisma.ContentVersionCreateNestedOneWithoutPublishedForContentInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutContentInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutContentInput
   safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutContentInput
@@ -1327,10 +1246,7 @@ export type ContentCreateWithoutVersionsInput = {
   rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutContentInput
   metrics?: Prisma.ContentMetricCreateNestedOneWithoutContentInput
   interactions?: Prisma.ContentInteractionCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationCreateNestedManyWithoutContentInput
   distributionTasks?: Prisma.DistributionTaskCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationCreateNestedManyWithoutContentInput
 }
 
 export type ContentUncheckedCreateWithoutVersionsInput = {
@@ -1341,13 +1257,12 @@ export type ContentUncheckedCreateWithoutVersionsInput = {
   summary?: string | null
   coverAssetId?: string | null
   currentVersionId?: string | null
+  publishedVersionId?: string | null
   status?: $Enums.ContentStatus
   safetyStatus?: $Enums.SafetyStatus
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -1360,10 +1275,7 @@ export type ContentUncheckedCreateWithoutVersionsInput = {
   rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutContentInput
   metrics?: Prisma.ContentMetricUncheckedCreateNestedOneWithoutContentInput
   interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreUncheckedCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedCreateNestedManyWithoutContentInput
   distributionTasks?: Prisma.DistributionTaskUncheckedCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutContentInput
 }
 
 export type ContentCreateOrConnectWithoutVersionsInput = {
@@ -1381,8 +1293,6 @@ export type ContentCreateWithoutCurrentVersionInput = {
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -1391,6 +1301,7 @@ export type ContentCreateWithoutCurrentVersionInput = {
   author: Prisma.UserCreateNestedOneWithoutContentsInput
   coverAsset?: Prisma.AssetCreateNestedOneWithoutCoverContentsInput
   versions?: Prisma.ContentVersionCreateNestedManyWithoutContentInput
+  publishedVersion?: Prisma.ContentVersionCreateNestedOneWithoutPublishedForContentInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutContentInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutContentInput
   safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutContentInput
@@ -1398,10 +1309,7 @@ export type ContentCreateWithoutCurrentVersionInput = {
   rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutContentInput
   metrics?: Prisma.ContentMetricCreateNestedOneWithoutContentInput
   interactions?: Prisma.ContentInteractionCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationCreateNestedManyWithoutContentInput
   distributionTasks?: Prisma.DistributionTaskCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationCreateNestedManyWithoutContentInput
 }
 
 export type ContentUncheckedCreateWithoutCurrentVersionInput = {
@@ -1411,13 +1319,12 @@ export type ContentUncheckedCreateWithoutCurrentVersionInput = {
   title: string
   summary?: string | null
   coverAssetId?: string | null
+  publishedVersionId?: string | null
   status?: $Enums.ContentStatus
   safetyStatus?: $Enums.SafetyStatus
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -1431,15 +1338,75 @@ export type ContentUncheckedCreateWithoutCurrentVersionInput = {
   rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutContentInput
   metrics?: Prisma.ContentMetricUncheckedCreateNestedOneWithoutContentInput
   interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreUncheckedCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedCreateNestedManyWithoutContentInput
   distributionTasks?: Prisma.DistributionTaskUncheckedCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutContentInput
 }
 
 export type ContentCreateOrConnectWithoutCurrentVersionInput = {
   where: Prisma.ContentWhereUniqueInput
   create: Prisma.XOR<Prisma.ContentCreateWithoutCurrentVersionInput, Prisma.ContentUncheckedCreateWithoutCurrentVersionInput>
+}
+
+export type ContentCreateWithoutPublishedVersionInput = {
+  id?: string
+  contentType: $Enums.ContentType
+  title: string
+  summary?: string | null
+  status?: $Enums.ContentStatus
+  safetyStatus?: $Enums.SafetyStatus
+  qualityLevel?: $Enums.QualityLevel | null
+  qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  publishedAt?: Date | string | null
+  offlineAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  author: Prisma.UserCreateNestedOneWithoutContentsInput
+  coverAsset?: Prisma.AssetCreateNestedOneWithoutCoverContentsInput
+  versions?: Prisma.ContentVersionCreateNestedManyWithoutContentInput
+  currentVersion?: Prisma.ContentVersionCreateNestedOneWithoutCurrentForContentInput
+  draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutContentInput
+  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutContentInput
+  safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutContentInput
+  qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutContentInput
+  rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutContentInput
+  metrics?: Prisma.ContentMetricCreateNestedOneWithoutContentInput
+  interactions?: Prisma.ContentInteractionCreateNestedManyWithoutContentInput
+  distributionTasks?: Prisma.DistributionTaskCreateNestedManyWithoutContentInput
+}
+
+export type ContentUncheckedCreateWithoutPublishedVersionInput = {
+  id?: string
+  authorId: string
+  contentType: $Enums.ContentType
+  title: string
+  summary?: string | null
+  coverAssetId?: string | null
+  currentVersionId?: string | null
+  status?: $Enums.ContentStatus
+  safetyStatus?: $Enums.SafetyStatus
+  qualityLevel?: $Enums.QualityLevel | null
+  qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  publishedAt?: Date | string | null
+  offlineAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  versions?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutContentInput
+  draftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutContentInput
+  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutContentInput
+  safetyReviews?: Prisma.SafetyReviewUncheckedCreateNestedManyWithoutContentInput
+  qualityEvaluations?: Prisma.QualityEvaluationUncheckedCreateNestedManyWithoutContentInput
+  rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutContentInput
+  metrics?: Prisma.ContentMetricUncheckedCreateNestedOneWithoutContentInput
+  interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutContentInput
+  distributionTasks?: Prisma.DistributionTaskUncheckedCreateNestedManyWithoutContentInput
+}
+
+export type ContentCreateOrConnectWithoutPublishedVersionInput = {
+  where: Prisma.ContentWhereUniqueInput
+  create: Prisma.XOR<Prisma.ContentCreateWithoutPublishedVersionInput, Prisma.ContentUncheckedCreateWithoutPublishedVersionInput>
 }
 
 export type ContentUpsertWithoutVersionsInput = {
@@ -1463,8 +1430,6 @@ export type ContentUpdateWithoutVersionsInput = {
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1473,6 +1438,7 @@ export type ContentUpdateWithoutVersionsInput = {
   author?: Prisma.UserUpdateOneRequiredWithoutContentsNestedInput
   coverAsset?: Prisma.AssetUpdateOneWithoutCoverContentsNestedInput
   currentVersion?: Prisma.ContentVersionUpdateOneWithoutCurrentForContentNestedInput
+  publishedVersion?: Prisma.ContentVersionUpdateOneWithoutPublishedForContentNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutContentNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutContentNestedInput
   safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutContentNestedInput
@@ -1480,10 +1446,7 @@ export type ContentUpdateWithoutVersionsInput = {
   rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutContentNestedInput
   metrics?: Prisma.ContentMetricUpdateOneWithoutContentNestedInput
   interactions?: Prisma.ContentInteractionUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUpdateManyWithoutContentNestedInput
   distributionTasks?: Prisma.DistributionTaskUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUpdateManyWithoutContentNestedInput
 }
 
 export type ContentUncheckedUpdateWithoutVersionsInput = {
@@ -1494,13 +1457,12 @@ export type ContentUncheckedUpdateWithoutVersionsInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publishedVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1513,10 +1475,7 @@ export type ContentUncheckedUpdateWithoutVersionsInput = {
   rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutContentNestedInput
   metrics?: Prisma.ContentMetricUncheckedUpdateOneWithoutContentNestedInput
   interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUncheckedUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedUpdateManyWithoutContentNestedInput
   distributionTasks?: Prisma.DistributionTaskUncheckedUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUncheckedUpdateManyWithoutContentNestedInput
 }
 
 export type ContentUpsertWithoutCurrentVersionInput = {
@@ -1540,8 +1499,6 @@ export type ContentUpdateWithoutCurrentVersionInput = {
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1550,6 +1507,7 @@ export type ContentUpdateWithoutCurrentVersionInput = {
   author?: Prisma.UserUpdateOneRequiredWithoutContentsNestedInput
   coverAsset?: Prisma.AssetUpdateOneWithoutCoverContentsNestedInput
   versions?: Prisma.ContentVersionUpdateManyWithoutContentNestedInput
+  publishedVersion?: Prisma.ContentVersionUpdateOneWithoutPublishedForContentNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutContentNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutContentNestedInput
   safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutContentNestedInput
@@ -1557,10 +1515,7 @@ export type ContentUpdateWithoutCurrentVersionInput = {
   rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutContentNestedInput
   metrics?: Prisma.ContentMetricUpdateOneWithoutContentNestedInput
   interactions?: Prisma.ContentInteractionUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUpdateManyWithoutContentNestedInput
   distributionTasks?: Prisma.DistributionTaskUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUpdateManyWithoutContentNestedInput
 }
 
 export type ContentUncheckedUpdateWithoutCurrentVersionInput = {
@@ -1570,13 +1525,12 @@ export type ContentUncheckedUpdateWithoutCurrentVersionInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publishedVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1590,10 +1544,76 @@ export type ContentUncheckedUpdateWithoutCurrentVersionInput = {
   rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutContentNestedInput
   metrics?: Prisma.ContentMetricUncheckedUpdateOneWithoutContentNestedInput
   interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUncheckedUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedUpdateManyWithoutContentNestedInput
   distributionTasks?: Prisma.DistributionTaskUncheckedUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUncheckedUpdateManyWithoutContentNestedInput
+}
+
+export type ContentUpsertWithoutPublishedVersionInput = {
+  update: Prisma.XOR<Prisma.ContentUpdateWithoutPublishedVersionInput, Prisma.ContentUncheckedUpdateWithoutPublishedVersionInput>
+  create: Prisma.XOR<Prisma.ContentCreateWithoutPublishedVersionInput, Prisma.ContentUncheckedCreateWithoutPublishedVersionInput>
+  where?: Prisma.ContentWhereInput
+}
+
+export type ContentUpdateToOneWithWhereWithoutPublishedVersionInput = {
+  where?: Prisma.ContentWhereInput
+  data: Prisma.XOR<Prisma.ContentUpdateWithoutPublishedVersionInput, Prisma.ContentUncheckedUpdateWithoutPublishedVersionInput>
+}
+
+export type ContentUpdateWithoutPublishedVersionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  contentType?: Prisma.EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
+  qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
+  qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  author?: Prisma.UserUpdateOneRequiredWithoutContentsNestedInput
+  coverAsset?: Prisma.AssetUpdateOneWithoutCoverContentsNestedInput
+  versions?: Prisma.ContentVersionUpdateManyWithoutContentNestedInput
+  currentVersion?: Prisma.ContentVersionUpdateOneWithoutCurrentForContentNestedInput
+  draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutContentNestedInput
+  aiTasks?: Prisma.AiTaskUpdateManyWithoutContentNestedInput
+  safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutContentNestedInput
+  qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutContentNestedInput
+  rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutContentNestedInput
+  metrics?: Prisma.ContentMetricUpdateOneWithoutContentNestedInput
+  interactions?: Prisma.ContentInteractionUpdateManyWithoutContentNestedInput
+  distributionTasks?: Prisma.DistributionTaskUpdateManyWithoutContentNestedInput
+}
+
+export type ContentUncheckedUpdateWithoutPublishedVersionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  contentType?: Prisma.EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
+  safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
+  qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
+  qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  versions?: Prisma.ContentVersionUncheckedUpdateManyWithoutContentNestedInput
+  draftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutContentNestedInput
+  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutContentNestedInput
+  safetyReviews?: Prisma.SafetyReviewUncheckedUpdateManyWithoutContentNestedInput
+  qualityEvaluations?: Prisma.QualityEvaluationUncheckedUpdateManyWithoutContentNestedInput
+  rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutContentNestedInput
+  metrics?: Prisma.ContentMetricUncheckedUpdateOneWithoutContentNestedInput
+  interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutContentNestedInput
+  distributionTasks?: Prisma.DistributionTaskUncheckedUpdateManyWithoutContentNestedInput
 }
 
 export type ContentCreateWithoutDraftSnapshotsInput = {
@@ -1606,8 +1626,6 @@ export type ContentCreateWithoutDraftSnapshotsInput = {
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -1617,16 +1635,14 @@ export type ContentCreateWithoutDraftSnapshotsInput = {
   coverAsset?: Prisma.AssetCreateNestedOneWithoutCoverContentsInput
   versions?: Prisma.ContentVersionCreateNestedManyWithoutContentInput
   currentVersion?: Prisma.ContentVersionCreateNestedOneWithoutCurrentForContentInput
+  publishedVersion?: Prisma.ContentVersionCreateNestedOneWithoutPublishedForContentInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutContentInput
   safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutContentInput
   qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutContentInput
   rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutContentInput
   metrics?: Prisma.ContentMetricCreateNestedOneWithoutContentInput
   interactions?: Prisma.ContentInteractionCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationCreateNestedManyWithoutContentInput
   distributionTasks?: Prisma.DistributionTaskCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationCreateNestedManyWithoutContentInput
 }
 
 export type ContentUncheckedCreateWithoutDraftSnapshotsInput = {
@@ -1637,13 +1653,12 @@ export type ContentUncheckedCreateWithoutDraftSnapshotsInput = {
   summary?: string | null
   coverAssetId?: string | null
   currentVersionId?: string | null
+  publishedVersionId?: string | null
   status?: $Enums.ContentStatus
   safetyStatus?: $Enums.SafetyStatus
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -1656,10 +1671,7 @@ export type ContentUncheckedCreateWithoutDraftSnapshotsInput = {
   rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutContentInput
   metrics?: Prisma.ContentMetricUncheckedCreateNestedOneWithoutContentInput
   interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreUncheckedCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedCreateNestedManyWithoutContentInput
   distributionTasks?: Prisma.DistributionTaskUncheckedCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutContentInput
 }
 
 export type ContentCreateOrConnectWithoutDraftSnapshotsInput = {
@@ -1688,8 +1700,6 @@ export type ContentUpdateWithoutDraftSnapshotsInput = {
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1699,16 +1709,14 @@ export type ContentUpdateWithoutDraftSnapshotsInput = {
   coverAsset?: Prisma.AssetUpdateOneWithoutCoverContentsNestedInput
   versions?: Prisma.ContentVersionUpdateManyWithoutContentNestedInput
   currentVersion?: Prisma.ContentVersionUpdateOneWithoutCurrentForContentNestedInput
+  publishedVersion?: Prisma.ContentVersionUpdateOneWithoutPublishedForContentNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutContentNestedInput
   safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutContentNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutContentNestedInput
   rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutContentNestedInput
   metrics?: Prisma.ContentMetricUpdateOneWithoutContentNestedInput
   interactions?: Prisma.ContentInteractionUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUpdateManyWithoutContentNestedInput
   distributionTasks?: Prisma.DistributionTaskUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUpdateManyWithoutContentNestedInput
 }
 
 export type ContentUncheckedUpdateWithoutDraftSnapshotsInput = {
@@ -1719,13 +1727,12 @@ export type ContentUncheckedUpdateWithoutDraftSnapshotsInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publishedVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1738,10 +1745,7 @@ export type ContentUncheckedUpdateWithoutDraftSnapshotsInput = {
   rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutContentNestedInput
   metrics?: Prisma.ContentMetricUncheckedUpdateOneWithoutContentNestedInput
   interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUncheckedUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedUpdateManyWithoutContentNestedInput
   distributionTasks?: Prisma.DistributionTaskUncheckedUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUncheckedUpdateManyWithoutContentNestedInput
 }
 
 export type ContentCreateWithoutAiTasksInput = {
@@ -1754,8 +1758,6 @@ export type ContentCreateWithoutAiTasksInput = {
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -1765,16 +1767,14 @@ export type ContentCreateWithoutAiTasksInput = {
   coverAsset?: Prisma.AssetCreateNestedOneWithoutCoverContentsInput
   versions?: Prisma.ContentVersionCreateNestedManyWithoutContentInput
   currentVersion?: Prisma.ContentVersionCreateNestedOneWithoutCurrentForContentInput
+  publishedVersion?: Prisma.ContentVersionCreateNestedOneWithoutPublishedForContentInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutContentInput
   safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutContentInput
   qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutContentInput
   rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutContentInput
   metrics?: Prisma.ContentMetricCreateNestedOneWithoutContentInput
   interactions?: Prisma.ContentInteractionCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationCreateNestedManyWithoutContentInput
   distributionTasks?: Prisma.DistributionTaskCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationCreateNestedManyWithoutContentInput
 }
 
 export type ContentUncheckedCreateWithoutAiTasksInput = {
@@ -1785,13 +1785,12 @@ export type ContentUncheckedCreateWithoutAiTasksInput = {
   summary?: string | null
   coverAssetId?: string | null
   currentVersionId?: string | null
+  publishedVersionId?: string | null
   status?: $Enums.ContentStatus
   safetyStatus?: $Enums.SafetyStatus
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -1804,10 +1803,7 @@ export type ContentUncheckedCreateWithoutAiTasksInput = {
   rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutContentInput
   metrics?: Prisma.ContentMetricUncheckedCreateNestedOneWithoutContentInput
   interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreUncheckedCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedCreateNestedManyWithoutContentInput
   distributionTasks?: Prisma.DistributionTaskUncheckedCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutContentInput
 }
 
 export type ContentCreateOrConnectWithoutAiTasksInput = {
@@ -1836,8 +1832,6 @@ export type ContentUpdateWithoutAiTasksInput = {
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1847,16 +1841,14 @@ export type ContentUpdateWithoutAiTasksInput = {
   coverAsset?: Prisma.AssetUpdateOneWithoutCoverContentsNestedInput
   versions?: Prisma.ContentVersionUpdateManyWithoutContentNestedInput
   currentVersion?: Prisma.ContentVersionUpdateOneWithoutCurrentForContentNestedInput
+  publishedVersion?: Prisma.ContentVersionUpdateOneWithoutPublishedForContentNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutContentNestedInput
   safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutContentNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutContentNestedInput
   rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutContentNestedInput
   metrics?: Prisma.ContentMetricUpdateOneWithoutContentNestedInput
   interactions?: Prisma.ContentInteractionUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUpdateManyWithoutContentNestedInput
   distributionTasks?: Prisma.DistributionTaskUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUpdateManyWithoutContentNestedInput
 }
 
 export type ContentUncheckedUpdateWithoutAiTasksInput = {
@@ -1867,13 +1859,12 @@ export type ContentUncheckedUpdateWithoutAiTasksInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publishedVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1886,10 +1877,7 @@ export type ContentUncheckedUpdateWithoutAiTasksInput = {
   rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutContentNestedInput
   metrics?: Prisma.ContentMetricUncheckedUpdateOneWithoutContentNestedInput
   interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUncheckedUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedUpdateManyWithoutContentNestedInput
   distributionTasks?: Prisma.DistributionTaskUncheckedUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUncheckedUpdateManyWithoutContentNestedInput
 }
 
 export type ContentCreateWithoutSafetyReviewsInput = {
@@ -1902,8 +1890,6 @@ export type ContentCreateWithoutSafetyReviewsInput = {
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -1913,16 +1899,14 @@ export type ContentCreateWithoutSafetyReviewsInput = {
   coverAsset?: Prisma.AssetCreateNestedOneWithoutCoverContentsInput
   versions?: Prisma.ContentVersionCreateNestedManyWithoutContentInput
   currentVersion?: Prisma.ContentVersionCreateNestedOneWithoutCurrentForContentInput
+  publishedVersion?: Prisma.ContentVersionCreateNestedOneWithoutPublishedForContentInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutContentInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutContentInput
   qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutContentInput
   rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutContentInput
   metrics?: Prisma.ContentMetricCreateNestedOneWithoutContentInput
   interactions?: Prisma.ContentInteractionCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationCreateNestedManyWithoutContentInput
   distributionTasks?: Prisma.DistributionTaskCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationCreateNestedManyWithoutContentInput
 }
 
 export type ContentUncheckedCreateWithoutSafetyReviewsInput = {
@@ -1933,13 +1917,12 @@ export type ContentUncheckedCreateWithoutSafetyReviewsInput = {
   summary?: string | null
   coverAssetId?: string | null
   currentVersionId?: string | null
+  publishedVersionId?: string | null
   status?: $Enums.ContentStatus
   safetyStatus?: $Enums.SafetyStatus
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -1952,10 +1935,7 @@ export type ContentUncheckedCreateWithoutSafetyReviewsInput = {
   rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutContentInput
   metrics?: Prisma.ContentMetricUncheckedCreateNestedOneWithoutContentInput
   interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreUncheckedCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedCreateNestedManyWithoutContentInput
   distributionTasks?: Prisma.DistributionTaskUncheckedCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutContentInput
 }
 
 export type ContentCreateOrConnectWithoutSafetyReviewsInput = {
@@ -1984,8 +1964,6 @@ export type ContentUpdateWithoutSafetyReviewsInput = {
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1995,16 +1973,14 @@ export type ContentUpdateWithoutSafetyReviewsInput = {
   coverAsset?: Prisma.AssetUpdateOneWithoutCoverContentsNestedInput
   versions?: Prisma.ContentVersionUpdateManyWithoutContentNestedInput
   currentVersion?: Prisma.ContentVersionUpdateOneWithoutCurrentForContentNestedInput
+  publishedVersion?: Prisma.ContentVersionUpdateOneWithoutPublishedForContentNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutContentNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutContentNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutContentNestedInput
   rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutContentNestedInput
   metrics?: Prisma.ContentMetricUpdateOneWithoutContentNestedInput
   interactions?: Prisma.ContentInteractionUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUpdateManyWithoutContentNestedInput
   distributionTasks?: Prisma.DistributionTaskUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUpdateManyWithoutContentNestedInput
 }
 
 export type ContentUncheckedUpdateWithoutSafetyReviewsInput = {
@@ -2015,13 +1991,12 @@ export type ContentUncheckedUpdateWithoutSafetyReviewsInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publishedVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2034,10 +2009,7 @@ export type ContentUncheckedUpdateWithoutSafetyReviewsInput = {
   rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutContentNestedInput
   metrics?: Prisma.ContentMetricUncheckedUpdateOneWithoutContentNestedInput
   interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUncheckedUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedUpdateManyWithoutContentNestedInput
   distributionTasks?: Prisma.DistributionTaskUncheckedUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUncheckedUpdateManyWithoutContentNestedInput
 }
 
 export type ContentCreateWithoutQualityEvaluationsInput = {
@@ -2050,8 +2022,6 @@ export type ContentCreateWithoutQualityEvaluationsInput = {
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -2061,16 +2031,14 @@ export type ContentCreateWithoutQualityEvaluationsInput = {
   coverAsset?: Prisma.AssetCreateNestedOneWithoutCoverContentsInput
   versions?: Prisma.ContentVersionCreateNestedManyWithoutContentInput
   currentVersion?: Prisma.ContentVersionCreateNestedOneWithoutCurrentForContentInput
+  publishedVersion?: Prisma.ContentVersionCreateNestedOneWithoutPublishedForContentInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutContentInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutContentInput
   safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutContentInput
   rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutContentInput
   metrics?: Prisma.ContentMetricCreateNestedOneWithoutContentInput
   interactions?: Prisma.ContentInteractionCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationCreateNestedManyWithoutContentInput
   distributionTasks?: Prisma.DistributionTaskCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationCreateNestedManyWithoutContentInput
 }
 
 export type ContentUncheckedCreateWithoutQualityEvaluationsInput = {
@@ -2081,13 +2049,12 @@ export type ContentUncheckedCreateWithoutQualityEvaluationsInput = {
   summary?: string | null
   coverAssetId?: string | null
   currentVersionId?: string | null
+  publishedVersionId?: string | null
   status?: $Enums.ContentStatus
   safetyStatus?: $Enums.SafetyStatus
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -2100,10 +2067,7 @@ export type ContentUncheckedCreateWithoutQualityEvaluationsInput = {
   rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutContentInput
   metrics?: Prisma.ContentMetricUncheckedCreateNestedOneWithoutContentInput
   interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreUncheckedCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedCreateNestedManyWithoutContentInput
   distributionTasks?: Prisma.DistributionTaskUncheckedCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutContentInput
 }
 
 export type ContentCreateOrConnectWithoutQualityEvaluationsInput = {
@@ -2132,8 +2096,6 @@ export type ContentUpdateWithoutQualityEvaluationsInput = {
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2143,16 +2105,14 @@ export type ContentUpdateWithoutQualityEvaluationsInput = {
   coverAsset?: Prisma.AssetUpdateOneWithoutCoverContentsNestedInput
   versions?: Prisma.ContentVersionUpdateManyWithoutContentNestedInput
   currentVersion?: Prisma.ContentVersionUpdateOneWithoutCurrentForContentNestedInput
+  publishedVersion?: Prisma.ContentVersionUpdateOneWithoutPublishedForContentNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutContentNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutContentNestedInput
   safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutContentNestedInput
   rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutContentNestedInput
   metrics?: Prisma.ContentMetricUpdateOneWithoutContentNestedInput
   interactions?: Prisma.ContentInteractionUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUpdateManyWithoutContentNestedInput
   distributionTasks?: Prisma.DistributionTaskUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUpdateManyWithoutContentNestedInput
 }
 
 export type ContentUncheckedUpdateWithoutQualityEvaluationsInput = {
@@ -2163,13 +2123,12 @@ export type ContentUncheckedUpdateWithoutQualityEvaluationsInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publishedVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2182,10 +2141,7 @@ export type ContentUncheckedUpdateWithoutQualityEvaluationsInput = {
   rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutContentNestedInput
   metrics?: Prisma.ContentMetricUncheckedUpdateOneWithoutContentNestedInput
   interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUncheckedUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedUpdateManyWithoutContentNestedInput
   distributionTasks?: Prisma.DistributionTaskUncheckedUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUncheckedUpdateManyWithoutContentNestedInput
 }
 
 export type ContentCreateWithoutRewriteRecordsInput = {
@@ -2198,8 +2154,6 @@ export type ContentCreateWithoutRewriteRecordsInput = {
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -2209,16 +2163,14 @@ export type ContentCreateWithoutRewriteRecordsInput = {
   coverAsset?: Prisma.AssetCreateNestedOneWithoutCoverContentsInput
   versions?: Prisma.ContentVersionCreateNestedManyWithoutContentInput
   currentVersion?: Prisma.ContentVersionCreateNestedOneWithoutCurrentForContentInput
+  publishedVersion?: Prisma.ContentVersionCreateNestedOneWithoutPublishedForContentInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutContentInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutContentInput
   safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutContentInput
   qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutContentInput
   metrics?: Prisma.ContentMetricCreateNestedOneWithoutContentInput
   interactions?: Prisma.ContentInteractionCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationCreateNestedManyWithoutContentInput
   distributionTasks?: Prisma.DistributionTaskCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationCreateNestedManyWithoutContentInput
 }
 
 export type ContentUncheckedCreateWithoutRewriteRecordsInput = {
@@ -2229,13 +2181,12 @@ export type ContentUncheckedCreateWithoutRewriteRecordsInput = {
   summary?: string | null
   coverAssetId?: string | null
   currentVersionId?: string | null
+  publishedVersionId?: string | null
   status?: $Enums.ContentStatus
   safetyStatus?: $Enums.SafetyStatus
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -2248,10 +2199,7 @@ export type ContentUncheckedCreateWithoutRewriteRecordsInput = {
   qualityEvaluations?: Prisma.QualityEvaluationUncheckedCreateNestedManyWithoutContentInput
   metrics?: Prisma.ContentMetricUncheckedCreateNestedOneWithoutContentInput
   interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreUncheckedCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedCreateNestedManyWithoutContentInput
   distributionTasks?: Prisma.DistributionTaskUncheckedCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutContentInput
 }
 
 export type ContentCreateOrConnectWithoutRewriteRecordsInput = {
@@ -2280,8 +2228,6 @@ export type ContentUpdateWithoutRewriteRecordsInput = {
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2291,16 +2237,14 @@ export type ContentUpdateWithoutRewriteRecordsInput = {
   coverAsset?: Prisma.AssetUpdateOneWithoutCoverContentsNestedInput
   versions?: Prisma.ContentVersionUpdateManyWithoutContentNestedInput
   currentVersion?: Prisma.ContentVersionUpdateOneWithoutCurrentForContentNestedInput
+  publishedVersion?: Prisma.ContentVersionUpdateOneWithoutPublishedForContentNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutContentNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutContentNestedInput
   safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutContentNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutContentNestedInput
   metrics?: Prisma.ContentMetricUpdateOneWithoutContentNestedInput
   interactions?: Prisma.ContentInteractionUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUpdateManyWithoutContentNestedInput
   distributionTasks?: Prisma.DistributionTaskUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUpdateManyWithoutContentNestedInput
 }
 
 export type ContentUncheckedUpdateWithoutRewriteRecordsInput = {
@@ -2311,13 +2255,12 @@ export type ContentUncheckedUpdateWithoutRewriteRecordsInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publishedVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2330,10 +2273,7 @@ export type ContentUncheckedUpdateWithoutRewriteRecordsInput = {
   qualityEvaluations?: Prisma.QualityEvaluationUncheckedUpdateManyWithoutContentNestedInput
   metrics?: Prisma.ContentMetricUncheckedUpdateOneWithoutContentNestedInput
   interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUncheckedUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedUpdateManyWithoutContentNestedInput
   distributionTasks?: Prisma.DistributionTaskUncheckedUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUncheckedUpdateManyWithoutContentNestedInput
 }
 
 export type ContentCreateWithoutMetricsInput = {
@@ -2346,8 +2286,6 @@ export type ContentCreateWithoutMetricsInput = {
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -2357,16 +2295,14 @@ export type ContentCreateWithoutMetricsInput = {
   coverAsset?: Prisma.AssetCreateNestedOneWithoutCoverContentsInput
   versions?: Prisma.ContentVersionCreateNestedManyWithoutContentInput
   currentVersion?: Prisma.ContentVersionCreateNestedOneWithoutCurrentForContentInput
+  publishedVersion?: Prisma.ContentVersionCreateNestedOneWithoutPublishedForContentInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutContentInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutContentInput
   safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutContentInput
   qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutContentInput
   rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutContentInput
   interactions?: Prisma.ContentInteractionCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationCreateNestedManyWithoutContentInput
   distributionTasks?: Prisma.DistributionTaskCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationCreateNestedManyWithoutContentInput
 }
 
 export type ContentUncheckedCreateWithoutMetricsInput = {
@@ -2377,13 +2313,12 @@ export type ContentUncheckedCreateWithoutMetricsInput = {
   summary?: string | null
   coverAssetId?: string | null
   currentVersionId?: string | null
+  publishedVersionId?: string | null
   status?: $Enums.ContentStatus
   safetyStatus?: $Enums.SafetyStatus
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -2396,10 +2331,7 @@ export type ContentUncheckedCreateWithoutMetricsInput = {
   qualityEvaluations?: Prisma.QualityEvaluationUncheckedCreateNestedManyWithoutContentInput
   rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutContentInput
   interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreUncheckedCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedCreateNestedManyWithoutContentInput
   distributionTasks?: Prisma.DistributionTaskUncheckedCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutContentInput
 }
 
 export type ContentCreateOrConnectWithoutMetricsInput = {
@@ -2428,8 +2360,6 @@ export type ContentUpdateWithoutMetricsInput = {
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2439,16 +2369,14 @@ export type ContentUpdateWithoutMetricsInput = {
   coverAsset?: Prisma.AssetUpdateOneWithoutCoverContentsNestedInput
   versions?: Prisma.ContentVersionUpdateManyWithoutContentNestedInput
   currentVersion?: Prisma.ContentVersionUpdateOneWithoutCurrentForContentNestedInput
+  publishedVersion?: Prisma.ContentVersionUpdateOneWithoutPublishedForContentNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutContentNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutContentNestedInput
   safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutContentNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutContentNestedInput
   rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutContentNestedInput
   interactions?: Prisma.ContentInteractionUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUpdateManyWithoutContentNestedInput
   distributionTasks?: Prisma.DistributionTaskUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUpdateManyWithoutContentNestedInput
 }
 
 export type ContentUncheckedUpdateWithoutMetricsInput = {
@@ -2459,13 +2387,12 @@ export type ContentUncheckedUpdateWithoutMetricsInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publishedVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2478,10 +2405,7 @@ export type ContentUncheckedUpdateWithoutMetricsInput = {
   qualityEvaluations?: Prisma.QualityEvaluationUncheckedUpdateManyWithoutContentNestedInput
   rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutContentNestedInput
   interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUncheckedUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedUpdateManyWithoutContentNestedInput
   distributionTasks?: Prisma.DistributionTaskUncheckedUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUncheckedUpdateManyWithoutContentNestedInput
 }
 
 export type ContentCreateWithoutInteractionsInput = {
@@ -2494,8 +2418,6 @@ export type ContentCreateWithoutInteractionsInput = {
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -2505,16 +2427,14 @@ export type ContentCreateWithoutInteractionsInput = {
   coverAsset?: Prisma.AssetCreateNestedOneWithoutCoverContentsInput
   versions?: Prisma.ContentVersionCreateNestedManyWithoutContentInput
   currentVersion?: Prisma.ContentVersionCreateNestedOneWithoutCurrentForContentInput
+  publishedVersion?: Prisma.ContentVersionCreateNestedOneWithoutPublishedForContentInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutContentInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutContentInput
   safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutContentInput
   qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutContentInput
   rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutContentInput
   metrics?: Prisma.ContentMetricCreateNestedOneWithoutContentInput
-  rankingScores?: Prisma.RankingScoreCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationCreateNestedManyWithoutContentInput
   distributionTasks?: Prisma.DistributionTaskCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationCreateNestedManyWithoutContentInput
 }
 
 export type ContentUncheckedCreateWithoutInteractionsInput = {
@@ -2525,13 +2445,12 @@ export type ContentUncheckedCreateWithoutInteractionsInput = {
   summary?: string | null
   coverAssetId?: string | null
   currentVersionId?: string | null
+  publishedVersionId?: string | null
   status?: $Enums.ContentStatus
   safetyStatus?: $Enums.SafetyStatus
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -2544,10 +2463,7 @@ export type ContentUncheckedCreateWithoutInteractionsInput = {
   qualityEvaluations?: Prisma.QualityEvaluationUncheckedCreateNestedManyWithoutContentInput
   rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutContentInput
   metrics?: Prisma.ContentMetricUncheckedCreateNestedOneWithoutContentInput
-  rankingScores?: Prisma.RankingScoreUncheckedCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedCreateNestedManyWithoutContentInput
   distributionTasks?: Prisma.DistributionTaskUncheckedCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutContentInput
 }
 
 export type ContentCreateOrConnectWithoutInteractionsInput = {
@@ -2576,8 +2492,6 @@ export type ContentUpdateWithoutInteractionsInput = {
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2587,16 +2501,14 @@ export type ContentUpdateWithoutInteractionsInput = {
   coverAsset?: Prisma.AssetUpdateOneWithoutCoverContentsNestedInput
   versions?: Prisma.ContentVersionUpdateManyWithoutContentNestedInput
   currentVersion?: Prisma.ContentVersionUpdateOneWithoutCurrentForContentNestedInput
+  publishedVersion?: Prisma.ContentVersionUpdateOneWithoutPublishedForContentNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutContentNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutContentNestedInput
   safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutContentNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutContentNestedInput
   rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutContentNestedInput
   metrics?: Prisma.ContentMetricUpdateOneWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUpdateManyWithoutContentNestedInput
   distributionTasks?: Prisma.DistributionTaskUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUpdateManyWithoutContentNestedInput
 }
 
 export type ContentUncheckedUpdateWithoutInteractionsInput = {
@@ -2607,13 +2519,12 @@ export type ContentUncheckedUpdateWithoutInteractionsInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publishedVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2626,306 +2537,7 @@ export type ContentUncheckedUpdateWithoutInteractionsInput = {
   qualityEvaluations?: Prisma.QualityEvaluationUncheckedUpdateManyWithoutContentNestedInput
   rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutContentNestedInput
   metrics?: Prisma.ContentMetricUncheckedUpdateOneWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUncheckedUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedUpdateManyWithoutContentNestedInput
   distributionTasks?: Prisma.DistributionTaskUncheckedUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUncheckedUpdateManyWithoutContentNestedInput
-}
-
-export type ContentCreateWithoutRankingScoresInput = {
-  id?: string
-  contentType: $Enums.ContentType
-  title: string
-  summary?: string | null
-  status?: $Enums.ContentStatus
-  safetyStatus?: $Enums.SafetyStatus
-  qualityLevel?: $Enums.QualityLevel | null
-  qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  publishedAt?: Date | string | null
-  offlineAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  author: Prisma.UserCreateNestedOneWithoutContentsInput
-  coverAsset?: Prisma.AssetCreateNestedOneWithoutCoverContentsInput
-  versions?: Prisma.ContentVersionCreateNestedManyWithoutContentInput
-  currentVersion?: Prisma.ContentVersionCreateNestedOneWithoutCurrentForContentInput
-  draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutContentInput
-  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutContentInput
-  safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutContentInput
-  qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutContentInput
-  rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutContentInput
-  metrics?: Prisma.ContentMetricCreateNestedOneWithoutContentInput
-  interactions?: Prisma.ContentInteractionCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationCreateNestedManyWithoutContentInput
-  distributionTasks?: Prisma.DistributionTaskCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationCreateNestedManyWithoutContentInput
-}
-
-export type ContentUncheckedCreateWithoutRankingScoresInput = {
-  id?: string
-  authorId: string
-  contentType: $Enums.ContentType
-  title: string
-  summary?: string | null
-  coverAssetId?: string | null
-  currentVersionId?: string | null
-  status?: $Enums.ContentStatus
-  safetyStatus?: $Enums.SafetyStatus
-  qualityLevel?: $Enums.QualityLevel | null
-  qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  publishedAt?: Date | string | null
-  offlineAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  versions?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutContentInput
-  draftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutContentInput
-  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutContentInput
-  safetyReviews?: Prisma.SafetyReviewUncheckedCreateNestedManyWithoutContentInput
-  qualityEvaluations?: Prisma.QualityEvaluationUncheckedCreateNestedManyWithoutContentInput
-  rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutContentInput
-  metrics?: Prisma.ContentMetricUncheckedCreateNestedOneWithoutContentInput
-  interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedCreateNestedManyWithoutContentInput
-  distributionTasks?: Prisma.DistributionTaskUncheckedCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutContentInput
-}
-
-export type ContentCreateOrConnectWithoutRankingScoresInput = {
-  where: Prisma.ContentWhereUniqueInput
-  create: Prisma.XOR<Prisma.ContentCreateWithoutRankingScoresInput, Prisma.ContentUncheckedCreateWithoutRankingScoresInput>
-}
-
-export type ContentUpsertWithoutRankingScoresInput = {
-  update: Prisma.XOR<Prisma.ContentUpdateWithoutRankingScoresInput, Prisma.ContentUncheckedUpdateWithoutRankingScoresInput>
-  create: Prisma.XOR<Prisma.ContentCreateWithoutRankingScoresInput, Prisma.ContentUncheckedCreateWithoutRankingScoresInput>
-  where?: Prisma.ContentWhereInput
-}
-
-export type ContentUpdateToOneWithWhereWithoutRankingScoresInput = {
-  where?: Prisma.ContentWhereInput
-  data: Prisma.XOR<Prisma.ContentUpdateWithoutRankingScoresInput, Prisma.ContentUncheckedUpdateWithoutRankingScoresInput>
-}
-
-export type ContentUpdateWithoutRankingScoresInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  contentType?: Prisma.EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
-  safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
-  qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
-  qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  author?: Prisma.UserUpdateOneRequiredWithoutContentsNestedInput
-  coverAsset?: Prisma.AssetUpdateOneWithoutCoverContentsNestedInput
-  versions?: Prisma.ContentVersionUpdateManyWithoutContentNestedInput
-  currentVersion?: Prisma.ContentVersionUpdateOneWithoutCurrentForContentNestedInput
-  draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutContentNestedInput
-  aiTasks?: Prisma.AiTaskUpdateManyWithoutContentNestedInput
-  safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutContentNestedInput
-  qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutContentNestedInput
-  rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutContentNestedInput
-  metrics?: Prisma.ContentMetricUpdateOneWithoutContentNestedInput
-  interactions?: Prisma.ContentInteractionUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUpdateManyWithoutContentNestedInput
-  distributionTasks?: Prisma.DistributionTaskUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUpdateManyWithoutContentNestedInput
-}
-
-export type ContentUncheckedUpdateWithoutRankingScoresInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  authorId?: Prisma.StringFieldUpdateOperationsInput | string
-  contentType?: Prisma.EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
-  safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
-  qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
-  qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  versions?: Prisma.ContentVersionUncheckedUpdateManyWithoutContentNestedInput
-  draftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutContentNestedInput
-  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutContentNestedInput
-  safetyReviews?: Prisma.SafetyReviewUncheckedUpdateManyWithoutContentNestedInput
-  qualityEvaluations?: Prisma.QualityEvaluationUncheckedUpdateManyWithoutContentNestedInput
-  rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutContentNestedInput
-  metrics?: Prisma.ContentMetricUncheckedUpdateOneWithoutContentNestedInput
-  interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedUpdateManyWithoutContentNestedInput
-  distributionTasks?: Prisma.DistributionTaskUncheckedUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUncheckedUpdateManyWithoutContentNestedInput
-}
-
-export type ContentCreateWithoutTopicRelationsInput = {
-  id?: string
-  contentType: $Enums.ContentType
-  title: string
-  summary?: string | null
-  status?: $Enums.ContentStatus
-  safetyStatus?: $Enums.SafetyStatus
-  qualityLevel?: $Enums.QualityLevel | null
-  qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  publishedAt?: Date | string | null
-  offlineAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  author: Prisma.UserCreateNestedOneWithoutContentsInput
-  coverAsset?: Prisma.AssetCreateNestedOneWithoutCoverContentsInput
-  versions?: Prisma.ContentVersionCreateNestedManyWithoutContentInput
-  currentVersion?: Prisma.ContentVersionCreateNestedOneWithoutCurrentForContentInput
-  draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutContentInput
-  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutContentInput
-  safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutContentInput
-  qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutContentInput
-  rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutContentInput
-  metrics?: Prisma.ContentMetricCreateNestedOneWithoutContentInput
-  interactions?: Prisma.ContentInteractionCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreCreateNestedManyWithoutContentInput
-  distributionTasks?: Prisma.DistributionTaskCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationCreateNestedManyWithoutContentInput
-}
-
-export type ContentUncheckedCreateWithoutTopicRelationsInput = {
-  id?: string
-  authorId: string
-  contentType: $Enums.ContentType
-  title: string
-  summary?: string | null
-  coverAssetId?: string | null
-  currentVersionId?: string | null
-  status?: $Enums.ContentStatus
-  safetyStatus?: $Enums.SafetyStatus
-  qualityLevel?: $Enums.QualityLevel | null
-  qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  publishedAt?: Date | string | null
-  offlineAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  versions?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutContentInput
-  draftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutContentInput
-  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutContentInput
-  safetyReviews?: Prisma.SafetyReviewUncheckedCreateNestedManyWithoutContentInput
-  qualityEvaluations?: Prisma.QualityEvaluationUncheckedCreateNestedManyWithoutContentInput
-  rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutContentInput
-  metrics?: Prisma.ContentMetricUncheckedCreateNestedOneWithoutContentInput
-  interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreUncheckedCreateNestedManyWithoutContentInput
-  distributionTasks?: Prisma.DistributionTaskUncheckedCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutContentInput
-}
-
-export type ContentCreateOrConnectWithoutTopicRelationsInput = {
-  where: Prisma.ContentWhereUniqueInput
-  create: Prisma.XOR<Prisma.ContentCreateWithoutTopicRelationsInput, Prisma.ContentUncheckedCreateWithoutTopicRelationsInput>
-}
-
-export type ContentUpsertWithoutTopicRelationsInput = {
-  update: Prisma.XOR<Prisma.ContentUpdateWithoutTopicRelationsInput, Prisma.ContentUncheckedUpdateWithoutTopicRelationsInput>
-  create: Prisma.XOR<Prisma.ContentCreateWithoutTopicRelationsInput, Prisma.ContentUncheckedCreateWithoutTopicRelationsInput>
-  where?: Prisma.ContentWhereInput
-}
-
-export type ContentUpdateToOneWithWhereWithoutTopicRelationsInput = {
-  where?: Prisma.ContentWhereInput
-  data: Prisma.XOR<Prisma.ContentUpdateWithoutTopicRelationsInput, Prisma.ContentUncheckedUpdateWithoutTopicRelationsInput>
-}
-
-export type ContentUpdateWithoutTopicRelationsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  contentType?: Prisma.EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
-  safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
-  qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
-  qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  author?: Prisma.UserUpdateOneRequiredWithoutContentsNestedInput
-  coverAsset?: Prisma.AssetUpdateOneWithoutCoverContentsNestedInput
-  versions?: Prisma.ContentVersionUpdateManyWithoutContentNestedInput
-  currentVersion?: Prisma.ContentVersionUpdateOneWithoutCurrentForContentNestedInput
-  draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutContentNestedInput
-  aiTasks?: Prisma.AiTaskUpdateManyWithoutContentNestedInput
-  safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutContentNestedInput
-  qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutContentNestedInput
-  rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutContentNestedInput
-  metrics?: Prisma.ContentMetricUpdateOneWithoutContentNestedInput
-  interactions?: Prisma.ContentInteractionUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUpdateManyWithoutContentNestedInput
-  distributionTasks?: Prisma.DistributionTaskUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUpdateManyWithoutContentNestedInput
-}
-
-export type ContentUncheckedUpdateWithoutTopicRelationsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  authorId?: Prisma.StringFieldUpdateOperationsInput | string
-  contentType?: Prisma.EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
-  safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
-  qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
-  qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  versions?: Prisma.ContentVersionUncheckedUpdateManyWithoutContentNestedInput
-  draftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutContentNestedInput
-  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutContentNestedInput
-  safetyReviews?: Prisma.SafetyReviewUncheckedUpdateManyWithoutContentNestedInput
-  qualityEvaluations?: Prisma.QualityEvaluationUncheckedUpdateManyWithoutContentNestedInput
-  rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutContentNestedInput
-  metrics?: Prisma.ContentMetricUncheckedUpdateOneWithoutContentNestedInput
-  interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUncheckedUpdateManyWithoutContentNestedInput
-  distributionTasks?: Prisma.DistributionTaskUncheckedUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUncheckedUpdateManyWithoutContentNestedInput
 }
 
 export type ContentCreateWithoutDistributionTasksInput = {
@@ -2938,8 +2550,6 @@ export type ContentCreateWithoutDistributionTasksInput = {
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -2949,6 +2559,7 @@ export type ContentCreateWithoutDistributionTasksInput = {
   coverAsset?: Prisma.AssetCreateNestedOneWithoutCoverContentsInput
   versions?: Prisma.ContentVersionCreateNestedManyWithoutContentInput
   currentVersion?: Prisma.ContentVersionCreateNestedOneWithoutCurrentForContentInput
+  publishedVersion?: Prisma.ContentVersionCreateNestedOneWithoutPublishedForContentInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutContentInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutContentInput
   safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutContentInput
@@ -2956,9 +2567,6 @@ export type ContentCreateWithoutDistributionTasksInput = {
   rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutContentInput
   metrics?: Prisma.ContentMetricCreateNestedOneWithoutContentInput
   interactions?: Prisma.ContentInteractionCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationCreateNestedManyWithoutContentInput
 }
 
 export type ContentUncheckedCreateWithoutDistributionTasksInput = {
@@ -2969,13 +2577,12 @@ export type ContentUncheckedCreateWithoutDistributionTasksInput = {
   summary?: string | null
   coverAssetId?: string | null
   currentVersionId?: string | null
+  publishedVersionId?: string | null
   status?: $Enums.ContentStatus
   safetyStatus?: $Enums.SafetyStatus
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -2989,9 +2596,6 @@ export type ContentUncheckedCreateWithoutDistributionTasksInput = {
   rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutContentInput
   metrics?: Prisma.ContentMetricUncheckedCreateNestedOneWithoutContentInput
   interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreUncheckedCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedCreateNestedManyWithoutContentInput
-  operations?: Prisma.ContentOperationUncheckedCreateNestedManyWithoutContentInput
 }
 
 export type ContentCreateOrConnectWithoutDistributionTasksInput = {
@@ -3020,8 +2624,6 @@ export type ContentUpdateWithoutDistributionTasksInput = {
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3031,6 +2633,7 @@ export type ContentUpdateWithoutDistributionTasksInput = {
   coverAsset?: Prisma.AssetUpdateOneWithoutCoverContentsNestedInput
   versions?: Prisma.ContentVersionUpdateManyWithoutContentNestedInput
   currentVersion?: Prisma.ContentVersionUpdateOneWithoutCurrentForContentNestedInput
+  publishedVersion?: Prisma.ContentVersionUpdateOneWithoutPublishedForContentNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutContentNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutContentNestedInput
   safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutContentNestedInput
@@ -3038,9 +2641,6 @@ export type ContentUpdateWithoutDistributionTasksInput = {
   rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutContentNestedInput
   metrics?: Prisma.ContentMetricUpdateOneWithoutContentNestedInput
   interactions?: Prisma.ContentInteractionUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUpdateManyWithoutContentNestedInput
 }
 
 export type ContentUncheckedUpdateWithoutDistributionTasksInput = {
@@ -3051,13 +2651,12 @@ export type ContentUncheckedUpdateWithoutDistributionTasksInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publishedVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3071,157 +2670,6 @@ export type ContentUncheckedUpdateWithoutDistributionTasksInput = {
   rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutContentNestedInput
   metrics?: Prisma.ContentMetricUncheckedUpdateOneWithoutContentNestedInput
   interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUncheckedUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUncheckedUpdateManyWithoutContentNestedInput
-}
-
-export type ContentCreateWithoutOperationsInput = {
-  id?: string
-  contentType: $Enums.ContentType
-  title: string
-  summary?: string | null
-  status?: $Enums.ContentStatus
-  safetyStatus?: $Enums.SafetyStatus
-  qualityLevel?: $Enums.QualityLevel | null
-  qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  publishedAt?: Date | string | null
-  offlineAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  author: Prisma.UserCreateNestedOneWithoutContentsInput
-  coverAsset?: Prisma.AssetCreateNestedOneWithoutCoverContentsInput
-  versions?: Prisma.ContentVersionCreateNestedManyWithoutContentInput
-  currentVersion?: Prisma.ContentVersionCreateNestedOneWithoutCurrentForContentInput
-  draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutContentInput
-  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutContentInput
-  safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutContentInput
-  qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutContentInput
-  rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutContentInput
-  metrics?: Prisma.ContentMetricCreateNestedOneWithoutContentInput
-  interactions?: Prisma.ContentInteractionCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationCreateNestedManyWithoutContentInput
-  distributionTasks?: Prisma.DistributionTaskCreateNestedManyWithoutContentInput
-}
-
-export type ContentUncheckedCreateWithoutOperationsInput = {
-  id?: string
-  authorId: string
-  contentType: $Enums.ContentType
-  title: string
-  summary?: string | null
-  coverAssetId?: string | null
-  currentVersionId?: string | null
-  status?: $Enums.ContentStatus
-  safetyStatus?: $Enums.SafetyStatus
-  qualityLevel?: $Enums.QualityLevel | null
-  qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  publishedAt?: Date | string | null
-  offlineAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  versions?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutContentInput
-  draftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutContentInput
-  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutContentInput
-  safetyReviews?: Prisma.SafetyReviewUncheckedCreateNestedManyWithoutContentInput
-  qualityEvaluations?: Prisma.QualityEvaluationUncheckedCreateNestedManyWithoutContentInput
-  rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutContentInput
-  metrics?: Prisma.ContentMetricUncheckedCreateNestedOneWithoutContentInput
-  interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutContentInput
-  rankingScores?: Prisma.RankingScoreUncheckedCreateNestedManyWithoutContentInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedCreateNestedManyWithoutContentInput
-  distributionTasks?: Prisma.DistributionTaskUncheckedCreateNestedManyWithoutContentInput
-}
-
-export type ContentCreateOrConnectWithoutOperationsInput = {
-  where: Prisma.ContentWhereUniqueInput
-  create: Prisma.XOR<Prisma.ContentCreateWithoutOperationsInput, Prisma.ContentUncheckedCreateWithoutOperationsInput>
-}
-
-export type ContentUpsertWithoutOperationsInput = {
-  update: Prisma.XOR<Prisma.ContentUpdateWithoutOperationsInput, Prisma.ContentUncheckedUpdateWithoutOperationsInput>
-  create: Prisma.XOR<Prisma.ContentCreateWithoutOperationsInput, Prisma.ContentUncheckedCreateWithoutOperationsInput>
-  where?: Prisma.ContentWhereInput
-}
-
-export type ContentUpdateToOneWithWhereWithoutOperationsInput = {
-  where?: Prisma.ContentWhereInput
-  data: Prisma.XOR<Prisma.ContentUpdateWithoutOperationsInput, Prisma.ContentUncheckedUpdateWithoutOperationsInput>
-}
-
-export type ContentUpdateWithoutOperationsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  contentType?: Prisma.EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
-  safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
-  qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
-  qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  author?: Prisma.UserUpdateOneRequiredWithoutContentsNestedInput
-  coverAsset?: Prisma.AssetUpdateOneWithoutCoverContentsNestedInput
-  versions?: Prisma.ContentVersionUpdateManyWithoutContentNestedInput
-  currentVersion?: Prisma.ContentVersionUpdateOneWithoutCurrentForContentNestedInput
-  draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutContentNestedInput
-  aiTasks?: Prisma.AiTaskUpdateManyWithoutContentNestedInput
-  safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutContentNestedInput
-  qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutContentNestedInput
-  rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutContentNestedInput
-  metrics?: Prisma.ContentMetricUpdateOneWithoutContentNestedInput
-  interactions?: Prisma.ContentInteractionUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUpdateManyWithoutContentNestedInput
-  distributionTasks?: Prisma.DistributionTaskUpdateManyWithoutContentNestedInput
-}
-
-export type ContentUncheckedUpdateWithoutOperationsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  authorId?: Prisma.StringFieldUpdateOperationsInput | string
-  contentType?: Prisma.EnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
-  safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
-  qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
-  qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  versions?: Prisma.ContentVersionUncheckedUpdateManyWithoutContentNestedInput
-  draftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutContentNestedInput
-  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutContentNestedInput
-  safetyReviews?: Prisma.SafetyReviewUncheckedUpdateManyWithoutContentNestedInput
-  qualityEvaluations?: Prisma.QualityEvaluationUncheckedUpdateManyWithoutContentNestedInput
-  rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutContentNestedInput
-  metrics?: Prisma.ContentMetricUncheckedUpdateOneWithoutContentNestedInput
-  interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUncheckedUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedUpdateManyWithoutContentNestedInput
-  distributionTasks?: Prisma.DistributionTaskUncheckedUpdateManyWithoutContentNestedInput
 }
 
 export type ContentCreateManyAuthorInput = {
@@ -3231,13 +2679,12 @@ export type ContentCreateManyAuthorInput = {
   summary?: string | null
   coverAssetId?: string | null
   currentVersionId?: string | null
+  publishedVersionId?: string | null
   status?: $Enums.ContentStatus
   safetyStatus?: $Enums.SafetyStatus
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -3255,8 +2702,6 @@ export type ContentUpdateWithoutAuthorInput = {
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3265,6 +2710,7 @@ export type ContentUpdateWithoutAuthorInput = {
   coverAsset?: Prisma.AssetUpdateOneWithoutCoverContentsNestedInput
   versions?: Prisma.ContentVersionUpdateManyWithoutContentNestedInput
   currentVersion?: Prisma.ContentVersionUpdateOneWithoutCurrentForContentNestedInput
+  publishedVersion?: Prisma.ContentVersionUpdateOneWithoutPublishedForContentNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutContentNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutContentNestedInput
   safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutContentNestedInput
@@ -3272,10 +2718,7 @@ export type ContentUpdateWithoutAuthorInput = {
   rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutContentNestedInput
   metrics?: Prisma.ContentMetricUpdateOneWithoutContentNestedInput
   interactions?: Prisma.ContentInteractionUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUpdateManyWithoutContentNestedInput
   distributionTasks?: Prisma.DistributionTaskUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUpdateManyWithoutContentNestedInput
 }
 
 export type ContentUncheckedUpdateWithoutAuthorInput = {
@@ -3285,13 +2728,12 @@ export type ContentUncheckedUpdateWithoutAuthorInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publishedVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3305,10 +2747,7 @@ export type ContentUncheckedUpdateWithoutAuthorInput = {
   rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutContentNestedInput
   metrics?: Prisma.ContentMetricUncheckedUpdateOneWithoutContentNestedInput
   interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUncheckedUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedUpdateManyWithoutContentNestedInput
   distributionTasks?: Prisma.DistributionTaskUncheckedUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUncheckedUpdateManyWithoutContentNestedInput
 }
 
 export type ContentUncheckedUpdateManyWithoutAuthorInput = {
@@ -3318,13 +2757,12 @@ export type ContentUncheckedUpdateManyWithoutAuthorInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publishedVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3339,13 +2777,12 @@ export type ContentCreateManyCoverAssetInput = {
   title: string
   summary?: string | null
   currentVersionId?: string | null
+  publishedVersionId?: string | null
   status?: $Enums.ContentStatus
   safetyStatus?: $Enums.SafetyStatus
   qualityLevel?: $Enums.QualityLevel | null
   qualityScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Date | string | null
   offlineAt?: Date | string | null
   createdAt?: Date | string
@@ -3363,8 +2800,6 @@ export type ContentUpdateWithoutCoverAssetInput = {
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3373,6 +2808,7 @@ export type ContentUpdateWithoutCoverAssetInput = {
   author?: Prisma.UserUpdateOneRequiredWithoutContentsNestedInput
   versions?: Prisma.ContentVersionUpdateManyWithoutContentNestedInput
   currentVersion?: Prisma.ContentVersionUpdateOneWithoutCurrentForContentNestedInput
+  publishedVersion?: Prisma.ContentVersionUpdateOneWithoutPublishedForContentNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutContentNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutContentNestedInput
   safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutContentNestedInput
@@ -3380,10 +2816,7 @@ export type ContentUpdateWithoutCoverAssetInput = {
   rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutContentNestedInput
   metrics?: Prisma.ContentMetricUpdateOneWithoutContentNestedInput
   interactions?: Prisma.ContentInteractionUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUpdateManyWithoutContentNestedInput
   distributionTasks?: Prisma.DistributionTaskUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUpdateManyWithoutContentNestedInput
 }
 
 export type ContentUncheckedUpdateWithoutCoverAssetInput = {
@@ -3393,13 +2826,12 @@ export type ContentUncheckedUpdateWithoutCoverAssetInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publishedVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3413,10 +2845,7 @@ export type ContentUncheckedUpdateWithoutCoverAssetInput = {
   rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutContentNestedInput
   metrics?: Prisma.ContentMetricUncheckedUpdateOneWithoutContentNestedInput
   interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutContentNestedInput
-  rankingScores?: Prisma.RankingScoreUncheckedUpdateManyWithoutContentNestedInput
-  topicRelations?: Prisma.ContentTopicRelationUncheckedUpdateManyWithoutContentNestedInput
   distributionTasks?: Prisma.DistributionTaskUncheckedUpdateManyWithoutContentNestedInput
-  operations?: Prisma.ContentOperationUncheckedUpdateManyWithoutContentNestedInput
 }
 
 export type ContentUncheckedUpdateManyWithoutCoverAssetInput = {
@@ -3426,13 +2855,12 @@ export type ContentUncheckedUpdateManyWithoutCoverAssetInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currentVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publishedVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumContentStatusFieldUpdateOperationsInput | $Enums.ContentStatus
   safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
   qualityLevel?: Prisma.NullableEnumQualityLevelFieldUpdateOperationsInput | $Enums.QualityLevel | null
   qualityScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   safetyScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  hotScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  recommendScore?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   offlineAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3453,10 +2881,7 @@ export type ContentCountOutputType = {
   qualityEvaluations: number
   rewriteRecords: number
   interactions: number
-  rankingScores: number
-  topicRelations: number
   distributionTasks: number
-  operations: number
 }
 
 export type ContentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3467,10 +2892,7 @@ export type ContentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   qualityEvaluations?: boolean | ContentCountOutputTypeCountQualityEvaluationsArgs
   rewriteRecords?: boolean | ContentCountOutputTypeCountRewriteRecordsArgs
   interactions?: boolean | ContentCountOutputTypeCountInteractionsArgs
-  rankingScores?: boolean | ContentCountOutputTypeCountRankingScoresArgs
-  topicRelations?: boolean | ContentCountOutputTypeCountTopicRelationsArgs
   distributionTasks?: boolean | ContentCountOutputTypeCountDistributionTasksArgs
-  operations?: boolean | ContentCountOutputTypeCountOperationsArgs
 }
 
 /**
@@ -3535,29 +2957,8 @@ export type ContentCountOutputTypeCountInteractionsArgs<ExtArgs extends runtime.
 /**
  * ContentCountOutputType without action
  */
-export type ContentCountOutputTypeCountRankingScoresArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.RankingScoreWhereInput
-}
-
-/**
- * ContentCountOutputType without action
- */
-export type ContentCountOutputTypeCountTopicRelationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ContentTopicRelationWhereInput
-}
-
-/**
- * ContentCountOutputType without action
- */
 export type ContentCountOutputTypeCountDistributionTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.DistributionTaskWhereInput
-}
-
-/**
- * ContentCountOutputType without action
- */
-export type ContentCountOutputTypeCountOperationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ContentOperationWhereInput
 }
 
 
@@ -3569,13 +2970,12 @@ export type ContentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   summary?: boolean
   coverAssetId?: boolean
   currentVersionId?: boolean
+  publishedVersionId?: boolean
   status?: boolean
   safetyStatus?: boolean
   qualityLevel?: boolean
   qualityScore?: boolean
   safetyScore?: boolean
-  hotScore?: boolean
-  recommendScore?: boolean
   publishedAt?: boolean
   offlineAt?: boolean
   createdAt?: boolean
@@ -3585,6 +2985,7 @@ export type ContentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   coverAsset?: boolean | Prisma.Content$coverAssetArgs<ExtArgs>
   versions?: boolean | Prisma.Content$versionsArgs<ExtArgs>
   currentVersion?: boolean | Prisma.Content$currentVersionArgs<ExtArgs>
+  publishedVersion?: boolean | Prisma.Content$publishedVersionArgs<ExtArgs>
   draftSnapshots?: boolean | Prisma.Content$draftSnapshotsArgs<ExtArgs>
   aiTasks?: boolean | Prisma.Content$aiTasksArgs<ExtArgs>
   safetyReviews?: boolean | Prisma.Content$safetyReviewsArgs<ExtArgs>
@@ -3592,10 +2993,7 @@ export type ContentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   rewriteRecords?: boolean | Prisma.Content$rewriteRecordsArgs<ExtArgs>
   metrics?: boolean | Prisma.Content$metricsArgs<ExtArgs>
   interactions?: boolean | Prisma.Content$interactionsArgs<ExtArgs>
-  rankingScores?: boolean | Prisma.Content$rankingScoresArgs<ExtArgs>
-  topicRelations?: boolean | Prisma.Content$topicRelationsArgs<ExtArgs>
   distributionTasks?: boolean | Prisma.Content$distributionTasksArgs<ExtArgs>
-  operations?: boolean | Prisma.Content$operationsArgs<ExtArgs>
   _count?: boolean | Prisma.ContentCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["content"]>
 
@@ -3607,13 +3005,12 @@ export type ContentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   summary?: boolean
   coverAssetId?: boolean
   currentVersionId?: boolean
+  publishedVersionId?: boolean
   status?: boolean
   safetyStatus?: boolean
   qualityLevel?: boolean
   qualityScore?: boolean
   safetyScore?: boolean
-  hotScore?: boolean
-  recommendScore?: boolean
   publishedAt?: boolean
   offlineAt?: boolean
   createdAt?: boolean
@@ -3622,6 +3019,7 @@ export type ContentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   coverAsset?: boolean | Prisma.Content$coverAssetArgs<ExtArgs>
   currentVersion?: boolean | Prisma.Content$currentVersionArgs<ExtArgs>
+  publishedVersion?: boolean | Prisma.Content$publishedVersionArgs<ExtArgs>
 }, ExtArgs["result"]["content"]>
 
 export type ContentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -3632,13 +3030,12 @@ export type ContentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   summary?: boolean
   coverAssetId?: boolean
   currentVersionId?: boolean
+  publishedVersionId?: boolean
   status?: boolean
   safetyStatus?: boolean
   qualityLevel?: boolean
   qualityScore?: boolean
   safetyScore?: boolean
-  hotScore?: boolean
-  recommendScore?: boolean
   publishedAt?: boolean
   offlineAt?: boolean
   createdAt?: boolean
@@ -3647,6 +3044,7 @@ export type ContentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   coverAsset?: boolean | Prisma.Content$coverAssetArgs<ExtArgs>
   currentVersion?: boolean | Prisma.Content$currentVersionArgs<ExtArgs>
+  publishedVersion?: boolean | Prisma.Content$publishedVersionArgs<ExtArgs>
 }, ExtArgs["result"]["content"]>
 
 export type ContentSelectScalar = {
@@ -3657,13 +3055,12 @@ export type ContentSelectScalar = {
   summary?: boolean
   coverAssetId?: boolean
   currentVersionId?: boolean
+  publishedVersionId?: boolean
   status?: boolean
   safetyStatus?: boolean
   qualityLevel?: boolean
   qualityScore?: boolean
   safetyScore?: boolean
-  hotScore?: boolean
-  recommendScore?: boolean
   publishedAt?: boolean
   offlineAt?: boolean
   createdAt?: boolean
@@ -3671,12 +3068,13 @@ export type ContentSelectScalar = {
   deletedAt?: boolean
 }
 
-export type ContentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "authorId" | "contentType" | "title" | "summary" | "coverAssetId" | "currentVersionId" | "status" | "safetyStatus" | "qualityLevel" | "qualityScore" | "safetyScore" | "hotScore" | "recommendScore" | "publishedAt" | "offlineAt" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["content"]>
+export type ContentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "authorId" | "contentType" | "title" | "summary" | "coverAssetId" | "currentVersionId" | "publishedVersionId" | "status" | "safetyStatus" | "qualityLevel" | "qualityScore" | "safetyScore" | "publishedAt" | "offlineAt" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["content"]>
 export type ContentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   coverAsset?: boolean | Prisma.Content$coverAssetArgs<ExtArgs>
   versions?: boolean | Prisma.Content$versionsArgs<ExtArgs>
   currentVersion?: boolean | Prisma.Content$currentVersionArgs<ExtArgs>
+  publishedVersion?: boolean | Prisma.Content$publishedVersionArgs<ExtArgs>
   draftSnapshots?: boolean | Prisma.Content$draftSnapshotsArgs<ExtArgs>
   aiTasks?: boolean | Prisma.Content$aiTasksArgs<ExtArgs>
   safetyReviews?: boolean | Prisma.Content$safetyReviewsArgs<ExtArgs>
@@ -3684,21 +3082,20 @@ export type ContentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   rewriteRecords?: boolean | Prisma.Content$rewriteRecordsArgs<ExtArgs>
   metrics?: boolean | Prisma.Content$metricsArgs<ExtArgs>
   interactions?: boolean | Prisma.Content$interactionsArgs<ExtArgs>
-  rankingScores?: boolean | Prisma.Content$rankingScoresArgs<ExtArgs>
-  topicRelations?: boolean | Prisma.Content$topicRelationsArgs<ExtArgs>
   distributionTasks?: boolean | Prisma.Content$distributionTasksArgs<ExtArgs>
-  operations?: boolean | Prisma.Content$operationsArgs<ExtArgs>
   _count?: boolean | Prisma.ContentCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ContentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   coverAsset?: boolean | Prisma.Content$coverAssetArgs<ExtArgs>
   currentVersion?: boolean | Prisma.Content$currentVersionArgs<ExtArgs>
+  publishedVersion?: boolean | Prisma.Content$publishedVersionArgs<ExtArgs>
 }
 export type ContentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   coverAsset?: boolean | Prisma.Content$coverAssetArgs<ExtArgs>
   currentVersion?: boolean | Prisma.Content$currentVersionArgs<ExtArgs>
+  publishedVersion?: boolean | Prisma.Content$publishedVersionArgs<ExtArgs>
 }
 
 export type $ContentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3708,6 +3105,7 @@ export type $ContentPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     coverAsset: Prisma.$AssetPayload<ExtArgs> | null
     versions: Prisma.$ContentVersionPayload<ExtArgs>[]
     currentVersion: Prisma.$ContentVersionPayload<ExtArgs> | null
+    publishedVersion: Prisma.$ContentVersionPayload<ExtArgs> | null
     draftSnapshots: Prisma.$DraftSnapshotPayload<ExtArgs>[]
     aiTasks: Prisma.$AiTaskPayload<ExtArgs>[]
     safetyReviews: Prisma.$SafetyReviewPayload<ExtArgs>[]
@@ -3715,10 +3113,7 @@ export type $ContentPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     rewriteRecords: Prisma.$RewriteRecordPayload<ExtArgs>[]
     metrics: Prisma.$ContentMetricPayload<ExtArgs> | null
     interactions: Prisma.$ContentInteractionPayload<ExtArgs>[]
-    rankingScores: Prisma.$RankingScorePayload<ExtArgs>[]
-    topicRelations: Prisma.$ContentTopicRelationPayload<ExtArgs>[]
     distributionTasks: Prisma.$DistributionTaskPayload<ExtArgs>[]
-    operations: Prisma.$ContentOperationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3728,13 +3123,12 @@ export type $ContentPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     summary: string | null
     coverAssetId: string | null
     currentVersionId: string | null
+    publishedVersionId: string | null
     status: $Enums.ContentStatus
     safetyStatus: $Enums.SafetyStatus
     qualityLevel: $Enums.QualityLevel | null
     qualityScore: runtime.Decimal | null
     safetyScore: runtime.Decimal | null
-    hotScore: runtime.Decimal | null
-    recommendScore: runtime.Decimal | null
     publishedAt: Date | null
     offlineAt: Date | null
     createdAt: Date
@@ -4138,6 +3532,7 @@ export interface Prisma__ContentClient<T, Null = never, ExtArgs extends runtime.
   coverAsset<T extends Prisma.Content$coverAssetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Content$coverAssetArgs<ExtArgs>>): Prisma.Prisma__AssetClient<runtime.Types.Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   versions<T extends Prisma.Content$versionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Content$versionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContentVersionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   currentVersion<T extends Prisma.Content$currentVersionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Content$currentVersionArgs<ExtArgs>>): Prisma.Prisma__ContentVersionClient<runtime.Types.Result.GetResult<Prisma.$ContentVersionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  publishedVersion<T extends Prisma.Content$publishedVersionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Content$publishedVersionArgs<ExtArgs>>): Prisma.Prisma__ContentVersionClient<runtime.Types.Result.GetResult<Prisma.$ContentVersionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   draftSnapshots<T extends Prisma.Content$draftSnapshotsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Content$draftSnapshotsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DraftSnapshotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   aiTasks<T extends Prisma.Content$aiTasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Content$aiTasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AiTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   safetyReviews<T extends Prisma.Content$safetyReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Content$safetyReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SafetyReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -4145,10 +3540,7 @@ export interface Prisma__ContentClient<T, Null = never, ExtArgs extends runtime.
   rewriteRecords<T extends Prisma.Content$rewriteRecordsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Content$rewriteRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RewriteRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   metrics<T extends Prisma.Content$metricsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Content$metricsArgs<ExtArgs>>): Prisma.Prisma__ContentMetricClient<runtime.Types.Result.GetResult<Prisma.$ContentMetricPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   interactions<T extends Prisma.Content$interactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Content$interactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContentInteractionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  rankingScores<T extends Prisma.Content$rankingScoresArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Content$rankingScoresArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RankingScorePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  topicRelations<T extends Prisma.Content$topicRelationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Content$topicRelationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContentTopicRelationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   distributionTasks<T extends Prisma.Content$distributionTasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Content$distributionTasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DistributionTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  operations<T extends Prisma.Content$operationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Content$operationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContentOperationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4185,13 +3577,12 @@ export interface ContentFieldRefs {
   readonly summary: Prisma.FieldRef<"Content", 'String'>
   readonly coverAssetId: Prisma.FieldRef<"Content", 'String'>
   readonly currentVersionId: Prisma.FieldRef<"Content", 'String'>
+  readonly publishedVersionId: Prisma.FieldRef<"Content", 'String'>
   readonly status: Prisma.FieldRef<"Content", 'ContentStatus'>
   readonly safetyStatus: Prisma.FieldRef<"Content", 'SafetyStatus'>
   readonly qualityLevel: Prisma.FieldRef<"Content", 'QualityLevel'>
   readonly qualityScore: Prisma.FieldRef<"Content", 'Decimal'>
   readonly safetyScore: Prisma.FieldRef<"Content", 'Decimal'>
-  readonly hotScore: Prisma.FieldRef<"Content", 'Decimal'>
-  readonly recommendScore: Prisma.FieldRef<"Content", 'Decimal'>
   readonly publishedAt: Prisma.FieldRef<"Content", 'DateTime'>
   readonly offlineAt: Prisma.FieldRef<"Content", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Content", 'DateTime'>
@@ -4660,6 +4051,25 @@ export type Content$currentVersionArgs<ExtArgs extends runtime.Types.Extensions.
 }
 
 /**
+ * Content.publishedVersion
+ */
+export type Content$publishedVersionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ContentVersion
+   */
+  select?: Prisma.ContentVersionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ContentVersion
+   */
+  omit?: Prisma.ContentVersionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContentVersionInclude<ExtArgs> | null
+  where?: Prisma.ContentVersionWhereInput
+}
+
+/**
  * Content.draftSnapshots
  */
 export type Content$draftSnapshotsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4823,54 +4233,6 @@ export type Content$interactionsArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
- * Content.rankingScores
- */
-export type Content$rankingScoresArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the RankingScore
-   */
-  select?: Prisma.RankingScoreSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the RankingScore
-   */
-  omit?: Prisma.RankingScoreOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.RankingScoreInclude<ExtArgs> | null
-  where?: Prisma.RankingScoreWhereInput
-  orderBy?: Prisma.RankingScoreOrderByWithRelationInput | Prisma.RankingScoreOrderByWithRelationInput[]
-  cursor?: Prisma.RankingScoreWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.RankingScoreScalarFieldEnum | Prisma.RankingScoreScalarFieldEnum[]
-}
-
-/**
- * Content.topicRelations
- */
-export type Content$topicRelationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ContentTopicRelation
-   */
-  select?: Prisma.ContentTopicRelationSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ContentTopicRelation
-   */
-  omit?: Prisma.ContentTopicRelationOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ContentTopicRelationInclude<ExtArgs> | null
-  where?: Prisma.ContentTopicRelationWhereInput
-  orderBy?: Prisma.ContentTopicRelationOrderByWithRelationInput | Prisma.ContentTopicRelationOrderByWithRelationInput[]
-  cursor?: Prisma.ContentTopicRelationWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ContentTopicRelationScalarFieldEnum | Prisma.ContentTopicRelationScalarFieldEnum[]
-}
-
-/**
  * Content.distributionTasks
  */
 export type Content$distributionTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4892,30 +4254,6 @@ export type Content$distributionTasksArgs<ExtArgs extends runtime.Types.Extensio
   take?: number
   skip?: number
   distinct?: Prisma.DistributionTaskScalarFieldEnum | Prisma.DistributionTaskScalarFieldEnum[]
-}
-
-/**
- * Content.operations
- */
-export type Content$operationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ContentOperation
-   */
-  select?: Prisma.ContentOperationSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ContentOperation
-   */
-  omit?: Prisma.ContentOperationOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ContentOperationInclude<ExtArgs> | null
-  where?: Prisma.ContentOperationWhereInput
-  orderBy?: Prisma.ContentOperationOrderByWithRelationInput | Prisma.ContentOperationOrderByWithRelationInput[]
-  cursor?: Prisma.ContentOperationWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ContentOperationScalarFieldEnum | Prisma.ContentOperationScalarFieldEnum[]
 }
 
 /**

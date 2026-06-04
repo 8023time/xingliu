@@ -44,7 +44,6 @@ export type AiTaskMinAggregateOutputType = {
   contentId: string | null
   assetId: string | null
   promptId: string | null
-  promptVersionId: string | null
   taskType: $Enums.AiTaskType | null
   status: $Enums.AiTaskStatus | null
   modelProvider: string | null
@@ -67,7 +66,6 @@ export type AiTaskMaxAggregateOutputType = {
   contentId: string | null
   assetId: string | null
   promptId: string | null
-  promptVersionId: string | null
   taskType: $Enums.AiTaskType | null
   status: $Enums.AiTaskStatus | null
   modelProvider: string | null
@@ -90,7 +88,6 @@ export type AiTaskCountAggregateOutputType = {
   contentId: number
   assetId: number
   promptId: number
-  promptVersionId: number
   taskType: number
   status: number
   modelProvider: number
@@ -127,7 +124,6 @@ export type AiTaskMinAggregateInputType = {
   contentId?: true
   assetId?: true
   promptId?: true
-  promptVersionId?: true
   taskType?: true
   status?: true
   modelProvider?: true
@@ -150,7 +146,6 @@ export type AiTaskMaxAggregateInputType = {
   contentId?: true
   assetId?: true
   promptId?: true
-  promptVersionId?: true
   taskType?: true
   status?: true
   modelProvider?: true
@@ -173,7 +168,6 @@ export type AiTaskCountAggregateInputType = {
   contentId?: true
   assetId?: true
   promptId?: true
-  promptVersionId?: true
   taskType?: true
   status?: true
   modelProvider?: true
@@ -283,7 +277,6 @@ export type AiTaskGroupByOutputType = {
   contentId: string | null
   assetId: string | null
   promptId: string | null
-  promptVersionId: string | null
   taskType: $Enums.AiTaskType
   status: $Enums.AiTaskStatus
   modelProvider: string
@@ -329,7 +322,6 @@ export type AiTaskWhereInput = {
   contentId?: Prisma.StringNullableFilter<"AiTask"> | string | null
   assetId?: Prisma.StringNullableFilter<"AiTask"> | string | null
   promptId?: Prisma.StringNullableFilter<"AiTask"> | string | null
-  promptVersionId?: Prisma.StringNullableFilter<"AiTask"> | string | null
   taskType?: Prisma.EnumAiTaskTypeFilter<"AiTask"> | $Enums.AiTaskType
   status?: Prisma.EnumAiTaskStatusFilter<"AiTask"> | $Enums.AiTaskStatus
   modelProvider?: Prisma.StringFilter<"AiTask"> | string
@@ -348,7 +340,6 @@ export type AiTaskWhereInput = {
   content?: Prisma.XOR<Prisma.ContentNullableScalarRelationFilter, Prisma.ContentWhereInput> | null
   asset?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
   prompt?: Prisma.XOR<Prisma.PromptTemplateNullableScalarRelationFilter, Prisma.PromptTemplateWhereInput> | null
-  promptVersion?: Prisma.XOR<Prisma.PromptTemplateVersionNullableScalarRelationFilter, Prisma.PromptTemplateVersionWhereInput> | null
   safetyReviews?: Prisma.SafetyReviewListRelationFilter
   qualityEvaluations?: Prisma.QualityEvaluationListRelationFilter
   rewriteRecords?: Prisma.RewriteRecordListRelationFilter
@@ -360,7 +351,6 @@ export type AiTaskOrderByWithRelationInput = {
   contentId?: Prisma.SortOrderInput | Prisma.SortOrder
   assetId?: Prisma.SortOrderInput | Prisma.SortOrder
   promptId?: Prisma.SortOrderInput | Prisma.SortOrder
-  promptVersionId?: Prisma.SortOrderInput | Prisma.SortOrder
   taskType?: Prisma.SortOrder
   status?: Prisma.SortOrder
   modelProvider?: Prisma.SortOrder
@@ -379,7 +369,6 @@ export type AiTaskOrderByWithRelationInput = {
   content?: Prisma.ContentOrderByWithRelationInput
   asset?: Prisma.AssetOrderByWithRelationInput
   prompt?: Prisma.PromptTemplateOrderByWithRelationInput
-  promptVersion?: Prisma.PromptTemplateVersionOrderByWithRelationInput
   safetyReviews?: Prisma.SafetyReviewOrderByRelationAggregateInput
   qualityEvaluations?: Prisma.QualityEvaluationOrderByRelationAggregateInput
   rewriteRecords?: Prisma.RewriteRecordOrderByRelationAggregateInput
@@ -394,7 +383,6 @@ export type AiTaskWhereUniqueInput = Prisma.AtLeast<{
   contentId?: Prisma.StringNullableFilter<"AiTask"> | string | null
   assetId?: Prisma.StringNullableFilter<"AiTask"> | string | null
   promptId?: Prisma.StringNullableFilter<"AiTask"> | string | null
-  promptVersionId?: Prisma.StringNullableFilter<"AiTask"> | string | null
   taskType?: Prisma.EnumAiTaskTypeFilter<"AiTask"> | $Enums.AiTaskType
   status?: Prisma.EnumAiTaskStatusFilter<"AiTask"> | $Enums.AiTaskStatus
   modelProvider?: Prisma.StringFilter<"AiTask"> | string
@@ -413,7 +401,6 @@ export type AiTaskWhereUniqueInput = Prisma.AtLeast<{
   content?: Prisma.XOR<Prisma.ContentNullableScalarRelationFilter, Prisma.ContentWhereInput> | null
   asset?: Prisma.XOR<Prisma.AssetNullableScalarRelationFilter, Prisma.AssetWhereInput> | null
   prompt?: Prisma.XOR<Prisma.PromptTemplateNullableScalarRelationFilter, Prisma.PromptTemplateWhereInput> | null
-  promptVersion?: Prisma.XOR<Prisma.PromptTemplateVersionNullableScalarRelationFilter, Prisma.PromptTemplateVersionWhereInput> | null
   safetyReviews?: Prisma.SafetyReviewListRelationFilter
   qualityEvaluations?: Prisma.QualityEvaluationListRelationFilter
   rewriteRecords?: Prisma.RewriteRecordListRelationFilter
@@ -425,7 +412,6 @@ export type AiTaskOrderByWithAggregationInput = {
   contentId?: Prisma.SortOrderInput | Prisma.SortOrder
   assetId?: Prisma.SortOrderInput | Prisma.SortOrder
   promptId?: Prisma.SortOrderInput | Prisma.SortOrder
-  promptVersionId?: Prisma.SortOrderInput | Prisma.SortOrder
   taskType?: Prisma.SortOrder
   status?: Prisma.SortOrder
   modelProvider?: Prisma.SortOrder
@@ -456,7 +442,6 @@ export type AiTaskScalarWhereWithAggregatesInput = {
   contentId?: Prisma.StringNullableWithAggregatesFilter<"AiTask"> | string | null
   assetId?: Prisma.StringNullableWithAggregatesFilter<"AiTask"> | string | null
   promptId?: Prisma.StringNullableWithAggregatesFilter<"AiTask"> | string | null
-  promptVersionId?: Prisma.StringNullableWithAggregatesFilter<"AiTask"> | string | null
   taskType?: Prisma.EnumAiTaskTypeWithAggregatesFilter<"AiTask"> | $Enums.AiTaskType
   status?: Prisma.EnumAiTaskStatusWithAggregatesFilter<"AiTask"> | $Enums.AiTaskStatus
   modelProvider?: Prisma.StringWithAggregatesFilter<"AiTask"> | string
@@ -493,7 +478,6 @@ export type AiTaskCreateInput = {
   content?: Prisma.ContentCreateNestedOneWithoutAiTasksInput
   asset?: Prisma.AssetCreateNestedOneWithoutAiTasksInput
   prompt?: Prisma.PromptTemplateCreateNestedOneWithoutAiTasksInput
-  promptVersion?: Prisma.PromptTemplateVersionCreateNestedOneWithoutAiTasksInput
   safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutAiTaskInput
   qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutAiTaskInput
   rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutAiTaskInput
@@ -505,7 +489,6 @@ export type AiTaskUncheckedCreateInput = {
   contentId?: string | null
   assetId?: string | null
   promptId?: string | null
-  promptVersionId?: string | null
   taskType: $Enums.AiTaskType
   status?: $Enums.AiTaskStatus
   modelProvider: string
@@ -545,7 +528,6 @@ export type AiTaskUpdateInput = {
   content?: Prisma.ContentUpdateOneWithoutAiTasksNestedInput
   asset?: Prisma.AssetUpdateOneWithoutAiTasksNestedInput
   prompt?: Prisma.PromptTemplateUpdateOneWithoutAiTasksNestedInput
-  promptVersion?: Prisma.PromptTemplateVersionUpdateOneWithoutAiTasksNestedInput
   safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutAiTaskNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutAiTaskNestedInput
   rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutAiTaskNestedInput
@@ -557,7 +539,6 @@ export type AiTaskUncheckedUpdateInput = {
   contentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   assetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   promptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  promptVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taskType?: Prisma.EnumAiTaskTypeFieldUpdateOperationsInput | $Enums.AiTaskType
   status?: Prisma.EnumAiTaskStatusFieldUpdateOperationsInput | $Enums.AiTaskStatus
   modelProvider?: Prisma.StringFieldUpdateOperationsInput | string
@@ -583,7 +564,6 @@ export type AiTaskCreateManyInput = {
   contentId?: string | null
   assetId?: string | null
   promptId?: string | null
-  promptVersionId?: string | null
   taskType: $Enums.AiTaskType
   status?: $Enums.AiTaskStatus
   modelProvider: string
@@ -624,7 +604,6 @@ export type AiTaskUncheckedUpdateManyInput = {
   contentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   assetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   promptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  promptVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taskType?: Prisma.EnumAiTaskTypeFieldUpdateOperationsInput | $Enums.AiTaskType
   status?: Prisma.EnumAiTaskStatusFieldUpdateOperationsInput | $Enums.AiTaskStatus
   modelProvider?: Prisma.StringFieldUpdateOperationsInput | string
@@ -657,7 +636,6 @@ export type AiTaskCountOrderByAggregateInput = {
   contentId?: Prisma.SortOrder
   assetId?: Prisma.SortOrder
   promptId?: Prisma.SortOrder
-  promptVersionId?: Prisma.SortOrder
   taskType?: Prisma.SortOrder
   status?: Prisma.SortOrder
   modelProvider?: Prisma.SortOrder
@@ -686,7 +664,6 @@ export type AiTaskMaxOrderByAggregateInput = {
   contentId?: Prisma.SortOrder
   assetId?: Prisma.SortOrder
   promptId?: Prisma.SortOrder
-  promptVersionId?: Prisma.SortOrder
   taskType?: Prisma.SortOrder
   status?: Prisma.SortOrder
   modelProvider?: Prisma.SortOrder
@@ -709,7 +686,6 @@ export type AiTaskMinOrderByAggregateInput = {
   contentId?: Prisma.SortOrder
   assetId?: Prisma.SortOrder
   promptId?: Prisma.SortOrder
-  promptVersionId?: Prisma.SortOrder
   taskType?: Prisma.SortOrder
   status?: Prisma.SortOrder
   modelProvider?: Prisma.SortOrder
@@ -818,48 +794,6 @@ export type AiTaskUncheckedUpdateManyWithoutPromptNestedInput = {
   connect?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
   update?: Prisma.AiTaskUpdateWithWhereUniqueWithoutPromptInput | Prisma.AiTaskUpdateWithWhereUniqueWithoutPromptInput[]
   updateMany?: Prisma.AiTaskUpdateManyWithWhereWithoutPromptInput | Prisma.AiTaskUpdateManyWithWhereWithoutPromptInput[]
-  deleteMany?: Prisma.AiTaskScalarWhereInput | Prisma.AiTaskScalarWhereInput[]
-}
-
-export type AiTaskCreateNestedManyWithoutPromptVersionInput = {
-  create?: Prisma.XOR<Prisma.AiTaskCreateWithoutPromptVersionInput, Prisma.AiTaskUncheckedCreateWithoutPromptVersionInput> | Prisma.AiTaskCreateWithoutPromptVersionInput[] | Prisma.AiTaskUncheckedCreateWithoutPromptVersionInput[]
-  connectOrCreate?: Prisma.AiTaskCreateOrConnectWithoutPromptVersionInput | Prisma.AiTaskCreateOrConnectWithoutPromptVersionInput[]
-  createMany?: Prisma.AiTaskCreateManyPromptVersionInputEnvelope
-  connect?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
-}
-
-export type AiTaskUncheckedCreateNestedManyWithoutPromptVersionInput = {
-  create?: Prisma.XOR<Prisma.AiTaskCreateWithoutPromptVersionInput, Prisma.AiTaskUncheckedCreateWithoutPromptVersionInput> | Prisma.AiTaskCreateWithoutPromptVersionInput[] | Prisma.AiTaskUncheckedCreateWithoutPromptVersionInput[]
-  connectOrCreate?: Prisma.AiTaskCreateOrConnectWithoutPromptVersionInput | Prisma.AiTaskCreateOrConnectWithoutPromptVersionInput[]
-  createMany?: Prisma.AiTaskCreateManyPromptVersionInputEnvelope
-  connect?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
-}
-
-export type AiTaskUpdateManyWithoutPromptVersionNestedInput = {
-  create?: Prisma.XOR<Prisma.AiTaskCreateWithoutPromptVersionInput, Prisma.AiTaskUncheckedCreateWithoutPromptVersionInput> | Prisma.AiTaskCreateWithoutPromptVersionInput[] | Prisma.AiTaskUncheckedCreateWithoutPromptVersionInput[]
-  connectOrCreate?: Prisma.AiTaskCreateOrConnectWithoutPromptVersionInput | Prisma.AiTaskCreateOrConnectWithoutPromptVersionInput[]
-  upsert?: Prisma.AiTaskUpsertWithWhereUniqueWithoutPromptVersionInput | Prisma.AiTaskUpsertWithWhereUniqueWithoutPromptVersionInput[]
-  createMany?: Prisma.AiTaskCreateManyPromptVersionInputEnvelope
-  set?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
-  disconnect?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
-  delete?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
-  connect?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
-  update?: Prisma.AiTaskUpdateWithWhereUniqueWithoutPromptVersionInput | Prisma.AiTaskUpdateWithWhereUniqueWithoutPromptVersionInput[]
-  updateMany?: Prisma.AiTaskUpdateManyWithWhereWithoutPromptVersionInput | Prisma.AiTaskUpdateManyWithWhereWithoutPromptVersionInput[]
-  deleteMany?: Prisma.AiTaskScalarWhereInput | Prisma.AiTaskScalarWhereInput[]
-}
-
-export type AiTaskUncheckedUpdateManyWithoutPromptVersionNestedInput = {
-  create?: Prisma.XOR<Prisma.AiTaskCreateWithoutPromptVersionInput, Prisma.AiTaskUncheckedCreateWithoutPromptVersionInput> | Prisma.AiTaskCreateWithoutPromptVersionInput[] | Prisma.AiTaskUncheckedCreateWithoutPromptVersionInput[]
-  connectOrCreate?: Prisma.AiTaskCreateOrConnectWithoutPromptVersionInput | Prisma.AiTaskCreateOrConnectWithoutPromptVersionInput[]
-  upsert?: Prisma.AiTaskUpsertWithWhereUniqueWithoutPromptVersionInput | Prisma.AiTaskUpsertWithWhereUniqueWithoutPromptVersionInput[]
-  createMany?: Prisma.AiTaskCreateManyPromptVersionInputEnvelope
-  set?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
-  disconnect?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
-  delete?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
-  connect?: Prisma.AiTaskWhereUniqueInput | Prisma.AiTaskWhereUniqueInput[]
-  update?: Prisma.AiTaskUpdateWithWhereUniqueWithoutPromptVersionInput | Prisma.AiTaskUpdateWithWhereUniqueWithoutPromptVersionInput[]
-  updateMany?: Prisma.AiTaskUpdateManyWithWhereWithoutPromptVersionInput | Prisma.AiTaskUpdateManyWithWhereWithoutPromptVersionInput[]
   deleteMany?: Prisma.AiTaskScalarWhereInput | Prisma.AiTaskScalarWhereInput[]
 }
 
@@ -1022,7 +956,6 @@ export type AiTaskCreateWithoutUserInput = {
   content?: Prisma.ContentCreateNestedOneWithoutAiTasksInput
   asset?: Prisma.AssetCreateNestedOneWithoutAiTasksInput
   prompt?: Prisma.PromptTemplateCreateNestedOneWithoutAiTasksInput
-  promptVersion?: Prisma.PromptTemplateVersionCreateNestedOneWithoutAiTasksInput
   safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutAiTaskInput
   qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutAiTaskInput
   rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutAiTaskInput
@@ -1033,7 +966,6 @@ export type AiTaskUncheckedCreateWithoutUserInput = {
   contentId?: string | null
   assetId?: string | null
   promptId?: string | null
-  promptVersionId?: string | null
   taskType: $Enums.AiTaskType
   status?: $Enums.AiTaskStatus
   modelProvider: string
@@ -1088,7 +1020,6 @@ export type AiTaskScalarWhereInput = {
   contentId?: Prisma.StringNullableFilter<"AiTask"> | string | null
   assetId?: Prisma.StringNullableFilter<"AiTask"> | string | null
   promptId?: Prisma.StringNullableFilter<"AiTask"> | string | null
-  promptVersionId?: Prisma.StringNullableFilter<"AiTask"> | string | null
   taskType?: Prisma.EnumAiTaskTypeFilter<"AiTask"> | $Enums.AiTaskType
   status?: Prisma.EnumAiTaskStatusFilter<"AiTask"> | $Enums.AiTaskStatus
   modelProvider?: Prisma.StringFilter<"AiTask"> | string
@@ -1124,7 +1055,6 @@ export type AiTaskCreateWithoutPromptInput = {
   user?: Prisma.UserCreateNestedOneWithoutAiTasksInput
   content?: Prisma.ContentCreateNestedOneWithoutAiTasksInput
   asset?: Prisma.AssetCreateNestedOneWithoutAiTasksInput
-  promptVersion?: Prisma.PromptTemplateVersionCreateNestedOneWithoutAiTasksInput
   safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutAiTaskInput
   qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutAiTaskInput
   rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutAiTaskInput
@@ -1135,7 +1065,6 @@ export type AiTaskUncheckedCreateWithoutPromptInput = {
   userId?: string | null
   contentId?: string | null
   assetId?: string | null
-  promptVersionId?: string | null
   taskType: $Enums.AiTaskType
   status?: $Enums.AiTaskStatus
   modelProvider: string
@@ -1181,82 +1110,6 @@ export type AiTaskUpdateManyWithWhereWithoutPromptInput = {
   data: Prisma.XOR<Prisma.AiTaskUpdateManyMutationInput, Prisma.AiTaskUncheckedUpdateManyWithoutPromptInput>
 }
 
-export type AiTaskCreateWithoutPromptVersionInput = {
-  id?: string
-  taskType: $Enums.AiTaskType
-  status?: $Enums.AiTaskStatus
-  modelProvider: string
-  modelName?: string | null
-  inputSummary?: string | null
-  outputSummary?: string | null
-  inputHash?: string | null
-  tokenInput?: number | null
-  tokenOutput?: number | null
-  durationMs?: number | null
-  errorCode?: string | null
-  errorMessage?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  user?: Prisma.UserCreateNestedOneWithoutAiTasksInput
-  content?: Prisma.ContentCreateNestedOneWithoutAiTasksInput
-  asset?: Prisma.AssetCreateNestedOneWithoutAiTasksInput
-  prompt?: Prisma.PromptTemplateCreateNestedOneWithoutAiTasksInput
-  safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutAiTaskInput
-  qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutAiTaskInput
-  rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutAiTaskInput
-}
-
-export type AiTaskUncheckedCreateWithoutPromptVersionInput = {
-  id?: string
-  userId?: string | null
-  contentId?: string | null
-  assetId?: string | null
-  promptId?: string | null
-  taskType: $Enums.AiTaskType
-  status?: $Enums.AiTaskStatus
-  modelProvider: string
-  modelName?: string | null
-  inputSummary?: string | null
-  outputSummary?: string | null
-  inputHash?: string | null
-  tokenInput?: number | null
-  tokenOutput?: number | null
-  durationMs?: number | null
-  errorCode?: string | null
-  errorMessage?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  safetyReviews?: Prisma.SafetyReviewUncheckedCreateNestedManyWithoutAiTaskInput
-  qualityEvaluations?: Prisma.QualityEvaluationUncheckedCreateNestedManyWithoutAiTaskInput
-  rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutAiTaskInput
-}
-
-export type AiTaskCreateOrConnectWithoutPromptVersionInput = {
-  where: Prisma.AiTaskWhereUniqueInput
-  create: Prisma.XOR<Prisma.AiTaskCreateWithoutPromptVersionInput, Prisma.AiTaskUncheckedCreateWithoutPromptVersionInput>
-}
-
-export type AiTaskCreateManyPromptVersionInputEnvelope = {
-  data: Prisma.AiTaskCreateManyPromptVersionInput | Prisma.AiTaskCreateManyPromptVersionInput[]
-  skipDuplicates?: boolean
-}
-
-export type AiTaskUpsertWithWhereUniqueWithoutPromptVersionInput = {
-  where: Prisma.AiTaskWhereUniqueInput
-  update: Prisma.XOR<Prisma.AiTaskUpdateWithoutPromptVersionInput, Prisma.AiTaskUncheckedUpdateWithoutPromptVersionInput>
-  create: Prisma.XOR<Prisma.AiTaskCreateWithoutPromptVersionInput, Prisma.AiTaskUncheckedCreateWithoutPromptVersionInput>
-}
-
-export type AiTaskUpdateWithWhereUniqueWithoutPromptVersionInput = {
-  where: Prisma.AiTaskWhereUniqueInput
-  data: Prisma.XOR<Prisma.AiTaskUpdateWithoutPromptVersionInput, Prisma.AiTaskUncheckedUpdateWithoutPromptVersionInput>
-}
-
-export type AiTaskUpdateManyWithWhereWithoutPromptVersionInput = {
-  where: Prisma.AiTaskScalarWhereInput
-  data: Prisma.XOR<Prisma.AiTaskUpdateManyMutationInput, Prisma.AiTaskUncheckedUpdateManyWithoutPromptVersionInput>
-}
-
 export type AiTaskCreateWithoutAssetInput = {
   id?: string
   taskType: $Enums.AiTaskType
@@ -1276,7 +1129,6 @@ export type AiTaskCreateWithoutAssetInput = {
   user?: Prisma.UserCreateNestedOneWithoutAiTasksInput
   content?: Prisma.ContentCreateNestedOneWithoutAiTasksInput
   prompt?: Prisma.PromptTemplateCreateNestedOneWithoutAiTasksInput
-  promptVersion?: Prisma.PromptTemplateVersionCreateNestedOneWithoutAiTasksInput
   safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutAiTaskInput
   qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutAiTaskInput
   rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutAiTaskInput
@@ -1287,7 +1139,6 @@ export type AiTaskUncheckedCreateWithoutAssetInput = {
   userId?: string | null
   contentId?: string | null
   promptId?: string | null
-  promptVersionId?: string | null
   taskType: $Enums.AiTaskType
   status?: $Enums.AiTaskStatus
   modelProvider: string
@@ -1352,7 +1203,6 @@ export type AiTaskCreateWithoutContentInput = {
   user?: Prisma.UserCreateNestedOneWithoutAiTasksInput
   asset?: Prisma.AssetCreateNestedOneWithoutAiTasksInput
   prompt?: Prisma.PromptTemplateCreateNestedOneWithoutAiTasksInput
-  promptVersion?: Prisma.PromptTemplateVersionCreateNestedOneWithoutAiTasksInput
   safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutAiTaskInput
   qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutAiTaskInput
   rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutAiTaskInput
@@ -1363,7 +1213,6 @@ export type AiTaskUncheckedCreateWithoutContentInput = {
   userId?: string | null
   assetId?: string | null
   promptId?: string | null
-  promptVersionId?: string | null
   taskType: $Enums.AiTaskType
   status?: $Enums.AiTaskStatus
   modelProvider: string
@@ -1429,7 +1278,6 @@ export type AiTaskCreateWithoutSafetyReviewsInput = {
   content?: Prisma.ContentCreateNestedOneWithoutAiTasksInput
   asset?: Prisma.AssetCreateNestedOneWithoutAiTasksInput
   prompt?: Prisma.PromptTemplateCreateNestedOneWithoutAiTasksInput
-  promptVersion?: Prisma.PromptTemplateVersionCreateNestedOneWithoutAiTasksInput
   qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutAiTaskInput
   rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutAiTaskInput
 }
@@ -1440,7 +1288,6 @@ export type AiTaskUncheckedCreateWithoutSafetyReviewsInput = {
   contentId?: string | null
   assetId?: string | null
   promptId?: string | null
-  promptVersionId?: string | null
   taskType: $Enums.AiTaskType
   status?: $Enums.AiTaskStatus
   modelProvider: string
@@ -1495,7 +1342,6 @@ export type AiTaskUpdateWithoutSafetyReviewsInput = {
   content?: Prisma.ContentUpdateOneWithoutAiTasksNestedInput
   asset?: Prisma.AssetUpdateOneWithoutAiTasksNestedInput
   prompt?: Prisma.PromptTemplateUpdateOneWithoutAiTasksNestedInput
-  promptVersion?: Prisma.PromptTemplateVersionUpdateOneWithoutAiTasksNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutAiTaskNestedInput
   rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutAiTaskNestedInput
 }
@@ -1506,7 +1352,6 @@ export type AiTaskUncheckedUpdateWithoutSafetyReviewsInput = {
   contentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   assetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   promptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  promptVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taskType?: Prisma.EnumAiTaskTypeFieldUpdateOperationsInput | $Enums.AiTaskType
   status?: Prisma.EnumAiTaskStatusFieldUpdateOperationsInput | $Enums.AiTaskStatus
   modelProvider?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1545,7 +1390,6 @@ export type AiTaskCreateWithoutQualityEvaluationsInput = {
   content?: Prisma.ContentCreateNestedOneWithoutAiTasksInput
   asset?: Prisma.AssetCreateNestedOneWithoutAiTasksInput
   prompt?: Prisma.PromptTemplateCreateNestedOneWithoutAiTasksInput
-  promptVersion?: Prisma.PromptTemplateVersionCreateNestedOneWithoutAiTasksInput
   safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutAiTaskInput
   rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutAiTaskInput
 }
@@ -1556,7 +1400,6 @@ export type AiTaskUncheckedCreateWithoutQualityEvaluationsInput = {
   contentId?: string | null
   assetId?: string | null
   promptId?: string | null
-  promptVersionId?: string | null
   taskType: $Enums.AiTaskType
   status?: $Enums.AiTaskStatus
   modelProvider: string
@@ -1611,7 +1454,6 @@ export type AiTaskUpdateWithoutQualityEvaluationsInput = {
   content?: Prisma.ContentUpdateOneWithoutAiTasksNestedInput
   asset?: Prisma.AssetUpdateOneWithoutAiTasksNestedInput
   prompt?: Prisma.PromptTemplateUpdateOneWithoutAiTasksNestedInput
-  promptVersion?: Prisma.PromptTemplateVersionUpdateOneWithoutAiTasksNestedInput
   safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutAiTaskNestedInput
   rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutAiTaskNestedInput
 }
@@ -1622,7 +1464,6 @@ export type AiTaskUncheckedUpdateWithoutQualityEvaluationsInput = {
   contentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   assetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   promptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  promptVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taskType?: Prisma.EnumAiTaskTypeFieldUpdateOperationsInput | $Enums.AiTaskType
   status?: Prisma.EnumAiTaskStatusFieldUpdateOperationsInput | $Enums.AiTaskStatus
   modelProvider?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1661,7 +1502,6 @@ export type AiTaskCreateWithoutRewriteRecordsInput = {
   content?: Prisma.ContentCreateNestedOneWithoutAiTasksInput
   asset?: Prisma.AssetCreateNestedOneWithoutAiTasksInput
   prompt?: Prisma.PromptTemplateCreateNestedOneWithoutAiTasksInput
-  promptVersion?: Prisma.PromptTemplateVersionCreateNestedOneWithoutAiTasksInput
   safetyReviews?: Prisma.SafetyReviewCreateNestedManyWithoutAiTaskInput
   qualityEvaluations?: Prisma.QualityEvaluationCreateNestedManyWithoutAiTaskInput
 }
@@ -1672,7 +1512,6 @@ export type AiTaskUncheckedCreateWithoutRewriteRecordsInput = {
   contentId?: string | null
   assetId?: string | null
   promptId?: string | null
-  promptVersionId?: string | null
   taskType: $Enums.AiTaskType
   status?: $Enums.AiTaskStatus
   modelProvider: string
@@ -1727,7 +1566,6 @@ export type AiTaskUpdateWithoutRewriteRecordsInput = {
   content?: Prisma.ContentUpdateOneWithoutAiTasksNestedInput
   asset?: Prisma.AssetUpdateOneWithoutAiTasksNestedInput
   prompt?: Prisma.PromptTemplateUpdateOneWithoutAiTasksNestedInput
-  promptVersion?: Prisma.PromptTemplateVersionUpdateOneWithoutAiTasksNestedInput
   safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutAiTaskNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutAiTaskNestedInput
 }
@@ -1738,7 +1576,6 @@ export type AiTaskUncheckedUpdateWithoutRewriteRecordsInput = {
   contentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   assetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   promptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  promptVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taskType?: Prisma.EnumAiTaskTypeFieldUpdateOperationsInput | $Enums.AiTaskType
   status?: Prisma.EnumAiTaskStatusFieldUpdateOperationsInput | $Enums.AiTaskStatus
   modelProvider?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1762,7 +1599,6 @@ export type AiTaskCreateManyUserInput = {
   contentId?: string | null
   assetId?: string | null
   promptId?: string | null
-  promptVersionId?: string | null
   taskType: $Enums.AiTaskType
   status?: $Enums.AiTaskStatus
   modelProvider: string
@@ -1798,7 +1634,6 @@ export type AiTaskUpdateWithoutUserInput = {
   content?: Prisma.ContentUpdateOneWithoutAiTasksNestedInput
   asset?: Prisma.AssetUpdateOneWithoutAiTasksNestedInput
   prompt?: Prisma.PromptTemplateUpdateOneWithoutAiTasksNestedInput
-  promptVersion?: Prisma.PromptTemplateVersionUpdateOneWithoutAiTasksNestedInput
   safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutAiTaskNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutAiTaskNestedInput
   rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutAiTaskNestedInput
@@ -1809,7 +1644,6 @@ export type AiTaskUncheckedUpdateWithoutUserInput = {
   contentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   assetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   promptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  promptVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taskType?: Prisma.EnumAiTaskTypeFieldUpdateOperationsInput | $Enums.AiTaskType
   status?: Prisma.EnumAiTaskStatusFieldUpdateOperationsInput | $Enums.AiTaskStatus
   modelProvider?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1834,7 +1668,6 @@ export type AiTaskUncheckedUpdateManyWithoutUserInput = {
   contentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   assetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   promptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  promptVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taskType?: Prisma.EnumAiTaskTypeFieldUpdateOperationsInput | $Enums.AiTaskType
   status?: Prisma.EnumAiTaskStatusFieldUpdateOperationsInput | $Enums.AiTaskStatus
   modelProvider?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1856,7 +1689,6 @@ export type AiTaskCreateManyPromptInput = {
   userId?: string | null
   contentId?: string | null
   assetId?: string | null
-  promptVersionId?: string | null
   taskType: $Enums.AiTaskType
   status?: $Enums.AiTaskStatus
   modelProvider: string
@@ -1892,7 +1724,6 @@ export type AiTaskUpdateWithoutPromptInput = {
   user?: Prisma.UserUpdateOneWithoutAiTasksNestedInput
   content?: Prisma.ContentUpdateOneWithoutAiTasksNestedInput
   asset?: Prisma.AssetUpdateOneWithoutAiTasksNestedInput
-  promptVersion?: Prisma.PromptTemplateVersionUpdateOneWithoutAiTasksNestedInput
   safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutAiTaskNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutAiTaskNestedInput
   rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutAiTaskNestedInput
@@ -1903,7 +1734,6 @@ export type AiTaskUncheckedUpdateWithoutPromptInput = {
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   assetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  promptVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taskType?: Prisma.EnumAiTaskTypeFieldUpdateOperationsInput | $Enums.AiTaskType
   status?: Prisma.EnumAiTaskStatusFieldUpdateOperationsInput | $Enums.AiTaskStatus
   modelProvider?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1928,101 +1758,6 @@ export type AiTaskUncheckedUpdateManyWithoutPromptInput = {
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   assetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  promptVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  taskType?: Prisma.EnumAiTaskTypeFieldUpdateOperationsInput | $Enums.AiTaskType
-  status?: Prisma.EnumAiTaskStatusFieldUpdateOperationsInput | $Enums.AiTaskStatus
-  modelProvider?: Prisma.StringFieldUpdateOperationsInput | string
-  modelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  inputSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  outputSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  inputHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tokenInput?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  tokenOutput?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  errorCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type AiTaskCreateManyPromptVersionInput = {
-  id?: string
-  userId?: string | null
-  contentId?: string | null
-  assetId?: string | null
-  promptId?: string | null
-  taskType: $Enums.AiTaskType
-  status?: $Enums.AiTaskStatus
-  modelProvider: string
-  modelName?: string | null
-  inputSummary?: string | null
-  outputSummary?: string | null
-  inputHash?: string | null
-  tokenInput?: number | null
-  tokenOutput?: number | null
-  durationMs?: number | null
-  errorCode?: string | null
-  errorMessage?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type AiTaskUpdateWithoutPromptVersionInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  taskType?: Prisma.EnumAiTaskTypeFieldUpdateOperationsInput | $Enums.AiTaskType
-  status?: Prisma.EnumAiTaskStatusFieldUpdateOperationsInput | $Enums.AiTaskStatus
-  modelProvider?: Prisma.StringFieldUpdateOperationsInput | string
-  modelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  inputSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  outputSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  inputHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tokenInput?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  tokenOutput?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  errorCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneWithoutAiTasksNestedInput
-  content?: Prisma.ContentUpdateOneWithoutAiTasksNestedInput
-  asset?: Prisma.AssetUpdateOneWithoutAiTasksNestedInput
-  prompt?: Prisma.PromptTemplateUpdateOneWithoutAiTasksNestedInput
-  safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutAiTaskNestedInput
-  qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutAiTaskNestedInput
-  rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutAiTaskNestedInput
-}
-
-export type AiTaskUncheckedUpdateWithoutPromptVersionInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  assetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  promptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  taskType?: Prisma.EnumAiTaskTypeFieldUpdateOperationsInput | $Enums.AiTaskType
-  status?: Prisma.EnumAiTaskStatusFieldUpdateOperationsInput | $Enums.AiTaskStatus
-  modelProvider?: Prisma.StringFieldUpdateOperationsInput | string
-  modelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  inputSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  outputSummary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  inputHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tokenInput?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  tokenOutput?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  errorCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  safetyReviews?: Prisma.SafetyReviewUncheckedUpdateManyWithoutAiTaskNestedInput
-  qualityEvaluations?: Prisma.QualityEvaluationUncheckedUpdateManyWithoutAiTaskNestedInput
-  rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutAiTaskNestedInput
-}
-
-export type AiTaskUncheckedUpdateManyWithoutPromptVersionInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  assetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  promptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taskType?: Prisma.EnumAiTaskTypeFieldUpdateOperationsInput | $Enums.AiTaskType
   status?: Prisma.EnumAiTaskStatusFieldUpdateOperationsInput | $Enums.AiTaskStatus
   modelProvider?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2044,7 +1779,6 @@ export type AiTaskCreateManyAssetInput = {
   userId?: string | null
   contentId?: string | null
   promptId?: string | null
-  promptVersionId?: string | null
   taskType: $Enums.AiTaskType
   status?: $Enums.AiTaskStatus
   modelProvider: string
@@ -2080,7 +1814,6 @@ export type AiTaskUpdateWithoutAssetInput = {
   user?: Prisma.UserUpdateOneWithoutAiTasksNestedInput
   content?: Prisma.ContentUpdateOneWithoutAiTasksNestedInput
   prompt?: Prisma.PromptTemplateUpdateOneWithoutAiTasksNestedInput
-  promptVersion?: Prisma.PromptTemplateVersionUpdateOneWithoutAiTasksNestedInput
   safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutAiTaskNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutAiTaskNestedInput
   rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutAiTaskNestedInput
@@ -2091,7 +1824,6 @@ export type AiTaskUncheckedUpdateWithoutAssetInput = {
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   promptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  promptVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taskType?: Prisma.EnumAiTaskTypeFieldUpdateOperationsInput | $Enums.AiTaskType
   status?: Prisma.EnumAiTaskStatusFieldUpdateOperationsInput | $Enums.AiTaskStatus
   modelProvider?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2116,7 +1848,6 @@ export type AiTaskUncheckedUpdateManyWithoutAssetInput = {
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   promptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  promptVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taskType?: Prisma.EnumAiTaskTypeFieldUpdateOperationsInput | $Enums.AiTaskType
   status?: Prisma.EnumAiTaskStatusFieldUpdateOperationsInput | $Enums.AiTaskStatus
   modelProvider?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2138,7 +1869,6 @@ export type AiTaskCreateManyContentInput = {
   userId?: string | null
   assetId?: string | null
   promptId?: string | null
-  promptVersionId?: string | null
   taskType: $Enums.AiTaskType
   status?: $Enums.AiTaskStatus
   modelProvider: string
@@ -2174,7 +1904,6 @@ export type AiTaskUpdateWithoutContentInput = {
   user?: Prisma.UserUpdateOneWithoutAiTasksNestedInput
   asset?: Prisma.AssetUpdateOneWithoutAiTasksNestedInput
   prompt?: Prisma.PromptTemplateUpdateOneWithoutAiTasksNestedInput
-  promptVersion?: Prisma.PromptTemplateVersionUpdateOneWithoutAiTasksNestedInput
   safetyReviews?: Prisma.SafetyReviewUpdateManyWithoutAiTaskNestedInput
   qualityEvaluations?: Prisma.QualityEvaluationUpdateManyWithoutAiTaskNestedInput
   rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutAiTaskNestedInput
@@ -2185,7 +1914,6 @@ export type AiTaskUncheckedUpdateWithoutContentInput = {
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   assetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   promptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  promptVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taskType?: Prisma.EnumAiTaskTypeFieldUpdateOperationsInput | $Enums.AiTaskType
   status?: Prisma.EnumAiTaskStatusFieldUpdateOperationsInput | $Enums.AiTaskStatus
   modelProvider?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2210,7 +1938,6 @@ export type AiTaskUncheckedUpdateManyWithoutContentInput = {
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   assetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   promptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  promptVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   taskType?: Prisma.EnumAiTaskTypeFieldUpdateOperationsInput | $Enums.AiTaskType
   status?: Prisma.EnumAiTaskStatusFieldUpdateOperationsInput | $Enums.AiTaskStatus
   modelProvider?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2282,7 +2009,6 @@ export type AiTaskSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   contentId?: boolean
   assetId?: boolean
   promptId?: boolean
-  promptVersionId?: boolean
   taskType?: boolean
   status?: boolean
   modelProvider?: boolean
@@ -2301,7 +2027,6 @@ export type AiTaskSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   content?: boolean | Prisma.AiTask$contentArgs<ExtArgs>
   asset?: boolean | Prisma.AiTask$assetArgs<ExtArgs>
   prompt?: boolean | Prisma.AiTask$promptArgs<ExtArgs>
-  promptVersion?: boolean | Prisma.AiTask$promptVersionArgs<ExtArgs>
   safetyReviews?: boolean | Prisma.AiTask$safetyReviewsArgs<ExtArgs>
   qualityEvaluations?: boolean | Prisma.AiTask$qualityEvaluationsArgs<ExtArgs>
   rewriteRecords?: boolean | Prisma.AiTask$rewriteRecordsArgs<ExtArgs>
@@ -2314,7 +2039,6 @@ export type AiTaskSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   contentId?: boolean
   assetId?: boolean
   promptId?: boolean
-  promptVersionId?: boolean
   taskType?: boolean
   status?: boolean
   modelProvider?: boolean
@@ -2333,7 +2057,6 @@ export type AiTaskSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   content?: boolean | Prisma.AiTask$contentArgs<ExtArgs>
   asset?: boolean | Prisma.AiTask$assetArgs<ExtArgs>
   prompt?: boolean | Prisma.AiTask$promptArgs<ExtArgs>
-  promptVersion?: boolean | Prisma.AiTask$promptVersionArgs<ExtArgs>
 }, ExtArgs["result"]["aiTask"]>
 
 export type AiTaskSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -2342,7 +2065,6 @@ export type AiTaskSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   contentId?: boolean
   assetId?: boolean
   promptId?: boolean
-  promptVersionId?: boolean
   taskType?: boolean
   status?: boolean
   modelProvider?: boolean
@@ -2361,7 +2083,6 @@ export type AiTaskSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   content?: boolean | Prisma.AiTask$contentArgs<ExtArgs>
   asset?: boolean | Prisma.AiTask$assetArgs<ExtArgs>
   prompt?: boolean | Prisma.AiTask$promptArgs<ExtArgs>
-  promptVersion?: boolean | Prisma.AiTask$promptVersionArgs<ExtArgs>
 }, ExtArgs["result"]["aiTask"]>
 
 export type AiTaskSelectScalar = {
@@ -2370,7 +2091,6 @@ export type AiTaskSelectScalar = {
   contentId?: boolean
   assetId?: boolean
   promptId?: boolean
-  promptVersionId?: boolean
   taskType?: boolean
   status?: boolean
   modelProvider?: boolean
@@ -2387,13 +2107,12 @@ export type AiTaskSelectScalar = {
   updatedAt?: boolean
 }
 
-export type AiTaskOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "contentId" | "assetId" | "promptId" | "promptVersionId" | "taskType" | "status" | "modelProvider" | "modelName" | "inputSummary" | "outputSummary" | "inputHash" | "tokenInput" | "tokenOutput" | "durationMs" | "errorCode" | "errorMessage" | "createdAt" | "updatedAt", ExtArgs["result"]["aiTask"]>
+export type AiTaskOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "contentId" | "assetId" | "promptId" | "taskType" | "status" | "modelProvider" | "modelName" | "inputSummary" | "outputSummary" | "inputHash" | "tokenInput" | "tokenOutput" | "durationMs" | "errorCode" | "errorMessage" | "createdAt" | "updatedAt", ExtArgs["result"]["aiTask"]>
 export type AiTaskInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.AiTask$userArgs<ExtArgs>
   content?: boolean | Prisma.AiTask$contentArgs<ExtArgs>
   asset?: boolean | Prisma.AiTask$assetArgs<ExtArgs>
   prompt?: boolean | Prisma.AiTask$promptArgs<ExtArgs>
-  promptVersion?: boolean | Prisma.AiTask$promptVersionArgs<ExtArgs>
   safetyReviews?: boolean | Prisma.AiTask$safetyReviewsArgs<ExtArgs>
   qualityEvaluations?: boolean | Prisma.AiTask$qualityEvaluationsArgs<ExtArgs>
   rewriteRecords?: boolean | Prisma.AiTask$rewriteRecordsArgs<ExtArgs>
@@ -2404,14 +2123,12 @@ export type AiTaskIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   content?: boolean | Prisma.AiTask$contentArgs<ExtArgs>
   asset?: boolean | Prisma.AiTask$assetArgs<ExtArgs>
   prompt?: boolean | Prisma.AiTask$promptArgs<ExtArgs>
-  promptVersion?: boolean | Prisma.AiTask$promptVersionArgs<ExtArgs>
 }
 export type AiTaskIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.AiTask$userArgs<ExtArgs>
   content?: boolean | Prisma.AiTask$contentArgs<ExtArgs>
   asset?: boolean | Prisma.AiTask$assetArgs<ExtArgs>
   prompt?: boolean | Prisma.AiTask$promptArgs<ExtArgs>
-  promptVersion?: boolean | Prisma.AiTask$promptVersionArgs<ExtArgs>
 }
 
 export type $AiTaskPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2421,7 +2138,6 @@ export type $AiTaskPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     content: Prisma.$ContentPayload<ExtArgs> | null
     asset: Prisma.$AssetPayload<ExtArgs> | null
     prompt: Prisma.$PromptTemplatePayload<ExtArgs> | null
-    promptVersion: Prisma.$PromptTemplateVersionPayload<ExtArgs> | null
     safetyReviews: Prisma.$SafetyReviewPayload<ExtArgs>[]
     qualityEvaluations: Prisma.$QualityEvaluationPayload<ExtArgs>[]
     rewriteRecords: Prisma.$RewriteRecordPayload<ExtArgs>[]
@@ -2432,7 +2148,6 @@ export type $AiTaskPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     contentId: string | null
     assetId: string | null
     promptId: string | null
-    promptVersionId: string | null
     taskType: $Enums.AiTaskType
     status: $Enums.AiTaskStatus
     modelProvider: string
@@ -2845,7 +2560,6 @@ export interface Prisma__AiTaskClient<T, Null = never, ExtArgs extends runtime.T
   content<T extends Prisma.AiTask$contentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AiTask$contentArgs<ExtArgs>>): Prisma.Prisma__ContentClient<runtime.Types.Result.GetResult<Prisma.$ContentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   asset<T extends Prisma.AiTask$assetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AiTask$assetArgs<ExtArgs>>): Prisma.Prisma__AssetClient<runtime.Types.Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   prompt<T extends Prisma.AiTask$promptArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AiTask$promptArgs<ExtArgs>>): Prisma.Prisma__PromptTemplateClient<runtime.Types.Result.GetResult<Prisma.$PromptTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  promptVersion<T extends Prisma.AiTask$promptVersionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AiTask$promptVersionArgs<ExtArgs>>): Prisma.Prisma__PromptTemplateVersionClient<runtime.Types.Result.GetResult<Prisma.$PromptTemplateVersionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   safetyReviews<T extends Prisma.AiTask$safetyReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AiTask$safetyReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SafetyReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   qualityEvaluations<T extends Prisma.AiTask$qualityEvaluationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AiTask$qualityEvaluationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QualityEvaluationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   rewriteRecords<T extends Prisma.AiTask$rewriteRecordsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AiTask$rewriteRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RewriteRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2883,7 +2597,6 @@ export interface AiTaskFieldRefs {
   readonly contentId: Prisma.FieldRef<"AiTask", 'String'>
   readonly assetId: Prisma.FieldRef<"AiTask", 'String'>
   readonly promptId: Prisma.FieldRef<"AiTask", 'String'>
-  readonly promptVersionId: Prisma.FieldRef<"AiTask", 'String'>
   readonly taskType: Prisma.FieldRef<"AiTask", 'AiTaskType'>
   readonly status: Prisma.FieldRef<"AiTask", 'AiTaskStatus'>
   readonly modelProvider: Prisma.FieldRef<"AiTask", 'String'>
@@ -3372,25 +3085,6 @@ export type AiTask$promptArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   include?: Prisma.PromptTemplateInclude<ExtArgs> | null
   where?: Prisma.PromptTemplateWhereInput
-}
-
-/**
- * AiTask.promptVersion
- */
-export type AiTask$promptVersionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the PromptTemplateVersion
-   */
-  select?: Prisma.PromptTemplateVersionSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the PromptTemplateVersion
-   */
-  omit?: Prisma.PromptTemplateVersionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.PromptTemplateVersionInclude<ExtArgs> | null
-  where?: Prisma.PromptTemplateVersionWhereInput
 }
 
 /**
