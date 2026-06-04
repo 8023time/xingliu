@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, Matches, MinLength } from 'class-validator';
+import { IsString, Matches, Length } from 'class-validator';
 import type { RegisterUserRequest } from '@xingliu/shared/user';
 
 export class RegisterUserDto implements RegisterUserRequest {
@@ -24,14 +24,17 @@ export class RegisterUserDto implements RegisterUserRequest {
     example: '张三',
   })
   @IsString()
-  @MinLength(2, { message: '用户名至少需要2个字符' })
+  @Length(1, 12, { message: '用户名长度必须在 1 到 12 个字符之间' })
   username!: string;
 
   @ApiProperty({
     description: '密码',
-    example: 'P@ssw0rd!',
+    example: '123456abc',
   })
   @IsString()
-  @MinLength(6, { message: '密码至少需要6个字符' })
+  @Length(6, 16, { message: '密码长度必须在 6 到 16 位之间' })
+  @Matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\S]+$/, {
+    message: '密码必须包含字母和数字',
+  })
   password!: string;
 }

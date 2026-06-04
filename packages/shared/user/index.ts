@@ -48,3 +48,16 @@ export interface LoginUserResponse {
 
 // 注册返回的登数据类型
 export type RegisterUserResponse = LoginUserResponse;
+
+// 刷新令牌请求的数据类型
+export type RefreshTokenRequest = {
+  refreshToken: string;
+};
+
+// 刷新令牌返回的数据类型
+export type RefreshTokenResponse = LoginUserResponse;
+
+// 退出登录需要的数据类型
+export type LogoutUserRequest = {
+  refreshToken: string;
+};

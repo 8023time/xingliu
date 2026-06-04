@@ -34,7 +34,7 @@ export class UserService {
         phone,
         username,
         passwordHash: password,
-        email: email || null,
+        email: email ?? null,
       },
       select: {
         id: true,
