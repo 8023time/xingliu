@@ -297,6 +297,7 @@ model DraftSnapshot {
   userId         String          @map("user_id")
   baseVersionId  String?         @map("base_version_id")
   title          String
+  summary        String?
   body           String
   bodyJson       Json?           @map("body_json")
   assetIds       Json?           @map("asset_ids")
@@ -310,6 +311,7 @@ model DraftSnapshot {
   user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   baseVersion ContentVersion? @relation(fields: [baseVersionId], references: [id], onDelete: SetNull)
 
+  @@unique([contentId, serverRevision])
   @@index([contentId, createdAt])
   @@index([userId, createdAt])
   @@map("draft_snapshots")

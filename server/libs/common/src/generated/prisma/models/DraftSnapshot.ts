@@ -42,6 +42,7 @@ export type DraftSnapshotMinAggregateOutputType = {
   userId: string | null
   baseVersionId: string | null
   title: string | null
+  summary: string | null
   body: string | null
   clientRevision: number | null
   serverRevision: number | null
@@ -56,6 +57,7 @@ export type DraftSnapshotMaxAggregateOutputType = {
   userId: string | null
   baseVersionId: string | null
   title: string | null
+  summary: string | null
   body: string | null
   clientRevision: number | null
   serverRevision: number | null
@@ -70,6 +72,7 @@ export type DraftSnapshotCountAggregateOutputType = {
   userId: number
   baseVersionId: number
   title: number
+  summary: number
   body: number
   bodyJson: number
   assetIds: number
@@ -98,6 +101,7 @@ export type DraftSnapshotMinAggregateInputType = {
   userId?: true
   baseVersionId?: true
   title?: true
+  summary?: true
   body?: true
   clientRevision?: true
   serverRevision?: true
@@ -112,6 +116,7 @@ export type DraftSnapshotMaxAggregateInputType = {
   userId?: true
   baseVersionId?: true
   title?: true
+  summary?: true
   body?: true
   clientRevision?: true
   serverRevision?: true
@@ -126,6 +131,7 @@ export type DraftSnapshotCountAggregateInputType = {
   userId?: true
   baseVersionId?: true
   title?: true
+  summary?: true
   body?: true
   bodyJson?: true
   assetIds?: true
@@ -229,6 +235,7 @@ export type DraftSnapshotGroupByOutputType = {
   userId: string
   baseVersionId: string | null
   title: string
+  summary: string | null
   body: string
   bodyJson: runtime.JsonValue | null
   assetIds: runtime.JsonValue | null
@@ -268,6 +275,7 @@ export type DraftSnapshotWhereInput = {
   userId?: Prisma.StringFilter<"DraftSnapshot"> | string
   baseVersionId?: Prisma.StringNullableFilter<"DraftSnapshot"> | string | null
   title?: Prisma.StringFilter<"DraftSnapshot"> | string
+  summary?: Prisma.StringNullableFilter<"DraftSnapshot"> | string | null
   body?: Prisma.StringFilter<"DraftSnapshot"> | string
   bodyJson?: Prisma.JsonNullableFilter<"DraftSnapshot">
   assetIds?: Prisma.JsonNullableFilter<"DraftSnapshot">
@@ -287,6 +295,7 @@ export type DraftSnapshotOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   baseVersionId?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
+  summary?: Prisma.SortOrderInput | Prisma.SortOrder
   body?: Prisma.SortOrder
   bodyJson?: Prisma.SortOrderInput | Prisma.SortOrder
   assetIds?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -302,6 +311,7 @@ export type DraftSnapshotOrderByWithRelationInput = {
 
 export type DraftSnapshotWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  contentId_serverRevision?: Prisma.DraftSnapshotContentIdServerRevisionCompoundUniqueInput
   AND?: Prisma.DraftSnapshotWhereInput | Prisma.DraftSnapshotWhereInput[]
   OR?: Prisma.DraftSnapshotWhereInput[]
   NOT?: Prisma.DraftSnapshotWhereInput | Prisma.DraftSnapshotWhereInput[]
@@ -309,6 +319,7 @@ export type DraftSnapshotWhereUniqueInput = Prisma.AtLeast<{
   userId?: Prisma.StringFilter<"DraftSnapshot"> | string
   baseVersionId?: Prisma.StringNullableFilter<"DraftSnapshot"> | string | null
   title?: Prisma.StringFilter<"DraftSnapshot"> | string
+  summary?: Prisma.StringNullableFilter<"DraftSnapshot"> | string | null
   body?: Prisma.StringFilter<"DraftSnapshot"> | string
   bodyJson?: Prisma.JsonNullableFilter<"DraftSnapshot">
   assetIds?: Prisma.JsonNullableFilter<"DraftSnapshot">
@@ -320,7 +331,7 @@ export type DraftSnapshotWhereUniqueInput = Prisma.AtLeast<{
   content?: Prisma.XOR<Prisma.ContentScalarRelationFilter, Prisma.ContentWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   baseVersion?: Prisma.XOR<Prisma.ContentVersionNullableScalarRelationFilter, Prisma.ContentVersionWhereInput> | null
-}, "id">
+}, "id" | "contentId_serverRevision">
 
 export type DraftSnapshotOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -328,6 +339,7 @@ export type DraftSnapshotOrderByWithAggregationInput = {
   userId?: Prisma.SortOrder
   baseVersionId?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
+  summary?: Prisma.SortOrderInput | Prisma.SortOrder
   body?: Prisma.SortOrder
   bodyJson?: Prisma.SortOrderInput | Prisma.SortOrder
   assetIds?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -352,6 +364,7 @@ export type DraftSnapshotScalarWhereWithAggregatesInput = {
   userId?: Prisma.StringWithAggregatesFilter<"DraftSnapshot"> | string
   baseVersionId?: Prisma.StringNullableWithAggregatesFilter<"DraftSnapshot"> | string | null
   title?: Prisma.StringWithAggregatesFilter<"DraftSnapshot"> | string
+  summary?: Prisma.StringNullableWithAggregatesFilter<"DraftSnapshot"> | string | null
   body?: Prisma.StringWithAggregatesFilter<"DraftSnapshot"> | string
   bodyJson?: Prisma.JsonNullableWithAggregatesFilter<"DraftSnapshot">
   assetIds?: Prisma.JsonNullableWithAggregatesFilter<"DraftSnapshot">
@@ -365,6 +378,7 @@ export type DraftSnapshotScalarWhereWithAggregatesInput = {
 export type DraftSnapshotCreateInput = {
   id?: string
   title: string
+  summary?: string | null
   body: string
   bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -384,6 +398,7 @@ export type DraftSnapshotUncheckedCreateInput = {
   userId: string
   baseVersionId?: string | null
   title: string
+  summary?: string | null
   body: string
   bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -397,6 +412,7 @@ export type DraftSnapshotUncheckedCreateInput = {
 export type DraftSnapshotUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -416,6 +432,7 @@ export type DraftSnapshotUncheckedUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   baseVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -432,6 +449,7 @@ export type DraftSnapshotCreateManyInput = {
   userId: string
   baseVersionId?: string | null
   title: string
+  summary?: string | null
   body: string
   bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -445,6 +463,7 @@ export type DraftSnapshotCreateManyInput = {
 export type DraftSnapshotUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -461,6 +480,7 @@ export type DraftSnapshotUncheckedUpdateManyInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   baseVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -481,12 +501,18 @@ export type DraftSnapshotOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type DraftSnapshotContentIdServerRevisionCompoundUniqueInput = {
+  contentId: string
+  serverRevision: number
+}
+
 export type DraftSnapshotCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   contentId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   baseVersionId?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  summary?: Prisma.SortOrder
   body?: Prisma.SortOrder
   bodyJson?: Prisma.SortOrder
   assetIds?: Prisma.SortOrder
@@ -508,6 +534,7 @@ export type DraftSnapshotMaxOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   baseVersionId?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  summary?: Prisma.SortOrder
   body?: Prisma.SortOrder
   clientRevision?: Prisma.SortOrder
   serverRevision?: Prisma.SortOrder
@@ -522,6 +549,7 @@ export type DraftSnapshotMinOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   baseVersionId?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  summary?: Prisma.SortOrder
   body?: Prisma.SortOrder
   clientRevision?: Prisma.SortOrder
   serverRevision?: Prisma.SortOrder
@@ -672,6 +700,7 @@ export type EnumDraftSavedFromFieldUpdateOperationsInput = {
 export type DraftSnapshotCreateWithoutUserInput = {
   id?: string
   title: string
+  summary?: string | null
   body: string
   bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -689,6 +718,7 @@ export type DraftSnapshotUncheckedCreateWithoutUserInput = {
   contentId: string
   baseVersionId?: string | null
   title: string
+  summary?: string | null
   body: string
   bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -734,6 +764,7 @@ export type DraftSnapshotScalarWhereInput = {
   userId?: Prisma.StringFilter<"DraftSnapshot"> | string
   baseVersionId?: Prisma.StringNullableFilter<"DraftSnapshot"> | string | null
   title?: Prisma.StringFilter<"DraftSnapshot"> | string
+  summary?: Prisma.StringNullableFilter<"DraftSnapshot"> | string | null
   body?: Prisma.StringFilter<"DraftSnapshot"> | string
   bodyJson?: Prisma.JsonNullableFilter<"DraftSnapshot">
   assetIds?: Prisma.JsonNullableFilter<"DraftSnapshot">
@@ -747,6 +778,7 @@ export type DraftSnapshotScalarWhereInput = {
 export type DraftSnapshotCreateWithoutContentInput = {
   id?: string
   title: string
+  summary?: string | null
   body: string
   bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -764,6 +796,7 @@ export type DraftSnapshotUncheckedCreateWithoutContentInput = {
   userId: string
   baseVersionId?: string | null
   title: string
+  summary?: string | null
   body: string
   bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -803,6 +836,7 @@ export type DraftSnapshotUpdateManyWithWhereWithoutContentInput = {
 export type DraftSnapshotCreateWithoutBaseVersionInput = {
   id?: string
   title: string
+  summary?: string | null
   body: string
   bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -820,6 +854,7 @@ export type DraftSnapshotUncheckedCreateWithoutBaseVersionInput = {
   contentId: string
   userId: string
   title: string
+  summary?: string | null
   body: string
   bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -861,6 +896,7 @@ export type DraftSnapshotCreateManyUserInput = {
   contentId: string
   baseVersionId?: string | null
   title: string
+  summary?: string | null
   body: string
   bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -874,6 +910,7 @@ export type DraftSnapshotCreateManyUserInput = {
 export type DraftSnapshotUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -891,6 +928,7 @@ export type DraftSnapshotUncheckedUpdateWithoutUserInput = {
   contentId?: Prisma.StringFieldUpdateOperationsInput | string
   baseVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -906,6 +944,7 @@ export type DraftSnapshotUncheckedUpdateManyWithoutUserInput = {
   contentId?: Prisma.StringFieldUpdateOperationsInput | string
   baseVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -921,6 +960,7 @@ export type DraftSnapshotCreateManyContentInput = {
   userId: string
   baseVersionId?: string | null
   title: string
+  summary?: string | null
   body: string
   bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -934,6 +974,7 @@ export type DraftSnapshotCreateManyContentInput = {
 export type DraftSnapshotUpdateWithoutContentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -951,6 +992,7 @@ export type DraftSnapshotUncheckedUpdateWithoutContentInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   baseVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -966,6 +1008,7 @@ export type DraftSnapshotUncheckedUpdateManyWithoutContentInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   baseVersionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -981,6 +1024,7 @@ export type DraftSnapshotCreateManyBaseVersionInput = {
   contentId: string
   userId: string
   title: string
+  summary?: string | null
   body: string
   bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -994,6 +1038,7 @@ export type DraftSnapshotCreateManyBaseVersionInput = {
 export type DraftSnapshotUpdateWithoutBaseVersionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1011,6 +1056,7 @@ export type DraftSnapshotUncheckedUpdateWithoutBaseVersionInput = {
   contentId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1026,6 +1072,7 @@ export type DraftSnapshotUncheckedUpdateManyWithoutBaseVersionInput = {
   contentId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   body?: Prisma.StringFieldUpdateOperationsInput | string
   bodyJson?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assetIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1044,6 +1091,7 @@ export type DraftSnapshotSelect<ExtArgs extends runtime.Types.Extensions.Interna
   userId?: boolean
   baseVersionId?: boolean
   title?: boolean
+  summary?: boolean
   body?: boolean
   bodyJson?: boolean
   assetIds?: boolean
@@ -1063,6 +1111,7 @@ export type DraftSnapshotSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   userId?: boolean
   baseVersionId?: boolean
   title?: boolean
+  summary?: boolean
   body?: boolean
   bodyJson?: boolean
   assetIds?: boolean
@@ -1082,6 +1131,7 @@ export type DraftSnapshotSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   userId?: boolean
   baseVersionId?: boolean
   title?: boolean
+  summary?: boolean
   body?: boolean
   bodyJson?: boolean
   assetIds?: boolean
@@ -1101,6 +1151,7 @@ export type DraftSnapshotSelectScalar = {
   userId?: boolean
   baseVersionId?: boolean
   title?: boolean
+  summary?: boolean
   body?: boolean
   bodyJson?: boolean
   assetIds?: boolean
@@ -1111,7 +1162,7 @@ export type DraftSnapshotSelectScalar = {
   createdAt?: boolean
 }
 
-export type DraftSnapshotOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "contentId" | "userId" | "baseVersionId" | "title" | "body" | "bodyJson" | "assetIds" | "clientRevision" | "serverRevision" | "syncStatus" | "savedFrom" | "createdAt", ExtArgs["result"]["draftSnapshot"]>
+export type DraftSnapshotOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "contentId" | "userId" | "baseVersionId" | "title" | "summary" | "body" | "bodyJson" | "assetIds" | "clientRevision" | "serverRevision" | "syncStatus" | "savedFrom" | "createdAt", ExtArgs["result"]["draftSnapshot"]>
 export type DraftSnapshotInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   content?: boolean | Prisma.ContentDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1141,6 +1192,7 @@ export type $DraftSnapshotPayload<ExtArgs extends runtime.Types.Extensions.Inter
     userId: string
     baseVersionId: string | null
     title: string
+    summary: string | null
     body: string
     bodyJson: runtime.JsonValue | null
     assetIds: runtime.JsonValue | null
@@ -1580,6 +1632,7 @@ export interface DraftSnapshotFieldRefs {
   readonly userId: Prisma.FieldRef<"DraftSnapshot", 'String'>
   readonly baseVersionId: Prisma.FieldRef<"DraftSnapshot", 'String'>
   readonly title: Prisma.FieldRef<"DraftSnapshot", 'String'>
+  readonly summary: Prisma.FieldRef<"DraftSnapshot", 'String'>
   readonly body: Prisma.FieldRef<"DraftSnapshot", 'String'>
   readonly bodyJson: Prisma.FieldRef<"DraftSnapshot", 'Json'>
   readonly assetIds: Prisma.FieldRef<"DraftSnapshot", 'Json'>

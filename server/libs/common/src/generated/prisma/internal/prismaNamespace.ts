@@ -1602,6 +1602,7 @@ export const DraftSnapshotScalarFieldEnum = {
   userId: 'userId',
   baseVersionId: 'baseVersionId',
   title: 'title',
+  summary: 'summary',
   body: 'body',
   bodyJson: 'bodyJson',
   assetIds: 'assetIds',
