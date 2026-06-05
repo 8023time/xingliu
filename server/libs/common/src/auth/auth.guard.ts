@@ -13,13 +13,14 @@ export class AuthGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = context.switchToHttp().getRequest<Request & { user?: AuthTokenPayloadType }>();
-    const Headers = req.headers; // 获取请求头信息
-    const authorization = Headers.authorization; // 获取请求头信息
+
+    const Headers = req.headers;
+    const authorization = Headers.authorization;
 
     if (!authorization) {
       throw new UnauthorizedException('未授权!!!');
     }
-    const token = authorization.replace('Bearer ', ''); // 获取token
+    const token = authorization.replace('Bearer ', '');
 
     try {
       const payload = this.jwtService.verify<AuthTokenPayloadType>(token);
