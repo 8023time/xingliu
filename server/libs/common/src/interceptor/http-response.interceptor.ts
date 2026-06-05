@@ -2,6 +2,7 @@ import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nes
 import type { Request } from 'express';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { Prisma } from '../generated/prisma/client';
 
 interface ResponseFormat<T> {
   timestamp: string;
@@ -18,10 +19,10 @@ export class HttpResponseInterceptor implements NestInterceptor {
     return next.handle().pipe(
       map((data: ResponseFormat<any>) => {
         const ctx = context.switchToHttp();
-        const response = ctx.getResponse<Request>();
+        const request = ctx.getRequest<Request>();
         return {
           timestamp: new Date().toISOString(),
-          path: response.url,
+          path: request.url,
           message: data.message ?? 'success',
           success: data.success ?? true,
           code: data.code ?? 200,
@@ -41,6 +42,9 @@ function transformBigInt(value: unknown): unknown {
   if (typeof value === 'bigint') {
     return value.toString();
   }
+  if (Prisma.Decimal.isDecimal(value)) {
+    return value.toString();
+  }
   if (Array.isArray(value)) {
     return value.map(transformBigInt);
   }
@@ -48,7 +52,13 @@ function transformBigInt(value: unknown): unknown {
     if (value instanceof Date) {
       return value;
     }
-    return Object.fromEntries(Object.entries(value).map(([key, val]) => [key, transformBigInt(val)]));
+    const newObj: Record<string, unknown> = {};
+    for (const key in value) {
+      if (Object.prototype.hasOwnProperty.call(value, key)) {
+        newObj[key] = transformBigInt(value[key]);
+      }
+    }
+    return newObj;
   }
   return value;
 }
