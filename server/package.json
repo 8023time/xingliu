@@ -30,9 +30,11 @@
     "class-validator": "^0.15.1",
     "dotenv": "^17.4.2",
     "fastscan": "^1.0.6",
+    "file-type": "^22.0.1",
     "minio": "^8.0.7",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
+    "sharp": "^0.34.5",
     "swagger-ui-express": "^5.0.1",
     "zod": "^4.4.3"
   },
