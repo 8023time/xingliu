@@ -1,9 +1,4 @@
-import type {
-  AssetPage,
-  AssetQueryRequest,
-  AssetRecord,
-  CreateLinkAssetRequest,
-} from '@xingliu/shared/asset';
+import type { AssetPage, AssetQueryRequest, AssetRecord, CreateLinkAssetRequest } from '@xingliu/shared/asset';
 import type { ResponseFormat } from '@xingliu/shared/common';
 import http from '@/configs/request';
 

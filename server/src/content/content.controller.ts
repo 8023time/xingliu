@@ -50,7 +50,11 @@ export class ContentController {
   }
 
   @Patch(':id')
-  update(@Req() request: AuthenticatedRequest, @Param() params: ContentParamDto, @Body() updateContentDto: UpdateContentDto) {
+  update(
+    @Req() request: AuthenticatedRequest,
+    @Param() params: ContentParamDto,
+    @Body() updateContentDto: UpdateContentDto,
+  ) {
     return this.contentService.update(request.user.userId, params.id, updateContentDto);
   }
 

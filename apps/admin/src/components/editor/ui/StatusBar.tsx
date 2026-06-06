@@ -1,6 +1,11 @@
 import type { ReactNode } from 'react';
 import { Badge, Button, Space, Tooltip } from 'antd';
-import { CheckCircleOutlined, ClockCircleOutlined, ExclamationCircleOutlined, LoadingOutlined } from '@ant-design/icons';
+import {
+  CheckCircleOutlined,
+  ClockCircleOutlined,
+  ExclamationCircleOutlined,
+  LoadingOutlined,
+} from '@ant-design/icons';
 import type { EditorSaveStatus } from '@/components/editor/Tiptap/type/editor-types';
 
 interface EditorStatusBarProps {
@@ -12,7 +17,10 @@ interface EditorStatusBarProps {
   };
 }
 
-const statusMeta: Record<EditorSaveStatus, { text: string; color: 'default' | 'processing' | 'success' | 'error'; icon: ReactNode }> = {
+const statusMeta: Record<
+  EditorSaveStatus,
+  { text: string; color: 'default' | 'processing' | 'success' | 'error'; icon: ReactNode }
+> = {
   idle: {
     text: '等待编辑',
     color: 'default',
