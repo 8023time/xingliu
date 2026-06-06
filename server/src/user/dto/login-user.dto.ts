@@ -5,7 +5,7 @@ import type { LoginUserRequest } from '@xingliu/shared/user';
 export class LoginUserDto implements LoginUserRequest {
   @ApiProperty({
     description: '手机号或邮箱',
-    example: 'user@example.com',
+    example: 'cmse@qq.com',
   })
   @IsString()
   @Matches(/^(?:1[3-9]\d{9}|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/, {
@@ -15,7 +15,7 @@ export class LoginUserDto implements LoginUserRequest {
 
   @ApiProperty({
     description: 'Password',
-    example: '123456',
+    example: '123456abc',
   })
   @IsString()
   @Length(6, 16, { message: '密码长度必须在 6 到 16 位之间' })
