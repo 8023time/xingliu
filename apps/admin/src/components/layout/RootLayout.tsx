@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Layout, Flex, Dropdown, Button, Menu, Avatar, Image } from 'antd';
+import { Layout, Flex, Dropdown, Button, Menu, Avatar, Image, message } from 'antd';
 import {
   PlusOutlined,
   HomeOutlined,
@@ -9,12 +9,15 @@ import {
   MenuFoldOutlined,
   LogoutOutlined,
   UserOutlined,
+  BulbOutlined,
+  PictureOutlined,
 } from '@ant-design/icons';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { WEB_DATA_INFO } from '@/configs/config';
 import { useAuthStore } from '@/stores/user-store';
 import { useSiderStore } from '@/stores/sider-store';
 import CreateModal from '@/components/createModal/index';
+import { logoutApi } from '@/api/user';
 
 const { Header, Sider, Content } = Layout;
 
@@ -49,6 +52,8 @@ function APPSider() {
 
   const menuItems = [
     { key: '/home', icon: <HomeOutlined />, label: '首页' },
+    { key: '/prompts', icon: <BulbOutlined />, label: 'Prompt 管理' },
+    { key: '/assets', icon: <PictureOutlined />, label: '素材管理' },
     { key: '/content/list', icon: <FileTextOutlined />, label: '内容列表' },
     { key: '/rankings', icon: <FireOutlined />, label: '榜单中心' },
   ];
@@ -95,7 +100,6 @@ function APPSider() {
             <CreateModal open={isCreateModalOpen} onClose={() => setIsCreateModalOpen(false)} />
           </div>
 
-          {/* 💡 现代化无边框菜单 */}
           <Menu
             mode="inline"
             inlineCollapsed={collapsed}
@@ -107,7 +111,6 @@ function APPSider() {
           />
         </div>
 
-        {/* 💡 自定义折叠按钮（组件最下方） */}
         <div style={{ padding: collapsed ? '0 4px' : '0 8px' }}>
           <Button
             type="text"
@@ -135,7 +138,7 @@ function APPSider() {
 
 function APPHeader({ className }: { className?: string }) {
   const navigate = useNavigate();
-  const { logout } = useAuthStore();
+  const { logout, token, user } = useAuthStore();
 
   const userMenuItems = [
     {
@@ -143,9 +146,17 @@ function APPHeader({ className }: { className?: string }) {
       icon: <LogoutOutlined />,
       label: '退出登录',
       danger: true,
-      onClick: () => {
+      onClick: async () => {
+        const res = await logoutApi({ refreshToken: token?.refreshToken ?? '' });
+        if (res.code === 1) {
+          logout();
+          navigate('/login');
+          message.error(res.message ?? '服务出错!');
+          return;
+        }
         logout();
         navigate('/login');
+        message.success('退出登录成功');
       },
     },
   ];
@@ -163,7 +174,7 @@ function APPHeader({ className }: { className?: string }) {
         <Dropdown menu={{ items: userMenuItems }}>
           <Flex align="center" style={{ cursor: 'pointer', padding: '4px 8px', borderRadius: 6 }}>
             <Avatar size={25} src="/avatar.png" icon={<UserOutlined />} />
-            <span style={{ marginLeft: 8, fontWeight: 500 }}>寻觅～流光</span>
+            <span style={{ marginLeft: 8, fontWeight: 500 }}>{user?.username ?? '未知用户'}</span>
           </Flex>
         </Dropdown>
       </Flex>
