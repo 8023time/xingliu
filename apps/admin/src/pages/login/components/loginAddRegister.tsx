@@ -169,6 +169,10 @@ function RegisterForm() {
         max: 12,
         message: '用户名不能超过 12 个字符',
       },
+      {
+        min: 1,
+        message: '用户名必须至少 1 个字符',
+      },
     ],
     password: [
       { required: true, message: '请输入密码' },
