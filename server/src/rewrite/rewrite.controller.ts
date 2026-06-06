@@ -1,34 +1,27 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Body, Controller, Param, Post, Req, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@libs/common';
 import { RewriteService } from './rewrite.service';
 import { CreateRewriteDto } from './dto/create-rewrite.dto';
-import { UpdateRewriteDto } from './dto/update-rewrite.dto';
+import { RewriteAcceptParamDto, RewriteContentParamDto } from './dto/rewrite-param.dto';
 
-@Controller('rewrite')
+type AuthenticatedRequest = { user: { userId: string } };
+
+@Controller('contents/:contentId/compliance-rewrite')
+@UseGuards(AuthGuard)
 export class RewriteController {
   constructor(private readonly rewriteService: RewriteService) {}
 
   @Post()
-  create(@Body() createRewriteDto: CreateRewriteDto) {
-    return this.rewriteService.create(createRewriteDto);
+  create(
+    @Req() request: AuthenticatedRequest,
+    @Param() params: RewriteContentParamDto,
+    @Body() createRewriteDto: CreateRewriteDto,
+  ) {
+    return this.rewriteService.create(request.user.userId, params.contentId, createRewriteDto);
   }
 
-  @Get()
-  findAll() {
-    return this.rewriteService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.rewriteService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRewriteDto: UpdateRewriteDto) {
-    return this.rewriteService.update(+id, updateRewriteDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.rewriteService.remove(+id);
+  @Post(':rewriteId/accept')
+  accept(@Req() request: AuthenticatedRequest, @Param() params: RewriteAcceptParamDto) {
+    return this.rewriteService.accept(request.user.userId, params.contentId, params.rewriteId);
   }
 }
