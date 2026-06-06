@@ -47,6 +47,13 @@ export class CreatorEditorController implements CreatorEditorHandle {
     this.insertContent(createSuggestionContent(suggestion));
   }
 
+  replaceWithSuggestion(suggestion: AiSuggestion): void {
+    this.editor?.commands.setContent({
+      type: 'doc',
+      content: createSuggestionContent(suggestion),
+    });
+  }
+
   insertMaterial(material: EditorMaterial): void {
     this.insertContent(insertMaterialContent(material));
   }

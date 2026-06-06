@@ -49,5 +49,6 @@ export interface CreatorEditorHandle {
   clear: () => void;
   insertContent: (content: JSONContent | JSONContent[] | string) => void;
   insertSuggestion: (suggestion: AiSuggestion) => void;
+  replaceWithSuggestion: (suggestion: AiSuggestion) => void;
   insertMaterial: (material: EditorMaterial) => void;
 }
