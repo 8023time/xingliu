@@ -15,9 +15,9 @@ import {
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { WEB_DATA_INFO } from '@/configs/config';
 import { useAuthStore } from '@/stores/user-store';
-import { useSiderStore } from '@/stores/sider-store';
 import CreateModal from '@/components/createModal/index';
 import { logoutApi } from '@/api/user';
+import { useSiderCollapseStrategy } from '@/hooks/useSiderCollapseStrategy';
 
 const { Header, Sider, Content } = Layout;
 
@@ -45,7 +45,7 @@ export default function RootLayout() {
 
 function APPSider() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-  const { collapsed, setCollapsed, toggleCollapsed } = useSiderStore();
+  const { collapsed, setCollapsedByUser, toggleCollapsedByUser } = useSiderCollapseStrategy();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -66,7 +66,7 @@ function APPSider() {
     <Sider
       collapsible
       collapsed={collapsed}
-      onCollapse={(value) => setCollapsed(value)}
+      onCollapse={setCollapsedByUser}
       theme="light"
       width={200}
       collapsedWidth={70}
@@ -116,7 +116,7 @@ function APPSider() {
             type="text"
             block
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={toggleCollapsed}
+            onClick={toggleCollapsedByUser}
             style={{
               height: 40,
               borderRadius: 8,

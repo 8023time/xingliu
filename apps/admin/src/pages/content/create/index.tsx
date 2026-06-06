@@ -29,7 +29,6 @@ import { getAssetsApi, type AssetRecord } from '@/api/asset';
 import { CreatorEditor, type CreatorEditorHandle, type EditorChangePayload } from '@/components/editor';
 import type { JSONContent } from '@/components/editor/Tiptap/type/editor-types';
 import { localDrafts, type LocalDraft } from '@/lib/local-drafts';
-import { useSiderStore } from '@/stores/sider-store';
 
 const { Paragraph, Text } = Typography;
 const EMPTY_DOCUMENT: JSONContent = { type: 'doc', content: [{ type: 'paragraph' }] };
@@ -76,7 +75,6 @@ export default function CreateContentPage() {
   const [keywords, setKeywords] = useState<string[]>([]);
   const [candidates, setCandidates] = useState<AiCandidate[]>([]);
   const [generating, setGenerating] = useState(false);
-  const { setCollapsed, setPreviousCollapsed, restoreCollapsed } = useSiderStore();
 
   const applyDraft = useCallback((draft: DraftRecord | LocalDraft | null) => {
     if (!draft) return;
@@ -140,14 +138,11 @@ export default function CreateContentPage() {
   }, [applyDraft, searchParams, setSearchParams]);
 
   useEffect(() => {
-    setPreviousCollapsed(useSiderStore.getState().collapsed);
-    setCollapsed(true);
     return () => {
       if (titleSaveTimerRef.current) window.clearTimeout(titleSaveTimerRef.current);
       if (summarySaveTimerRef.current) window.clearTimeout(summarySaveTimerRef.current);
-      restoreCollapsed();
     };
-  }, [restoreCollapsed, setCollapsed, setPreviousCollapsed]);
+  }, []);
 
   useEffect(() => {
     void Promise.all([getPromptsApi({ page: 1, pageSize: 50 }), getAssetsApi({ page: 1, pageSize: 50 })]).then(
@@ -573,7 +568,7 @@ export default function CreateContentPage() {
                   {rewriteCandidate && (
                     <Flex vertical gap={8}>
                       <Text strong>{rewriteCandidate.rewrittenTitle}</Text>
-                      <Paragraph ellipsis={{ rows: 6 }} className="!mb-0 whitespace-pre-wrap">
+                      <Paragraph ellipsis={{ rows: 6 }} className="mb-0! whitespace-pre-wrap">
                         {rewriteCandidate.rewrittenBody}
                       </Paragraph>
                       {rewriteCandidate.reason && <Text type="secondary">{rewriteCandidate.reason}</Text>}
@@ -682,7 +677,7 @@ export default function CreateContentPage() {
                     <List.Item>
                       <Flex vertical gap={8} className="w-full">
                         <Text strong>{candidate.title}</Text>
-                        <Paragraph ellipsis={{ rows: 3 }} className="!mb-0">
+                        <Paragraph ellipsis={{ rows: 3 }} className="mb-0!">
                           {candidate.summary}
                         </Paragraph>
                         <Space wrap>

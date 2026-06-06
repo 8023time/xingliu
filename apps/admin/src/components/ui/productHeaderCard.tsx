@@ -77,7 +77,7 @@ export function ProductHeaderCard({
           )}
         </div>
 
-        <div className="hidden flex-shrink-0 md:block">
+        <div className="hidden shrink-0 md:block">
           <img src={illustrationSrc} alt="illustration" className="h-28 object-contain" />
         </div>
       </div>

@@ -134,7 +134,7 @@ export default function RankingsPage() {
       />
 
       <div className="min-h-0 overflow-x-auto pb-2">
-        <div className="grid min-w-[1080px] grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-5">
+        <div className="grid min-w-270 grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-5">
           <RankingColumn rankingType="hot" />
           <RankingColumn rankingType="viral" />
         </div>
@@ -250,7 +250,7 @@ function RankingColumn({ rankingType }: { rankingType: RankingTypeValue }) {
         </Flex>
       }
     >
-      <div ref={scrollRef} className="h-[640px] overflow-y-auto pr-2">
+      <div ref={scrollRef} className="h-160 overflow-y-auto pr-2">
         {initialLoading ? (
           <Flex vertical gap={14}>
             {Array.from({ length: 4 }).map((_, index) => (
@@ -311,7 +311,7 @@ function RankingItemCard({
         <Flex vertical gap={10} className="min-w-0 flex-1">
           <Flex align="flex-start" justify="space-between" gap={12}>
             <div className="min-w-0 flex-1">
-              <Title level={5} className="!mt-0 !mb-1 truncate">
+              <Title level={5} className="mt-0! mb-1! truncate">
                 {item.title}
               </Title>
               <Space size={8} wrap>
@@ -332,7 +332,7 @@ function RankingItemCard({
           </Flex>
 
           {item.summary && (
-            <Paragraph type="secondary" ellipsis={{ rows: 2 }} className="!mb-0">
+            <Paragraph type="secondary" ellipsis={{ rows: 2 }} className="mb-0!">
               {item.summary}
             </Paragraph>
           )}
