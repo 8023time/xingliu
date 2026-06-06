@@ -1,34 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Param, Post, Req, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@libs/common';
 import { QualityService } from './quality.service';
-import { CreateQualityDto } from './dto/create-quality.dto';
-import { UpdateQualityDto } from './dto/update-quality.dto';
+import { QualityParamDto } from './dto/quality-param.dto';
 
-@Controller('quality')
+type AuthenticatedRequest = { user: { userId: string } };
+
+@Controller('contents/:contentId/quality-evaluation')
+@UseGuards(AuthGuard)
 export class QualityController {
   constructor(private readonly qualityService: QualityService) {}
 
   @Post()
-  create(@Body() createQualityDto: CreateQualityDto) {
-    return this.qualityService.create(createQualityDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.qualityService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.qualityService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateQualityDto: UpdateQualityDto) {
-    return this.qualityService.update(+id, updateQualityDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.qualityService.remove(+id);
+  evaluate(@Req() request: AuthenticatedRequest, @Param() params: QualityParamDto) {
+    return this.qualityService.evaluate(request.user.userId, params.contentId);
   }
 }

@@ -5,5 +5,6 @@ import { QualityController } from './quality.controller';
 @Module({
   controllers: [QualityController],
   providers: [QualityService],
+  exports: [QualityService],
 })
 export class QualityModule {}
