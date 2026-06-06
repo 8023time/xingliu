@@ -38,6 +38,14 @@ const router = createBrowserRouter([
             element: <RankingsPage />,
           },
           {
+            path: 'prompts',
+            element: lazyComponent(() => import('@/pages/prompts')),
+          },
+          {
+            path: 'assets',
+            element: lazyComponent(() => import('@/pages/assets')),
+          },
+          {
             path: '/content',
             children: [
               {
