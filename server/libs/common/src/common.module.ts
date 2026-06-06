@@ -6,11 +6,23 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { MinioModule } from './minio/minio.module';
 import { AiModule } from './ai/ai.module';
+import { ModerationModule } from './moderation/moderation.module';
+import { FileProcessModule } from './file-process/file-process.module';
 
 @Global()
 @Module({
   providers: [CommonService],
-  exports: [CommonService, PrismaModule, ResponseModule, JwtModule, ConfigModule, MinioModule],
+  exports: [
+    CommonService,
+    PrismaModule,
+    ResponseModule,
+    JwtModule,
+    ConfigModule,
+    MinioModule,
+    AiModule,
+    ModerationModule,
+    FileProcessModule,
+  ],
   imports: [
     PrismaModule,
     ResponseModule,
@@ -24,13 +36,15 @@ import { AiModule } from './ai/ai.module';
       useFactory: (configService: ConfigService) => {
         return {
           global: true,
-          secret: configService.get<string>('SECRET_KEY'),
+          secret: configService.get<string>('JWT_SECRET'),
           signOptions: { expiresIn: '7d' },
         };
       },
     }),
     MinioModule,
     AiModule,
+    ModerationModule,
+    FileProcessModule,
   ],
 })
 export class CommonModule {}
