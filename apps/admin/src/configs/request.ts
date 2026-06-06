@@ -1,8 +1,9 @@
 import axios, { type InternalAxiosRequestConfig } from 'axios';
-import { message } from 'antd';
 import errCode from '@/configs/errorCode';
 import { useAuthStore } from '@/stores/user-store';
 import { refreshTokenApi } from '@/api/user';
+import { showSingleError } from '@/lib/single-message';
+import { addPendingRequest, removePendingRequest } from '@/lib/request-canceler';
 
 interface RetryRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
@@ -30,41 +31,47 @@ const processQueue = (error: unknown, newAccessToken: string | null = null) => {
 
 // 强行登出并跳转
 const handleForceLogout = (msg: string) => {
-  message.error(msg);
+  showSingleError(msg);
   useAuthStore.getState().logout();
   location.replace('/login');
 };
 
 http.interceptors.request.use(
   (config) => {
+    addPendingRequest(config);
     const token = useAuthStore.getState().token;
 
     if (token?.accessToken) {
-      config.headers.Authorization = `Bearer ${token.accessToken}`;
+      config.headers.set('Authorization', `Bearer ${token.accessToken}`);
     }
 
     return config;
   },
   (error) => {
-    message.error('请求发送失败');
+    showSingleError('请求发送失败');
     return Promise.reject(error);
   },
 );
 
 http.interceptors.response.use(
   (response) => {
+    removePendingRequest(response.config);
     const { data } = response;
 
     if (data?.success) {
       return data;
     }
 
-    message.error(data?.message || '请求失败');
+    showSingleError(data?.message || '请求失败');
     return Promise.reject(data);
   },
   async (error) => {
+    if (axios.isCancel(error)) {
+      return new Promise(() => {});
+    }
+    removePendingRequest(error.config);
     if (!error.response) {
-      message.error('网络连接失败，请检查网络');
+      showSingleError('网络连接失败，请检查网络');
       return Promise.reject(new Error('网络连接失败'));
     }
 
@@ -73,7 +80,7 @@ http.interceptors.response.use(
 
     if (status !== 401) {
       const msg = status !== undefined ? (errCode as Record<number, string>)[status] : errCode.default;
-      message.error(msg ?? errCode.default);
+      showSingleError(msg ?? errCode.default);
       return Promise.reject(new Error(msg ?? '请求失败'));
     }
 
@@ -111,7 +118,7 @@ http.interceptors.response.use(
     try {
       const res = await refreshTokenApi({ refreshToken });
       if (res.code !== 0) {
-        message.error(res.message || '刷新 token 失败，请重新登录');
+        showSingleError(res.message || '刷新 token 失败，请重新登录');
         useAuthStore.getState().logout();
         location.href = '/login';
         return Promise.reject(new Error(res.message || '刷新 token 失败'));
@@ -127,7 +134,7 @@ http.interceptors.response.use(
     } catch (error) {
       // 刷新失败，通知队列里所有挂起的请求全部失败
       processQueue(error, null);
-      handleForceLogout('会话已过期，请重新登录');
+      showSingleError('会话已过期，请重新登录');
       return Promise.reject(error);
     } finally {
       isRefreshing = false;
