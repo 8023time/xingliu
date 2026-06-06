@@ -1,34 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import type { Request } from 'express';
+import type { AuthTokenPayloadType } from '@xingliu/shared/user';
+import { AuthGuard } from '@libs/common';
 import { AiGenerationService } from './ai-generation.service';
 import { CreateAiGenerationDto } from './dto/create-ai-generation.dto';
-import { UpdateAiGenerationDto } from './dto/update-ai-generation.dto';
 
-@Controller('ai-generation')
+type AuthenticatedRequest = Request & { user: AuthTokenPayloadType };
+
+@Controller('ai')
+@UseGuards(AuthGuard)
 export class AiGenerationController {
   constructor(private readonly aiGenerationService: AiGenerationService) {}
 
-  @Post()
-  create(@Body() createAiGenerationDto: CreateAiGenerationDto) {
-    return this.aiGenerationService.create(createAiGenerationDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.aiGenerationService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.aiGenerationService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAiGenerationDto: UpdateAiGenerationDto) {
-    return this.aiGenerationService.update(+id, updateAiGenerationDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.aiGenerationService.remove(+id);
+  @Post('generate')
+  create(@Req() request: AuthenticatedRequest, @Body() createAiGenerationDto: CreateAiGenerationDto) {
+    return this.aiGenerationService.create(request.user.userId, createAiGenerationDto);
   }
 }
