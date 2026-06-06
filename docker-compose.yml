@@ -21,6 +21,20 @@ services:
       timeout: 5s
       retries: 5
 
+  minio:
+    image: minio/minio:latest
+    container_name: xingliu-minio
+    restart: unless-stopped
+    command: server /data --console-address ':9001'
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY:-xingliu_minio}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY:-xingliu_minio_password}
+    volumes:
+      - minio_data:/data
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+
   # 后端 NestJS 服务
   server:
     build:
@@ -34,6 +48,13 @@ services:
       DATABASE_URL: postgresql://xingliu:xingliu_password@postgres:5432/xingliu_db
       JWT_SECRET: ${JWT_SECRET:-your-secret-key-change-this}
       JWT_EXPIRATION: ${JWT_EXPIRATION:-86400}
+      MINIO_ENDPOINT: minio
+      MINIO_PORT: 9000
+      MINIO_USE_SSL: false
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-xingliu_minio}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-xingliu_minio_password}
+      MINIO_BUCKET_NAME: ${MINIO_BUCKET_NAME:-xingliu-assets}
+      MINIO_PUBLIC_URL: ${MINIO_PUBLIC_URL:-http://localhost:9000/xingliu-assets}
       ALIBABA_CLOUD_ACCESS_KEY_ID: ${ALIBABA_CLOUD_ACCESS_KEY_ID}
       ALIBABA_CLOUD_ACCESS_KEY_SECRET: ${ALIBABA_CLOUD_ACCESS_KEY_SECRET}
       ALIYUN_GREEN_ENDPOINT: ${ALIYUN_GREEN_ENDPOINT}
@@ -47,6 +68,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      minio:
+        condition: service_started
 
   # Web 应用 (Next.js)
   web:
@@ -100,5 +123,6 @@ services:
 
 volumes:
   postgres_data:
+  minio_data:
   caddy_data:
   caddy_config:

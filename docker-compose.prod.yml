@@ -28,6 +28,21 @@ services:
         max-size: '10m'
         max-file: '3'
 
+  minio:
+    image: minio/minio:latest
+    container_name: xingliu-minio-prod
+    restart: always
+    command: server /data --console-address ':9001'
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY}
+    volumes:
+      - minio_data_prod:/data
+    expose:
+      - '9000'
+    networks:
+      - xingliu_network
+
   # 后端服务 (生产配置)
   server:
     build:
@@ -41,6 +56,13 @@ services:
       DATABASE_URL: postgresql://${DB_USER:-xingliu}:${DB_PASSWORD}@postgres:5432/${DB_NAME:-xingliu_db}
       JWT_SECRET: ${JWT_SECRET}
       JWT_EXPIRATION: ${JWT_EXPIRATION:-86400}
+      MINIO_ENDPOINT: minio
+      MINIO_PORT: 9000
+      MINIO_USE_SSL: false
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
+      MINIO_BUCKET_NAME: ${MINIO_BUCKET_NAME:-xingliu-assets}
+      MINIO_PUBLIC_URL: ${MINIO_PUBLIC_URL}
       ALIBABA_CLOUD_ACCESS_KEY_ID: ${ALIBABA_CLOUD_ACCESS_KEY_ID}
       ALIBABA_CLOUD_ACCESS_KEY_SECRET: ${ALIBABA_CLOUD_ACCESS_KEY_SECRET}
       ALIYUN_GREEN_ENDPOINT: ${ALIYUN_GREEN_ENDPOINT}
@@ -54,6 +76,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      minio:
+        condition: service_started
     networks:
       - xingliu_network
     logging:
@@ -137,6 +161,7 @@ services:
 
 volumes:
   postgres_data_prod:
+  minio_data_prod:
   caddy_data:
   caddy_config:
 
