@@ -1,6 +1,6 @@
 import type React from 'react';
 import type { FC } from 'react';
-import { cn } from '@/configs/class-name';
+import { cn } from '@/lib/class-name';
 
 export interface SectionDividerProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
