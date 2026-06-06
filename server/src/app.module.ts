@@ -13,6 +13,7 @@ import { RankingModule } from './ranking/ranking.module';
 import { DraftModule } from './draft/draft.module';
 import { AiGenerationModule } from './ai-generation/ai-generation.module';
 import { ContentModule } from './content/content.module';
+import { ModerationModule } from './moderation/moderation.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { ContentModule } from './content/content.module';
     DraftModule,
     AiGenerationModule,
     ContentModule,
+    ModerationModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthService],
