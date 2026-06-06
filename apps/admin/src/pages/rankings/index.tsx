@@ -12,11 +12,13 @@ import {
   Statistic,
   Tag,
   Typography,
+  Modal,
 } from 'antd';
 import {
   ClockCircleOutlined,
   EyeOutlined,
   FireOutlined,
+  InfoCircleOutlined,
   LikeOutlined,
   ReloadOutlined,
   RiseOutlined,
@@ -25,6 +27,7 @@ import {
 } from '@ant-design/icons';
 import type { RankingItemResponse, RankingSortValue, RankingTypeValue } from '@xingliu/shared/content/ranking';
 import { getRankingApi } from '@/api/ranking';
+import { ProductHeaderCard } from '@/components/ui';
 
 const { Paragraph, Text, Title } = Typography;
 
@@ -39,55 +42,109 @@ const rankingMeta: Record<
   RankingTypeValue,
   {
     title: string;
-    subtitle: string;
     icon: React.ReactNode;
     accentClassName: string;
   }
 > = {
   hot: {
     title: '热点榜',
-    subtitle: '综合内容质量、阅读热度与发布时间衰减，捕捉正在升温的内容。',
     icon: <FireOutlined />,
     accentClassName: 'bg-rose-50 text-rose-500',
   },
   viral: {
     title: '爆文榜',
-    subtitle: '突出高阅读、高互动、高传播内容，适合复盘爆款结构。',
     icon: <TrophyOutlined />,
     accentClassName: 'bg-amber-50 text-amber-500',
   },
 };
 
 export default function RankingsPage() {
-  const [sort, setSort] = useState<RankingSortValue>('comprehensive');
-
   return (
-    <main className="p-6">
-      <Flex vertical gap={20}>
-        <section className="rounded-lg bg-white p-6 shadow-sm">
-          <Flex align="center" justify="space-between" gap={16} wrap="wrap">
-            <div>
-              <Title level={2} className="!m-0">
-                热点与爆文榜单
-              </Title>
-              <Paragraph type="secondary" className="!mt-2 !mb-0 max-w-3xl">
-                支持依据内容质量分、阅读热度、发布时间和互动表现进行多维度综合排序，滚动到底自动加载更多。
-              </Paragraph>
-            </div>
-            <Segmented options={sortOptions} value={sort} onChange={(value) => setSort(value)} />
-          </Flex>
-        </section>
+    <Card className="h-full overflow-hidden">
+      <ProductHeaderCard
+        title="内容排行榜"
+        className="mb-5"
+        description="综合内容质量分、阅读热度和发布时间衰减生成榜单；滚动到底自动加载更多。"
+        actions={[
+          {
+            label: '数据来源',
+            icon: <InfoCircleOutlined />,
+            type: 'link',
+            onClick: () => {
+              Modal.info({
+                title: '数据来源说明',
+                okText: '知道了',
+                content: (
+                  <div>
+                    <Paragraph>排行榜数据基于平台内容质量分、阅读热度和发布时间进行综合排序。</Paragraph>
+                    <ul className="mb-3 pl-5">
+                      <li>
+                        <Text strong>质量分</Text>：由 AI 模型评估内容的原创性、结构完整性、语言表达等维度得出。
+                      </li>
+                      <li>
+                        <Text strong>热度</Text>：综合阅读量、点赞数、分享数等指标，反映内容的受欢迎程度。
+                      </li>
+                      <li>
+                        <Text strong>发布时间衰减</Text>：为了突出新鲜内容，会对发布时间较早的内容进行适度衰减。
+                      </li>
+                    </ul>
+                    <Paragraph className="mb-0!">
+                      通过这些维度的综合评估，排行榜可以动态反映正在升温和具备爆款潜力的内容。
+                    </Paragraph>
+                  </div>
+                ),
+              });
+            },
+          },
+          {
+            label: '热点榜说明',
+            icon: <FireOutlined />,
+            type: 'link',
+            onClick: () => {
+              Modal.info({
+                title: '热点榜说明',
+                okText: '知道了',
+                content: (
+                  <div>
+                    <Paragraph>
+                      热点榜基于内容的综合质量、阅读热度和发布时间进行排序，帮助您发现正在升温的内容。
+                    </Paragraph>
+                  </div>
+                ),
+              });
+            },
+          },
+          {
+            label: '爆文榜说明',
+            icon: <TrophyOutlined />,
+            type: 'link',
+            onClick: () => [
+              Modal.info({
+                title: '爆文榜说明',
+                okText: '知道了',
+                content: (
+                  <div>
+                    <Paragraph>爆文榜突出高质量、高热度和高传播潜力的内容，适合复盘爆款结构和选题。</Paragraph>
+                  </div>
+                ),
+              }),
+            ],
+          },
+        ]}
+      />
 
-        <div className="grid grid-cols-1 gap-5 2xl:grid-cols-2">
-          <RankingColumn rankingType="hot" sort={sort} />
-          <RankingColumn rankingType="viral" sort={sort} />
+      <div className="min-h-0 overflow-x-auto pb-2">
+        <div className="grid min-w-[1080px] grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-5">
+          <RankingColumn rankingType="hot" />
+          <RankingColumn rankingType="viral" />
         </div>
-      </Flex>
-    </main>
+      </div>
+    </Card>
   );
 }
 
-function RankingColumn({ rankingType, sort }: { rankingType: RankingTypeValue; sort: RankingSortValue }) {
+function RankingColumn({ rankingType }: { rankingType: RankingTypeValue }) {
+  const [sort, setSort] = useState<RankingSortValue>('comprehensive');
   const [items, setItems] = useState<RankingItemResponse[]>([]);
   const [cursor, setCursor] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState(true);
@@ -175,7 +232,7 @@ function RankingColumn({ rankingType, sort }: { rankingType: RankingTypeValue; s
   return (
     <Card
       variant="borderless"
-      className="rounded-xl shadow-sm"
+      className="min-w-0 rounded-xl shadow-sm"
       title={
         <Flex align="center" gap={10}>
           <span className={`flex size-9 items-center justify-center rounded-lg text-lg ${meta.accentClassName}`}>
@@ -185,15 +242,14 @@ function RankingColumn({ rankingType, sort }: { rankingType: RankingTypeValue; s
         </Flex>
       }
       extra={
-        <Button type="text" icon={<ReloadOutlined />} onClick={handleReload}>
-          刷新
-        </Button>
+        <Flex align="center" gap={8} wrap="wrap">
+          <Segmented options={sortOptions} value={sort} onChange={(value) => setSort(value)} />
+          <Button type="text" icon={<ReloadOutlined />} onClick={handleReload}>
+            刷新
+          </Button>
+        </Flex>
       }
     >
-      <Paragraph type="secondary" className="!mt-0">
-        {meta.subtitle}
-      </Paragraph>
-
       <div ref={scrollRef} className="h-[640px] overflow-y-auto pr-2">
         {initialLoading ? (
           <Flex vertical gap={14}>
@@ -254,7 +310,7 @@ function RankingItemCard({
 
         <Flex vertical gap={10} className="min-w-0 flex-1">
           <Flex align="flex-start" justify="space-between" gap={12}>
-            <div className="min-w-0">
+            <div className="min-w-0 flex-1">
               <Title level={5} className="!mt-0 !mb-1 truncate">
                 {item.title}
               </Title>
@@ -267,6 +323,7 @@ function RankingItemCard({
               </Space>
             </div>
             <Statistic
+              className="shrink-0"
               title="综合分"
               value={item.rankingScore}
               precision={1}
