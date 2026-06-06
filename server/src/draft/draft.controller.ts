@@ -1,34 +1,30 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
+import type { Request } from 'express';
+import type { AuthTokenPayloadType } from '@xingliu/shared/user';
+import { AuthGuard } from '@libs/common';
 import { DraftService } from './draft.service';
 import { CreateDraftDto } from './dto/create-draft.dto';
-import { UpdateDraftDto } from './dto/update-draft.dto';
+import { DraftParamDto } from './dto/draft-param.dto';
 
-@Controller('draft')
+type AuthenticatedRequest = Request & { user: AuthTokenPayloadType };
+
+@Controller('contents/:contentId/drafts')
+@UseGuards(AuthGuard)
 export class DraftController {
   constructor(private readonly draftService: DraftService) {}
 
   @Post()
-  create(@Body() createDraftDto: CreateDraftDto) {
-    return this.draftService.create(createDraftDto);
+  create(@Req() request: AuthenticatedRequest, @Param() params: DraftParamDto, @Body() createDraftDto: CreateDraftDto) {
+    return this.draftService.create(request.user.userId, params.contentId, createDraftDto);
   }
 
-  @Get()
-  findAll() {
-    return this.draftService.findAll();
+  @Get('latest')
+  findLatest(@Req() request: AuthenticatedRequest, @Param() params: DraftParamDto) {
+    return this.draftService.findLatest(request.user.userId, params.contentId);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.draftService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDraftDto: UpdateDraftDto) {
-    return this.draftService.update(+id, updateDraftDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.draftService.remove(+id);
+  @Post('sync')
+  sync(@Req() request: AuthenticatedRequest, @Param() params: DraftParamDto, @Body() createDraftDto: CreateDraftDto) {
+    return this.draftService.sync(request.user.userId, params.contentId, createDraftDto);
   }
 }
