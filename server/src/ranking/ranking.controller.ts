@@ -2,7 +2,7 @@ import { Controller, Get, Query } from '@nestjs/common';
 import { RankingService } from './ranking.service';
 import { RankingQueryDto } from './dto/ranking-query.dto';
 
-@Controller('ranking')
+@Controller(['ranking', 'rankings'])
 export class RankingController {
   constructor(private readonly rankingService: RankingService) {}
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService, ResponseService } from '@libs/common';
-import { ContentStatus } from '@libs/common/generated/prisma/enums';
+import { MinioService, PrismaService, ResponseService } from '@libs/common';
+import { AssetType } from '@libs/common/generated/prisma/enums';
 import { RankingQueryDto, RankingSort } from './dto/ranking-query.dto';
 
 type RankingKind = 'hot' | 'viral';
@@ -27,23 +27,23 @@ interface RankingItem {
   likeCount: number;
   shareCount: number;
   collectCount: number;
-  commentCount: number;
   publishedAt: Date | string | null;
   reason: string;
+  coverUrl: string | null;
 }
 
 const rankingWeights: Record<RankingKind, RankingWeights> = {
   hot: {
-    quality: 0.3,
-    heat: 0.4,
+    quality: 0.35,
+    heat: 0.45,
     freshness: 0.2,
-    interaction: 0.1,
+    interaction: 0,
   },
   viral: {
-    quality: 0.25,
-    heat: 0.35,
+    quality: 0.35,
+    heat: 0.55,
     freshness: 0.1,
-    interaction: 0.3,
+    interaction: 0,
   },
 };
 
@@ -52,6 +52,7 @@ export class RankingService {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly responseService: ResponseService,
+    private readonly minioService: MinioService,
   ) {}
 
   async findRanking(kind: RankingKind, query: RankingQueryDto) {
@@ -62,26 +63,30 @@ export class RankingService {
 
     const contents = await this.prismaService.content.findMany({
       where: {
-        status: ContentStatus.PUBLISHED,
+        publishedVersionId: { not: null },
         deletedAt: null,
       },
       include: {
         author: true,
         metrics: true,
+        coverAsset: true,
+        publishedVersion: {
+          include: {
+            coverAsset: true,
+            qualityEvaluations: { orderBy: { createdAt: 'desc' }, take: 1 },
+          },
+        },
       },
       orderBy: [{ publishedAt: 'desc' }, { id: 'desc' }],
       take: 500,
     });
 
     const maxViewCount = Math.max(...contents.map((item) => item.metrics?.viewCount ?? 0), 1);
-    const maxInteractionCount = Math.max(
-      ...contents.map((item) => getInteractionCount(item.metrics)),
-      1,
-    );
+    const maxInteractionCount = Math.max(...contents.map((item) => getInteractionCount(item.metrics)), 1);
 
     const sortedItems = contents
       .map((content) => {
-        const qualityScore = toNumber(content.qualityScore);
+        const qualityScore = toNumber(content.publishedVersion?.qualityEvaluations[0]?.totalScore);
         const heatScore = normalize(content.metrics?.viewCount ?? 0, maxViewCount);
         const interactionScore = normalize(getInteractionCount(content.metrics), maxInteractionCount);
         const freshnessScore = getFreshnessScore(content.publishedAt);
@@ -97,8 +102,8 @@ export class RankingService {
 
         return {
           id: content.id,
-          title: content.title,
-          summary: content.summary,
+          title: content.publishedVersion?.title ?? content.title,
+          summary: content.publishedVersion?.summary ?? content.summary,
           contentType: content.contentType,
           authorName: content.author.username,
           qualityScore,
@@ -110,9 +115,9 @@ export class RankingService {
           likeCount: content.metrics?.likeCount ?? 0,
           shareCount: content.metrics?.shareCount ?? 0,
           collectCount: content.metrics?.collectCount ?? 0,
-          commentCount: content.metrics?.commentCount ?? 0,
           publishedAt: content.publishedAt,
-          reason: getReason(kind, qualityScore, heatScore, freshnessScore, interactionScore),
+          reason: getReason(kind, qualityScore, heatScore, freshnessScore),
+          coverUrl: this.getPublicAssetUrl(content.publishedVersion?.coverAsset ?? content.coverAsset),
         } satisfies RankingItem;
       })
       .sort((left, right) => compareRankingItems(left, right, sort));
@@ -132,6 +137,47 @@ export class RankingService {
       '获取榜单成功',
     );
   }
+
+  private getPublicAssetUrl(asset: { type: AssetType; url: string; metadata: unknown } | null | undefined) {
+    if (!asset) {
+      return null;
+    }
+
+    if (asset.type === AssetType.LINK || /^https?:\/\//i.test(asset.url)) {
+      return asset.url;
+    }
+
+    const objectPath =
+      asset.type === AssetType.IMAGE ? (getCompressedOutputStorageKey(asset.metadata) ?? asset.url) : asset.url;
+
+    return this.minioService.getPublicUrl(objectPath);
+  }
+}
+
+function getCompressedOutputStorageKey(metadata: unknown) {
+  if (!metadata || typeof metadata !== 'object' || !('fileProcess' in metadata)) {
+    return null;
+  }
+
+  const fileProcess = metadata.fileProcess;
+  if (!fileProcess || typeof fileProcess !== 'object' || !('processedOutputs' in fileProcess)) {
+    return null;
+  }
+
+  const processedOutputs = fileProcess.processedOutputs;
+  if (!Array.isArray(processedOutputs)) {
+    return null;
+  }
+
+  const compressedOutput = processedOutputs.find((output) => {
+    return output && typeof output === 'object' && 'variant' in output && output.variant === 'compressed';
+  });
+
+  if (!compressedOutput || typeof compressedOutput !== 'object' || !('storageKey' in compressedOutput)) {
+    return null;
+  }
+
+  return typeof compressedOutput.storageKey === 'string' ? compressedOutput.storageKey : null;
 }
 
 function parseCursor(cursor?: string) {
@@ -157,14 +203,13 @@ function getInteractionCount(
     likeCount: number;
     shareCount: number;
     collectCount: number;
-    commentCount: number;
   } | null,
 ) {
   if (!metrics) {
     return 0;
   }
 
-  return metrics.likeCount * 2 + metrics.shareCount * 3 + metrics.collectCount * 2 + metrics.commentCount;
+  return metrics.likeCount * 2 + metrics.shareCount * 3 + metrics.collectCount * 2;
 }
 
 function getFreshnessScore(publishedAt: Date | null) {
@@ -209,18 +254,11 @@ function compareRankingItems(left: RankingItem, right: RankingItem, sort: Rankin
   return primary || secondary || right.id.localeCompare(left.id);
 }
 
-function getReason(
-  kind: RankingKind,
-  qualityScore: number,
-  heatScore: number,
-  freshnessScore: number,
-  interactionScore: number,
-) {
+function getReason(kind: RankingKind, qualityScore: number, heatScore: number, freshnessScore: number) {
   const labels = [
     { label: '质量分突出', value: qualityScore },
     { label: '阅读热度高', value: heatScore },
     { label: '发布时间较新', value: freshnessScore },
-    { label: '互动增长快', value: interactionScore },
   ]
     .sort((left, right) => right.value - left.value)
     .slice(0, 2)
