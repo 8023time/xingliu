@@ -1,11 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
-import { LogoutUserDto } from './dto/logout-user.dto';
-import { ResponseService, PrismaService } from '@libs/common';
+import { FileService, PrismaService, ResponseService, type FileUploadInput } from '@libs/common';
+import { FileCategory, FileObjectPurpose } from '@libs/common/generated/prisma/enums';
 import { AuthService } from '../auth/auth.service';
-import type { LoginUserResponse, RegisterUserResponse, AuthToken } from '@xingliu/shared/user';
+import type {
+  AuthToken,
+  AuthUser,
+  LoginUserResponse,
+  RegisterUserResponse,
+  UploadAvatarResponse,
+} from '@xingliu/shared/user';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -13,6 +20,7 @@ export class UserService {
     private readonly responseService: ResponseService,
     private readonly prismaService: PrismaService,
     private readonly authService: AuthService,
+    private readonly fileService: FileService,
   ) {}
 
   async register(registerUserDto: RegisterUserDto) {
@@ -44,6 +52,8 @@ export class UserService {
         avatarUrl: true,
         status: true,
         tokenVersion: true,
+        createdAt: true,
+        updatedAt: true,
       },
     });
 
@@ -51,18 +61,9 @@ export class UserService {
       {
         token: this.authService.generateToken({
           userId: user.id,
-          phone,
-          email: user.email ?? null,
           tokenVersion: user.tokenVersion,
         }),
-        user: {
-          id: user.id,
-          email: user.email ?? null,
-          phone: user.phone,
-          username: user.username,
-          avatarUrl: user.avatarUrl,
-          status: user.status,
-        },
+        user: this.toAuthUser(user),
       },
       '注册成功',
     );
@@ -84,6 +85,8 @@ export class UserService {
         status: true,
         passwordHash: true,
         tokenVersion: true,
+        createdAt: true,
+        updatedAt: true,
       },
     });
 
@@ -99,18 +102,9 @@ export class UserService {
       {
         token: this.authService.generateToken({
           userId: user.id,
-          phone: user.phone,
-          email: user.email ?? null,
           tokenVersion: user.tokenVersion,
         }),
-        user: {
-          id: user.id,
-          phone: user.phone,
-          email: user.email ?? null,
-          username: user.username,
-          avatarUrl: user.avatarUrl,
-          status: user.status,
-        },
+        user: this.toAuthUser(user),
       },
       '登录成功',
     );
@@ -130,6 +124,8 @@ export class UserService {
           avatarUrl: true,
           status: true,
           tokenVersion: true,
+          createdAt: true,
+          updatedAt: true,
         },
       });
 
@@ -145,8 +141,6 @@ export class UserService {
       return this.responseService.success<AuthToken>(
         this.authService.generateToken({
           userId: user.id,
-          phone: user.phone,
-          email: user.email ?? null,
           tokenVersion: user.tokenVersion,
         }),
         '刷新令牌成功',
@@ -156,22 +150,103 @@ export class UserService {
     }
   }
 
-  async logout(logoutUserDto: LogoutUserDto) {
-    try {
-      const payload = this.authService.verifyToken(logoutUserDto.refreshToken);
-
-      await this.prismaService.user.update({
-        where: { id: payload.userId },
-        data: {
-          tokenVersion: {
-            increment: 1,
-          },
+  async logout(userId: string) {
+    await this.prismaService.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        tokenVersion: {
+          increment: 1,
         },
-      });
+      },
+    });
+    return this.responseService.success(null, '退出登录成功');
+  }
 
-      return this.responseService.success(null, '退出成功');
-    } catch {
-      return this.responseService.error(null, '无效的刷新令牌');
+  async updateInfo(userId: string, updateUserDto: UpdateUserDto) {
+    const { email, phone, username } = updateUserDto;
+
+    // 检查新的手机号和邮箱是否已被其他用户注册
+    const existingUser = await this.prismaService.user.findFirst({
+      where: {
+        id: { not: userId },
+        OR: [{ phone }, ...(email ? [{ email }] : [])],
+      },
+      select: {
+        phone: true,
+        email: true,
+      },
+    });
+
+    if (existingUser?.phone === phone) {
+      return this.responseService.error(null, '手机号已被注册');
     }
+
+    if (email && existingUser?.email === email) {
+      return this.responseService.error(null, '邮箱已被注册');
+    }
+
+    const user = await this.prismaService.user.update({
+      where: { id: userId },
+      data: {
+        phone,
+        username,
+        email: email ?? null,
+      },
+      select: {
+        id: true,
+        email: true,
+        phone: true,
+        username: true,
+        avatarUrl: true,
+        status: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+
+    return this.responseService.success<AuthUser>(this.toAuthUser(user), '更新用户信息成功');
+  }
+
+  async uploadAvatar(userId: string, avatar?: FileUploadInput) {
+    if (!avatar) {
+      throw new BadRequestException('请上传头像图片');
+    }
+
+    const uploadedFile = await this.fileService.upload(avatar, userId, {
+      purpose: FileObjectPurpose.AVATAR,
+      allowedCategories: [FileCategory.IMAGE],
+    });
+
+    const avatarUrl = uploadedFile.url;
+    await this.prismaService.user.update({
+      where: { id: userId },
+      data: { avatarUrl },
+    });
+
+    return this.responseService.success<UploadAvatarResponse>({ avatarUrl }, '上传头像成功');
+  }
+
+  private toAuthUser(user: {
+    id: string;
+    email: string | null;
+    phone: string;
+    username: string;
+    avatarUrl: string | null;
+    status: AuthUser['status'];
+    createdAt: Date;
+    updatedAt: Date;
+  }): AuthUser {
+    return {
+      id: user.id,
+      email: user.email,
+      phone: user.phone,
+      username: user.username,
+      avatarUrl: user.avatarUrl,
+      status: user.status,
+      createdAt: user.createdAt.toISOString(),
+      updatedAt: user.updatedAt.toISOString(),
+    };
   }
 }

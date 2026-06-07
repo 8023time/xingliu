@@ -1,11 +1,11 @@
 import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
 import type { Request } from 'express';
-import type { AuthTokenPayloadType } from '@xingliu/shared/user';
+import type { AuthTokenPayload } from '@xingliu/shared/user';
 import { AuthGuard } from '@libs/common';
 import { ModerationService } from './moderation.service';
 import { ModerationCheckDto } from './dto/moderation-check.dto';
 
-type AuthenticatedRequest = Request & { user: AuthTokenPayloadType };
+type AuthenticatedRequest = Request & { user: AuthTokenPayload };
 
 @Controller('moderation')
 @UseGuards(AuthGuard)

@@ -1,10 +1,12 @@
-import { Controller, Post, Body, UseGuards } from '@nestjs/common';
-import { UserService } from './user.service';
+import { Body, Controller, Post, Put, Req, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { AuthGuard, type FileUploadInput } from '@libs/common';
+import type { Request } from 'express';
 import { LoginUserDto } from './dto/login-user.dto';
-import { RegisterUserDto } from './dto/register-user.dto';
-import { LogoutUserDto } from './dto/logout-user.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
-import { AuthGuard } from '@libs/common';
+import { RegisterUserDto } from './dto/register-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
@@ -27,7 +29,20 @@ export class UserController {
 
   @Post('logout')
   @UseGuards(AuthGuard)
-  logout(@Body() logoutUserDto: LogoutUserDto) {
-    return this.userService.logout(logoutUserDto);
+  logout(@Req() request: Request) {
+    return this.userService.logout(request.user.userId);
+  }
+
+  @Put('info')
+  @UseGuards(AuthGuard)
+  updateInfo(@Req() request: Request, @Body() updateUserDto: UpdateUserDto) {
+    return this.userService.updateInfo(request.user.userId, updateUserDto);
+  }
+
+  @Post('avatar')
+  @UseGuards(AuthGuard)
+  @UseInterceptors(FileInterceptor('avatar', { limits: { fileSize: 5 * 1024 * 1024 } }))
+  uploadAvatar(@Req() request: Request, @UploadedFile() avatar?: FileUploadInput) {
+    return this.userService.uploadAvatar(request.user.userId, avatar);
   }
 }

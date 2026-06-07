@@ -1,12 +1,12 @@
 import { Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
 import type { Request } from 'express';
-import type { AuthTokenPayloadType } from '@xingliu/shared/user';
+import type { AuthTokenPayload } from '@xingliu/shared/user';
 import { AuthGuard } from '@libs/common';
 import { DraftService } from './draft.service';
 import { CreateDraftDto } from './dto/create-draft.dto';
 import { DraftParamDto } from './dto/draft-param.dto';
 
-type AuthenticatedRequest = Request & { user: AuthTokenPayloadType };
+type AuthenticatedRequest = Request & { user: AuthTokenPayload };
 
 @Controller('contents/:contentId/drafts')
 @UseGuards(AuthGuard)

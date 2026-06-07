@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Req, UseGuards } from '@nestjs/common';
 import type { Request } from 'express';
-import type { AuthTokenPayloadType } from '@xingliu/shared/user';
+import type { AuthTokenPayload } from '@xingliu/shared/user';
 import { AuthGuard } from '@libs/common';
 import { PromptService } from './prompt.service';
 import { CreatePromptDto } from './dto/create-prompt.dto';
@@ -8,7 +8,7 @@ import { UpdatePromptDto } from './dto/update-prompt.dto';
 import { PromptQueryDto } from './dto/prompt-query.dto';
 import { PromptParamDto } from './dto/prompt-param.dto';
 
-type AuthenticatedRequest = Request & { user: AuthTokenPayloadType };
+type AuthenticatedRequest = Request & { user: AuthTokenPayload };
 
 @Controller('prompts')
 @UseGuards(AuthGuard)

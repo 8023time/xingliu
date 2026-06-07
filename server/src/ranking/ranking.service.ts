@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { MinioService, PrismaService, ResponseService } from '@libs/common';
+import { FileService, PrismaService, ResponseService } from '@libs/common';
 import { AssetType } from '@libs/common/generated/prisma/enums';
 import { RankingQueryDto, RankingSort } from './dto/ranking-query.dto';
 
@@ -52,7 +52,7 @@ export class RankingService {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly responseService: ResponseService,
-    private readonly minioService: MinioService,
+    private readonly fileService: FileService,
   ) {}
 
   async findRanking(kind: RankingKind, query: RankingQueryDto) {
@@ -150,34 +150,49 @@ export class RankingService {
     const objectPath =
       asset.type === AssetType.IMAGE ? (getCompressedOutputStorageKey(asset.metadata) ?? asset.url) : asset.url;
 
-    return this.minioService.getPublicUrl(objectPath);
+    return this.fileService.getPublicUrl(objectPath);
   }
 }
 
-function getCompressedOutputStorageKey(metadata: unknown) {
-  if (!metadata || typeof metadata !== 'object' || !('fileProcess' in metadata)) {
+function getCompressedOutputStorageKey(metadata: unknown): string | null {
+  if (!metadata || typeof metadata !== 'object') {
     return null;
   }
 
-  const fileProcess = metadata.fileProcess;
-  if (!fileProcess || typeof fileProcess !== 'object' || !('processedOutputs' in fileProcess)) {
+  const fileProcess = getObjectProperty(metadata, 'fileProcess');
+  if (!fileProcess) {
     return null;
   }
 
-  const processedOutputs = fileProcess.processedOutputs;
-  if (!Array.isArray(processedOutputs)) {
+  const processedOutputs = getArrayProperty(fileProcess, 'processedOutputs');
+  if (!processedOutputs) {
     return null;
   }
 
   const compressedOutput = processedOutputs.find((output) => {
-    return output && typeof output === 'object' && 'variant' in output && output.variant === 'compressed';
+    return output && typeof output === 'object' && getStringProperty(output, 'variant') === 'compressed';
   });
 
-  if (!compressedOutput || typeof compressedOutput !== 'object' || !('storageKey' in compressedOutput)) {
+  if (!compressedOutput || typeof compressedOutput !== 'object') {
     return null;
   }
 
-  return typeof compressedOutput.storageKey === 'string' ? compressedOutput.storageKey : null;
+  return getStringProperty(compressedOutput, 'storageKey');
+}
+
+function getObjectProperty(value: object, key: string): object | null {
+  const property = (value as Record<string, unknown>)[key];
+  return property && typeof property === 'object' && !Array.isArray(property) ? property : null;
+}
+
+function getArrayProperty(value: object, key: string): unknown[] | null {
+  const property = (value as Record<string, unknown>)[key];
+  return Array.isArray(property) ? property : null;
+}
+
+function getStringProperty(value: object, key: string): string | null {
+  const property = (value as Record<string, unknown>)[key];
+  return typeof property === 'string' ? property : null;
 }
 
 function parseCursor(cursor?: string) {

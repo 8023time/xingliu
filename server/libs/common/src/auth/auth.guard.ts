@@ -1,5 +1,5 @@
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
-import type { AuthTokenPayloadType } from '@xingliu/shared/user';
+import type { AuthTokenPayload } from '@xingliu/shared/user';
 import { JwtService } from '@nestjs/jwt';
 import type { Request } from 'express';
 import { PrismaService } from '@libs/common';
@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const req = context.switchToHttp().getRequest<Request & { user?: AuthTokenPayloadType }>();
+    const req = context.switchToHttp().getRequest<Request & { user?: AuthTokenPayload }>();
 
     const Headers = req.headers;
     const authorization = Headers.authorization;
@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate {
     const token = authorization.replace('Bearer ', '');
 
     try {
-      const payload = this.jwtService.verify<AuthTokenPayloadType>(token);
+      const payload = this.jwtService.verify<AuthTokenPayload>(token);
 
       // 验证 token 的类型，确保它是一个访问令牌
       if (payload.tokenType !== 'access') {
