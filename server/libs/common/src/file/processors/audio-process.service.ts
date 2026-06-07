@@ -1,11 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import type { FileProcessInput, FileProcessResult } from './types/file-process.type';
+import type { FileProcessInput, FileProcessResult } from '../types';
 
 @Injectable()
 export class AudioProcessService {
-  /**
-   * 处理音频文件，提取基本元数据，目前不支持进一步处理。
-   */
   process(input: FileProcessInput): FileProcessResult {
     return {
       category: 'audio',

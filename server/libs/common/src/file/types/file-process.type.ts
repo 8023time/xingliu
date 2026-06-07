@@ -1,5 +1,4 @@
 export type FileProcessCategory = 'image' | 'video' | 'audio' | 'document' | 'unknown';
-
 export type ProcessedFileVariant = 'compressed' | 'thumbnail';
 
 export interface FileProcessInput {
@@ -36,4 +35,13 @@ export interface FileProcessResult {
   detectedType?: DetectedFileType;
   metadata: Record<string, unknown>;
   outputs: ProcessedFileOutput[];
+}
+
+export interface FileProcessOptions {
+  image?: ImageProcessOptions;
+}
+
+export interface FileProcessor {
+  process(input: FileProcessInput, options?: FileProcessOptions): Promise<FileProcessResult>;
+  getCategory(mimeType: string): FileProcessCategory;
 }

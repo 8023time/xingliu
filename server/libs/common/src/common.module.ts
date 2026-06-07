@@ -4,10 +4,9 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ResponseModule } from './response/response.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
-import { MinioModule } from './minio/minio.module';
 import { AiModule } from './ai/ai.module';
 import { ModerationModule } from './moderation/moderation.module';
-import { FileProcessModule } from './file-process/file-process.module';
+import { FileModule } from './file/file.module';
 
 @Global()
 @Module({
@@ -18,10 +17,9 @@ import { FileProcessModule } from './file-process/file-process.module';
     ResponseModule,
     JwtModule,
     ConfigModule,
-    MinioModule,
     AiModule,
     ModerationModule,
-    FileProcessModule,
+    FileModule,
   ],
   imports: [
     PrismaModule,
@@ -41,10 +39,9 @@ import { FileProcessModule } from './file-process/file-process.module';
         };
       },
     }),
-    MinioModule,
     AiModule,
     ModerationModule,
-    FileProcessModule,
+    FileModule,
   ],
 })
 export class CommonModule {}

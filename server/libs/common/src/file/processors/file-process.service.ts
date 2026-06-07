@@ -1,23 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { fileTypeFromBuffer } from 'file-type';
-import { ImageProcessService } from './image-process.service';
-import { VideoProcessService } from './video-process.service';
 import { AudioProcessService } from './audio-process.service';
 import { DocumentProcessService } from './document-process.service';
+import { ImageProcessService } from './image-process.service';
+import { VideoProcessService } from './video-process.service';
 import type {
   DetectedFileType,
   FileProcessCategory,
   FileProcessInput,
+  FileProcessOptions,
   FileProcessResult,
-  ImageProcessOptions,
-} from './types/file-process.type';
-
-export interface FileProcessOptions {
-  image?: ImageProcessOptions;
-}
+  FileProcessor,
+} from '../types';
 
 @Injectable()
-export class FileProcessService {
+export class FileProcessService implements FileProcessor {
   constructor(
     private readonly imageProcessService: ImageProcessService,
     private readonly videoProcessService: VideoProcessService,

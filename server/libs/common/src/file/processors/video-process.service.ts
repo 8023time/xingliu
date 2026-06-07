@@ -1,14 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import type { FileProcessInput, FileProcessResult } from './types/file-process.type';
+import type { FileProcessInput, FileProcessResult } from '../types';
 
 @Injectable()
-export class DocumentProcessService {
-  /**
-   * 处理文档文件，提取基本元数据，目前不支持进一步处理。
-   */
+export class VideoProcessService {
   process(input: FileProcessInput): FileProcessResult {
     return {
-      category: 'document',
+      category: 'video',
       metadata: this.getBaseMetadata(input),
       outputs: [],
     };
