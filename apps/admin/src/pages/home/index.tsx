@@ -147,12 +147,12 @@ export default function HomePage() {
       <Flex vertical gap={24} className="min-w-0 flex-1">
         <section className="rounded-lg bg-white p-6 shadow-sm">
           <Flex align="center" justify="space-between" gap={24} wrap="wrap">
-            <div className="min-w-[280px] flex-1">
+            <div className="min-w-70 flex-1">
               <Flex align="center" gap={12}>
                 <Avatar size={40} src={user?.avatarUrl ?? '/avatar.jpg'} />
                 <Text>晚上好，{user?.username ?? '创作者'}</Text>
               </Flex>
-              <Title level={1} className="!mb-6 !mt-4">
+              <Title level={1} className="mt-4! mb-6!">
                 今天要创作什么？
               </Title>
               <Input.Search
@@ -164,7 +164,7 @@ export default function HomePage() {
                 onSearch={() => navigate('/content/create')}
               />
             </div>
-            <div className="w-full rounded-lg bg-slate-50 p-4 md:w-[220px]">
+            <div className="w-full rounded-lg bg-slate-50 p-4 md:w-55">
               <Text strong>今日生产链路</Text>
               <Space direction="vertical" size={12} className="mt-4 w-full">
                 <Tag icon={<EditOutlined />} color="cyan">
@@ -254,7 +254,7 @@ export default function HomePage() {
           </Col>
         </Row>
       </Flex>
-      <Flex gap={16} wrap="wrap" className="w-full shrink-0 content-start xl:w-[360px] 2xl:w-[420px]">
+      <Flex gap={16} wrap="wrap" className="w-full shrink-0 content-start xl:w-90 2xl:w-105">
         <div className="w-full md:w-[calc(50%-8px)] xl:w-full">
           <HotTopicsList />
         </div>
@@ -265,8 +265,6 @@ export default function HomePage() {
     </Flex>
   );
 }
-
-
 
 function QualityItem({ title, value, description }: { title: string; value: number; description: string }) {
   return (

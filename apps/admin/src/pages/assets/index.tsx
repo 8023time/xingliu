@@ -141,7 +141,7 @@ export default function AssetsPage() {
               fallback="/xingliu.png"
             />
           ) : (
-            <span className="flex h-[54px] w-[72px] items-center justify-center rounded-lg bg-slate-100 text-xl text-slate-500">
+            <span className="flex h-13.5 w-18 items-center justify-center rounded-lg bg-slate-100 text-xl text-slate-500">
               {record.type === 'LINK' ? <LinkOutlined /> : <FileOutlined />}
             </span>
           )}

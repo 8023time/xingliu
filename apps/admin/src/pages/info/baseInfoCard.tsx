@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { CameraOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar, Button, Upload, message,type UploadProps } from 'antd';
+import { Avatar, Button, Upload, message, type UploadProps } from 'antd';
 import { uploadAvatarApi } from '@/api/user';
 import { useAuthStore } from '@/stores/user-store';
 
