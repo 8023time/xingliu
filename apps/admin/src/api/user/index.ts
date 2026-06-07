@@ -5,7 +5,9 @@ import type {
   RegisterUserResponse,
   RefreshTokenResponse,
   RefreshTokenRequest,
-  LogoutUserRequest,
+  UpdateUserInfoRequest,
+  UpdateUserInfoResponse,
+  UploadAvatarResponse,
 } from '@xingliu/shared/user';
 import type { ResponseFormat } from '@xingliu/shared/common';
 import http from '@/configs/request';
@@ -30,8 +32,8 @@ export async function registerApi(data: RegisterUserRequest): Promise<ResponseFo
  * 登出接口
  * POST /api/user/logout
  */
-export async function logoutApi(data: LogoutUserRequest): Promise<ResponseFormat<null>> {
-  return http.post('/user/logout', data);
+export async function logoutApi(): Promise<ResponseFormat<null>> {
+  return http.post('/user/logout');
 }
 
 /**
@@ -40,4 +42,26 @@ export async function logoutApi(data: LogoutUserRequest): Promise<ResponseFormat
  */
 export async function refreshTokenApi(data: RefreshTokenRequest): Promise<ResponseFormat<RefreshTokenResponse>> {
   return http.post('/user/refreshToken', data);
+}
+
+/**
+ * 更新用户信息接口
+ * PUT /api/user/info
+ */
+export async function updateUserInfoApi(data: UpdateUserInfoRequest): Promise<ResponseFormat<UpdateUserInfoResponse>> {
+  return http.put('/user/info', data);
+}
+
+/**
+ * 上传更新用户头像接口
+ * POST /api/user/avatar
+ */
+export async function uploadAvatarApi(file: File): Promise<ResponseFormat<UploadAvatarResponse>> {
+  const formData = new FormData();
+  formData.append('avatar', file);
+  return http.post('/user/avatar', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
 }

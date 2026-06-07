@@ -56,6 +56,7 @@ function APPSider() {
     { key: '/assets', icon: <PictureOutlined />, label: '素材管理' },
     { key: '/content/list', icon: <FileTextOutlined />, label: '内容列表' },
     { key: '/rankings', icon: <FireOutlined />, label: '榜单中心' },
+    { key: '/info', icon: <UserOutlined />, label: '用户信息' },
   ];
 
   const handleCreateClick = () => {
@@ -138,7 +139,7 @@ function APPSider() {
 
 function APPHeader({ className }: { className?: string }) {
   const navigate = useNavigate();
-  const { logout, token, user } = useAuthStore();
+  const { logout, user } = useAuthStore();
 
   const userMenuItems = [
     {
@@ -147,7 +148,7 @@ function APPHeader({ className }: { className?: string }) {
       label: '退出登录',
       danger: true,
       onClick: async () => {
-        const res = await logoutApi({ refreshToken: token?.refreshToken ?? '' });
+        const res = await logoutApi();
         if (res.code === 1) {
           logout();
           navigate('/login');
@@ -173,7 +174,7 @@ function APPHeader({ className }: { className?: string }) {
 
         <Dropdown menu={{ items: userMenuItems }}>
           <Flex align="center" style={{ cursor: 'pointer', padding: '4px 8px', borderRadius: 6 }}>
-            <Avatar size={25} src="/avatar.png" icon={<UserOutlined />} />
+            <Avatar size={25} src={user?.avatarUrl ?? undefined} icon={<UserOutlined />} />
             <span style={{ marginLeft: 8, fontWeight: 500 }}>{user?.username ?? '未知用户'}</span>
           </Flex>
         </Dropdown>

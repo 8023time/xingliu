@@ -3,7 +3,6 @@ import { lazyComponent } from './utils/lazy-component';
 import AuthRoute from './utils/AuthRoute';
 import LoginRoute from './utils/LoginRoute';
 import RouteError from '@/components/ui/RouteError';
-import RankingsPage from '@/pages/rankings';
 
 const router = createBrowserRouter([
   {
@@ -35,7 +34,7 @@ const router = createBrowserRouter([
           },
           {
             path: 'rankings',
-            element: <RankingsPage />,
+            element: lazyComponent(() => import('@/pages/rankings')),
           },
           {
             path: 'prompts',
@@ -57,6 +56,10 @@ const router = createBrowserRouter([
                 element: lazyComponent(() => import('@/pages/content/create')),
               },
             ],
+          },
+          {
+            path: 'info',
+            element: lazyComponent(() => import('@/pages/info')),
           },
         ],
       },
