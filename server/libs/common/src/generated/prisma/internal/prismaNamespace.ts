@@ -387,6 +387,7 @@ export const ModelName = {
   User: 'User',
   PromptTemplate: 'PromptTemplate',
   Asset: 'Asset',
+  FileObject: 'FileObject',
   Content: 'Content',
   ContentVersion: 'ContentVersion',
   DraftSnapshot: 'DraftSnapshot',
@@ -413,7 +414,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "promptTemplate" | "asset" | "content" | "contentVersion" | "draftSnapshot" | "aiTask" | "safetyReview" | "qualityEvaluation" | "rewriteRecord" | "contentMetric" | "contentInteraction" | "hotTopic" | "distributionTask"
+    modelProps: "user" | "promptTemplate" | "asset" | "fileObject" | "content" | "contentVersion" | "draftSnapshot" | "aiTask" | "safetyReview" | "qualityEvaluation" | "rewriteRecord" | "contentMetric" | "contentInteraction" | "hotTopic" | "distributionTask"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -636,6 +637,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.AssetCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.AssetCountAggregateOutputType> | number
+        }
+      }
+    }
+    FileObject: {
+      payload: Prisma.$FileObjectPayload<ExtArgs>
+      fields: Prisma.FileObjectFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FileObjectFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FileObjectPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FileObjectFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FileObjectPayload>
+        }
+        findFirst: {
+          args: Prisma.FileObjectFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FileObjectPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FileObjectFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FileObjectPayload>
+        }
+        findMany: {
+          args: Prisma.FileObjectFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FileObjectPayload>[]
+        }
+        create: {
+          args: Prisma.FileObjectCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FileObjectPayload>
+        }
+        createMany: {
+          args: Prisma.FileObjectCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FileObjectCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FileObjectPayload>[]
+        }
+        delete: {
+          args: Prisma.FileObjectDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FileObjectPayload>
+        }
+        update: {
+          args: Prisma.FileObjectUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FileObjectPayload>
+        }
+        deleteMany: {
+          args: Prisma.FileObjectDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FileObjectUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FileObjectUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FileObjectPayload>[]
+        }
+        upsert: {
+          args: Prisma.FileObjectUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FileObjectPayload>
+        }
+        aggregate: {
+          args: Prisma.FileObjectAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFileObject>
+        }
+        groupBy: {
+          args: Prisma.FileObjectGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FileObjectGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FileObjectCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FileObjectCountAggregateOutputType> | number
         }
       }
     }
@@ -1530,6 +1605,7 @@ export type PromptTemplateScalarFieldEnum = (typeof PromptTemplateScalarFieldEnu
 export const AssetScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  fileObjectId: 'fileObjectId',
   type: 'type',
   name: 'name',
   url: 'url',
@@ -1551,6 +1627,27 @@ export const AssetScalarFieldEnum = {
 } as const
 
 export type AssetScalarFieldEnum = (typeof AssetScalarFieldEnum)[keyof typeof AssetScalarFieldEnum]
+
+
+export const FileObjectScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  purpose: 'purpose',
+  category: 'category',
+  originalName: 'originalName',
+  storageKey: 'storageKey',
+  publicStorageKey: 'publicStorageKey',
+  mimeType: 'mimeType',
+  sizeBytes: 'sizeBytes',
+  checksum: 'checksum',
+  metadata: 'metadata',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type FileObjectScalarFieldEnum = (typeof FileObjectScalarFieldEnum)[keyof typeof FileObjectScalarFieldEnum]
 
 
 export const ContentScalarFieldEnum = {
@@ -1956,6 +2053,34 @@ export type ListEnumRiskLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
 
 
 /**
+ * Reference to a field of type 'FileObjectPurpose'
+ */
+export type EnumFileObjectPurposeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FileObjectPurpose'>
+    
+
+
+/**
+ * Reference to a field of type 'FileObjectPurpose[]'
+ */
+export type ListEnumFileObjectPurposeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FileObjectPurpose[]'>
+    
+
+
+/**
+ * Reference to a field of type 'FileCategory'
+ */
+export type EnumFileCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FileCategory'>
+    
+
+
+/**
+ * Reference to a field of type 'FileCategory[]'
+ */
+export type ListEnumFileCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FileCategory[]'>
+    
+
+
+/**
  * Reference to a field of type 'ContentType'
  */
 export type EnumContentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContentType'>
@@ -2284,6 +2409,7 @@ export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   promptTemplate?: Prisma.PromptTemplateOmit
   asset?: Prisma.AssetOmit
+  fileObject?: Prisma.FileObjectOmit
   content?: Prisma.ContentOmit
   contentVersion?: Prisma.ContentVersionOmit
   draftSnapshot?: Prisma.DraftSnapshotOmit

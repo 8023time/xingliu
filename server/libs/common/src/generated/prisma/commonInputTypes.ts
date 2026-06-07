@@ -342,6 +342,40 @@ export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
 }
 
+export type EnumFileObjectPurposeFilter<$PrismaModel = never> = {
+  equals?: $Enums.FileObjectPurpose | Prisma.EnumFileObjectPurposeFieldRefInput<$PrismaModel>
+  in?: $Enums.FileObjectPurpose[] | Prisma.ListEnumFileObjectPurposeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FileObjectPurpose[] | Prisma.ListEnumFileObjectPurposeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFileObjectPurposeFilter<$PrismaModel> | $Enums.FileObjectPurpose
+}
+
+export type EnumFileCategoryFilter<$PrismaModel = never> = {
+  equals?: $Enums.FileCategory | Prisma.EnumFileCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.FileCategory[] | Prisma.ListEnumFileCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FileCategory[] | Prisma.ListEnumFileCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFileCategoryFilter<$PrismaModel> | $Enums.FileCategory
+}
+
+export type EnumFileObjectPurposeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FileObjectPurpose | Prisma.EnumFileObjectPurposeFieldRefInput<$PrismaModel>
+  in?: $Enums.FileObjectPurpose[] | Prisma.ListEnumFileObjectPurposeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FileObjectPurpose[] | Prisma.ListEnumFileObjectPurposeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFileObjectPurposeWithAggregatesFilter<$PrismaModel> | $Enums.FileObjectPurpose
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFileObjectPurposeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFileObjectPurposeFilter<$PrismaModel>
+}
+
+export type EnumFileCategoryWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FileCategory | Prisma.EnumFileCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.FileCategory[] | Prisma.ListEnumFileCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FileCategory[] | Prisma.ListEnumFileCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFileCategoryWithAggregatesFilter<$PrismaModel> | $Enums.FileCategory
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFileCategoryFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFileCategoryFilter<$PrismaModel>
+}
+
 export type EnumContentTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.ContentType | Prisma.EnumContentTypeFieldRefInput<$PrismaModel>
   in?: $Enums.ContentType[] | Prisma.ListEnumContentTypeFieldRefInput<$PrismaModel>
@@ -1027,6 +1061,40 @@ export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
   _max?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumFileObjectPurposeFilter<$PrismaModel = never> = {
+  equals?: $Enums.FileObjectPurpose | Prisma.EnumFileObjectPurposeFieldRefInput<$PrismaModel>
+  in?: $Enums.FileObjectPurpose[] | Prisma.ListEnumFileObjectPurposeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FileObjectPurpose[] | Prisma.ListEnumFileObjectPurposeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFileObjectPurposeFilter<$PrismaModel> | $Enums.FileObjectPurpose
+}
+
+export type NestedEnumFileCategoryFilter<$PrismaModel = never> = {
+  equals?: $Enums.FileCategory | Prisma.EnumFileCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.FileCategory[] | Prisma.ListEnumFileCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FileCategory[] | Prisma.ListEnumFileCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFileCategoryFilter<$PrismaModel> | $Enums.FileCategory
+}
+
+export type NestedEnumFileObjectPurposeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FileObjectPurpose | Prisma.EnumFileObjectPurposeFieldRefInput<$PrismaModel>
+  in?: $Enums.FileObjectPurpose[] | Prisma.ListEnumFileObjectPurposeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FileObjectPurpose[] | Prisma.ListEnumFileObjectPurposeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFileObjectPurposeWithAggregatesFilter<$PrismaModel> | $Enums.FileObjectPurpose
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFileObjectPurposeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFileObjectPurposeFilter<$PrismaModel>
+}
+
+export type NestedEnumFileCategoryWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FileCategory | Prisma.EnumFileCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.FileCategory[] | Prisma.ListEnumFileCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FileCategory[] | Prisma.ListEnumFileCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFileCategoryWithAggregatesFilter<$PrismaModel> | $Enums.FileCategory
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFileCategoryFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFileCategoryFilter<$PrismaModel>
 }
 
 export type NestedEnumContentTypeFilter<$PrismaModel = never> = {

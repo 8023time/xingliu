@@ -258,6 +258,7 @@ export type UserWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   promptTemplates?: Prisma.PromptTemplateListRelationFilter
   assets?: Prisma.AssetListRelationFilter
+  fileObjects?: Prisma.FileObjectListRelationFilter
   contents?: Prisma.ContentListRelationFilter
   contentVersionsCreated?: Prisma.ContentVersionListRelationFilter
   draftSnapshots?: Prisma.DraftSnapshotListRelationFilter
@@ -279,6 +280,7 @@ export type UserOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   promptTemplates?: Prisma.PromptTemplateOrderByRelationAggregateInput
   assets?: Prisma.AssetOrderByRelationAggregateInput
+  fileObjects?: Prisma.FileObjectOrderByRelationAggregateInput
   contents?: Prisma.ContentOrderByRelationAggregateInput
   contentVersionsCreated?: Prisma.ContentVersionOrderByRelationAggregateInput
   draftSnapshots?: Prisma.DraftSnapshotOrderByRelationAggregateInput
@@ -303,6 +305,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   promptTemplates?: Prisma.PromptTemplateListRelationFilter
   assets?: Prisma.AssetListRelationFilter
+  fileObjects?: Prisma.FileObjectListRelationFilter
   contents?: Prisma.ContentListRelationFilter
   contentVersionsCreated?: Prisma.ContentVersionListRelationFilter
   draftSnapshots?: Prisma.DraftSnapshotListRelationFilter
@@ -358,6 +361,7 @@ export type UserCreateInput = {
   updatedAt?: Date | string
   promptTemplates?: Prisma.PromptTemplateCreateNestedManyWithoutOwnerInput
   assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  fileObjects?: Prisma.FileObjectCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutUserInput
@@ -379,6 +383,7 @@ export type UserUncheckedCreateInput = {
   updatedAt?: Date | string
   promptTemplates?: Prisma.PromptTemplateUncheckedCreateNestedManyWithoutOwnerInput
   assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  fileObjects?: Prisma.FileObjectUncheckedCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutUserInput
@@ -400,6 +405,7 @@ export type UserUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   promptTemplates?: Prisma.PromptTemplateUpdateManyWithoutOwnerNestedInput
   assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  fileObjects?: Prisma.FileObjectUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutUserNestedInput
@@ -421,6 +427,7 @@ export type UserUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   promptTemplates?: Prisma.PromptTemplateUncheckedUpdateManyWithoutOwnerNestedInput
   assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  fileObjects?: Prisma.FileObjectUncheckedUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUncheckedUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutUserNestedInput
@@ -579,6 +586,20 @@ export type UserUpdateOneRequiredWithoutAssetsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAssetsInput, Prisma.UserUpdateWithoutAssetsInput>, Prisma.UserUncheckedUpdateWithoutAssetsInput>
 }
 
+export type UserCreateNestedOneWithoutFileObjectsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFileObjectsInput, Prisma.UserUncheckedCreateWithoutFileObjectsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFileObjectsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutFileObjectsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFileObjectsInput, Prisma.UserUncheckedCreateWithoutFileObjectsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFileObjectsInput
+  upsert?: Prisma.UserUpsertWithoutFileObjectsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFileObjectsInput, Prisma.UserUpdateWithoutFileObjectsInput>, Prisma.UserUncheckedUpdateWithoutFileObjectsInput>
+}
+
 export type UserCreateNestedOneWithoutContentsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutContentsInput, Prisma.UserUncheckedCreateWithoutContentsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutContentsInput
@@ -683,6 +704,7 @@ export type UserCreateWithoutPromptTemplatesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  fileObjects?: Prisma.FileObjectCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutUserInput
@@ -703,6 +725,7 @@ export type UserUncheckedCreateWithoutPromptTemplatesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  fileObjects?: Prisma.FileObjectUncheckedCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutUserInput
@@ -739,6 +762,7 @@ export type UserUpdateWithoutPromptTemplatesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  fileObjects?: Prisma.FileObjectUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutUserNestedInput
@@ -759,6 +783,7 @@ export type UserUncheckedUpdateWithoutPromptTemplatesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  fileObjects?: Prisma.FileObjectUncheckedUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUncheckedUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutUserNestedInput
@@ -779,6 +804,7 @@ export type UserCreateWithoutAssetsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   promptTemplates?: Prisma.PromptTemplateCreateNestedManyWithoutOwnerInput
+  fileObjects?: Prisma.FileObjectCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutUserInput
@@ -799,6 +825,7 @@ export type UserUncheckedCreateWithoutAssetsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   promptTemplates?: Prisma.PromptTemplateUncheckedCreateNestedManyWithoutOwnerInput
+  fileObjects?: Prisma.FileObjectUncheckedCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutUserInput
@@ -835,6 +862,7 @@ export type UserUpdateWithoutAssetsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   promptTemplates?: Prisma.PromptTemplateUpdateManyWithoutOwnerNestedInput
+  fileObjects?: Prisma.FileObjectUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutUserNestedInput
@@ -855,6 +883,107 @@ export type UserUncheckedUpdateWithoutAssetsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   promptTemplates?: Prisma.PromptTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+  fileObjects?: Prisma.FileObjectUncheckedUpdateManyWithoutUserNestedInput
+  contents?: Prisma.ContentUncheckedUpdateManyWithoutAuthorNestedInput
+  contentVersionsCreated?: Prisma.ContentVersionUncheckedUpdateManyWithoutCreatorNestedInput
+  draftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutUserNestedInput
+  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutUserNestedInput
+  rewriteRecords?: Prisma.RewriteRecordUncheckedUpdateManyWithoutUserNestedInput
+  interactions?: Prisma.ContentInteractionUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutFileObjectsInput = {
+  id?: string
+  email?: string | null
+  phone: string
+  passwordHash: string
+  username: string
+  avatarUrl?: string | null
+  status?: $Enums.UserStatus
+  tokenVersion?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  promptTemplates?: Prisma.PromptTemplateCreateNestedManyWithoutOwnerInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  contents?: Prisma.ContentCreateNestedManyWithoutAuthorInput
+  contentVersionsCreated?: Prisma.ContentVersionCreateNestedManyWithoutCreatorInput
+  draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutUserInput
+  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutUserInput
+  rewriteRecords?: Prisma.RewriteRecordCreateNestedManyWithoutUserInput
+  interactions?: Prisma.ContentInteractionCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutFileObjectsInput = {
+  id?: string
+  email?: string | null
+  phone: string
+  passwordHash: string
+  username: string
+  avatarUrl?: string | null
+  status?: $Enums.UserStatus
+  tokenVersion?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  promptTemplates?: Prisma.PromptTemplateUncheckedCreateNestedManyWithoutOwnerInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  contents?: Prisma.ContentUncheckedCreateNestedManyWithoutAuthorInput
+  contentVersionsCreated?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutCreatorInput
+  draftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutUserInput
+  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutUserInput
+  rewriteRecords?: Prisma.RewriteRecordUncheckedCreateNestedManyWithoutUserInput
+  interactions?: Prisma.ContentInteractionUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutFileObjectsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutFileObjectsInput, Prisma.UserUncheckedCreateWithoutFileObjectsInput>
+}
+
+export type UserUpsertWithoutFileObjectsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutFileObjectsInput, Prisma.UserUncheckedUpdateWithoutFileObjectsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutFileObjectsInput, Prisma.UserUncheckedCreateWithoutFileObjectsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutFileObjectsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutFileObjectsInput, Prisma.UserUncheckedUpdateWithoutFileObjectsInput>
+}
+
+export type UserUpdateWithoutFileObjectsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  promptTemplates?: Prisma.PromptTemplateUpdateManyWithoutOwnerNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  contents?: Prisma.ContentUpdateManyWithoutAuthorNestedInput
+  contentVersionsCreated?: Prisma.ContentVersionUpdateManyWithoutCreatorNestedInput
+  draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutUserNestedInput
+  aiTasks?: Prisma.AiTaskUpdateManyWithoutUserNestedInput
+  rewriteRecords?: Prisma.RewriteRecordUpdateManyWithoutUserNestedInput
+  interactions?: Prisma.ContentInteractionUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutFileObjectsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  promptTemplates?: Prisma.PromptTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUncheckedUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutUserNestedInput
@@ -876,6 +1005,7 @@ export type UserCreateWithoutContentsInput = {
   updatedAt?: Date | string
   promptTemplates?: Prisma.PromptTemplateCreateNestedManyWithoutOwnerInput
   assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  fileObjects?: Prisma.FileObjectCreateNestedManyWithoutUserInput
   contentVersionsCreated?: Prisma.ContentVersionCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutUserInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutUserInput
@@ -896,6 +1026,7 @@ export type UserUncheckedCreateWithoutContentsInput = {
   updatedAt?: Date | string
   promptTemplates?: Prisma.PromptTemplateUncheckedCreateNestedManyWithoutOwnerInput
   assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  fileObjects?: Prisma.FileObjectUncheckedCreateNestedManyWithoutUserInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutUserInput
   aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutUserInput
@@ -932,6 +1063,7 @@ export type UserUpdateWithoutContentsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   promptTemplates?: Prisma.PromptTemplateUpdateManyWithoutOwnerNestedInput
   assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  fileObjects?: Prisma.FileObjectUpdateManyWithoutUserNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutUserNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutUserNestedInput
@@ -952,6 +1084,7 @@ export type UserUncheckedUpdateWithoutContentsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   promptTemplates?: Prisma.PromptTemplateUncheckedUpdateManyWithoutOwnerNestedInput
   assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  fileObjects?: Prisma.FileObjectUncheckedUpdateManyWithoutUserNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutUserNestedInput
   aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutUserNestedInput
@@ -972,6 +1105,7 @@ export type UserCreateWithoutContentVersionsCreatedInput = {
   updatedAt?: Date | string
   promptTemplates?: Prisma.PromptTemplateCreateNestedManyWithoutOwnerInput
   assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  fileObjects?: Prisma.FileObjectCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentCreateNestedManyWithoutAuthorInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutUserInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutUserInput
@@ -992,6 +1126,7 @@ export type UserUncheckedCreateWithoutContentVersionsCreatedInput = {
   updatedAt?: Date | string
   promptTemplates?: Prisma.PromptTemplateUncheckedCreateNestedManyWithoutOwnerInput
   assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  fileObjects?: Prisma.FileObjectUncheckedCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutAuthorInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutUserInput
   aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutUserInput
@@ -1028,6 +1163,7 @@ export type UserUpdateWithoutContentVersionsCreatedInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   promptTemplates?: Prisma.PromptTemplateUpdateManyWithoutOwnerNestedInput
   assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  fileObjects?: Prisma.FileObjectUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUpdateManyWithoutAuthorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutUserNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutUserNestedInput
@@ -1048,6 +1184,7 @@ export type UserUncheckedUpdateWithoutContentVersionsCreatedInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   promptTemplates?: Prisma.PromptTemplateUncheckedUpdateManyWithoutOwnerNestedInput
   assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  fileObjects?: Prisma.FileObjectUncheckedUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUncheckedUpdateManyWithoutAuthorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutUserNestedInput
   aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutUserNestedInput
@@ -1068,6 +1205,7 @@ export type UserCreateWithoutDraftSnapshotsInput = {
   updatedAt?: Date | string
   promptTemplates?: Prisma.PromptTemplateCreateNestedManyWithoutOwnerInput
   assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  fileObjects?: Prisma.FileObjectCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionCreateNestedManyWithoutCreatorInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutUserInput
@@ -1088,6 +1226,7 @@ export type UserUncheckedCreateWithoutDraftSnapshotsInput = {
   updatedAt?: Date | string
   promptTemplates?: Prisma.PromptTemplateUncheckedCreateNestedManyWithoutOwnerInput
   assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  fileObjects?: Prisma.FileObjectUncheckedCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutCreatorInput
   aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutUserInput
@@ -1124,6 +1263,7 @@ export type UserUpdateWithoutDraftSnapshotsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   promptTemplates?: Prisma.PromptTemplateUpdateManyWithoutOwnerNestedInput
   assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  fileObjects?: Prisma.FileObjectUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUpdateManyWithoutCreatorNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutUserNestedInput
@@ -1144,6 +1284,7 @@ export type UserUncheckedUpdateWithoutDraftSnapshotsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   promptTemplates?: Prisma.PromptTemplateUncheckedUpdateManyWithoutOwnerNestedInput
   assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  fileObjects?: Prisma.FileObjectUncheckedUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUncheckedUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedUpdateManyWithoutCreatorNestedInput
   aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutUserNestedInput
@@ -1164,6 +1305,7 @@ export type UserCreateWithoutAiTasksInput = {
   updatedAt?: Date | string
   promptTemplates?: Prisma.PromptTemplateCreateNestedManyWithoutOwnerInput
   assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  fileObjects?: Prisma.FileObjectCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutUserInput
@@ -1184,6 +1326,7 @@ export type UserUncheckedCreateWithoutAiTasksInput = {
   updatedAt?: Date | string
   promptTemplates?: Prisma.PromptTemplateUncheckedCreateNestedManyWithoutOwnerInput
   assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  fileObjects?: Prisma.FileObjectUncheckedCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutUserInput
@@ -1220,6 +1363,7 @@ export type UserUpdateWithoutAiTasksInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   promptTemplates?: Prisma.PromptTemplateUpdateManyWithoutOwnerNestedInput
   assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  fileObjects?: Prisma.FileObjectUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutUserNestedInput
@@ -1240,6 +1384,7 @@ export type UserUncheckedUpdateWithoutAiTasksInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   promptTemplates?: Prisma.PromptTemplateUncheckedUpdateManyWithoutOwnerNestedInput
   assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  fileObjects?: Prisma.FileObjectUncheckedUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUncheckedUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutUserNestedInput
@@ -1260,6 +1405,7 @@ export type UserCreateWithoutRewriteRecordsInput = {
   updatedAt?: Date | string
   promptTemplates?: Prisma.PromptTemplateCreateNestedManyWithoutOwnerInput
   assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  fileObjects?: Prisma.FileObjectCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutUserInput
@@ -1280,6 +1426,7 @@ export type UserUncheckedCreateWithoutRewriteRecordsInput = {
   updatedAt?: Date | string
   promptTemplates?: Prisma.PromptTemplateUncheckedCreateNestedManyWithoutOwnerInput
   assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  fileObjects?: Prisma.FileObjectUncheckedCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutUserInput
@@ -1316,6 +1463,7 @@ export type UserUpdateWithoutRewriteRecordsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   promptTemplates?: Prisma.PromptTemplateUpdateManyWithoutOwnerNestedInput
   assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  fileObjects?: Prisma.FileObjectUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutUserNestedInput
@@ -1336,6 +1484,7 @@ export type UserUncheckedUpdateWithoutRewriteRecordsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   promptTemplates?: Prisma.PromptTemplateUncheckedUpdateManyWithoutOwnerNestedInput
   assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  fileObjects?: Prisma.FileObjectUncheckedUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUncheckedUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutUserNestedInput
@@ -1356,6 +1505,7 @@ export type UserCreateWithoutInteractionsInput = {
   updatedAt?: Date | string
   promptTemplates?: Prisma.PromptTemplateCreateNestedManyWithoutOwnerInput
   assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  fileObjects?: Prisma.FileObjectCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotCreateNestedManyWithoutUserInput
@@ -1376,6 +1526,7 @@ export type UserUncheckedCreateWithoutInteractionsInput = {
   updatedAt?: Date | string
   promptTemplates?: Prisma.PromptTemplateUncheckedCreateNestedManyWithoutOwnerInput
   assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  fileObjects?: Prisma.FileObjectUncheckedCreateNestedManyWithoutUserInput
   contents?: Prisma.ContentUncheckedCreateNestedManyWithoutAuthorInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutCreatorInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedCreateNestedManyWithoutUserInput
@@ -1412,6 +1563,7 @@ export type UserUpdateWithoutInteractionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   promptTemplates?: Prisma.PromptTemplateUpdateManyWithoutOwnerNestedInput
   assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  fileObjects?: Prisma.FileObjectUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUpdateManyWithoutUserNestedInput
@@ -1432,6 +1584,7 @@ export type UserUncheckedUpdateWithoutInteractionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   promptTemplates?: Prisma.PromptTemplateUncheckedUpdateManyWithoutOwnerNestedInput
   assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  fileObjects?: Prisma.FileObjectUncheckedUpdateManyWithoutUserNestedInput
   contents?: Prisma.ContentUncheckedUpdateManyWithoutAuthorNestedInput
   contentVersionsCreated?: Prisma.ContentVersionUncheckedUpdateManyWithoutCreatorNestedInput
   draftSnapshots?: Prisma.DraftSnapshotUncheckedUpdateManyWithoutUserNestedInput
@@ -1447,6 +1600,7 @@ export type UserUncheckedUpdateWithoutInteractionsInput = {
 export type UserCountOutputType = {
   promptTemplates: number
   assets: number
+  fileObjects: number
   contents: number
   contentVersionsCreated: number
   draftSnapshots: number
@@ -1458,6 +1612,7 @@ export type UserCountOutputType = {
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   promptTemplates?: boolean | UserCountOutputTypeCountPromptTemplatesArgs
   assets?: boolean | UserCountOutputTypeCountAssetsArgs
+  fileObjects?: boolean | UserCountOutputTypeCountFileObjectsArgs
   contents?: boolean | UserCountOutputTypeCountContentsArgs
   contentVersionsCreated?: boolean | UserCountOutputTypeCountContentVersionsCreatedArgs
   draftSnapshots?: boolean | UserCountOutputTypeCountDraftSnapshotsArgs
@@ -1488,6 +1643,13 @@ export type UserCountOutputTypeCountPromptTemplatesArgs<ExtArgs extends runtime.
  */
 export type UserCountOutputTypeCountAssetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.AssetWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountFileObjectsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FileObjectWhereInput
 }
 
 /**
@@ -1546,6 +1708,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedAt?: boolean
   promptTemplates?: boolean | Prisma.User$promptTemplatesArgs<ExtArgs>
   assets?: boolean | Prisma.User$assetsArgs<ExtArgs>
+  fileObjects?: boolean | Prisma.User$fileObjectsArgs<ExtArgs>
   contents?: boolean | Prisma.User$contentsArgs<ExtArgs>
   contentVersionsCreated?: boolean | Prisma.User$contentVersionsCreatedArgs<ExtArgs>
   draftSnapshots?: boolean | Prisma.User$draftSnapshotsArgs<ExtArgs>
@@ -1598,6 +1761,7 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   promptTemplates?: boolean | Prisma.User$promptTemplatesArgs<ExtArgs>
   assets?: boolean | Prisma.User$assetsArgs<ExtArgs>
+  fileObjects?: boolean | Prisma.User$fileObjectsArgs<ExtArgs>
   contents?: boolean | Prisma.User$contentsArgs<ExtArgs>
   contentVersionsCreated?: boolean | Prisma.User$contentVersionsCreatedArgs<ExtArgs>
   draftSnapshots?: boolean | Prisma.User$draftSnapshotsArgs<ExtArgs>
@@ -1614,6 +1778,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     promptTemplates: Prisma.$PromptTemplatePayload<ExtArgs>[]
     assets: Prisma.$AssetPayload<ExtArgs>[]
+    fileObjects: Prisma.$FileObjectPayload<ExtArgs>[]
     contents: Prisma.$ContentPayload<ExtArgs>[]
     contentVersionsCreated: Prisma.$ContentVersionPayload<ExtArgs>[]
     draftSnapshots: Prisma.$DraftSnapshotPayload<ExtArgs>[]
@@ -2028,6 +2193,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   promptTemplates<T extends Prisma.User$promptTemplatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$promptTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PromptTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   assets<T extends Prisma.User$assetsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assetsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  fileObjects<T extends Prisma.User$fileObjectsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$fileObjectsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FileObjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   contents<T extends Prisma.User$contentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$contentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   contentVersionsCreated<T extends Prisma.User$contentVersionsCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$contentVersionsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContentVersionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   draftSnapshots<T extends Prisma.User$draftSnapshotsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$draftSnapshotsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DraftSnapshotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2511,6 +2677,30 @@ export type User$assetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   distinct?: Prisma.AssetScalarFieldEnum | Prisma.AssetScalarFieldEnum[]
+}
+
+/**
+ * User.fileObjects
+ */
+export type User$fileObjectsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FileObject
+   */
+  select?: Prisma.FileObjectSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FileObject
+   */
+  omit?: Prisma.FileObjectOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FileObjectInclude<ExtArgs> | null
+  where?: Prisma.FileObjectWhereInput
+  orderBy?: Prisma.FileObjectOrderByWithRelationInput | Prisma.FileObjectOrderByWithRelationInput[]
+  cursor?: Prisma.FileObjectWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FileObjectScalarFieldEnum | Prisma.FileObjectScalarFieldEnum[]
 }
 
 /**

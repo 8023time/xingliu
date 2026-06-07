@@ -33,6 +33,11 @@ export type PromptTemplate = Prisma.PromptTemplateModel
  */
 export type Asset = Prisma.AssetModel
 /**
+ * Model FileObject
+ * 
+ */
+export type FileObject = Prisma.FileObjectModel
+/**
  * Model Content
  * 
  */

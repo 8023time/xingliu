@@ -54,6 +54,7 @@ export const ModelName = {
   User: 'User',
   PromptTemplate: 'PromptTemplate',
   Asset: 'Asset',
+  FileObject: 'FileObject',
   Content: 'Content',
   ContentVersion: 'ContentVersion',
   DraftSnapshot: 'DraftSnapshot',
@@ -121,6 +122,7 @@ export type PromptTemplateScalarFieldEnum = (typeof PromptTemplateScalarFieldEnu
 export const AssetScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  fileObjectId: 'fileObjectId',
   type: 'type',
   name: 'name',
   url: 'url',
@@ -142,6 +144,27 @@ export const AssetScalarFieldEnum = {
 } as const
 
 export type AssetScalarFieldEnum = (typeof AssetScalarFieldEnum)[keyof typeof AssetScalarFieldEnum]
+
+
+export const FileObjectScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  purpose: 'purpose',
+  category: 'category',
+  originalName: 'originalName',
+  storageKey: 'storageKey',
+  publicStorageKey: 'publicStorageKey',
+  mimeType: 'mimeType',
+  sizeBytes: 'sizeBytes',
+  checksum: 'checksum',
+  metadata: 'metadata',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type FileObjectScalarFieldEnum = (typeof FileObjectScalarFieldEnum)[keyof typeof FileObjectScalarFieldEnum]
 
 
 export const ContentScalarFieldEnum = {

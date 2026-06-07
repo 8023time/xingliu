@@ -34,6 +34,21 @@ enum AssetType {
   AUDIO    @map("audio")
 }
 
+enum FileCategory {
+  IMAGE    @map("image")
+  VIDEO    @map("video")
+  AUDIO    @map("audio")
+  DOCUMENT @map("document")
+  UNKNOWN  @map("unknown")
+}
+
+enum FileObjectPurpose {
+  TEMP    @map("temp")
+  ASSET   @map("asset")
+  AVATAR  @map("avatar")
+  CONTENT @map("content")
+}
+
 enum SafetyStatus {
   PENDING @map("pending")
   PASS    @map("pass")
@@ -152,6 +167,7 @@ model User {
 
   promptTemplates        PromptTemplate[]
   assets                 Asset[]
+  fileObjects            FileObject[]
   contents               Content[]
   contentVersionsCreated ContentVersion[]
   draftSnapshots         DraftSnapshot[]
@@ -190,6 +206,7 @@ model PromptTemplate {
 model Asset {
   id              String       @id @default(uuid())
   userId          String       @map("user_id")
+  fileObjectId    String?      @map("file_object_id")
   type            AssetType
   name            String
   url             String
@@ -210,14 +227,42 @@ model Asset {
   deletedAt       DateTime?    @map("deleted_at")
 
   user          User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fileObject    FileObject?      @relation(fields: [fileObjectId], references: [id], onDelete: SetNull)
   aiTasks       AiTask[]
   coverContents Content[]
   coverVersions ContentVersion[]
 
   @@index([userId, createdAt])
+  @@index([fileObjectId])
   @@index([type])
   @@index([safetyStatus])
   @@map("assets")
+}
+
+model FileObject {
+  id               String            @id @default(uuid())
+  userId           String            @map("user_id")
+  purpose          FileObjectPurpose @default(TEMP)
+  category         FileCategory
+  originalName     String            @map("original_name")
+  storageKey       String            @unique @map("storage_key")
+  publicStorageKey String?           @map("public_storage_key")
+  mimeType         String            @map("mime_type")
+  sizeBytes        Int               @map("size_bytes")
+  checksum         String?
+  metadata         Json?
+  status           CommonStatus      @default(ACTIVE)
+  createdAt        DateTime          @default(now()) @map("created_at")
+  updatedAt        DateTime          @updatedAt @map("updated_at")
+  deletedAt        DateTime?         @map("deleted_at")
+
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assets Asset[]
+
+  @@index([userId, createdAt])
+  @@index([purpose, category])
+  @@index([status])
+  @@map("file_objects")
 }
 
 model Content {

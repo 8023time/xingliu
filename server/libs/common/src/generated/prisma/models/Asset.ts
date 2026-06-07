@@ -37,6 +37,7 @@ export type AssetSumAggregateOutputType = {
 export type AssetMinAggregateOutputType = {
   id: string | null
   userId: string | null
+  fileObjectId: string | null
   type: $Enums.AssetType | null
   name: string | null
   url: string | null
@@ -56,6 +57,7 @@ export type AssetMinAggregateOutputType = {
 export type AssetMaxAggregateOutputType = {
   id: string | null
   userId: string | null
+  fileObjectId: string | null
   type: $Enums.AssetType | null
   name: string | null
   url: string | null
@@ -75,6 +77,7 @@ export type AssetMaxAggregateOutputType = {
 export type AssetCountAggregateOutputType = {
   id: number
   userId: number
+  fileObjectId: number
   type: number
   name: number
   url: number
@@ -108,6 +111,7 @@ export type AssetSumAggregateInputType = {
 export type AssetMinAggregateInputType = {
   id?: true
   userId?: true
+  fileObjectId?: true
   type?: true
   name?: true
   url?: true
@@ -127,6 +131,7 @@ export type AssetMinAggregateInputType = {
 export type AssetMaxAggregateInputType = {
   id?: true
   userId?: true
+  fileObjectId?: true
   type?: true
   name?: true
   url?: true
@@ -146,6 +151,7 @@ export type AssetMaxAggregateInputType = {
 export type AssetCountAggregateInputType = {
   id?: true
   userId?: true
+  fileObjectId?: true
   type?: true
   name?: true
   url?: true
@@ -256,6 +262,7 @@ export type AssetGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type AssetGroupByOutputType = {
   id: string
   userId: string
+  fileObjectId: string | null
   type: $Enums.AssetType
   name: string
   url: string
@@ -302,6 +309,7 @@ export type AssetWhereInput = {
   NOT?: Prisma.AssetWhereInput | Prisma.AssetWhereInput[]
   id?: Prisma.StringFilter<"Asset"> | string
   userId?: Prisma.StringFilter<"Asset"> | string
+  fileObjectId?: Prisma.StringNullableFilter<"Asset"> | string | null
   type?: Prisma.EnumAssetTypeFilter<"Asset"> | $Enums.AssetType
   name?: Prisma.StringFilter<"Asset"> | string
   url?: Prisma.StringFilter<"Asset"> | string
@@ -321,6 +329,7 @@ export type AssetWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Asset"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  fileObject?: Prisma.XOR<Prisma.FileObjectNullableScalarRelationFilter, Prisma.FileObjectWhereInput> | null
   aiTasks?: Prisma.AiTaskListRelationFilter
   coverContents?: Prisma.ContentListRelationFilter
   coverVersions?: Prisma.ContentVersionListRelationFilter
@@ -329,6 +338,7 @@ export type AssetWhereInput = {
 export type AssetOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  fileObjectId?: Prisma.SortOrderInput | Prisma.SortOrder
   type?: Prisma.SortOrder
   name?: Prisma.SortOrder
   url?: Prisma.SortOrder
@@ -348,6 +358,7 @@ export type AssetOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  fileObject?: Prisma.FileObjectOrderByWithRelationInput
   aiTasks?: Prisma.AiTaskOrderByRelationAggregateInput
   coverContents?: Prisma.ContentOrderByRelationAggregateInput
   coverVersions?: Prisma.ContentVersionOrderByRelationAggregateInput
@@ -359,6 +370,7 @@ export type AssetWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.AssetWhereInput[]
   NOT?: Prisma.AssetWhereInput | Prisma.AssetWhereInput[]
   userId?: Prisma.StringFilter<"Asset"> | string
+  fileObjectId?: Prisma.StringNullableFilter<"Asset"> | string | null
   type?: Prisma.EnumAssetTypeFilter<"Asset"> | $Enums.AssetType
   name?: Prisma.StringFilter<"Asset"> | string
   url?: Prisma.StringFilter<"Asset"> | string
@@ -378,6 +390,7 @@ export type AssetWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Asset"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  fileObject?: Prisma.XOR<Prisma.FileObjectNullableScalarRelationFilter, Prisma.FileObjectWhereInput> | null
   aiTasks?: Prisma.AiTaskListRelationFilter
   coverContents?: Prisma.ContentListRelationFilter
   coverVersions?: Prisma.ContentVersionListRelationFilter
@@ -386,6 +399,7 @@ export type AssetWhereUniqueInput = Prisma.AtLeast<{
 export type AssetOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  fileObjectId?: Prisma.SortOrderInput | Prisma.SortOrder
   type?: Prisma.SortOrder
   name?: Prisma.SortOrder
   url?: Prisma.SortOrder
@@ -417,6 +431,7 @@ export type AssetScalarWhereWithAggregatesInput = {
   NOT?: Prisma.AssetScalarWhereWithAggregatesInput | Prisma.AssetScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Asset"> | string
   userId?: Prisma.StringWithAggregatesFilter<"Asset"> | string
+  fileObjectId?: Prisma.StringNullableWithAggregatesFilter<"Asset"> | string | null
   type?: Prisma.EnumAssetTypeWithAggregatesFilter<"Asset"> | $Enums.AssetType
   name?: Prisma.StringWithAggregatesFilter<"Asset"> | string
   url?: Prisma.StringWithAggregatesFilter<"Asset"> | string
@@ -458,6 +473,7 @@ export type AssetCreateInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutAssetsInput
+  fileObject?: Prisma.FileObjectCreateNestedOneWithoutAssetsInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutAssetInput
   coverContents?: Prisma.ContentCreateNestedManyWithoutCoverAssetInput
   coverVersions?: Prisma.ContentVersionCreateNestedManyWithoutCoverAssetInput
@@ -466,6 +482,7 @@ export type AssetCreateInput = {
 export type AssetUncheckedCreateInput = {
   id?: string
   userId: string
+  fileObjectId?: string | null
   type: $Enums.AssetType
   name: string
   url: string
@@ -510,6 +527,7 @@ export type AssetUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutAssetsNestedInput
+  fileObject?: Prisma.FileObjectUpdateOneWithoutAssetsNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutAssetNestedInput
   coverContents?: Prisma.ContentUpdateManyWithoutCoverAssetNestedInput
   coverVersions?: Prisma.ContentVersionUpdateManyWithoutCoverAssetNestedInput
@@ -518,6 +536,7 @@ export type AssetUpdateInput = {
 export type AssetUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  fileObjectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
@@ -544,6 +563,7 @@ export type AssetUncheckedUpdateInput = {
 export type AssetCreateManyInput = {
   id?: string
   userId: string
+  fileObjectId?: string | null
   type: $Enums.AssetType
   name: string
   url: string
@@ -589,6 +609,7 @@ export type AssetUpdateManyMutationInput = {
 export type AssetUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  fileObjectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
@@ -622,6 +643,7 @@ export type AssetOrderByRelationAggregateInput = {
 export type AssetCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  fileObjectId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   name?: Prisma.SortOrder
   url?: Prisma.SortOrder
@@ -649,6 +671,7 @@ export type AssetAvgOrderByAggregateInput = {
 export type AssetMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  fileObjectId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   name?: Prisma.SortOrder
   url?: Prisma.SortOrder
@@ -668,6 +691,7 @@ export type AssetMaxOrderByAggregateInput = {
 export type AssetMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  fileObjectId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   name?: Prisma.SortOrder
   url?: Prisma.SortOrder
@@ -759,6 +783,48 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
 
+export type AssetCreateNestedManyWithoutFileObjectInput = {
+  create?: Prisma.XOR<Prisma.AssetCreateWithoutFileObjectInput, Prisma.AssetUncheckedCreateWithoutFileObjectInput> | Prisma.AssetCreateWithoutFileObjectInput[] | Prisma.AssetUncheckedCreateWithoutFileObjectInput[]
+  connectOrCreate?: Prisma.AssetCreateOrConnectWithoutFileObjectInput | Prisma.AssetCreateOrConnectWithoutFileObjectInput[]
+  createMany?: Prisma.AssetCreateManyFileObjectInputEnvelope
+  connect?: Prisma.AssetWhereUniqueInput | Prisma.AssetWhereUniqueInput[]
+}
+
+export type AssetUncheckedCreateNestedManyWithoutFileObjectInput = {
+  create?: Prisma.XOR<Prisma.AssetCreateWithoutFileObjectInput, Prisma.AssetUncheckedCreateWithoutFileObjectInput> | Prisma.AssetCreateWithoutFileObjectInput[] | Prisma.AssetUncheckedCreateWithoutFileObjectInput[]
+  connectOrCreate?: Prisma.AssetCreateOrConnectWithoutFileObjectInput | Prisma.AssetCreateOrConnectWithoutFileObjectInput[]
+  createMany?: Prisma.AssetCreateManyFileObjectInputEnvelope
+  connect?: Prisma.AssetWhereUniqueInput | Prisma.AssetWhereUniqueInput[]
+}
+
+export type AssetUpdateManyWithoutFileObjectNestedInput = {
+  create?: Prisma.XOR<Prisma.AssetCreateWithoutFileObjectInput, Prisma.AssetUncheckedCreateWithoutFileObjectInput> | Prisma.AssetCreateWithoutFileObjectInput[] | Prisma.AssetUncheckedCreateWithoutFileObjectInput[]
+  connectOrCreate?: Prisma.AssetCreateOrConnectWithoutFileObjectInput | Prisma.AssetCreateOrConnectWithoutFileObjectInput[]
+  upsert?: Prisma.AssetUpsertWithWhereUniqueWithoutFileObjectInput | Prisma.AssetUpsertWithWhereUniqueWithoutFileObjectInput[]
+  createMany?: Prisma.AssetCreateManyFileObjectInputEnvelope
+  set?: Prisma.AssetWhereUniqueInput | Prisma.AssetWhereUniqueInput[]
+  disconnect?: Prisma.AssetWhereUniqueInput | Prisma.AssetWhereUniqueInput[]
+  delete?: Prisma.AssetWhereUniqueInput | Prisma.AssetWhereUniqueInput[]
+  connect?: Prisma.AssetWhereUniqueInput | Prisma.AssetWhereUniqueInput[]
+  update?: Prisma.AssetUpdateWithWhereUniqueWithoutFileObjectInput | Prisma.AssetUpdateWithWhereUniqueWithoutFileObjectInput[]
+  updateMany?: Prisma.AssetUpdateManyWithWhereWithoutFileObjectInput | Prisma.AssetUpdateManyWithWhereWithoutFileObjectInput[]
+  deleteMany?: Prisma.AssetScalarWhereInput | Prisma.AssetScalarWhereInput[]
+}
+
+export type AssetUncheckedUpdateManyWithoutFileObjectNestedInput = {
+  create?: Prisma.XOR<Prisma.AssetCreateWithoutFileObjectInput, Prisma.AssetUncheckedCreateWithoutFileObjectInput> | Prisma.AssetCreateWithoutFileObjectInput[] | Prisma.AssetUncheckedCreateWithoutFileObjectInput[]
+  connectOrCreate?: Prisma.AssetCreateOrConnectWithoutFileObjectInput | Prisma.AssetCreateOrConnectWithoutFileObjectInput[]
+  upsert?: Prisma.AssetUpsertWithWhereUniqueWithoutFileObjectInput | Prisma.AssetUpsertWithWhereUniqueWithoutFileObjectInput[]
+  createMany?: Prisma.AssetCreateManyFileObjectInputEnvelope
+  set?: Prisma.AssetWhereUniqueInput | Prisma.AssetWhereUniqueInput[]
+  disconnect?: Prisma.AssetWhereUniqueInput | Prisma.AssetWhereUniqueInput[]
+  delete?: Prisma.AssetWhereUniqueInput | Prisma.AssetWhereUniqueInput[]
+  connect?: Prisma.AssetWhereUniqueInput | Prisma.AssetWhereUniqueInput[]
+  update?: Prisma.AssetUpdateWithWhereUniqueWithoutFileObjectInput | Prisma.AssetUpdateWithWhereUniqueWithoutFileObjectInput[]
+  updateMany?: Prisma.AssetUpdateManyWithWhereWithoutFileObjectInput | Prisma.AssetUpdateManyWithWhereWithoutFileObjectInput[]
+  deleteMany?: Prisma.AssetScalarWhereInput | Prisma.AssetScalarWhereInput[]
+}
+
 export type AssetCreateNestedOneWithoutCoverContentsInput = {
   create?: Prisma.XOR<Prisma.AssetCreateWithoutCoverContentsInput, Prisma.AssetUncheckedCreateWithoutCoverContentsInput>
   connectOrCreate?: Prisma.AssetCreateOrConnectWithoutCoverContentsInput
@@ -827,6 +893,7 @@ export type AssetCreateWithoutUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  fileObject?: Prisma.FileObjectCreateNestedOneWithoutAssetsInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutAssetInput
   coverContents?: Prisma.ContentCreateNestedManyWithoutCoverAssetInput
   coverVersions?: Prisma.ContentVersionCreateNestedManyWithoutCoverAssetInput
@@ -834,6 +901,7 @@ export type AssetCreateWithoutUserInput = {
 
 export type AssetUncheckedCreateWithoutUserInput = {
   id?: string
+  fileObjectId?: string | null
   type: $Enums.AssetType
   name: string
   url: string
@@ -889,6 +957,7 @@ export type AssetScalarWhereInput = {
   NOT?: Prisma.AssetScalarWhereInput | Prisma.AssetScalarWhereInput[]
   id?: Prisma.StringFilter<"Asset"> | string
   userId?: Prisma.StringFilter<"Asset"> | string
+  fileObjectId?: Prisma.StringNullableFilter<"Asset"> | string | null
   type?: Prisma.EnumAssetTypeFilter<"Asset"> | $Enums.AssetType
   name?: Prisma.StringFilter<"Asset"> | string
   url?: Prisma.StringFilter<"Asset"> | string
@@ -907,6 +976,84 @@ export type AssetScalarWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Asset"> | Date | string | null
+}
+
+export type AssetCreateWithoutFileObjectInput = {
+  id?: string
+  type: $Enums.AssetType
+  name: string
+  url: string
+  storageKey: string
+  mimeType?: string | null
+  sizeBytes?: number | null
+  tags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiDescription?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyStatus?: $Enums.SafetyStatus
+  safetyRiskLevel?: $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutAssetsInput
+  aiTasks?: Prisma.AiTaskCreateNestedManyWithoutAssetInput
+  coverContents?: Prisma.ContentCreateNestedManyWithoutCoverAssetInput
+  coverVersions?: Prisma.ContentVersionCreateNestedManyWithoutCoverAssetInput
+}
+
+export type AssetUncheckedCreateWithoutFileObjectInput = {
+  id?: string
+  userId: string
+  type: $Enums.AssetType
+  name: string
+  url: string
+  storageKey: string
+  mimeType?: string | null
+  sizeBytes?: number | null
+  tags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiDescription?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyStatus?: $Enums.SafetyStatus
+  safetyRiskLevel?: $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  aiTasks?: Prisma.AiTaskUncheckedCreateNestedManyWithoutAssetInput
+  coverContents?: Prisma.ContentUncheckedCreateNestedManyWithoutCoverAssetInput
+  coverVersions?: Prisma.ContentVersionUncheckedCreateNestedManyWithoutCoverAssetInput
+}
+
+export type AssetCreateOrConnectWithoutFileObjectInput = {
+  where: Prisma.AssetWhereUniqueInput
+  create: Prisma.XOR<Prisma.AssetCreateWithoutFileObjectInput, Prisma.AssetUncheckedCreateWithoutFileObjectInput>
+}
+
+export type AssetCreateManyFileObjectInputEnvelope = {
+  data: Prisma.AssetCreateManyFileObjectInput | Prisma.AssetCreateManyFileObjectInput[]
+  skipDuplicates?: boolean
+}
+
+export type AssetUpsertWithWhereUniqueWithoutFileObjectInput = {
+  where: Prisma.AssetWhereUniqueInput
+  update: Prisma.XOR<Prisma.AssetUpdateWithoutFileObjectInput, Prisma.AssetUncheckedUpdateWithoutFileObjectInput>
+  create: Prisma.XOR<Prisma.AssetCreateWithoutFileObjectInput, Prisma.AssetUncheckedCreateWithoutFileObjectInput>
+}
+
+export type AssetUpdateWithWhereUniqueWithoutFileObjectInput = {
+  where: Prisma.AssetWhereUniqueInput
+  data: Prisma.XOR<Prisma.AssetUpdateWithoutFileObjectInput, Prisma.AssetUncheckedUpdateWithoutFileObjectInput>
+}
+
+export type AssetUpdateManyWithWhereWithoutFileObjectInput = {
+  where: Prisma.AssetScalarWhereInput
+  data: Prisma.XOR<Prisma.AssetUpdateManyMutationInput, Prisma.AssetUncheckedUpdateManyWithoutFileObjectInput>
 }
 
 export type AssetCreateWithoutCoverContentsInput = {
@@ -930,6 +1077,7 @@ export type AssetCreateWithoutCoverContentsInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutAssetsInput
+  fileObject?: Prisma.FileObjectCreateNestedOneWithoutAssetsInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutAssetInput
   coverVersions?: Prisma.ContentVersionCreateNestedManyWithoutCoverAssetInput
 }
@@ -937,6 +1085,7 @@ export type AssetCreateWithoutCoverContentsInput = {
 export type AssetUncheckedCreateWithoutCoverContentsInput = {
   id?: string
   userId: string
+  fileObjectId?: string | null
   type: $Enums.AssetType
   name: string
   url: string
@@ -996,6 +1145,7 @@ export type AssetUpdateWithoutCoverContentsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutAssetsNestedInput
+  fileObject?: Prisma.FileObjectUpdateOneWithoutAssetsNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutAssetNestedInput
   coverVersions?: Prisma.ContentVersionUpdateManyWithoutCoverAssetNestedInput
 }
@@ -1003,6 +1153,7 @@ export type AssetUpdateWithoutCoverContentsInput = {
 export type AssetUncheckedUpdateWithoutCoverContentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  fileObjectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1046,6 +1197,7 @@ export type AssetCreateWithoutCoverVersionsInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutAssetsInput
+  fileObject?: Prisma.FileObjectCreateNestedOneWithoutAssetsInput
   aiTasks?: Prisma.AiTaskCreateNestedManyWithoutAssetInput
   coverContents?: Prisma.ContentCreateNestedManyWithoutCoverAssetInput
 }
@@ -1053,6 +1205,7 @@ export type AssetCreateWithoutCoverVersionsInput = {
 export type AssetUncheckedCreateWithoutCoverVersionsInput = {
   id?: string
   userId: string
+  fileObjectId?: string | null
   type: $Enums.AssetType
   name: string
   url: string
@@ -1112,6 +1265,7 @@ export type AssetUpdateWithoutCoverVersionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutAssetsNestedInput
+  fileObject?: Prisma.FileObjectUpdateOneWithoutAssetsNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutAssetNestedInput
   coverContents?: Prisma.ContentUpdateManyWithoutCoverAssetNestedInput
 }
@@ -1119,6 +1273,7 @@ export type AssetUpdateWithoutCoverVersionsInput = {
 export type AssetUncheckedUpdateWithoutCoverVersionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  fileObjectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1162,6 +1317,7 @@ export type AssetCreateWithoutAiTasksInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutAssetsInput
+  fileObject?: Prisma.FileObjectCreateNestedOneWithoutAssetsInput
   coverContents?: Prisma.ContentCreateNestedManyWithoutCoverAssetInput
   coverVersions?: Prisma.ContentVersionCreateNestedManyWithoutCoverAssetInput
 }
@@ -1169,6 +1325,7 @@ export type AssetCreateWithoutAiTasksInput = {
 export type AssetUncheckedCreateWithoutAiTasksInput = {
   id?: string
   userId: string
+  fileObjectId?: string | null
   type: $Enums.AssetType
   name: string
   url: string
@@ -1228,6 +1385,7 @@ export type AssetUpdateWithoutAiTasksInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutAssetsNestedInput
+  fileObject?: Prisma.FileObjectUpdateOneWithoutAssetsNestedInput
   coverContents?: Prisma.ContentUpdateManyWithoutCoverAssetNestedInput
   coverVersions?: Prisma.ContentVersionUpdateManyWithoutCoverAssetNestedInput
 }
@@ -1235,6 +1393,7 @@ export type AssetUpdateWithoutAiTasksInput = {
 export type AssetUncheckedUpdateWithoutAiTasksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  fileObjectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1259,6 +1418,7 @@ export type AssetUncheckedUpdateWithoutAiTasksInput = {
 
 export type AssetCreateManyUserInput = {
   id?: string
+  fileObjectId?: string | null
   type: $Enums.AssetType
   name: string
   url: string
@@ -1299,6 +1459,7 @@ export type AssetUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fileObject?: Prisma.FileObjectUpdateOneWithoutAssetsNestedInput
   aiTasks?: Prisma.AiTaskUpdateManyWithoutAssetNestedInput
   coverContents?: Prisma.ContentUpdateManyWithoutCoverAssetNestedInput
   coverVersions?: Prisma.ContentVersionUpdateManyWithoutCoverAssetNestedInput
@@ -1306,6 +1467,7 @@ export type AssetUpdateWithoutUserInput = {
 
 export type AssetUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  fileObjectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1331,6 +1493,105 @@ export type AssetUncheckedUpdateWithoutUserInput = {
 
 export type AssetUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  fileObjectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  storageKey?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
+  safetyRiskLevel?: Prisma.NullableEnumRiskLevelFieldUpdateOperationsInput | $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type AssetCreateManyFileObjectInput = {
+  id?: string
+  userId: string
+  type: $Enums.AssetType
+  name: string
+  url: string
+  storageKey: string
+  mimeType?: string | null
+  sizeBytes?: number | null
+  tags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiDescription?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyStatus?: $Enums.SafetyStatus
+  safetyRiskLevel?: $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+}
+
+export type AssetUpdateWithoutFileObjectInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  storageKey?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
+  safetyRiskLevel?: Prisma.NullableEnumRiskLevelFieldUpdateOperationsInput | $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutAssetsNestedInput
+  aiTasks?: Prisma.AiTaskUpdateManyWithoutAssetNestedInput
+  coverContents?: Prisma.ContentUpdateManyWithoutCoverAssetNestedInput
+  coverVersions?: Prisma.ContentVersionUpdateManyWithoutCoverAssetNestedInput
+}
+
+export type AssetUncheckedUpdateWithoutFileObjectInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  storageKey?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sizeBytes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tags?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  aiDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyStatus?: Prisma.EnumSafetyStatusFieldUpdateOperationsInput | $Enums.SafetyStatus
+  safetyRiskLevel?: Prisma.NullableEnumRiskLevelFieldUpdateOperationsInput | $Enums.RiskLevel | null
+  safetyLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  safetyRawOutput?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  safetyCheckedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiTasks?: Prisma.AiTaskUncheckedUpdateManyWithoutAssetNestedInput
+  coverContents?: Prisma.ContentUncheckedUpdateManyWithoutCoverAssetNestedInput
+  coverVersions?: Prisma.ContentVersionUncheckedUpdateManyWithoutCoverAssetNestedInput
+}
+
+export type AssetUncheckedUpdateManyWithoutFileObjectInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
   name?: Prisma.StringFieldUpdateOperationsInput | string
   url?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1403,6 +1664,7 @@ export type AssetCountOutputTypeCountCoverVersionsArgs<ExtArgs extends runtime.T
 export type AssetSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
+  fileObjectId?: boolean
   type?: boolean
   name?: boolean
   url?: boolean
@@ -1422,6 +1684,7 @@ export type AssetSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   updatedAt?: boolean
   deletedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  fileObject?: boolean | Prisma.Asset$fileObjectArgs<ExtArgs>
   aiTasks?: boolean | Prisma.Asset$aiTasksArgs<ExtArgs>
   coverContents?: boolean | Prisma.Asset$coverContentsArgs<ExtArgs>
   coverVersions?: boolean | Prisma.Asset$coverVersionsArgs<ExtArgs>
@@ -1431,6 +1694,7 @@ export type AssetSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type AssetSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
+  fileObjectId?: boolean
   type?: boolean
   name?: boolean
   url?: boolean
@@ -1450,11 +1714,13 @@ export type AssetSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   updatedAt?: boolean
   deletedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  fileObject?: boolean | Prisma.Asset$fileObjectArgs<ExtArgs>
 }, ExtArgs["result"]["asset"]>
 
 export type AssetSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
+  fileObjectId?: boolean
   type?: boolean
   name?: boolean
   url?: boolean
@@ -1474,11 +1740,13 @@ export type AssetSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   updatedAt?: boolean
   deletedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  fileObject?: boolean | Prisma.Asset$fileObjectArgs<ExtArgs>
 }, ExtArgs["result"]["asset"]>
 
 export type AssetSelectScalar = {
   id?: boolean
   userId?: boolean
+  fileObjectId?: boolean
   type?: boolean
   name?: boolean
   url?: boolean
@@ -1499,9 +1767,10 @@ export type AssetSelectScalar = {
   deletedAt?: boolean
 }
 
-export type AssetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "type" | "name" | "url" | "storageKey" | "mimeType" | "sizeBytes" | "tags" | "aiDescription" | "metadata" | "safetyStatus" | "safetyRiskLevel" | "safetyLabels" | "safetyReason" | "safetyRawOutput" | "safetyCheckedAt" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["asset"]>
+export type AssetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "fileObjectId" | "type" | "name" | "url" | "storageKey" | "mimeType" | "sizeBytes" | "tags" | "aiDescription" | "metadata" | "safetyStatus" | "safetyRiskLevel" | "safetyLabels" | "safetyReason" | "safetyRawOutput" | "safetyCheckedAt" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["asset"]>
 export type AssetInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  fileObject?: boolean | Prisma.Asset$fileObjectArgs<ExtArgs>
   aiTasks?: boolean | Prisma.Asset$aiTasksArgs<ExtArgs>
   coverContents?: boolean | Prisma.Asset$coverContentsArgs<ExtArgs>
   coverVersions?: boolean | Prisma.Asset$coverVersionsArgs<ExtArgs>
@@ -1509,15 +1778,18 @@ export type AssetInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
 }
 export type AssetIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  fileObject?: boolean | Prisma.Asset$fileObjectArgs<ExtArgs>
 }
 export type AssetIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  fileObject?: boolean | Prisma.Asset$fileObjectArgs<ExtArgs>
 }
 
 export type $AssetPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Asset"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
+    fileObject: Prisma.$FileObjectPayload<ExtArgs> | null
     aiTasks: Prisma.$AiTaskPayload<ExtArgs>[]
     coverContents: Prisma.$ContentPayload<ExtArgs>[]
     coverVersions: Prisma.$ContentVersionPayload<ExtArgs>[]
@@ -1525,6 +1797,7 @@ export type $AssetPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: string
+    fileObjectId: string | null
     type: $Enums.AssetType
     name: string
     url: string
@@ -1938,6 +2211,7 @@ readonly fields: AssetFieldRefs;
 export interface Prisma__AssetClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  fileObject<T extends Prisma.Asset$fileObjectArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Asset$fileObjectArgs<ExtArgs>>): Prisma.Prisma__FileObjectClient<runtime.Types.Result.GetResult<Prisma.$FileObjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   aiTasks<T extends Prisma.Asset$aiTasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Asset$aiTasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AiTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   coverContents<T extends Prisma.Asset$coverContentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Asset$coverContentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   coverVersions<T extends Prisma.Asset$coverVersionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Asset$coverVersionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContentVersionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -1972,6 +2246,7 @@ export interface Prisma__AssetClient<T, Null = never, ExtArgs extends runtime.Ty
 export interface AssetFieldRefs {
   readonly id: Prisma.FieldRef<"Asset", 'String'>
   readonly userId: Prisma.FieldRef<"Asset", 'String'>
+  readonly fileObjectId: Prisma.FieldRef<"Asset", 'String'>
   readonly type: Prisma.FieldRef<"Asset", 'AssetType'>
   readonly name: Prisma.FieldRef<"Asset", 'String'>
   readonly url: Prisma.FieldRef<"Asset", 'String'>
@@ -2388,6 +2663,25 @@ export type AssetDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Limit how many Assets to delete.
    */
   limit?: number
+}
+
+/**
+ * Asset.fileObject
+ */
+export type Asset$fileObjectArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FileObject
+   */
+  select?: Prisma.FileObjectSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FileObject
+   */
+  omit?: Prisma.FileObjectOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FileObjectInclude<ExtArgs> | null
+  where?: Prisma.FileObjectWhereInput
 }
 
 /**

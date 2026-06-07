@@ -11,6 +11,7 @@
 export type * from './models/User.js'
 export type * from './models/PromptTemplate.js'
 export type * from './models/Asset.js'
+export type * from './models/FileObject.js'
 export type * from './models/Content.js'
 export type * from './models/ContentVersion.js'
 export type * from './models/DraftSnapshot.js'

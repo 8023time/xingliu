@@ -47,6 +47,27 @@ export const AssetType = {
 export type AssetType = (typeof AssetType)[keyof typeof AssetType]
 
 
+export const FileCategory = {
+  IMAGE: 'IMAGE',
+  VIDEO: 'VIDEO',
+  AUDIO: 'AUDIO',
+  DOCUMENT: 'DOCUMENT',
+  UNKNOWN: 'UNKNOWN'
+} as const
+
+export type FileCategory = (typeof FileCategory)[keyof typeof FileCategory]
+
+
+export const FileObjectPurpose = {
+  TEMP: 'TEMP',
+  ASSET: 'ASSET',
+  AVATAR: 'AVATAR',
+  CONTENT: 'CONTENT'
+} as const
+
+export type FileObjectPurpose = (typeof FileObjectPurpose)[keyof typeof FileObjectPurpose]
+
+
 export const SafetyStatus = {
   PENDING: 'PENDING',
   PASS: 'PASS',
