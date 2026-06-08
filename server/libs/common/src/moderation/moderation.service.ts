@@ -1,145 +1,91 @@
-import { Injectable, ServiceUnavailableException } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import RPCClient from '@alicloud/pop-core';
-import FastScanner from 'fastscan';
-import { HIGH_RISK_SENSITIVE_WORDS } from './sensitive-words';
-
-export interface AssetModerationResult {
-  riskLevel: 'none' | 'low' | 'medium' | 'high';
-  labels: string[];
-  reason?: string;
-  requestId?: string;
-  rawOutput: unknown;
-}
-
-export interface TextModerationResult extends AssetModerationResult {
-  riskSpans: Array<{ index: number; text: string }>;
-}
-
-interface AliyunImageModerationResponse {
-  Code?: number;
-  Msg?: string;
-  RequestId?: string;
-  Data?: {
-    RiskLevel?: AssetModerationResult['riskLevel'];
-    Result?: Array<{
-      Label?: string;
-      Description?: string;
-    }>;
-  };
-}
-
-interface AliyunTextModerationResponse {
-  Code?: number;
-  Msg?: string;
-  RequestId?: string;
-  Data?: {
-    RiskLevel?: AssetModerationResult['riskLevel'];
-    Result?: Array<{
-      Label?: string;
-      Description?: string;
-    }>;
-  };
-}
+import { Injectable } from '@nestjs/common';
+import { AliyunGreenModerationProvider } from './providers/aliyun-green-moderation.provider';
+import { LocalRuleModerationProvider } from './providers/local-rule-moderation.provider';
+import { LOCAL_CONTEXT_RISK_LABEL } from './moderation.constants';
+import type { AssetModerationResult, ModerationRiskSpan, TextModerationResult } from './moderation.types';
 
 @Injectable()
 export class ModerationService {
-  private readonly client: RPCClient | null;
-  private readonly textScanner = new FastScanner([...HIGH_RISK_SENSITIVE_WORDS]);
-
-  constructor(private readonly configService: ConfigService) {
-    const accessKeyId = this.configService.get<string>('ALIBABA_CLOUD_ACCESS_KEY_ID');
-    const accessKeySecret = this.configService.get<string>('ALIBABA_CLOUD_ACCESS_KEY_SECRET');
-    const endpoint = this.configService.get<string>('ALIYUN_GREEN_ENDPOINT');
-
-    this.client =
-      accessKeyId && accessKeySecret && endpoint
-        ? new RPCClient({
-            accessKeyId,
-            accessKeySecret,
-            endpoint,
-            apiVersion: '2022-03-02',
-          })
-        : null;
-  }
+  constructor(
+    private readonly localRuleModerationProvider: LocalRuleModerationProvider,
+    private readonly aliyunGreenModerationProvider: AliyunGreenModerationProvider,
+  ) {}
 
   async moderateImage(imageUrl: string): Promise<AssetModerationResult> {
-    if (!this.client) {
-      throw new ServiceUnavailableException('图片审核服务未配置');
-    }
-
-    const service = this.configService.get<string>('ALIYUN_GREEN_IMAGE_SERVICE') ?? 'baselineCheck';
-    const response: AliyunImageModerationResponse = await this.client.request(
-      'ImageModeration',
-      {
-        Service: service,
-        ServiceParameters: JSON.stringify({ imageUrl }),
-      },
-      { method: 'POST' },
-    );
-
-    if (response.Code !== 200 || !response.Data?.RiskLevel || !Array.isArray(response.Data.Result)) {
-      throw new ServiceUnavailableException('图片审核服务返回无法解析');
-    }
-
-    const labels = response.Data.Result.map((item) => item.Label).filter((label): label is string =>
-      Boolean(label && label !== 'nonLabel'),
-    );
-    const descriptions = response.Data.Result.map((item) => item.Description).filter(
-      (description): description is string => Boolean(description),
-    );
+    const result = await this.aliyunGreenModerationProvider.moderate({
+      kind: 'image',
+      imageUrl,
+    });
 
     return {
-      riskLevel: response.Data.RiskLevel,
-      labels,
-      reason: descriptions.join('；') || undefined,
-      requestId: response.RequestId,
-      rawOutput: response,
+      riskLevel: result.riskLevel,
+      labels: result.labels,
+      reason: result.reason,
+      provider: result.provider,
+      requestId: result.requestId,
+      rawOutput: result.rawOutput,
     };
   }
 
   async moderateText(text: string): Promise<TextModerationResult> {
-    const localHits = this.textScanner.search(text, { longest: true });
-    if (localHits.length) {
+    const localResult = await this.localRuleModerationProvider.moderate({
+      kind: 'text',
+      text,
+    });
+
+    if (localResult) {
       return {
-        riskLevel: 'high',
-        labels: ['local_high_risk'],
-        reason: '命中本地高风险敏感词',
-        riskSpans: localHits.map(([index, value]) => ({ index, text: value })),
-        rawOutput: { localHits },
+        riskLevel: localResult.riskLevel,
+        labels: localResult.labels,
+        reason: localResult.reason,
+        provider: localResult.provider,
+        requestId: localResult.requestId,
+        riskSpans: localResult.riskSpans,
+        rawOutput: localResult.rawOutput,
       };
     }
-    if (!this.client) {
-      throw new ServiceUnavailableException('文本审核服务未配置');
-    }
 
-    const service = this.configService.get<string>('ALIYUN_GREEN_TEXT_SERVICE') ?? 'ai_art_detection';
-    const response: AliyunTextModerationResponse = await this.client.request(
-      'TextModeration',
-      {
-        Service: service,
-        ServiceParameters: JSON.stringify({ content: text }),
-      },
-      { method: 'POST' },
-    );
-    if (response.Code !== 200 || !response.Data?.RiskLevel || !Array.isArray(response.Data.Result)) {
-      throw new ServiceUnavailableException('文本审核服务返回无法解析');
-    }
-
-    const labels = response.Data.Result.map((item) => item.Label).filter((label): label is string =>
-      Boolean(label && label !== 'nonLabel'),
-    );
-    const descriptions = response.Data.Result.map((item) => item.Description).filter(
-      (description): description is string => Boolean(description),
-    );
+    const contextRiskSpans = this.localRuleModerationProvider.scanContextRisk(text);
+    const result = await this.aliyunGreenModerationProvider.moderate({
+      kind: 'text',
+      text,
+      contextRiskSpans,
+    });
 
     return {
-      riskLevel: response.Data.RiskLevel,
-      labels,
-      reason: descriptions.join('；') || undefined,
-      requestId: response.RequestId,
-      riskSpans: [],
-      rawOutput: response,
+      riskLevel: result.riskLevel,
+      labels: contextRiskSpans.length ? uniqueStrings([...result.labels, LOCAL_CONTEXT_RISK_LABEL]) : result.labels,
+      reason: result.reason,
+      provider: result.provider,
+      requestId: result.requestId,
+      riskSpans: contextRiskSpans.length ? mergeRiskSpans(result.riskSpans, contextRiskSpans) : result.riskSpans,
+      rawOutput: contextRiskSpans.length
+        ? {
+            provider: result.rawOutput,
+            localContextRisk: {
+              riskSpans: contextRiskSpans,
+            },
+          }
+        : result.rawOutput,
     };
   }
+}
+
+function uniqueStrings(values: string[]) {
+  return [...new Set(values.filter(Boolean))];
+}
+
+function mergeRiskSpans(providerSpans: ModerationRiskSpan[], contextSpans: ModerationRiskSpan[]) {
+  const seen = new Set<string>();
+  const spans: ModerationRiskSpan[] = [];
+
+  for (const span of [...providerSpans, ...contextSpans]) {
+    const key = `${span.index}:${span.text}`;
+    if (!seen.has(key)) {
+      seen.add(key);
+      spans.push(span);
+    }
+  }
+
+  return spans.sort((left, right) => left.index - right.index);
 }
