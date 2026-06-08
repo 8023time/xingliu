@@ -11,7 +11,7 @@ interface RetryRequestConfig extends InternalAxiosRequestConfig {
 
 const http = axios.create({
   baseURL: '/api',
-  timeout: 5000,
+  timeout: 50000,
 });
 
 let isRefreshing = false;
