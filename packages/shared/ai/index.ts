@@ -1,7 +1,7 @@
 /**
- * AI 候选内容完整字段。
+ * AI 生成内容完整字段。
  */
-interface AiCandidateContent {
+interface AiGeneratedContent {
   id: string;
   title: string;
   summary: string;
@@ -27,13 +27,13 @@ interface AiGeneration {
  */
 interface AiGenerationResult {
   taskId: string;
-  candidates: AiCandidate[];
+  content: AiGeneratedContent;
 }
 
 /**
- * AI 生成候选内容。
+ * AI 生成内容。
  */
-export type AiCandidate = AiCandidateContent;
+export type AiGenerated = AiGeneratedContent;
 
 /**
  * AI 生成请求参数。
