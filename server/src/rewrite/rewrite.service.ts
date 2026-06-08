@@ -1,5 +1,5 @@
 import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
-import { AiService, ModerationService, PrismaService, ResponseService } from '@libs/common';
+import { ModerationService, PrismaService, ResponseService, RewriteAiService } from '@libs/common';
 import { Prisma } from '@libs/common/generated/prisma/client';
 import {
   AiTaskStatus,
@@ -48,7 +48,7 @@ const versionSelect = {
 @Injectable()
 export class RewriteService {
   constructor(
-    private readonly aiService: AiService,
+    private readonly rewriteAiService: RewriteAiService,
     private readonly moderationService: ModerationService,
     private readonly prismaService: PrismaService,
     private readonly qualityService: QualityService,
@@ -72,7 +72,7 @@ export class RewriteService {
     const startedAt = Date.now();
 
     try {
-      const generated = await this.aiService.rewriteContent({
+      const generated = await this.rewriteAiService.rewriteContent({
         title: context.version.title,
         summary: context.version.summary,
         body: context.version.body,
@@ -373,11 +373,13 @@ function buildSafetyReviewData(
     decision: toReviewDecision(moderation.riskLevel),
     riskLevel: toRiskLevel(moderation.riskLevel),
     riskCategories: moderation.labels,
-    riskSpans: moderation.riskSpans,
-    ruleHits: moderation.labels.includes('local_high_risk') ? moderation.riskSpans : Prisma.JsonNull,
+    riskSpans: moderation.riskSpans as unknown as Prisma.InputJsonValue,
+    ruleHits: moderation.labels.includes('local_high_risk')
+      ? (moderation.riskSpans as unknown as Prisma.InputJsonValue)
+      : Prisma.JsonNull,
     safetyScore: toSafetyScore(moderation.riskLevel),
     reason: moderation.reason,
-    provider: moderation.labels.includes('local_high_risk') ? 'fastscan' : 'aliyun_green',
+    provider: moderation.provider,
     providerRequestId: moderation.requestId,
     rawProviderOutput: moderation.rawOutput as Prisma.InputJsonValue,
   };

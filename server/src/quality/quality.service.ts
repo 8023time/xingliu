@@ -1,5 +1,5 @@
 import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
-import { AiService, PrismaService, ResponseService } from '@libs/common';
+import { PrismaService, QualityAiService, ResponseService } from '@libs/common';
 import {
   AiTaskStatus,
   AiTaskType,
@@ -25,7 +25,7 @@ const evaluationSelect = {
 @Injectable()
 export class QualityService {
   constructor(
-    private readonly aiService: AiService,
+    private readonly qualityAiService: QualityAiService,
     private readonly prismaService: PrismaService,
     private readonly responseService: ResponseService,
   ) {}
@@ -56,7 +56,7 @@ export class QualityService {
     const startedAt = Date.now();
 
     try {
-      const generated = await this.aiService.evaluateQuality(context.version);
+      const generated = await this.qualityAiService.evaluateQuality(context.version);
       const expectedLevel = toQualityLevel(generated.totalScore);
       if (generated.level !== expectedLevel) {
         throw new BadRequestException('AI 评分等级与总分不一致');

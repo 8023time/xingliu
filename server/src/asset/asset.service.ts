@@ -224,7 +224,7 @@ export class AssetService {
       throw new ServiceUnavailableException('当前仅支持图片素材自动审核');
     }
 
-    const imageUrl = this.getOriginalAssetUrl(asset);
+    const imageUrl = this.getModerationImageUrl(asset);
     const result = await this.moderationService.moderateImage(imageUrl);
 
     await this.prismaService.asset.update({
@@ -260,12 +260,12 @@ export class AssetService {
     return this.fileService.getPublicUrl(this.getPublicObjectPath(asset));
   }
 
-  private getOriginalAssetUrl(asset: AssetEntity) {
+  private getModerationImageUrl(asset: AssetEntity) {
     if (asset.type === AssetType.LINK) {
       return asset.url;
     }
 
-    return this.fileService.getPublicUrl(asset.storageKey);
+    return this.fileService.getPublicUrl(this.getPublicObjectPath(asset));
   }
 
   private getPublicObjectPath(asset: AssetEntity) {

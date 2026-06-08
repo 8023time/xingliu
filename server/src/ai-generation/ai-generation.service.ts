@@ -1,13 +1,13 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { randomUUID } from 'node:crypto';
-import { AiService, ModerationService, PrismaService, ResponseService } from '@libs/common';
+import { ContentGenerationAiService, ModerationService, PrismaService, ResponseService } from '@libs/common';
 import { AiTaskStatus, AiTaskType, CommonStatus, SafetyStatus, Visibility } from '@libs/common/generated/prisma/enums';
 import { CreateAiGenerationDto } from './dto/create-ai-generation.dto';
 
 @Injectable()
 export class AiGenerationService {
   constructor(
-    private readonly aiService: AiService,
+    private readonly contentGenerationAiService: ContentGenerationAiService,
     private readonly moderationService: ModerationService,
     private readonly prismaService: PrismaService,
     private readonly responseService: ResponseService,
@@ -15,6 +15,7 @@ export class AiGenerationService {
 
   async create(userId: string, dto: CreateAiGenerationDto) {
     const context = await this.getGenerationContext(userId, dto);
+
     const task = await this.prismaService.aiTask.create({
       data: {
         userId,
@@ -32,22 +33,18 @@ export class AiGenerationService {
 
     try {
       await this.assertTextPass(this.buildInputModerationText(dto, context.prompt.template));
-      const generated = await this.aiService.generateCandidates(this.buildInstruction(dto, context));
-      const candidates = await Promise.all(
-        generated.map(async (candidate) => {
-          await this.assertTextPass(
-            [candidate.title, candidate.summary, candidate.body, candidate.tags.join(' ')].join('\n'),
-          );
-          return { id: randomUUID(), ...candidate };
-        }),
+      const generated = await this.contentGenerationAiService.generateContent(this.buildInstruction(dto, context));
+      await this.assertTextPass(
+        [generated.title, generated.summary, generated.body, generated.tags.join(' ')].join('\n'),
       );
+      const generatedContent = { id: randomUUID(), ...generated };
 
       await this.prismaService.$transaction([
         this.prismaService.aiTask.update({
           where: { id: task.id },
           data: {
             status: AiTaskStatus.SUCCESS,
-            outputSummary: `生成并审核通过 ${candidates.length} 个候选`,
+            outputSummary: `生成并审核通过内容：${generatedContent.title.slice(0, 80)}`,
             durationMs: Date.now() - startedAt,
           },
         }),
@@ -60,9 +57,9 @@ export class AiGenerationService {
       return this.responseService.success(
         {
           taskId: task.id,
-          candidates,
+          content: generatedContent,
         },
-        'AI 候选生成成功',
+        'AI 内容生成成功',
       );
     } catch (error) {
       await this.prismaService.aiTask.update({
@@ -71,14 +68,23 @@ export class AiGenerationService {
           status: AiTaskStatus.FAILED,
           durationMs: Date.now() - startedAt,
           errorCode: error instanceof BadRequestException ? 'MODERATION_REJECTED' : 'GENERATION_FAILED',
-          errorMessage: error instanceof Error ? error.message.slice(0, 500) : 'AI 候选生成失败',
+          errorMessage: error instanceof Error ? error.message.slice(0, 500) : 'AI 内容生成失败',
         },
       });
       throw error;
     }
   }
 
+  /**
+   * 获取 AI 生成所需的上下文信息，包括内容、Prompt 模板和素材，并进行权限校验和安全检查。若内容或 Prompt 不存在或无权访问，或素材包含未审核通过的，则抛出相应异常。
+   * @param userId 用户 ID
+   * @param dto 创建 AI 生成任务的 DTO
+   * @returns 包含内容、Prompt 模板和素材的上下文对象
+   * @throws NotFoundException 内容或 Prompt 不存在或无权访问
+   * @throws BadRequestException 包含不存在或无权使用的素材，或素材未审核通过
+   */
   private async getGenerationContext(userId: string, dto: CreateAiGenerationDto) {
+    // 并行查询内容、Prompt 模板和素材
     const [content, prompt, assets] = await Promise.all([
       this.prismaService.content.findFirst({
         where: { id: dto.contentId, authorId: userId, deletedAt: null },
@@ -148,7 +154,7 @@ export class AiGenerationService {
       dto.style ? `表达风格：${dto.style}` : '',
       dto.keywords?.length ? `关键词：${dto.keywords.join('、')}` : '',
       assetContext.length ? `可用素材摘要：${JSON.stringify(assetContext)}` : '',
-      '请生成 3 个候选，每个包含 title、summary、body、tags。不得声称使用未提供的事实。',
+      '请生成一篇可直接进入编辑器继续编辑的内容，包含 title、summary、body、tags。不得声称使用未提供的事实。',
     ]
       .filter(Boolean)
       .join('\n');

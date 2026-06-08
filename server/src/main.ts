@@ -24,7 +24,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
 
   app.enableCors({
-    origin: 'http://creator.xingliu.8023time.com,http://xingliu.8023time.com',
+    origin: ['http://creator.xingliu.8023time.com', 'http://xingliu.8023time.com'],
   });
 
   const config = new DocumentBuilder()

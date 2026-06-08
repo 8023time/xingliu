@@ -20,13 +20,7 @@ import { CreateAssetDto } from './dto/create-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
 import { AssetQueryDto } from './dto/asset-query.dto';
 import { AssetParamDto } from './dto/asset-param.dto';
-
-interface UploadedAssetFile {
-  originalname: string;
-  mimetype: string;
-  size: number;
-  buffer: Buffer;
-}
+import type { UploadedAssetFile } from './asset.type';
 
 @Controller('assets')
 export class AssetController {

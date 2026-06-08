@@ -437,11 +437,13 @@ export class ContentService {
           decision,
           riskLevel: toRiskLevel(moderation.riskLevel),
           riskCategories: moderation.labels,
-          riskSpans: moderation.riskSpans,
-          ruleHits: moderation.labels.includes('local_high_risk') ? moderation.riskSpans : Prisma.JsonNull,
+          riskSpans: moderation.riskSpans as unknown as Prisma.InputJsonValue,
+          ruleHits: moderation.labels.includes('local_high_risk')
+            ? (moderation.riskSpans as unknown as Prisma.InputJsonValue)
+            : Prisma.JsonNull,
           safetyScore,
           reason: moderation.reason,
-          provider: moderation.labels.includes('local_high_risk') ? 'fastscan' : 'aliyun_green',
+          provider: moderation.provider,
           providerRequestId: moderation.requestId,
           rawProviderOutput: moderation.rawOutput as Prisma.InputJsonValue,
         },
@@ -663,11 +665,13 @@ function buildSafetyReviewData(
     decision: toReviewDecision(moderation.riskLevel),
     riskLevel: toRiskLevel(moderation.riskLevel),
     riskCategories: moderation.labels,
-    riskSpans: moderation.riskSpans,
-    ruleHits: moderation.labels.includes('local_high_risk') ? moderation.riskSpans : Prisma.JsonNull,
+    riskSpans: moderation.riskSpans as unknown as Prisma.InputJsonValue,
+    ruleHits: moderation.labels.includes('local_high_risk')
+      ? (moderation.riskSpans as unknown as Prisma.InputJsonValue)
+      : Prisma.JsonNull,
     safetyScore: toSafetyScore(moderation.riskLevel),
     reason: moderation.reason,
-    provider: moderation.labels.includes('local_high_risk') ? 'fastscan' : 'aliyun_green',
+    provider: moderation.provider,
     providerRequestId: moderation.requestId,
     rawProviderOutput: moderation.rawOutput as Prisma.InputJsonValue,
   };
