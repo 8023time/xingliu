@@ -23,12 +23,6 @@ DB_NAME=
 JWT_SECRET=
 JWT_EXPIRATION=
 
-ALIBABA_CLOUD_ACCESS_KEY_ID=
-ALIBABA_CLOUD_ACCESS_KEY_SECRET=
-ALIYUN_GREEN_ENDPOINT=
-ALIYUN_GREEN_TEXT_SERVICE=
-ALIYUN_GREEN_IMAGE_SERVICE=
-
 OPENAI_API_KEY=
 OPENAI_BASE_URL=
 OPENAI_MODEL=
@@ -37,7 +31,7 @@ NEXT_PUBLIC_API_URL=
 ADMIN_API_URL=
 ```
 
-Compose 启动 `server` 时必须传入阿里云审核配置，以及火山方舟 OpenAI 兼容接口使用的 `OPENAI_*` 环境变量，否则 AI 与审核能力不可用。
+Compose 启动 `server` 时必须传入火山方舟 OpenAI 兼容接口使用的 `OPENAI_*` 环境变量，否则 AI 与审核能力不可用。
 
 ## 3. 启动与迁移
 
