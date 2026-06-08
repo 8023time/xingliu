@@ -10,16 +10,26 @@ import {
   Table,
   Tabs,
   Tag,
+  Tooltip,
   Typography,
   message,
   Empty,
   type TableProps,
 } from 'antd';
-import { DeleteOutlined, EditOutlined, FileTextOutlined, PlusOutlined } from '@ant-design/icons';
+import {
+  DeleteOutlined,
+  EditOutlined,
+  FileTextOutlined,
+  PlusOutlined,
+  StopOutlined,
+  UploadOutlined,
+} from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import {
   deleteContentApi,
   getContentsApi,
+  offlineContentApi,
+  publishContentApi,
   type ContentRecord,
   type ContentStatus,
   type ContentType,
@@ -58,6 +68,7 @@ export default function ContentListPage() {
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
   const [deleting, setDeleting] = useState(false);
+  const [publishingId, setPublishingId] = useState<string | null>(null);
 
   const loadContents = async (
     query: {
@@ -125,6 +136,28 @@ export default function ContentListPage() {
     }
   };
 
+  const handlePublish = async (record: ContentRecord) => {
+    setPublishingId(record.id);
+    try {
+      await publishContentApi(record.id);
+      message.success('内容已发布');
+      await loadContents({ page, pageSize, contentType, status });
+    } finally {
+      setPublishingId(null);
+    }
+  };
+
+  const handleOffline = async (record: ContentRecord) => {
+    setPublishingId(record.id);
+    try {
+      await offlineContentApi(record.id);
+      message.success('内容已下线');
+      await loadContents({ page, pageSize, contentType, status });
+    } finally {
+      setPublishingId(null);
+    }
+  };
+
   const columns: TableProps<ContentRecord>['columns'] = [
     {
       title: '内容',
@@ -163,7 +196,7 @@ export default function ContentListPage() {
     },
     {
       title: '操作',
-      width: 150,
+      width: 230,
       render: (_, record) => (
         <Space>
           <Button
@@ -171,6 +204,26 @@ export default function ContentListPage() {
             icon={<EditOutlined />}
             onClick={() => navigate(`/content/create?id=${record.id}`)}
           />
+          {record.publishedVersionId ? (
+            <Popconfirm
+              title="确认下线该内容？"
+              description="下线后 C 端将不再展示该内容。"
+              onConfirm={() => void handleOffline(record).catch(() => undefined)}
+            >
+              <Button danger aria-label="下线内容" icon={<StopOutlined />} loading={publishingId === record.id} />
+            </Popconfirm>
+          ) : (
+            <Tooltip title={record.status === 'APPROVED' ? '发布到 C 端' : '需先完成安全审核和质量评分'}>
+              <Button
+                type="primary"
+                aria-label="发布内容"
+                icon={<UploadOutlined />}
+                disabled={record.status !== 'APPROVED'}
+                loading={publishingId === record.id}
+                onClick={() => void handlePublish(record).catch(() => undefined)}
+              />
+            </Tooltip>
+          )}
           <Popconfirm
             title="确认删除该内容？"
             description="内容将被软删除，云端草稿不会继续展示。"

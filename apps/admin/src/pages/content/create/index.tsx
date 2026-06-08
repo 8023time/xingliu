@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Alert, Button, Card, Empty, Flex, Input, List, Select, Space, Spin, Tag, Typography, message } from 'antd';
-import { CloudSyncOutlined, PlusOutlined, ThunderboltOutlined, WarningOutlined } from '@ant-design/icons';
+import { Alert, Button, Card, Flex, Input, Select, Space, Spin, Tag, Typography, message } from 'antd';
+import { CloudSyncOutlined, ThunderboltOutlined, WarningOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
@@ -23,7 +23,7 @@ import {
   type RewriteRecord,
   type SafetyReviewRecord,
 } from '@/api/content';
-import { generateCandidatesApi, type AiCandidate } from '@/api/ai';
+import { generateContentApi, type AiGenerated } from '@/api/ai';
 import { getPromptsApi, type PromptRecord } from '@/api/prompt';
 import { getAssetsApi, type AssetRecord } from '@/api/asset';
 import { CreatorEditor, type CreatorEditorHandle, type EditorChangePayload } from '@/components/editor';
@@ -73,7 +73,6 @@ export default function CreateContentPage() {
   const [audience, setAudience] = useState('');
   const [style, setStyle] = useState('');
   const [keywords, setKeywords] = useState<string[]>([]);
-  const [candidates, setCandidates] = useState<AiCandidate[]>([]);
   const [generating, setGenerating] = useState(false);
 
   const applyDraft = useCallback((draft: DraftRecord | LocalDraft | null) => {
@@ -313,7 +312,32 @@ export default function CreateContentPage() {
     }
   };
 
-  const generateCandidates = async () => {
+  const applyGeneratedContent = (generated: AiGenerated) => {
+    if (!content) return;
+
+    const generatedJson = createGeneratedContentDocument(generated);
+    const generatedHtml = createGeneratedContentHtml(generated);
+    const now = Date.now();
+
+    setInitialTitle(generated.title);
+    summaryRef.current = generated.summary;
+    setSummary(generated.summary);
+    setInitialContent(generatedJson);
+    setEditorKey((value) => value + 1);
+
+    const payload: EditorChangePayload = {
+      draftId: content.id,
+      projectTitle: generated.title,
+      json: generatedJson,
+      html: generatedHtml,
+      text: [generated.title, generated.summary, generated.body].filter(Boolean).join('\n'),
+      updatedAt: now,
+    };
+    latestPayloadRef.current = payload;
+    void persistLocal(payload).catch(() => undefined);
+  };
+
+  const generateContent = async () => {
     if (!content || !promptId || !topic.trim()) {
       message.warning('请先填写主题并选择 Prompt');
       return;
@@ -321,7 +345,7 @@ export default function CreateContentPage() {
 
     setGenerating(true);
     try {
-      const response = await generateCandidatesApi({
+      const response = await generateContentApi({
         contentId: content.id,
         topic: topic.trim(),
         promptId,
@@ -330,8 +354,8 @@ export default function CreateContentPage() {
         style: style.trim() || undefined,
         keywords,
       });
-      setCandidates(response.data.candidates);
-      message.success('已生成 3 个经过预检的候选');
+      applyGeneratedContent(response.data.content);
+      message.success('已生成内容并写入编辑器');
     } finally {
       setGenerating(false);
     }
@@ -662,52 +686,11 @@ export default function CreateContentPage() {
                   type="primary"
                   icon={<ThunderboltOutlined />}
                   loading={generating}
-                  onClick={() => void generateCandidates().catch(() => undefined)}
+                  onClick={() => void generateContent().catch(() => undefined)}
                 >
-                  生成 3 个候选
+                  生成并写入编辑器
                 </Button>
               </Flex>
-            </Card>
-
-            <Card title="AI 候选" variant="borderless" className="rounded-xl shadow-sm">
-              {candidates.length ? (
-                <List
-                  dataSource={candidates}
-                  renderItem={(candidate) => (
-                    <List.Item>
-                      <Flex vertical gap={8} className="w-full">
-                        <Text strong>{candidate.title}</Text>
-                        <Paragraph ellipsis={{ rows: 3 }} className="mb-0!">
-                          {candidate.summary}
-                        </Paragraph>
-                        <Space wrap>
-                          {candidate.tags.map((tag) => (
-                            <Tag key={tag}>{tag}</Tag>
-                          ))}
-                        </Space>
-                        <Space wrap>
-                          <Button
-                            size="small"
-                            icon={<PlusOutlined />}
-                            onClick={() => editorRef.current?.insertSuggestion(candidate)}
-                          >
-                            追加正文
-                          </Button>
-                          <Button
-                            size="small"
-                            danger
-                            onClick={() => editorRef.current?.replaceWithSuggestion(candidate)}
-                          >
-                            替换正文
-                          </Button>
-                        </Space>
-                      </Flex>
-                    </List.Item>
-                  )}
-                />
-              ) : (
-                <Empty description="生成结果会先进入候选区" image={Empty.PRESENTED_IMAGE_SIMPLE} />
-              )}
             </Card>
           </Flex>
         </aside>
@@ -812,4 +795,49 @@ function getCloudStatusColor(isOnline: boolean, status: 'idle' | 'saved' | 'pend
   if (!isOnline || status === 'pending') return 'warning';
   if (status === 'saved') return 'success';
   return 'default';
+}
+
+function createGeneratedContentDocument(generated: AiGenerated): JSONContent {
+  return {
+    type: 'doc',
+    content: createGeneratedBodyNodes(generated),
+  };
+}
+
+function createGeneratedBodyNodes(generated: AiGenerated): JSONContent[] {
+  return [
+    {
+      type: 'heading',
+      attrs: { level: 2 },
+      content: [{ type: 'text', text: generated.title }],
+    },
+    ...generated.body
+      .split(/\n+/)
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .map((line) => ({
+        type: 'paragraph',
+        content: [{ type: 'text', text: line }],
+      })),
+  ];
+}
+
+function createGeneratedContentHtml(generated: AiGenerated) {
+  const paragraphs = generated.body
+    .split(/\n+/)
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => `<p>${escapeHtml(line)}</p>`)
+    .join('');
+
+  return `<h2>${escapeHtml(generated.title)}</h2>${paragraphs}`;
+}
+
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
