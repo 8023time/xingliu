@@ -15,16 +15,9 @@ html {
 
 body {
   margin: 0;
-  font-family: var(--font-alimama), sans-serif;
+  font-family: var(--font-inter), var(--font-noto), sans-serif;
   background: #f4f6fb;
   color: #131737;
-}
-
-.radix-themes {
-  --default-font-family: var(--font-alimama), sans-serif;
-  --heading-font-family: var(--font-alimama), sans-serif;
-  --strong-font-family: var(--font-alimama), sans-serif;
-  font-family: var(--font-alimama), sans-serif;
 }
 
 button,

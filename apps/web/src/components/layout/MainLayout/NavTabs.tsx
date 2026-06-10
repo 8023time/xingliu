@@ -29,7 +29,7 @@ const NavItems: NavItemsType[] = [
     to: '/user',
     label: '个人中心',
     clickType: 'internal',
-    matchPath: (pathname) => pathname === '/user',
+    matchPath: (pathname) => pathname === '/user' || pathname.startsWith('/user/'),
   },
 ];
 

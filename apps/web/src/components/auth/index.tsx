@@ -33,7 +33,6 @@ export function AuthDialog() {
 
         <div className="p-5 pt-8">
           <Tabs.Root value={mode} onValueChange={(value) => setMode(value as 'login' | 'register')}>
-            {/* 替换后的普通大标题文字样式 */}
             <div className="mb-8 flex items-center justify-center gap-4 text-2xl font-semibold text-slate-300 select-none">
               <button
                 type="button"

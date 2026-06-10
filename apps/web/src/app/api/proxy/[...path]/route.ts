@@ -23,7 +23,9 @@ async function proxyRequest(request: NextRequest, params: Promise<{ path: string
     headers: {
       accept: request.headers.get('accept') ?? 'application/json',
       'content-type': request.headers.get('content-type') ?? 'application/json',
-      ...(request.headers.get('authorization') ? { authorization: request.headers.get('authorization') as string } : {}),
+      ...(request.headers.get('authorization')
+        ? { authorization: request.headers.get('authorization') as string }
+        : {}),
     },
     body,
   });

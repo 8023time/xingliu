@@ -11,7 +11,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
       <div className="relative flex min-h-screen flex-col pt-16">
         <NavTabs />
 
-        <main className="mx-auto w-full max-w-page flex-1 px-4 pt-4 pb-10 lg:px-0">{children}</main>
+        <main className="max-w-page mx-auto w-full flex-1 px-4 pt-4 pb-10 lg:px-0">{children}</main>
 
         <Footer />
       </div>

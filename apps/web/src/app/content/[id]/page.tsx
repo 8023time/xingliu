@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, Eye, Heart, Share2, Sparkles } from 'lucide-react';
 import { fetchPublicContent } from '@/features/content/api/detail';
+import { getContentCoverUrl } from '@/features/content/cover';
 import { formatNumber, getPublishedLabel } from '@/lib/format';
 
 export const dynamic = 'force-dynamic';
@@ -11,52 +12,78 @@ export default async function ContentDetailPage({ params }: { params: Promise<{ 
   const { id } = await params;
   const item = await fetchPublicContent(id);
   if (!item) notFound();
+  const coverUrl = getContentCoverUrl(item.id, item.coverUrl);
 
   return (
-    <article className="mx-auto max-w-5xl">
-      <div className="overflow-hidden rounded-[28px] bg-white shadow-sm ring-1 ring-zinc-950/[0.04]">
-        <div className="aspect-[16/8] bg-gradient-to-br from-rose-50 to-zinc-100">
-          {item.coverUrl && (
-            <img src={item.coverUrl} alt={item.publishedVersion.title} className="h-full w-full object-cover" />
-          )}
-        </div>
-        <div className="space-y-5 p-4 sm:p-7">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 rounded-full px-0 text-zinc-500 transition-colors hover:text-zinc-700"
-          >
-            <ArrowLeft className="size-4" />
-            返回首页
-          </Link>
+    <article className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:py-12">
+      {/* 返回按钮 - 移到卡片上方，更符合标准文章页布局 */}
+      <div className="mb-6">
+        <Link
+          href="/"
+          className="group inline-flex items-center gap-2 text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-950"
+        >
+          <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-0.5" />
+          返回首页
+        </Link>
+      </div>
 
-          <div className="space-y-3">
-            <h1 className="text-3xl leading-tight font-semibold tracking-tight text-zinc-950">
+      <div className="overflow-hidden rounded-3xl bg-white shadow-md ring-1 ring-zinc-200/50">
+        {/* 封面图区域 - 增加了悬浮微放大动画 */}
+        <div className="group/cover aspect-[16/8] overflow-hidden bg-gradient-to-br from-rose-50 to-zinc-100">
+          <img
+            src={coverUrl}
+            alt={item.publishedVersion.title}
+            className="h-full w-full object-cover transition-transform duration-500 group-hover/cover:scale-[1.02]"
+          />
+        </div>
+
+        <div className="p-6 sm:p-10 lg:p-12">
+          {/* 标题与摘要 */}
+          <div className="space-y-4">
+            <h1 className="sm:text-3.5xl text-2xl leading-tight font-bold tracking-tight text-zinc-900 lg:text-4xl">
               {item.publishedVersion.title}
             </h1>
-            <p className="text-base leading-7 text-zinc-500">{item.publishedVersion.summary}</p>
+            {item.publishedVersion.summary && (
+              <p className="border-l-2 border-zinc-300 pl-4 text-base leading-7 text-zinc-500 italic sm:text-lg">
+                {item.publishedVersion.summary}
+              </p>
+            )}
           </div>
 
-          <div className="border-border flex items-center justify-between gap-4 border-y py-4">
-            <div className="flex min-w-0 items-center gap-3">
-              <div className="bg-muted flex size-11 items-center justify-center rounded-full">
-                <span className="text-sm font-medium">{item.author.username.slice(0, 1)}</span>
+          {/* 作者与发布时间 */}
+          <div className="mt-8 flex items-center justify-between gap-4 border-t border-zinc-100 pt-6">
+            <div className="flex items-center gap-3">
+              <div className="flex size-10 items-center justify-center rounded-full bg-zinc-100 ring-1 ring-zinc-950/5">
+                <span className="text-sm font-semibold text-zinc-700">
+                  {item.author.username.slice(0, 1).toUpperCase()}
+                </span>
               </div>
-              <div className="min-w-0">
-                <div className="font-medium text-zinc-950">{item.author.username}</div>
-                <div className="text-xs text-zinc-500">{getPublishedLabel(item.publishedAt)}</div>
+              <div>
+                <div className="text-sm font-medium text-zinc-900">{item.author.username}</div>
+                <div className="text-xs text-zinc-400">{getPublishedLabel(item.publishedAt)}</div>
               </div>
             </div>
           </div>
 
-          <div className="text-[15px] leading-8 whitespace-pre-wrap text-zinc-700">
+          {/* 文章正文 - 强烈建议安装 @tailwindcss/typography 并使用 prose 类 */}
+          {/* 如果没安装，下面的 generic 样式也做了基础美化 */}
+          <div className="prose prose-zinc mt-8 max-w-none border-t border-zinc-100 pt-8 text-[16px] leading-relaxed whitespace-pre-wrap text-zinc-800">
+            {/* 💡 优化建议：如果 item.publishedVersion.body 是 HTML，建议直接使用 dangerouslySetInnerHTML */}
+            {/* <div dangerouslySetInnerHTML={{ __html: item.publishedVersion.body }} /> */}
             {toPlainText(item.publishedVersion.body)}
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-4">
+          {/* 数据指标 - 手机端改为 2 列布局，大屏 4 列，视觉更丰满 */}
+          <div className="mt-12 grid grid-cols-2 gap-3 border-t border-zinc-100 pt-8 sm:grid-cols-4">
             <Metric icon={<Eye />} label="阅读" value={formatNumber(item.metrics.viewCount)} />
             <Metric icon={<Heart />} label="点赞" value={formatNumber(item.metrics.likeCount)} />
             <Metric icon={<Share2 />} label="分享" value={formatNumber(item.metrics.shareCount)} />
-            <Metric icon={<Sparkles />} label="质量分" value={item.qualityScore ?? '-'} />
+            <Metric
+              icon={<Sparkles className="text-amber-500" />}
+              label="质量分"
+              value={item.qualityScore ?? '-'}
+              isHighlight={!!item.qualityScore}
+            />
           </div>
         </div>
       </div>
@@ -64,6 +91,7 @@ export default async function ContentDetailPage({ params }: { params: Promise<{ 
   );
 }
 
+// 保留原有的干净文本转换
 function toPlainText(html: string) {
   return html
     .replace(/<br\s*\/?>/gi, '\n')
@@ -73,14 +101,29 @@ function toPlainText(html: string) {
     .trim();
 }
 
-function Metric({ icon, label, value }: { icon: ReactNode; label: string; value: string }) {
+// 优化的指标卡片组件
+function Metric({
+  icon,
+  label,
+  value,
+  isHighlight = false,
+}: {
+  icon: ReactNode;
+  label: string;
+  value: string;
+  isHighlight?: boolean;
+}) {
   return (
-    <div className="rounded-2xl bg-zinc-50 px-3 py-3">
-      <div className="inline-flex items-center gap-1 text-xs text-zinc-500 [&_svg]:size-3.5">
+    <div
+      className={`rounded-2xl border px-4 py-3.5 transition-colors ${
+        isHighlight ? 'border-amber-100/70 bg-amber-50/40' : 'border-zinc-100 bg-zinc-50/50 hover:bg-zinc-50'
+      }`}
+    >
+      <div className="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-500 [&_svg]:size-3.5">
         {icon}
         {label}
       </div>
-      <div className="mt-1 text-lg font-semibold text-zinc-950">{value}</div>
+      <div className="mt-1.5 text-xl font-bold tracking-tight text-zinc-900">{value}</div>
     </div>
   );
 }
