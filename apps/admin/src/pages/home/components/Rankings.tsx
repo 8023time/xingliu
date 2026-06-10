@@ -1,186 +1,186 @@
-import { type ReactNode } from 'react';
-import { Avatar, Card, Flex, Tag, Typography } from 'antd';
+import { useEffect, useState, type ReactNode } from 'react';
+import { Avatar, Button, Card, Empty, Flex, Skeleton, Space, Tag, Typography, message } from 'antd';
+import { ArrowRightOutlined, FireOutlined, ReloadOutlined, TrophyOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRightOutlined } from '@ant-design/icons';
+import { getRankingApi, type RankingItemResponse, type RankingTypeValue } from '@/api/ranking';
 
-const { Text } = Typography;
+const { Paragraph, Text } = Typography;
 
-interface HotTopic {
-  key: string;
-  title: string;
-  dateRange: string;
-  coverClassName: string;
-  coverTitle: string;
+const rankingMeta: Record<
+  RankingTypeValue,
+  {
+    title: string;
+    extra: string;
+    icon: ReactNode;
+    accentClassName: string;
+  }
+> = {
+  hot: {
+    title: '热点榜',
+    extra: '综合热度 Top 5',
+    icon: <FireOutlined />,
+    accentClassName: 'bg-rose-50 text-rose-600',
+  },
+  viral: {
+    title: '爆文榜',
+    extra: '传播潜力 Top 5',
+    icon: <TrophyOutlined />,
+    accentClassName: 'bg-amber-50 text-amber-600',
+  },
+};
+
+export function HotRankingList() {
+  return <RankingList rankingType="hot" />;
 }
 
-interface CreatorRank {
-  key: string;
-  name: string;
-  followers: string;
-  direction: string;
-  tag?: string;
+export function ViralRankingList() {
+  return <RankingList rankingType="viral" />;
 }
 
-const baseHotTopics: HotTopic[] = [
-  {
-    key: 'world-cup',
-    title: '世界杯聊个球',
-    dateRange: '05-29 至 07-31',
-    coverClassName: 'bg-red-500 text-white',
-    coverTitle: '聊个球',
-  },
-  {
-    key: 'graduation',
-    title: '我的毕业片尾曲',
-    dateRange: '06-02 至 07-15',
-    coverClassName: 'bg-orange-100 text-orange-600',
-    coverTitle: '毕业季',
-  },
-  {
-    key: 'summer',
-    title: '21天入夏练功局',
-    dateRange: '06-01 至 07-07',
-    coverClassName: 'bg-emerald-100 text-emerald-700',
-    coverTitle: '练功局',
-  },
-  {
-    key: 'goose',
-    title: '鹅鸭杀S3激励活动',
-    dateRange: '06-01 至 06-30',
-    coverClassName: 'bg-violet-100 text-violet-700',
-    coverTitle: 'S3',
-  },
-  {
-    key: 'redbook',
-    title: '我在小红书逛核聚变',
-    dateRange: '06-01 至 07-01',
-    coverClassName: 'bg-rose-100 text-rose-600',
-    coverTitle: '核聚变',
-  },
-  {
-    key: 'creator-help',
-    title: '明日方舟创作应援',
-    dateRange: '06-01 至 07-09',
-    coverClassName: 'bg-slate-200 text-slate-700',
-    coverTitle: '应援',
-  },
-];
-
-const baseCreatorRanks: CreatorRank[] = [
-  { key: 'yanhu', name: '闽湖阿嬷', followers: '5万', direction: '美食', tag: '近期涨粉迅速' },
-  { key: 'zoey', name: '佐伊Zoey', followers: '4.8万', direction: '旅游', tag: '辛勤创作' },
-  { key: 'child', name: '儿童眼科余继锋', followers: '4.5万', direction: '医疗健康', tag: '近期有爆款笔记' },
-  { key: 'sweet', name: '甜嬉', followers: '4.9万', direction: '旅游' },
-  { key: 'bao', name: '愤怒的小猪包', followers: '4.7万', direction: '美食' },
-  { key: 'que', name: '李缺缺_', followers: '4.4万', direction: '生活方式' },
-];
-
-const hotTopics: HotTopic[] = Array.from({ length: 3 }).flatMap((_, pageIndex) =>
-  baseHotTopics.map((topic) => ({
-    ...topic,
-    key: `${topic.key}-${pageIndex + 1}`,
-  })),
-);
-
-const creatorRanks: CreatorRank[] = Array.from({ length: 3 }).flatMap((_, pageIndex) =>
-  baseCreatorRanks.map((creator) => ({
-    ...creator,
-    key: `${creator.key}-${pageIndex + 1}`,
-  })),
-);
-
-function RankingCard({ title, extra, children }: { title: string; extra: string; children: ReactNode }) {
+function RankingList({ rankingType }: { rankingType: RankingTypeValue }) {
   const navigate = useNavigate();
+  const meta = rankingMeta[rankingType];
+  const [items, setItems] = useState<RankingItemResponse[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const loadRanking = async (silent = false) => {
+    if (silent) {
+      setRefreshing(true);
+    } else {
+      setLoading(true);
+    }
+
+    try {
+      const response = await getRankingApi(rankingType, {
+        cursor: null,
+        limit: 5,
+        sort: 'comprehensive',
+      });
+      setItems(response.data.items);
+    } catch {
+      message.error(`${meta.title}加载失败，请稍后重试`);
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
+    }
+  };
+
+  useEffect(() => {
+    void loadRanking();
+  }, [rankingType]);
 
   return (
     <Card
       variant="borderless"
-      className={`h-165 w-full rounded-3xl shadow-sm [&_.ant-card-body]:flex [&_.ant-card-body]:h-[calc(100%-40px)] [&_.ant-card-body]:flex-col`}
-      title={<span className="text-base font-semibold text-slate-950">{title}</span>}
-      extra={<span className="text-xs text-slate-400">{extra}</span>}
+      className="h-full min-h-92 w-full shadow-sm"
+      title={
+        <Flex align="center" gap={10}>
+          <span className={`flex size-9 items-center justify-center rounded-lg text-lg ${meta.accentClassName}`}>
+            {meta.icon}
+          </span>
+          <span>{meta.title}</span>
+        </Flex>
+      }
+      extra={
+        <Space size={4}>
+          <Text type="secondary" className="text-xs">
+            {meta.extra}
+          </Text>
+          <Button
+            type="text"
+            size="small"
+            aria-label={`刷新${meta.title}`}
+            icon={<ReloadOutlined />}
+            loading={refreshing}
+            onClick={() => void loadRanking(true)}
+          />
+        </Space>
+      }
     >
-      <div className="min-h-0 flex-1 overflow-auto">{children}</div>
-      <div className="flex justify-center pt-1">
-        <button
-          type="button"
-          className="inline-flex items-center gap-1 text-sm text-slate-500 transition hover:text-slate-700"
-          onClick={() => navigate('/rankings')}
-        >
-          <span>查看更多</span>
-          <ArrowRightOutlined />
-        </button>
-      </div>
+      {loading ? (
+        <Flex vertical gap={14}>
+          {Array.from({ length: 4 }).map((_, index) => (
+            <Skeleton key={index} active avatar paragraph={{ rows: 2 }} />
+          ))}
+        </Flex>
+      ) : items.length === 0 ? (
+        <Empty description={`暂无${meta.title}内容`} className="py-8" />
+      ) : (
+        <Flex vertical gap={12}>
+          {items.map((item, index) => (
+            <RankingItem key={item.id} item={item} rank={index + 1} rankingType={rankingType} />
+          ))}
+        </Flex>
+      )}
+
+      <Flex justify="center" className="pt-4">
+        <Button type="link" onClick={() => navigate('/rankings')}>
+          查看更多 <ArrowRightOutlined />
+        </Button>
+      </Flex>
     </Card>
   );
 }
 
-export const HotTopicsList = () => {
-  const topTopics = hotTopics.slice(0, 10);
+function RankingItem({
+  item,
+  rank,
+  rankingType,
+}: {
+  item: RankingItemResponse;
+  rank: number;
+  rankingType: RankingTypeValue;
+}) {
+  const scoreColor = rankingType === 'hot' ? 'text-rose-600' : 'text-amber-600';
 
   return (
-    <RankingCard title="热点追踪" extra="热点 top 10 🔥">
-      <div className="h-full pr-1">
-        <Flex vertical gap={10}>
-          {topTopics.map((topic, index) => (
-            <button
-              key={topic.key}
-              className={`flex w-full cursor-pointer items-center gap-4 rounded-lg p-2 text-left transition hover:bg-slate-50 ${
-                index === 0 ? 'bg-slate-50' : 'bg-white'
-              }`}
-            >
-              <span
-                className={`flex size-16 shrink-0 items-center justify-center rounded-md px-2 text-center text-sm leading-4 font-bold ${topic.coverClassName}`}
-              >
-                {topic.coverTitle}
-              </span>
-              <span className="flex min-w-0 flex-col gap-1">
-                <Text strong className="truncate text-sm">
-                  {topic.title}
-                </Text>
-                <Text type="secondary" className="text-xs">
-                  {topic.dateRange}
-                </Text>
-              </span>
-            </button>
-          ))}
+    <button
+      type="button"
+      className="flex w-full cursor-pointer gap-3 rounded-lg border border-slate-100 bg-white p-3 text-left transition hover:border-slate-200 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-500"
+    >
+      <span
+        className={`flex size-7 shrink-0 items-center justify-center rounded-full text-sm font-semibold ${
+          rank <= 3 ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-500'
+        }`}
+      >
+        {rank}
+      </span>
+      <Avatar size={40} src={item.coverUrl ?? (rank % 2 === 0 ? '/xingliu.png' : '/avatar.jpg')} />
+      <span className="min-w-0 flex-1">
+        <Flex align="center" justify="space-between" gap={8}>
+          <Text strong className="min-w-0 flex-1 truncate">
+            {item.title}
+          </Text>
+          <Text className={`shrink-0 text-sm font-semibold ${scoreColor}`}>{item.rankingScore.toFixed(1)}</Text>
         </Flex>
-      </div>
-    </RankingCard>
+        <Space size={6} wrap className="mt-1">
+          <Tag bordered={false} className="m-0">
+            {getContentTypeLabel(item.contentType)}
+          </Tag>
+          <Text type="secondary" className="text-xs">
+            阅读 {item.viewCount.toLocaleString()}
+          </Text>
+          <Text type="secondary" className="text-xs">
+            分享 {item.shareCount.toLocaleString()}
+          </Text>
+        </Space>
+        {item.summary && (
+          <Paragraph type="secondary" ellipsis={{ rows: 2 }} className="mt-1! mb-0! text-xs">
+            {item.summary}
+          </Paragraph>
+        )}
+      </span>
+    </button>
   );
-};
+}
 
-export const PopularArticlesList = () => {
-  const topCreators = creatorRanks.slice(0, 10);
+function getContentTypeLabel(contentType: string) {
+  const labels: Record<string, string> = {
+    ARTICLE: '长文',
+    IMAGE_TEXT: '短图文',
+    SHORT_POST: '短内容',
+  };
 
-  return (
-    <RankingCard title="爆文榜单" extra="爆文 top 10 🔥">
-      <div className="h-full">
-        <Flex vertical gap={12}>
-          {topCreators.map((creator, index) => (
-            <button key={creator.key} className="flex w-full cursor-pointer items-center gap-4 text-left">
-              <Avatar size={48} src={index % 2 === 0 ? '/avatar.jpg' : '/xingliu.png'} />
-              <span className="flex min-w-0 flex-1 flex-col gap-1">
-                <span className="flex min-w-0 items-center gap-2">
-                  <Text strong className="truncate text-sm">
-                    {creator.name}
-                  </Text>
-                  {creator.tag && (
-                    <Tag bordered={false} className="m-0 shrink-0 rounded bg-slate-50 px-2 text-xs text-slate-400">
-                      {creator.tag}
-                    </Tag>
-                  )}
-                </span>
-                <Text type="secondary" className="text-xs">
-                  粉丝数：{creator.followers}
-                </Text>
-                <Text type="secondary" className="text-xs">
-                  创作方向：{creator.direction}
-                </Text>
-              </span>
-            </button>
-          ))}
-        </Flex>
-      </div>
-    </RankingCard>
-  );
-};
+  return labels[contentType] ?? contentType;
+}

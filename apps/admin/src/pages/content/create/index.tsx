@@ -1,6 +1,20 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Alert, Button, Card, Flex, Input, Select, Space, Spin, Tag, Typography, message } from 'antd';
-import { CloudSyncOutlined, ThunderboltOutlined, WarningOutlined } from '@ant-design/icons';
+import {
+  Alert,
+  Button,
+  Card,
+  Flex,
+  Input,
+  Select,
+  Space,
+  Spin,
+  Tag,
+  Typography,
+  Upload,
+  message,
+  type UploadProps,
+} from 'antd';
+import { CloudSyncOutlined, CloudUploadOutlined, ThunderboltOutlined, WarningOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
@@ -16,6 +30,7 @@ import {
   reviewContentApi,
   saveDraftApi,
   syncDraftApi,
+  updateContentApi,
   type ContentRecord,
   type ContentType,
   type DraftRecord,
@@ -25,7 +40,7 @@ import {
 } from '@/api/content';
 import { generateContentApi, type AiGenerated } from '@/api/ai';
 import { getPromptsApi, type PromptRecord } from '@/api/prompt';
-import { getAssetsApi, type AssetRecord } from '@/api/asset';
+import { getAssetsApi, uploadAssetApi, type AssetRecord } from '@/api/asset';
 import { CreatorEditor, type CreatorEditorHandle, type EditorChangePayload } from '@/components/editor';
 import type { JSONContent } from '@/components/editor/Tiptap/type/editor-types';
 import { localDrafts, type LocalDraft } from '@/lib/local-drafts';
@@ -67,6 +82,7 @@ export default function CreateContentPage() {
   const [conflict, setConflict] = useState<DraftRecord | null>(null);
   const [prompts, setPrompts] = useState<PromptRecord[]>([]);
   const [assets, setAssets] = useState<AssetRecord[]>([]);
+  const [coverSaving, setCoverSaving] = useState(false);
   const [topic, setTopic] = useState('');
   const [promptId, setPromptId] = useState<string>();
   const [selectedAssetIds, setSelectedAssetIds] = useState<string[]>([]);
@@ -147,10 +163,56 @@ export default function CreateContentPage() {
     void Promise.all([getPromptsApi({ page: 1, pageSize: 50 }), getAssetsApi({ page: 1, pageSize: 50 })]).then(
       ([promptResponse, assetResponse]) => {
         setPrompts(promptResponse.data.items);
-        setAssets(assetResponse.data.items.filter((asset) => asset.safetyStatus === 'PASS'));
+        setAssets(assetResponse.data.items);
       },
     );
   }, []);
+
+  const approvedAssets = assets.filter((asset) => asset.safetyStatus === 'PASS');
+  const imageAssets = assets.filter((asset) => asset.type === 'IMAGE');
+  const selectedCover = imageAssets.find((asset) => asset.id === content?.coverAssetId) ?? null;
+
+  const updateCover = async (coverAssetId: string | null) => {
+    if (!content) return;
+    setCoverSaving(true);
+    try {
+      const response = await updateContentApi(content.id, { coverAssetId });
+      setContent(response.data);
+      message.success(coverAssetId ? '封面已设置' : '已清除封面，将使用默认封面');
+    } finally {
+      setCoverSaving(false);
+    }
+  };
+
+  const uploadCover: UploadProps['customRequest'] = async ({ file, onSuccess, onError }) => {
+    if (!content) return;
+    if (!(file instanceof File) || !file.type.startsWith('image/')) {
+      onError?.(new Error('请选择图片文件作为封面'));
+      return;
+    }
+
+    setCoverSaving(true);
+    try {
+      const uploaded = (await uploadAssetApi(file, { skipModeration: true })).data;
+      const response = await updateContentApi(content.id, { coverAssetId: uploaded.id });
+      setAssets((items) => [uploaded, ...items.filter((item) => item.id !== uploaded.id)]);
+      setContent(response.data);
+      message.success('封面已上传并设置');
+      onSuccess?.({});
+    } catch (error) {
+      onError?.(error instanceof Error ? error : new Error('封面上传失败'));
+    } finally {
+      setCoverSaving(false);
+    }
+  };
+
+  const coverUploadProps: UploadProps = {
+    accept: 'image/*',
+    multiple: false,
+    showUploadList: false,
+    disabled: coverSaving,
+    customRequest: uploadCover,
+  };
 
   const persistLocal = useCallback(
     async (payload: EditorChangePayload) => {
@@ -548,6 +610,40 @@ export default function CreateContentPage() {
               </Flex>
             </Card>
 
+            <Card title="发布封面" variant="borderless" className="rounded-xl shadow-sm">
+              <Flex vertical gap={10}>
+                <div className="aspect-[16/9] overflow-hidden rounded-lg bg-slate-100">
+                  {selectedCover ? (
+                    <img src={selectedCover.url} alt={selectedCover.name} className="h-full w-full object-cover" />
+                  ) : (
+                    <div className="grid h-full place-items-center px-4 text-center text-sm text-slate-400">
+                      未设置封面，发布后将展示默认随机封面
+                    </div>
+                  )}
+                </div>
+                <Upload {...coverUploadProps}>
+                  <Button block icon={<CloudUploadOutlined />} loading={coverSaving}>
+                    上传封面
+                  </Button>
+                </Upload>
+                <Select
+                  allowClear
+                  value={content.coverAssetId ?? undefined}
+                  loading={coverSaving}
+                  disabled={coverSaving}
+                  onChange={(value) => void updateCover(value ?? null).catch(() => undefined)}
+                  placeholder="选择已上传的图片素材"
+                  options={imageAssets.map((asset) => ({ value: asset.id, label: asset.name }))}
+                  notFoundContent="暂无图片素材"
+                />
+                {content.coverAssetId && (
+                  <Button loading={coverSaving} onClick={() => void updateCover(null).catch(() => undefined)}>
+                    清除封面
+                  </Button>
+                )}
+              </Flex>
+            </Card>
+
             {reviewResult && (
               <Alert
                 type={
@@ -661,7 +757,7 @@ export default function CreateContentPage() {
                   value={selectedAssetIds}
                   onChange={setSelectedAssetIds}
                   placeholder="选择审核通过的素材"
-                  options={assets.map((asset) => ({ value: asset.id, label: asset.name }))}
+                  options={approvedAssets.map((asset) => ({ value: asset.id, label: asset.name }))}
                 />
                 <Input
                   value={audience}

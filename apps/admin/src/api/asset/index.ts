@@ -33,10 +33,16 @@ export async function getAssetsApi(query: AssetQueryRequest): Promise<ResponseFo
  * 上传文件素材接口
  * POST /api/assets
  */
-export async function uploadAssetApi(file: File): Promise<ResponseFormat<AssetRecord>> {
+export async function uploadAssetApi(
+  file: File,
+  options?: { skipModeration?: boolean },
+): Promise<ResponseFormat<AssetRecord>> {
   const data = new FormData();
   data.append('file', file);
   data.append('name', file.name);
+  if (options?.skipModeration) {
+    data.append('skipModeration', 'true');
+  }
   return http.post('/assets', data);
 }
 
