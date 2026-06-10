@@ -1,4 +1,4 @@
-import { Injectable, ServiceUnavailableException } from '@nestjs/common';
+import { Injectable, ServiceUnavailableException, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import GreenClient, {
   ImageModerationRequest,
@@ -21,6 +21,7 @@ const ALIYUN_TEXT_CHUNK_SIZE = 500;
 @Injectable()
 export class AliyunGreenModerationProvider implements ModerationProvider {
   private readonly client: GreenClient | null;
+  private readonly logger = new Logger(AliyunGreenModerationProvider.name);
 
   constructor(private readonly configService: ConfigService) {
     const accessKeyId = this.configService.get<string>('ALIYUN_ACCESS_KEY_ID');
@@ -42,20 +43,10 @@ export class AliyunGreenModerationProvider implements ModerationProvider {
       this.client = null;
     }
 
-    if (this.client) {
-      void this.client
-        .textModeration(
-          new TextModerationRequest({
-            service: this.configService.get<string>('ALIYUN_GREEN_TEXT_SERVICE') ?? 'ai_art_detection',
-            serviceParameters: JSON.stringify({ content: '测试连接' }),
-          }),
-        )
-        .then((res) => {
-          console.warn('成功初始化阿里云内容安全服务: \n', res);
-        })
-        .catch((err) => {
-          console.error('初始化阿里云内容安全服务失败。请检查您的配置。\n', err);
-        });
+    if (!this.client) {
+      this.logger.warn('阿里云内容安全服务未配置，相关功能将不可用。');
+    } else {
+      this.logger.log('阿里云内容安全服务已成功配置。');
     }
   }
 

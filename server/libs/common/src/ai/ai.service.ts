@@ -1,10 +1,11 @@
-import { Injectable, ServiceUnavailableException } from '@nestjs/common';
+import { Injectable, ServiceUnavailableException, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ChatOpenAI } from '@langchain/openai';
 
 @Injectable()
 export class AiService {
   private readonly model: ChatOpenAI | null;
+  private readonly logger = new Logger(AiService.name);
 
   constructor(private readonly configService: ConfigService) {
     const apiKey = this.configService.get<string>('OPENAI_API_KEY');
@@ -22,14 +23,11 @@ export class AiService {
       this.model = null;
     }
 
-    void this.model
-      ?.invoke('测试连接')
-      .then((res) => {
-        console.warn(res);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    if (!this.model) {
+      this.logger.log('AI 功能未启用：缺少 API 配置（若不需要 AI 功能请忽略此提示）');
+    } else {
+      this.logger.log(`AI 模型已成功加载 [Model: ${model}] [BaseURL: ${baseURL}]`);
+    }
   }
 
   getModel(serviceName: string) {
