@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+html {
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-alimama), sans-serif;
+  background: #f4f6fb;
+  color: #131737;
+}
+
+.radix-themes {
+  --default-font-family: var(--font-alimama), sans-serif;
+  --heading-font-family: var(--font-alimama), sans-serif;
+  --strong-font-family: var(--font-alimama), sans-serif;
+  font-family: var(--font-alimama), sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
