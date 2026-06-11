@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { z } from 'zod';
 import { AiService } from './ai.service';
 import { parseJsonObjectResponse } from './json-response';
@@ -25,24 +26,25 @@ export class QualityAiService {
 
   async evaluateQuality(content: { title: string; summary: string | null; body: string }) {
     const model = this.aiService.getModel('AI 评分服务');
-    const result = await model.invoke([
-      {
-        role: 'system',
-        content: [
-          '你是严格的中文内容质量评审员。按主题相关性、结构完整性、可读性、原创表达、实用价值评分。总分和各维度均为 0-100，等级规则为 S>=90、A>=80、B>=70、C>=60、D<60。',
-          '只能返回一个 JSON 对象，不要 Markdown、代码块或解释文字。',
-          'JSON 字段：totalScore、level、dimensions、summary、improvements。',
-          'dimensions 字段必须包含 relevance、structure、readability、originality、usefulness。',
-          'The improvements field must be a JSON array of strings, not a single string.',
-        ].join('\n'),
-      },
-      {
-        role: 'user',
-        content: [`标题：${content.title}`, content.summary ? `摘要：${content.summary}` : '', `正文：${content.body}`]
-          .filter(Boolean)
-          .join('\n'),
-      },
-    ]);
+    const result = await model.invoke(
+      [
+        new SystemMessage(
+          [
+            '你是严格的中文内容质量评审员。按主题相关性、结构完整性、可读性、原创表达、实用价值评分。总分和各维度均为 0-100，等级规则为 S>=90、A>=80、B>=70、C>=60、D<60。',
+            '只能返回一个 JSON 对象，不要 Markdown、代码块或解释文字。',
+            'JSON 字段：totalScore、level、dimensions、summary、improvements。',
+            'dimensions 字段必须包含 relevance、structure、readability、originality、usefulness。',
+            'The improvements field must be a JSON array of strings, not a single string.',
+          ].join('\n'),
+        ),
+        new HumanMessage(
+          [`标题：${content.title}`, content.summary ? `摘要：${content.summary}` : '', `正文：${content.body}`]
+            .filter(Boolean)
+            .join('\n'),
+        ),
+      ],
+      { callbacks: [] },
+    );
 
     return qualityEvaluationSchema.parse(parseJsonObjectResponse(result));
   }
