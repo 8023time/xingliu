@@ -30,7 +30,7 @@ JWT_EXPIRATION=86400
 MINIO_ACCESS_KEY=replace_with_minio_access_key
 MINIO_SECRET_KEY=replace_with_minio_secret_key
 MINIO_BUCKET_NAME=xingliu-assets
-MINIO_PUBLIC_URL=https://your-public-minio-domain/xingliu-assets
+MINIO_PUBLIC_URL=https://api.xingliu.8023time.com/xingliu-assets
 
 OPENAI_API_KEY=your_volcengine_ark_api_key
 OPENAI_BASE_URL=https://your-volcengine-ark-openai-compatible-endpoint
@@ -50,7 +50,7 @@ NEXT_PUBLIC_API_URL=http://server:3000
 
 - `OPENAI_*` 保存的是火山方舟 OpenAI 兼容接口配置，不是 OpenAI 官方服务配置。
 - 阿里云内容安全代码读取的是 `ALIYUN_ACCESS_KEY_ID` 和 `ALIYUN_ACCESS_KEY_SECRET`。
-- `MINIO_PUBLIC_URL` 必须是阿里云内容安全服务可公网访问的地址，否则图片审核会失败。
+- `MINIO_PUBLIC_URL` 必须是阿里云内容安全服务可公网访问的地址，否则图片审核会失败；当前 Docker Caddy 已将 `https://api.xingliu.8023time.com/<bucket>/*` 转发到 MinIO。
 - `NEXT_PUBLIC_API_URL` 在 Docker 内建议保持 `http://server:3000`，供 Next.js 服务端代理调用后端。
 
 ## 本机 Docker 启动

@@ -11,5 +11,9 @@ xingliu.8023time.com {
 }
 
 api.xingliu.8023time.com {
+  handle /xingliu/* {
+    reverse_proxy minio:9000
+  }
+
   reverse_proxy server:3000
 }
