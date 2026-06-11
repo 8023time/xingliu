@@ -1,5 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsEnum, IsOptional, IsString, IsUrl, MaxLength, MinLength, ArrayMaxSize } from 'class-validator';
+import { Transform } from 'class-transformer';
+import {
+  IsArray,
+  IsBoolean,
+  IsEnum,
+  IsOptional,
+  IsString,
+  IsUrl,
+  MaxLength,
+  MinLength,
+  ArrayMaxSize,
+} from 'class-validator';
 import { AssetType } from '@libs/common/generated/prisma/enums';
 import type { CreateAssetRequest } from '@xingliu/shared/asset';
 
@@ -32,6 +43,16 @@ export class CreateAssetDto implements CreateAssetRequest {
   @IsUrl({ require_protocol: true }, { message: '请输入合法的资产 URL 链接' })
   @MaxLength(2048)
   url?: string;
+
+  @ApiProperty({
+    description: '是否跳过素材审核，封面直传时使用',
+    example: true,
+    required: false,
+  })
+  @IsOptional()
+  @Transform(({ value }) => value === true || value === 'true')
+  @IsBoolean()
+  skipModeration?: CreateAssetRequest['skipModeration'];
 
   @ApiProperty({
     description: '资产标签',

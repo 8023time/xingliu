@@ -96,7 +96,9 @@ export class AssetService {
       });
     }
 
-    await this.tryModerate(asset);
+    if (!assetDto.skipModeration) {
+      await this.tryModerate(asset);
+    }
 
     return this.responseService.success(this.toResponse(asset), '创建素材成功');
   }

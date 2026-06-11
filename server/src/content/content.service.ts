@@ -308,11 +308,16 @@ export class ContentService {
     await this.getOwnedContent(userId, id);
     if (updateContentDto.coverAssetId) {
       const cover = await this.prismaService.asset.findFirst({
-        where: { id: updateContentDto.coverAssetId, userId, deletedAt: null },
+        where: {
+          id: updateContentDto.coverAssetId,
+          userId,
+          type: AssetType.IMAGE,
+          deletedAt: null,
+        },
         select: { id: true },
       });
       if (!cover) {
-        throw new BadRequestException('封面素材不存在或无权使用');
+        throw new BadRequestException('封面素材不存在或不是图片');
       }
     }
 

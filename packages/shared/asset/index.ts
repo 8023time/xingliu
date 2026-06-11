@@ -78,6 +78,7 @@ export type CreateLinkAssetRequest = Pick<Asset, 'name' | 'url'>;
  */
 export type CreateAssetRequest = Pick<Asset, 'name'> &
   Partial<Pick<Asset, 'type' | 'url'>> & {
+    skipModeration?: boolean;
     tags?: string[];
   };
 

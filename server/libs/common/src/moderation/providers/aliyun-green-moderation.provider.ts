@@ -60,6 +60,7 @@ export class AliyunGreenModerationProvider implements ModerationProvider {
 
   private async moderateImage(imageUrl: string): Promise<ModerationProviderResult> {
     const client = this.getClient();
+    assertPublicImageUrl(imageUrl);
     const service = this.configService.get<string>('ALIYUN_GREEN_IMAGE_SERVICE') ?? 'baselineCheck';
     const response = await client.imageModeration(
       new ImageModerationRequest({
@@ -70,7 +71,8 @@ export class AliyunGreenModerationProvider implements ModerationProvider {
     const body = response.body;
 
     if (body?.code !== 200 || !body.data) {
-      throw new ServiceUnavailableException(`阿里云图片审核服务返回无法解析：${body?.msg ?? 'unknown error'}`);
+      const reason = body?.msg ?? 'unknown error';
+      throw new ServiceUnavailableException(`阿里云图片审核服务返回无法解析：${appendImageDownloadHint(reason)}`);
     }
 
     const resultItems = body.data.result ?? [];
@@ -156,6 +158,34 @@ export class AliyunGreenModerationProvider implements ModerationProvider {
 
     return 'none';
   }
+}
+
+function assertPublicImageUrl(imageUrl: string) {
+  let url: URL;
+  try {
+    url = new URL(imageUrl);
+  } catch {
+    throw new ServiceUnavailableException('图片审核 URL 格式无效，请检查素材文件公开访问地址配置');
+  }
+
+  if (url.protocol !== 'http:' && url.protocol !== 'https:') {
+    throw new ServiceUnavailableException('图片审核 URL 必须是 HTTP 或 HTTPS 地址');
+  }
+
+  const hostname = url.hostname.toLowerCase();
+  if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '::1' || hostname.endsWith('.local')) {
+    throw new ServiceUnavailableException(
+      '图片审核需要公网可访问的图片地址，请将 MINIO_PUBLIC_URL 配置为阿里云内容安全服务可下载的域名，当前地址是本机或内网地址',
+    );
+  }
+}
+
+function appendImageDownloadHint(reason: string) {
+  if (!reason.toLowerCase().includes('download error')) {
+    return reason;
+  }
+
+  return `${reason}。请确认 MINIO_PUBLIC_URL 是公网可访问地址，且对象允许匿名读取`;
 }
 
 function splitLabels(labels: string | undefined) {
