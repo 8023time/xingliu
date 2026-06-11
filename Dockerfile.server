@@ -38,4 +38,4 @@ EXPOSE 3000
 
 ENTRYPOINT ["dumb-init", "--"]
 
-CMD ["node", "server/dist/src/main.js"]
+CMD ["sh", "-c", "pnpm --filter=@xingliu/server exec prisma migrate deploy && node server/dist/src/main.js"]
