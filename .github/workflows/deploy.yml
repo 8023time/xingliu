@@ -86,9 +86,27 @@ jobs:
           PROD_ENV_FILE: ${{ secrets.PROD_ENV_FILE }}
         run: |
           printf '%s\n' "$PROD_ENV_FILE" > .env.production
-          scp -i ~/.ssh/deploy_key -P "$DEPLOY_PORT" .env.production "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/.env"
+          ssh -i ~/.ssh/deploy_key -p "$DEPLOY_PORT" "$DEPLOY_USER@$DEPLOY_HOST" "mkdir -p '$DEPLOY_PATH'"
+          scp -i ~/.ssh/deploy_key -P "$DEPLOY_PORT" .env.production "$DEPLOY_USER@$DEPLOY_HOST:/tmp/xingliu.env"
+
+      - name: Upload release bundle
+        run: |
+          tar \
+            --exclude='.git' \
+            --exclude='node_modules' \
+            --exclude='.turbo' \
+            --exclude='.next' \
+            --exclude='dist' \
+            --exclude='build' \
+            --exclude='coverage' \
+            --exclude='*.log' \
+            --exclude='.env' \
+            --exclude='.env.*' \
+            --exclude='server/.env' \
+            -czf /tmp/xingliu-release.tgz .
+          scp -i ~/.ssh/deploy_key -P "$DEPLOY_PORT" /tmp/xingliu-release.tgz "$DEPLOY_USER@$DEPLOY_HOST:/tmp/xingliu-release.tgz"
 
       - name: Deploy with Docker Compose
         run: |
           ssh -i ~/.ssh/deploy_key -p "$DEPLOY_PORT" "$DEPLOY_USER@$DEPLOY_HOST" \
-            "set -e; cd '$DEPLOY_PATH'; git pull --ff-only origin '$DEPLOY_BRANCH'; docker compose -f docker-compose.prod.yml up -d --build; docker image prune -f"
+            "set -e; mkdir -p '$DEPLOY_PATH'; tar -xzf /tmp/xingliu-release.tgz -C '$DEPLOY_PATH'; mv /tmp/xingliu.env '$DEPLOY_PATH/.env'; cd '$DEPLOY_PATH'; docker compose -f docker-compose.prod.yml up -d --build; docker image prune -f"
