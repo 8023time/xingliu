@@ -9,7 +9,7 @@
 - 素材上传、存储和基础合规检查。
 - 内容版本管理、草稿快照、审核编排、质量评分和合规改写。
 - AI 内容生成（通过 LangChain ChatOpenAI + 火山方舟兼容接口）。
-- 内容安全审核（fastscan + 阿里云内容安全增强版）。
+- 内容安全审核（mint-filter 本地词典 + 阿里云内容安全增强版）。
 - 内容发布、内容流、热点榜和爆文榜查询。
 
 当前项目处于早期核心开发阶段，用户认证、Prompt、素材、内容壳、云端草稿、AI 候选生成、通用预检、正式版本、安全审核、质量评分、发布下线与公开消费链路已完成；其他模块仍为待实现或脚手架状态。
@@ -28,7 +28,7 @@
 - 数据库：PostgreSQL。
 - 文件存储：MinIO。
 - AI：`@langchain/core` + `@langchain/openai`（ChatOpenAI，通过火山方舟 OpenAI 兼容接口）。
-- 内容安全：`fastscan` + `@alicloud/pop-core`（阿里云内容安全增强版）。
+- 内容安全：`mint-filter` + `@alicloud/green20220302`（阿里云内容安全增强版）。
 - 验证：`class-validator` + `class-transformer` + Zod。
 - 认证：`@nestjs/jwt`。
 - API 文档：`@nestjs/swagger` + `@scalar/nestjs-api-reference`。
@@ -44,17 +44,17 @@
 - `src/content/` — 内容壳管理、版本管理、发布与下线。
 - `src/draft/` — 云端草稿快照、同步和冲突处理。
 - `src/ai-generation/` — AI 内容生成（ChatOpenAI 调用）。
-- `src/moderation/` — 安全审核编排（fastscan → 阿里云 → 决策）。
+- `src/moderation/` — 安全审核编排（mint-filter → 阿里云 → 决策）。
 - `src/quality/` — AI 质量评分。
 - `src/rewrite/` — 合规改写（生成候选 + 采纳后创建新版本）。
 - `src/ranking/` — 内容流、热点榜和爆文榜查询。
 - `libs/common/src/` — 内部共享模块：
   - `prisma/` — Prisma 数据库服务。
   - `generated/prisma/` — 自动生成的 Prisma 客户端。
-  - `minio/` — MinIO 文件存储服务。
+  - `file/` — MinIO 文件存储、文件处理和上传类型。
   - `ai/` — LangChain ChatOpenAI 封装服务。
   - `auth/` — JWT 鉴权守卫。
-  - `moderation/` — 内容安全服务（fastscan + 阿里云）。
+  - `moderation/` — 内容安全服务（mint-filter + 阿里云）。
   - `filter/` — 全局 HTTP 异常过滤器。
   - `interceptor/` — 全局 HTTP 响应拦截器。
   - `response/` — 标准化响应格式。
@@ -67,7 +67,7 @@
 - Service 负责业务规则、资源归属、事务和外部服务协作。
 - DTO 使用 `class-validator`；模型结构化输出使用 Zod。
 - AI 调用统一通过内部 AI Service（`libs/common/src/ai/`），业务模块不直接创建 ChatOpenAI 实例。
-- 内容安全统一通过内部 Moderation Service（`libs/common/src/moderation/`），业务模块不直接创建 fastscan 或阿里云客户端。
+- 内容安全统一通过内部 Moderation Service（`libs/common/src/moderation/`），业务模块不直接创建 mint-filter 或阿里云客户端。
 - `OPENAI_*` 环境变量实际保存火山方舟兼容接口配置，不得误接 OpenAI 官方服务。
 - 不使用原生 OpenAI SDK、自行发送模型 HTTP 请求或创建额外模型适配层。
 - 不引入新依赖，除非现有依赖和 Node.js 标准库无法满足明确需求。
@@ -125,7 +125,7 @@
 ### 内容安全
 
 - 统一通过内部 Moderation Service 调用外部审核能力。
-- 审核顺序固定为：`fastscan → 阿里云内容安全增强版 → 标准化决策`。
+- 审核顺序固定为：`mint-filter → 阿里云内容安全增强版 → 标准化决策`。
 - 高风险结果直接拒绝；模型输出不得覆盖阿里云高风险判断。
 - 审核异常、评分失败或结构校验失败不得伪造通过，不得允许发布。
 
@@ -188,7 +188,7 @@
 新增 AI 或审核调用时：
 
 - 通过内部 AI/Moderation Service 调用，不直接创建外部客户端。
-- 审核顺序固定：fastscan → 阿里云 → 决策。
+- 审核顺序固定：mint-filter → 阿里云 → 决策。
 - 高风险结果直接拒绝。
 
 ## 验证命令

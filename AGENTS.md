@@ -39,7 +39,7 @@
 - NestJS API（`/api/*`）是前端访问业务能力的唯一边界；页面层不得复制后端业务规则。
 - PostgreSQL 是业务数据和文件元数据的持久化落点；MinIO 保存上传素材。
 - AI 调用统一使用 `@langchain/openai` 的 `ChatOpenAI`，通过火山方舟提供的 OpenAI 兼容接口接入模型。`OPENAI_*` 环境变量实际保存火山方舟配置，不得误接 OpenAI 官方服务。
-- 内容安全统一通过 `fastscan` + 阿里云内容安全增强版链路审查。
+- 内容安全统一通过 `mint-filter` 本地词典 + 阿里云内容安全增强版链路审查。
 - 不使用 Redis、BullMQ、微服务或额外数据库。
 
 ## 领域概念
@@ -55,7 +55,7 @@
 | `ContentVersion`    | 不可变内容版本，审核和评分的对象                        | server + admin       |
 | `DraftSnapshot`     | 云端草稿快照，30 秒自动保存                             | server + admin       |
 | `AiTask`            | AI 生成任务记录                                         | server + admin       |
-| `SafetyReview`      | 安全审核结果（fastscan → 阿里云 → 决策）                | server + admin       |
+| `SafetyReview`      | 安全审核结果（mint-filter → 阿里云 → 决策）             | server + admin       |
 | `QualityEvaluation` | AI 质量评分结果                                         | server + admin       |
 | `RewriteRecord`     | 合规改写前后对比记录                                    | server + admin       |
 | `ContentMetric`     | 内容指标（阅读、点赞、分享等）                          | server + web         |
@@ -95,7 +95,7 @@
 
 新增审核能力时：
 
-- 统一通过内部 Moderation Service 调用，审核顺序固定为 `fastscan → 阿里云 → 决策`。
+- 统一通过内部 Moderation Service 调用，审核顺序固定为 `mint-filter → 阿里云 → 决策`。
 - 高风险结果直接拒绝；模型输出不得覆盖阿里云高风险判断。
 
 ## 验证命令
