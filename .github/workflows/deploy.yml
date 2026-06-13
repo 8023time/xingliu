@@ -37,6 +37,9 @@ jobs:
           DATABASE_URL: postgresql://xingliu:xingliu_password@localhost:5432/xingliu_db
         run: pnpm --filter @xingliu/server exec prisma validate
 
+      - name: Build packages
+        run: pnpm --filter @xingliu/config build
+
       - name: Build server
         run: pnpm --filter @xingliu/server build
 
