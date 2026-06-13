@@ -63,6 +63,9 @@ jobs:
       DEPLOY_BRANCH: main
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Validate deploy inputs
         env:
           DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
