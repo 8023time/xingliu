@@ -306,8 +306,6 @@ function RankingItemCard({
           </span>
         </div>
 
-        <Avatar size={48} src={rank % 2 === 0 ? '/xingliu.png' : '/avatar.jpg'} />
-
         <Flex vertical gap={10} className="min-w-0 flex-1">
           <Flex align="flex-start" justify="space-between" gap={12}>
             <div className="min-w-0 flex-1">

@@ -2,6 +2,7 @@ import { Flex, Image, Space, Typography } from 'antd';
 import { LineLayout, SectionDivider } from '@/components/ui';
 import { WEB_DATA_INFO } from '@/configs/config';
 import LoginAddRegister from './components/loginAddRegister';
+import xingliuImg from '@/assets/images/xingliu.png';
 
 const { Text, Link } = Typography;
 
@@ -15,7 +16,7 @@ export default function LoginPage() {
         <SectionDivider>
           <Flex align="center" justify="center" wrap>
             <img
-              src="/xingliu.png"
+              src={xingliuImg}
               alt="星流"
               draggable={false}
               className="pointer-events-none mx-auto w-full max-w-[800px] object-contain"
@@ -37,7 +38,7 @@ function APPHeader() {
     <header className="h-16 px-3">
       <Flex align="center" justify="space-between" gap={8} className="h-full">
         <Flex align="center" gap={10}>
-          <Image width={30} src="/favicon.png" preview={false} className="rounded-lg" />
+          <Image width={30} src="/logo.png" preview={false} className="rounded-lg" />
           <span className="text-base font-semibold tracking-wide text-slate-900">{WEB_DATA_INFO.APPLICATION_NAME}</span>
         </Flex>
         🥺

@@ -30,6 +30,7 @@ import {
   SafetyCertificateOutlined,
   SearchOutlined,
   SendOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { getContentsApi, type ContentRecord, type ContentStatus, type ContentType } from '@/api/content';
@@ -219,7 +220,7 @@ export default function HomePage() {
           <Flex align="center" justify="space-between" gap={24} wrap="wrap">
             <div className="min-w-70 flex-1">
               <Flex align="center" gap={12} wrap="wrap">
-                <Avatar size={40} src={user?.avatarUrl ?? '/avatar.jpg'} />
+                <Avatar size={40} src={user?.avatarUrl ?? <UserOutlined />} />
                 <Text>你好，{user?.username ?? '创作者'}</Text>
               </Flex>
               <Title level={1} className="mt-4! mb-5!">

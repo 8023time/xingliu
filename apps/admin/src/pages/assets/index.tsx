@@ -40,6 +40,7 @@ import {
   type SafetyStatus,
 } from '@/api/asset';
 import { ProductHeaderCard } from '@/components/ui';
+import img_fallback from '@/assets/images/img-fallback.svg';
 
 const { Dragger } = Upload;
 const { Text } = Typography;
@@ -138,7 +139,7 @@ export default function AssetsPage() {
               width={72}
               height={54}
               className="rounded-lg object-cover"
-              fallback="/xingliu.png"
+              fallback={img_fallback}
             />
           ) : (
             <span className="flex h-13.5 w-18 items-center justify-center rounded-lg bg-slate-100 text-xl text-slate-500">

@@ -166,7 +166,7 @@ function APPHeader({ className }: { className?: string }) {
     <header className={className}>
       <Flex align="center" justify="space-between" style={{ height: '100%' }}>
         <Flex align="center">
-          <Image width={32} src="/favicon.png" preview={false} style={{ borderRadius: 6 }} />
+          <Image width={32} src="/logo.png" preview={false} style={{ borderRadius: 6 }} />
           <span style={{ marginLeft: 12, fontSize: 16, fontWeight: 600, letterSpacing: '0.5px' }}>
             {WEB_DATA_INFO.APPLICATION_NAME}
           </span>

@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import { Avatar, Button, Card, Empty, Flex, Skeleton, Space, Tag, Typography, message } from 'antd';
+import { Button, Card, Empty, Flex, Skeleton, Space, Tag, Typography, message } from 'antd';
 import { ArrowRightOutlined, FireOutlined, ReloadOutlined, TrophyOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { getRankingApi, type RankingItemResponse, type RankingTypeValue } from '@/api/ranking';
@@ -146,7 +146,6 @@ function RankingItem({
       >
         {rank}
       </span>
-      <Avatar size={40} src={item.coverUrl ?? (rank % 2 === 0 ? '/xingliu.png' : '/avatar.jpg')} />
       <span className="min-w-0 flex-1">
         <Flex align="center" justify="space-between" gap={8}>
           <Text strong className="min-w-0 flex-1 truncate">
