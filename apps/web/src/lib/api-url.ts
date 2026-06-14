@@ -18,6 +18,6 @@ export function getApiBaseUrl() {
     return `http://localhost:${Config.port.server}`;
   }
 
-  const host = process.env.NEXT_PUBLIC_API_HOST ?? Config.host.api;
+  const host = process.env.NEXT_PUBLIC_API_HOST ?? Config.host.prod.api;
   return `https://${host}`.replace(/\/+$/, '');
 }

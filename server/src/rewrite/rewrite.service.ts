@@ -1,5 +1,11 @@
 import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
-import { ModerationService, PrismaService, ResponseService, RewriteAiService } from '@libs/common';
+import {
+  ModerationService,
+  PrismaService,
+  ResponseService,
+  RewriteAiService,
+  type TextModerationResult,
+} from '@libs/common';
 import { Prisma } from '@libs/common/generated/prisma/client';
 import {
   AiTaskStatus,
@@ -10,7 +16,6 @@ import {
   SafetyReviewDecision,
   SafetyStatus,
 } from '@libs/common/generated/prisma/enums';
-import type { TextModerationResult } from '@libs/common';
 import { CreateRewriteDto } from './dto/create-rewrite.dto';
 import { QualityService } from '../quality/quality.service';
 

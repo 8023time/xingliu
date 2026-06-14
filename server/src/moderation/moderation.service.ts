@@ -1,7 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { ModerationService as CommonModerationService, PrismaService, ResponseService } from '@libs/common';
+import {
+  ModerationService as CommonModerationService,
+  PrismaService,
+  ResponseService,
+  type AssetModerationResult,
+  TextModerationResult,
+} from '@libs/common';
 import { CommonStatus, Visibility } from '@libs/common/generated/prisma/enums';
-import type { AssetModerationResult, TextModerationResult } from '@libs/common';
 import { ModerationCheckDto } from './dto/moderation-check.dto';
 
 @Injectable()
