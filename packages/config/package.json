@@ -13,8 +13,5 @@
   "type": "module",
   "files": [
     "dist"
-  ],
-  "devDependencies": {
-    "typescript": "^5.3.0"
-  }
+  ]
 }

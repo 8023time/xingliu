@@ -20,7 +20,7 @@
   "type": "module",
   "packageManager": "pnpm@10.25.0",
   "scripts": {
-    "dev": "turbo run dev",
+    "dev": "concurrently -n proxy,turbo \"pnpm dev:proxy\" \"turbo run dev\"",
     "dev:web": "turbo run dev --filter=@xingliu/web",
     "dev:admin": "turbo run dev --filter=@xingliu/admin",
     "dev:server": "turbo run dev --filter=@xingliu/server",
@@ -48,6 +48,7 @@
     "@eslint/js": "^10.0.1",
     "@types/md5": "^2.3.6",
     "commitizen": "^4.3.1",
+    "concurrently": "^10.0.3",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^10.4.0",
     "eslint-config-prettier": "^10.1.8",
