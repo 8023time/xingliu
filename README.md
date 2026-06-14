@@ -94,81 +94,105 @@ xingliu/
 └── turbo.json                     # Turborepo 任务配置
 ```
 
-## 二、配置hosts
+## 二、开发配置
 
+### 1. 配置 hosts
+
+本地开发默认通过 Caddy 代理到 Web、Admin 和 Server。请先在系统 hosts 文件中添加以下域名映射：
+
+```text
+127.0.0.1 creator.xingliu-test.8023time.com
+127.0.0.1 xingliu-test.8023time.com
+127.0.0.1 api.xingliu-test.8023time.com
 ```
-127.0.0.1 creator.8023time.com
-127.0.0.1 web.8023time.com
-127.0.0.1 api.8023time.com
+
+### 2. 配置环境变量
+
+项目根目录提供 `.env.example`，后端目录提供 `server/.env.example`。本地开发主要配置 `server/.env`；根目录 `.env` 主要用于 Docker 编排、部署环境和 GitHub 等代码托管平台的环境变量配置参考。
+
+```bash
+cp server/.env.example server/.env
 ```
 
-## 三、环境变量配置
-
-项目根目录提供 `.env.example`，后端目录也提供 `server/.env.example`。本地开发时先复制示例文件，再按自己的环境填写真实值：
+如果需要使用 Docker Compose 启动完整部署环境，再复制根目录环境变量示例：
 
 ```bash
 cp .env.example .env
-cp server/.env.example server/.env
 ```
 
 主要配置项如下：
 
-| 配置类别 | 关键变量 | 说明 |
-| --- | --- | --- |
-| PostgreSQL | `DB_USER`、`DB_PASSWORD`、`DB_NAME`、`DATABASE_URL` | 数据库账号、密码、库名和 Prisma 连接串。Docker 环境会使用这些变量初始化数据库。 |
-| JWT | `JWT_SECRET`、`JWT_EXPIRATION` | 双 Token 认证的签名密钥和 Access Token 有效期。生产环境必须使用足够长的随机密钥。 |
-| MinIO | `MINIO_ENDPOINT`、`MINIO_PORT`、`MINIO_USE_SSL`、`MINIO_ACCESS_KEY`、`MINIO_SECRET_KEY`、`MINIO_BUCKET_NAME`、`MINIO_PUBLIC_URL` | 素材文件对象存储配置。`MINIO_PUBLIC_URL` 需要是后端和阿里云内容安全可访问的公开地址。 |
-| 火山方舟模型或者openai模型 | `OPENAI_API_KEY`、`OPENAI_BASE_URL`、`OPENAI_MODEL` | 项目通过 `@langchain/openai` 的 OpenAI 接入火山方舟。你也可以接入 OpenAI 官方服务。 |
-| 阿里云内容安全 | `ALIYUN_ACCESS_KEY_ID`、`ALIYUN_ACCESS_KEY_SECRET`、`ALIYUN_GREEN_ENDPOINT`、`ALIYUN_GREEN_REGION_ID`、`ALIYUN_GREEN_TEXT_SERVICE`、`ALIYUN_GREEN_IMAGE_SERVICE` | 用于文本和图片内容安全审核。AccessKey 只放在 `.env`，不要提交到仓库。 |
-| 前端运行时 | `NEXT_PUBLIC_API_URL` | Docker 或部署环境中 Web 前台访问 API 的地址。 |
+| 配置类别       | 关键变量                                                                                                                                                         | 说明                                                                                                                                      |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| PostgreSQL     | `DB_USER`、`DB_PASSWORD`、`DB_NAME`、`DATABASE_URL`                                                                                                              | 数据库账号、密码、库名和 Prisma 连接串。开发后端主要读取 `server/.env` 中的 `DATABASE_URL`；Docker 环境会使用根目录 `.env` 初始化数据库。 |
+| JWT            | `JWT_SECRET`、`JWT_EXPIRATION`                                                                                                                                   | 双 Token 认证的签名密钥和 Access Token 有效期。生产环境必须使用足够长的随机密钥。                                                         |
+| MinIO          | `MINIO_ENDPOINT`、`MINIO_PORT`、`MINIO_USE_SSL`、`MINIO_ACCESS_KEY`、`MINIO_SECRET_KEY`、`MINIO_BUCKET_NAME`、`MINIO_PUBLIC_URL`                                 | 素材文件对象存储配置。`MINIO_PUBLIC_URL` 需要是后端和阿里云内容安全可访问的公开地址。                                                     |
+| 火山方舟模型   | `OPENAI_API_KEY`、`OPENAI_BASE_URL`、`OPENAI_MODEL`                                                                                                              | 项目通过 `@langchain/openai` 的 OpenAI 兼容接口接入火山方舟。                                                                             |
+| 阿里云内容安全 | `ALIYUN_ACCESS_KEY_ID`、`ALIYUN_ACCESS_KEY_SECRET`、`ALIYUN_GREEN_ENDPOINT`、`ALIYUN_GREEN_REGION_ID`、`ALIYUN_GREEN_TEXT_SERVICE`、`ALIYUN_GREEN_IMAGE_SERVICE` | 用于文本和图片内容安全审核。AccessKey 只放在 `.env`，不要提交到仓库。                                                                     |
+| 前端运行时     | `NEXT_PUBLIC_API_URL`                                                                                                                                            | Docker 或部署环境中 Web 前台访问 API 的地址。                                                                                             |
 
-注意：
+注意事项：
 
 - 真实 `.env`、`server/.env` 不要提交到 Git。
-- 本地如果只用 Docker 启动 PostgreSQL 和 MinIO，优先修改根目录 `.env`。
-- 单独运行后端时，确保 `server/.env` 中的 `DATABASE_URL`、MinIO、火山方舟和阿里云配置可用。
-- 阿里云图片审核依赖图片公网可下载，部署时需要确认 `MINIO_PUBLIC_URL` 能被阿里云服务访问。
+- 本地开发后端时，优先修改 `server/.env`。
+- 根目录 `.env` 不作为日常开发的主要配置文件，主要给 Docker Compose、部署环境和 GitHub 等代码托管平台配置环境变量时参考。
+- 运行后端时，确保 `server/.env` 中的 `DATABASE_URL`、MinIO、火山方舟和阿里云配置可用。
+- 阿里云图片审核依赖公网可下载的图片地址，部署时需要确认 `MINIO_PUBLIC_URL` 能被阿里云服务访问。
 
-## 四、技术栈版本
+### 3. 技术栈版本
 
-当前项目使用的技术栈版本：
+当前项目使用的主要版本：
 
 - Node.js: v24.11.1
 - pnpm: 10.25.0
-- nest: 11.0.14
+- NestJS: 11.0.14
 
-注意：
+注意事项：
 
-- 如果使用的需要只用其他pnpm版本，请先修改根目录下的 package.json 中的 "packageManager" 字段为对应版本，否则使用 turbo 会报错。
-
-
+- 根目录 `package.json` 已通过 `packageManager` 固定 pnpm 版本。
+- 如果必须使用其他 pnpm 版本，请同步修改 `package.json` 中的 `packageManager` 字段，否则 Turborepo 可能会因为包管理器版本不一致而报错。
 
 ## 五、安装
 
-1.  安装 Caddy
-2.  复制并填写环境变量：`cp .env.example .env`、`cp server/.env.example server/.env`
-3.  安装项目依赖 `pnpm install`
+1. 安装 Node.js、pnpm、Docker 和 Caddy。
+2. 复制并填写后端开发环境变量：
+
+   ```bash
+   cp server/.env.example server/.env
+   ```
+
+   如需使用 Docker Compose 启动完整部署环境，再复制根目录 `.env.example`：
+
+   ```bash
+   cp .env.example .env
+   ```
+
+3. 安装项目依赖：
+
+   ```bash
+   pnpm install
+   ```
 
 ## 六、启动
 
-1. 启动 Caddy 反向代理（前提）：
+### 本地开发
 
-```bash
-pnpm run dev:proxy
-```
+1. 启动 PostgreSQL 和 MinIO：
 
-2. 启动后端 API 服务：
+   ```bash
+   自己配置,可以使用下载并安装 PostgreSQL 和 MinIO 的本地版本，或者使用 Docker Compose 启动它们：
+   ```
 
-```bash
-pnpm run dev:server
-```
+2. 启动 Web、Admin、Server 和本地域名代理：
 
-3. 启动前端应用：
+   ```bash
+   pnpm dev
+   ```
 
-```bash
-pnpm run dev:web
-pnpm run dev:admin
-```
+3. 访问本地服务：
+   - Web 前台：`http://xingliu-test.8023time.com`
+   - Admin 后台：`http://creator.xingliu-test.8023time.com`
+   - Server API：`http://api.xingliu-test.8023time.com`
 
 ## 七、项目文档
 
