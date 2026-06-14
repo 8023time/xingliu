@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, type ReactNode, lazy, Suspense } from 'react';
 import {
   Avatar,
   Button,
@@ -34,9 +34,12 @@ import {
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { getContentsApi, type ContentRecord, type ContentStatus, type ContentType } from '@/api/content';
-import CreateModal from '@/components/createModal';
 import { useAuthStore } from '@/stores/user-store';
 import { HotRankingList, ViralRankingList } from './components/Rankings';
+import { routeLoaders } from '@/router/index';
+
+// 优化：预加载弹窗组件,按需加载，减少首页体积
+const CreateModal = lazy(() => import('@/components/createModal'));
 
 const { Text, Title } = Typography;
 
@@ -232,7 +235,10 @@ export default function HomePage() {
                 placeholder="输入选题关键词，进入编辑器后可选择 Prompt 生成内容"
                 enterButton="开始创作"
                 className="max-w-2xl"
-                onSearch={() => setCreateModalOpen(true)}
+                onSearch={() => {
+                  routeLoaders.contentCreate(); // 优化:预加载创建内容页面
+                  setCreateModalOpen(true);
+                }}
               />
             </div>
 
@@ -333,7 +339,14 @@ export default function HomePage() {
                   <Button type="link" onClick={() => navigate('/content/list')}>
                     查看全部
                   </Button>
-                  <Button type="primary" icon={<PlusOutlined />} onClick={() => setCreateModalOpen(true)}>
+                  <Button
+                    type="primary"
+                    icon={<PlusOutlined />}
+                    onClick={() => {
+                      routeLoaders.contentCreate(); // 优化:预加载创建内容页面
+                      setCreateModalOpen(true);
+                    }}
+                  >
                     新建
                   </Button>
                 </Space>
@@ -391,7 +404,11 @@ export default function HomePage() {
         </div>
       </Flex>
 
-      <CreateModal open={createModalOpen} onClose={() => setCreateModalOpen(false)} />
+      {createModalOpen && (
+        <Suspense fallback={null}>
+          <CreateModal open={createModalOpen} onClose={() => setCreateModalOpen(false)} />
+        </Suspense>
+      )}
     </Flex>
   );
 }

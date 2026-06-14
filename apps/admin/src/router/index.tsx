@@ -4,6 +4,17 @@ import AuthRoute from './utils/AuthRoute';
 import LoginRoute from './utils/LoginRoute';
 import RouteError from '@/components/ui/RouteError';
 
+// 路由懒加载 [针对菜单路由,配合layout的预加载策略,非菜单路由不适用]
+export const routeLoaders = {
+  home: () => import('@/pages/home'),
+  rankings: () => import('@/pages/rankings'),
+  prompts: () => import('@/pages/prompts'),
+  assets: () => import('@/pages/assets'),
+  contentList: () => import('@/pages/content/list'),
+  contentCreate: () => import('@/pages/content/create'),
+  info: () => import('@/pages/info'),
+};
+
 const router = createBrowserRouter([
   {
     path: '/login',
@@ -21,7 +32,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: lazyComponent(() => import('@/components/layout/RootLayout')),
+        element: lazyComponent(() => import('@/components/layout/MainLayout')),
         errorElement: <RouteError />,
         children: [
           {
@@ -30,36 +41,36 @@ const router = createBrowserRouter([
           },
           {
             path: 'home',
-            element: lazyComponent(() => import('@/pages/home')),
+            element: lazyComponent(routeLoaders.home),
           },
           {
             path: 'rankings',
-            element: lazyComponent(() => import('@/pages/rankings')),
+            element: lazyComponent(routeLoaders.rankings),
           },
           {
             path: 'prompts',
-            element: lazyComponent(() => import('@/pages/prompts')),
+            element: lazyComponent(routeLoaders.prompts),
           },
           {
             path: 'assets',
-            element: lazyComponent(() => import('@/pages/assets')),
+            element: lazyComponent(routeLoaders.assets),
           },
           {
             path: '/content',
             children: [
               {
                 path: 'list',
-                element: lazyComponent(() => import('@/pages/content/list')),
+                element: lazyComponent(routeLoaders.contentList),
               },
               {
                 path: 'create',
-                element: lazyComponent(() => import('@/pages/content/create')),
+                element: lazyComponent(routeLoaders.contentCreate),
               },
             ],
           },
           {
             path: 'info',
-            element: lazyComponent(() => import('@/pages/info')),
+            element: lazyComponent(routeLoaders.info),
           },
         ],
       },

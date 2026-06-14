@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, lazy, Suspense } from 'react';
 import {
   Alert,
   Button,
@@ -41,9 +41,14 @@ import {
 import { generateContentApi, type AiGenerated } from '@/api/ai';
 import { getPromptsApi, type PromptRecord } from '@/api/prompt';
 import { getAssetsApi, uploadAssetApi, type AssetRecord } from '@/api/asset';
-import { CreatorEditor, type CreatorEditorHandle, type EditorChangePayload } from '@/components/editor';
-import type { JSONContent } from '@/components/editor/Tiptap/type/editor-types';
+import type {
+  CreatorEditorHandle,
+  EditorChangePayload,
+  JSONContent,
+} from '@/components/editor/Tiptap/type/editor-types';
 import { localDrafts, type LocalDraft } from '@/lib/local-drafts';
+
+const CreatorEditor = lazy(() => import('@/components/editor/ui/Editor'));
 
 const { Paragraph, Text } = Typography;
 const EMPTY_DOCUMENT: JSONContent = { type: 'doc', content: [{ type: 'paragraph' }] };
@@ -812,29 +817,37 @@ export default function CreateContentPage() {
               }}
             />
             <div className="min-h-0 flex-1 overflow-hidden">
-              <CreatorEditor
-                key={editorKey}
-                ref={editorRef}
-                editorOptions={{
-                  draftId: content.id,
-                  projectTitle: initialTitle,
-                  initialContent,
-                }}
-                editorCallbacks={{
-                  onBack: () => navigate('/content/list'),
-                  onChange: (payload) => {
-                    latestPayloadRef.current = payload;
-                  },
-                  onAutoSave: persistLocal,
-                  onProjectTitleChange: (title) => {
-                    if (titleSaveTimerRef.current) window.clearTimeout(titleSaveTimerRef.current);
-                    titleSaveTimerRef.current = window.setTimeout(() => {
-                      const payload = editorRef.current?.getPayload();
-                      if (payload) void persistLocal({ ...payload, projectTitle: title, updatedAt: Date.now() });
-                    }, 2000);
-                  },
-                }}
-              />
+              <Suspense
+                fallback={
+                  <div className="grid h-full place-items-center">
+                    <Spin tip="正在加载编辑器" />
+                  </div>
+                }
+              >
+                <CreatorEditor
+                  key={editorKey}
+                  ref={editorRef}
+                  editorOptions={{
+                    draftId: content.id,
+                    projectTitle: initialTitle,
+                    initialContent,
+                  }}
+                  editorCallbacks={{
+                    onBack: () => navigate('/content/list'),
+                    onChange: (payload) => {
+                      latestPayloadRef.current = payload;
+                    },
+                    onAutoSave: persistLocal,
+                    onProjectTitleChange: (title) => {
+                      if (titleSaveTimerRef.current) window.clearTimeout(titleSaveTimerRef.current);
+                      titleSaveTimerRef.current = window.setTimeout(() => {
+                        const payload = editorRef.current?.getPayload();
+                        if (payload) void persistLocal({ ...payload, projectTitle: title, updatedAt: Date.now() });
+                      }, 2000);
+                    },
+                  }}
+                />
+              </Suspense>
             </div>
           </Flex>
         </section>

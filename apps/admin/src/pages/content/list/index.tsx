@@ -35,6 +35,7 @@ import {
   type ContentType,
 } from '@/api/content';
 import CreateModal from '@/components/createModal';
+import { routeLoaders } from '@/router/index';
 
 const { Text } = Typography;
 const PAGE_SIZE = 10;
@@ -285,6 +286,7 @@ export default function ContentListPage() {
             type="primary"
             icon={<PlusOutlined />}
             onClick={() => {
+              routeLoaders.contentCreate(); // 优化:预加载创建内容页面
               setCreateModalOpen(true);
             }}
           >
