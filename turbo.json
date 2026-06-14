@@ -3,6 +3,7 @@
   "globalDependencies": ["pnpm-lock.yaml", "pnpm-workspace.yaml", ".env*"],
   "tasks": {
     "dev": {
+      "dependsOn": ["^build"],
       "cache": false,
       "persistent": true
     },
