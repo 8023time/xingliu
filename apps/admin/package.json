@@ -19,7 +19,6 @@
     "@tiptap/pm": "^3.23.6",
     "@tiptap/react": "^3.23.6",
     "@tiptap/starter-kit": "^3.23.6",
-    "@visactor/react-vchart": "^2.0.22",
     "@xingliu/config": "workspace:*",
     "@xingliu/shared": "workspace:*",
     "antd": "^6.4.3",
@@ -43,6 +42,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "orval": "^8.13.0",
+    "rollup-plugin-visualizer": "^7.0.1",
     "tailwindcss": "^4.3.0",
     "typescript": "~6.0.2",
     "vite": "^8.0.12"
