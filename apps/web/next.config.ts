@@ -2,11 +2,11 @@ import type { NextConfig } from 'next';
 import { Config } from '@xingliu/config';
 
 const nextConfig: NextConfig = {
-  allowedDevOrigins: [Config.host.web],
+  allowedDevOrigins: [Config.host.dev.web],
   env: {
-    NEXT_PUBLIC_WEB_HOST: Config.host.web,
+    NEXT_PUBLIC_WEB_HOST: Config.host.dev.web,
     NEXT_PUBLIC_WEB_PORT: String(Config.port.web),
-    NEXT_PUBLIC_API_HOST: Config.host.api,
+    NEXT_PUBLIC_API_HOST: Config.host.dev.api,
   },
   images: {
     unoptimized: true,

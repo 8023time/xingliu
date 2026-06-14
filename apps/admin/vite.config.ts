@@ -11,11 +11,11 @@ export default defineConfig({
     host: '0.0.0.0',
     port: Config.port.admin,
     strictPort: true,
-    allowedHosts: [Config.host.admin],
-    open: `http://${Config.host.admin}`,
+    allowedHosts: [Config.host.dev.admin],
+    open: `http://${Config.host.dev.admin}`,
     proxy: {
       '/api': {
-        target: `http://${Config.host.api}`,
+        target: `http://${Config.host.dev.api}`,
         changeOrigin: true,
       },
     },

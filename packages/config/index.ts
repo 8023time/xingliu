@@ -1,8 +1,15 @@
 export const Config = {
   host: {
-    web: 'xingliu.8023time.com',
-    admin: 'creator.xingliu.8023time.com',
-    api: 'api.xingliu.8023time.com',
+    dev: {
+      web: 'xingliu-test.8023time.com',
+      admin: 'creator.xingliu-test.8023time.com',
+      api: 'api.xingliu-test.8023time.com',
+    },
+    prod: {
+      web: 'xingliu.8023time.com',
+      admin: 'creator.xingliu.8023time.com',
+      api: 'api.xingliu.8023time.com',
+    },
   },
 
   port: {
@@ -10,4 +17,4 @@ export const Config = {
     web: 8080,
     admin: 8081,
   },
-};
+} as const;
