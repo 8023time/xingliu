@@ -29,6 +29,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN" className="h-full antialiased">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="dns-prefetch" href="//api.xingliu.8023time.com" />
+        <link rel="dns-prefetch" href="//creator.xingliu.8023time.com" />
+        <link rel="preconnect" href="https://api.xingliu.8023time.com" />
+      </head>
       <body
         className={`${inter.variable} ${notoSansSC.variable} bg-background min-h-full`}
         style={{
