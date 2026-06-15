@@ -2,14 +2,21 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { DropdownMenu, Flex, Text } from '@radix-ui/themes';
-import { AuthDialog } from '@/components/auth';
 import { useAuthDialogStore } from '@/stores/auth-dialog-store';
 import { useAuthStore } from '@/stores/user-store';
 
+const LazyAuthDialog = dynamic(() => import('@/components/auth').then((mod) => mod.AuthDialog), {
+  ssr: false,
+  loading: () => null,
+});
+
 export default function Header() {
+  const authDialogOpen = useAuthDialogStore((state) => state.open);
+
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-40 h-16 bg-[#dff1ff]">
@@ -36,7 +43,7 @@ export default function Header() {
         </div>
       </header>
 
-      <AuthDialog />
+      {authDialogOpen ? <LazyAuthDialog /> : null}
     </>
   );
 }
@@ -83,12 +90,12 @@ function UserHeader() {
             <DropdownMenu.Trigger>
               <button
                 type="button"
-                className="flex size-9 items-center justify-center overflow-hidden rounded-full bg-[#cfe9ff] text-sm font-semibold text-[#264b7d] transition-colors hover:bg-[#c3e2ff]"
+                className="relative flex size-9 items-center justify-center overflow-hidden rounded-full bg-[#cfe9ff] text-sm font-semibold text-[#264b7d] transition-colors hover:bg-[#c3e2ff]"
                 title={displayName}
                 aria-label={`${displayName} 的用户菜单`}
               >
                 {avatarSrc ? (
-                  <img src={avatarSrc} alt={displayName} className="size-full object-cover" />
+                  <Image src={avatarSrc} alt={displayName} fill sizes="36px" className="object-cover" />
                 ) : (
                   <span>{displayInitial}</span>
                 )}

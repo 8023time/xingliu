@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import type { ReactNode } from 'react';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, Eye, Heart, Share2, Sparkles } from 'lucide-react';
@@ -6,7 +7,8 @@ import { fetchPublicContent } from '@/features/content/api/detail';
 import { getContentCoverUrl } from '@/features/content/cover';
 import { formatNumber, getPublishedLabel } from '@/lib/format';
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-static';
+export const revalidate = 60;
 
 export default async function ContentDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -29,10 +31,13 @@ export default async function ContentDetailPage({ params }: { params: Promise<{ 
 
       <div className="overflow-hidden rounded-3xl bg-white shadow-md ring-1 ring-zinc-200/50">
         {/* 封面图区域 - 增加了悬浮微放大动画 */}
-        <div className="group/cover aspect-[16/8] overflow-hidden bg-gradient-to-br from-rose-50 to-zinc-100">
-          <img
+        <div className="group/cover relative aspect-[16/8] overflow-hidden bg-gradient-to-br from-rose-50 to-zinc-100">
+          <Image
             src={coverUrl}
             alt={item.publishedVersion.title}
+            fill
+            priority
+            sizes="(min-width: 1024px) 896px, 100vw"
             className="h-full w-full object-cover transition-transform duration-500 group-hover/cover:scale-[1.02]"
           />
         </div>
