@@ -107,4 +107,4 @@ jobs:
       - name: Deploy with Docker Compose
         run: |
           ssh -i ~/.ssh/deploy_key -p "$DEPLOY_PORT" "$DEPLOY_USER@$DEPLOY_HOST" \
-            "set -e; mkdir -p '$DEPLOY_PATH'; tar -xzf /tmp/xingliu-release.tgz -C '$DEPLOY_PATH'; mv /tmp/xingliu.env '$DEPLOY_PATH/.env'; cd '$DEPLOY_PATH'; docker compose -f docker-compose.prod.yml up -d --build --force-recreate --remove-orphans; docker compose -f docker-compose.prod.yml ps; docker image prune -f"
+            "set -e; mkdir -p '$DEPLOY_PATH'; tar -xzf /tmp/xingliu-release.tgz -C '$DEPLOY_PATH'; mv /tmp/xingliu.env '$DEPLOY_PATH/.env'; cd '$DEPLOY_PATH'; docker compose -f docker-compose.prod.yml build --no-cache; docker compose -f docker-compose.prod.yml up -d --force-recreate --remove-orphans; docker compose -f docker-compose.prod.yml ps; docker image prune -f"
