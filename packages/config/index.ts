@@ -16,5 +16,6 @@ export const Config = {
     server: 3000,
     web: 8080,
     admin: 8081,
+    minio: 9000,
   },
 } as const;

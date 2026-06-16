@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/class-name';
+import { Config } from '@xingliu/config';
 
 type NavClickType = 'internal' | 'external';
 
@@ -21,7 +22,7 @@ const NavItems: NavItemsType[] = [
     matchPath: (pathname) => pathname === '/',
   },
   {
-    to: 'http://creator.xingliu.8023time.com',
+    to: `https://${Config.host.prod.admin}`,
     label: '创作者中心',
     clickType: 'external',
   },

@@ -28,12 +28,12 @@ const nextConfig: NextConfig = {
       {
         protocol: 'http',
         hostname: 'localhost',
-        port: String(Config.port.server),
+        port: String(Config.port.minio),
       },
       {
         protocol: 'http',
         hostname: '127.0.0.1',
-        port: String(Config.port.server),
+        port: String(Config.port.minio),
       },
     ],
   },
