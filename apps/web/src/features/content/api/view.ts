@@ -17,9 +17,7 @@ export function recordContentView({
 
   const request = fetch(`/api/proxy/api/public/contents/${contentId}/view`, {
     method: 'POST',
-    headers: {
-      ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
-    },
+    headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {},
   })
     .then(async (response) => {
       const result = (await response.json()) as ResponseFormat<ContentViewStateResponse>;
