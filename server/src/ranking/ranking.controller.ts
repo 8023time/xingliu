@@ -1,18 +1,31 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@libs/common';
 import { RankingService } from './ranking.service';
 import { RankingQueryDto } from './dto/ranking-query.dto';
 
-@Controller(['ranking', 'rankings'])
+@Controller()
 export class RankingController {
   constructor(private readonly rankingService: RankingService) {}
 
-  @Get('hot')
-  findHot(@Query() query: RankingQueryDto): Promise<unknown> {
-    return this.rankingService.findRanking('hot', query);
+  @Get('rankings/hot')
+  findPublicHot(@Query() query: RankingQueryDto): Promise<unknown> {
+    return this.rankingService.findPublicHot(query);
   }
 
-  @Get('viral')
-  findViral(@Query() query: RankingQueryDto): Promise<unknown> {
-    return this.rankingService.findRanking('viral', query);
+  @Get('rankings/viral')
+  findPublicViral(@Query() query: RankingQueryDto): Promise<unknown> {
+    return this.rankingService.findPublicViral(query);
+  }
+
+  @Get('ranking/hot')
+  @UseGuards(AuthGuard)
+  findAdminHot(@Query() query: RankingQueryDto): Promise<unknown> {
+    return this.rankingService.findAdminHot(query);
+  }
+
+  @Get('ranking/viral')
+  @UseGuards(AuthGuard)
+  findAdminViral(@Query() query: RankingQueryDto): Promise<unknown> {
+    return this.rankingService.findAdminViral(query);
   }
 }

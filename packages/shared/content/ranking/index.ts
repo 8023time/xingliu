@@ -31,6 +31,13 @@ interface RankingItem {
   coverUrl: string | null;
 }
 
+interface PublicRankingItem {
+  id: string;
+  title: string;
+  viewCount: number;
+  publishedAt: string | null;
+}
+
 /**
  * 榜单权重字段。
  */
@@ -62,10 +69,20 @@ interface RankingPage {
   weights: RankingWeights;
 }
 
+interface PublicRankingPage {
+  items: PublicRankingItemResponse[];
+  nextCursor: string | null;
+  hasMore: boolean;
+  rankingType: RankingTypeValue;
+  sort: RankingSortValue;
+}
+
 /**
  * 榜单内容返回记录。
  */
 export type RankingItemResponse = RankingItem;
+
+export type PublicRankingItemResponse = PublicRankingItem;
 
 /**
  * 榜单分页查询参数。
@@ -76,3 +93,5 @@ export type RankingQueryRequest = Partial<RankingQuery>;
  * 榜单分页响应。
  */
 export type RankingPageResponse = RankingPage;
+
+export type PublicRankingPageResponse = PublicRankingPage;

@@ -49,11 +49,5 @@ function createEmptyRankingPage(rankingType: RankingType): RankingPage {
     hasMore: false,
     rankingType,
     sort: 'comprehensive',
-    weights: {
-      quality: 0,
-      heat: 0,
-      freshness: 0,
-      interaction: 0,
-    },
   };
 }
