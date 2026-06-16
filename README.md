@@ -94,6 +94,9 @@ xingliu/
 └── turbo.json                     # Turborepo 任务配置
 ```
 
+性能：
+![alt text](https://i.ibb.co/r2gGBVpt/image.png)
+
 ## 二、开发配置
 
 ### 1. 配置 hosts
