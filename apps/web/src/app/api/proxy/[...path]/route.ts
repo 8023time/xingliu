@@ -11,6 +11,10 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
   return proxyRequest(request, params);
 }
 
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ path: string[] }> }) {
+  return proxyRequest(request, params);
+}
+
 async function proxyRequest(request: NextRequest, params: Promise<{ path: string[] }>) {
   const { path } = await params;
   const targetUrl = new URL(path.join('/'), `${getApiBaseUrl()}/`);

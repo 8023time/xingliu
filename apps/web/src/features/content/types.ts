@@ -23,6 +23,9 @@ export interface PublicContentItem {
     shareCount: number;
     collectCount: number;
   };
+  viewer?: {
+    liked: boolean;
+  };
   publishedVersion: {
     id: string;
     versionNo: number;

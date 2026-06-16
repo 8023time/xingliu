@@ -2,13 +2,14 @@ import Link from 'next/link';
 import Image from 'next/image';
 import type { ReactNode } from 'react';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, Eye, Heart, Share2, Sparkles } from 'lucide-react';
+import { ArrowLeft, Share2, Sparkles } from 'lucide-react';
 import { fetchPublicContent } from '@/features/content/api/detail';
 import { getContentCoverUrl } from '@/features/content/cover';
+import { ContentLikeButton } from '@/features/content/like-button';
+import { ContentViewMetric } from '@/features/content/view-metric';
 import { formatNumber, getPublishedLabel } from '@/lib/format';
 
-export const dynamic = 'force-static';
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 export default async function ContentDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -80,8 +81,12 @@ export default async function ContentDetailPage({ params }: { params: Promise<{ 
 
           {/* 数据指标 - 手机端改为 2 列布局，大屏 4 列，视觉更丰满 */}
           <div className="mt-12 grid grid-cols-2 gap-3 border-t border-zinc-100 pt-8 sm:grid-cols-4">
-            <Metric icon={<Eye />} label="阅读" value={formatNumber(item.metrics.viewCount)} />
-            <Metric icon={<Heart />} label="点赞" value={formatNumber(item.metrics.likeCount)} />
+            <ContentViewMetric contentId={item.id} initialViewCount={item.metrics.viewCount} />
+            <ContentLikeButton
+              contentId={item.id}
+              initialLiked={!!item.viewer?.liked}
+              initialLikeCount={item.metrics.likeCount}
+            />
             <Metric icon={<Share2 />} label="分享" value={formatNumber(item.metrics.shareCount)} />
             <Metric
               icon={<Sparkles className="text-amber-500" />}

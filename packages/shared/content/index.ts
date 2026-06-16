@@ -34,6 +34,11 @@ export type RiskLevel = 'NONE' | 'LOW' | 'MEDIUM' | 'HIGH';
 export type QualityLevel = 'S' | 'A' | 'B' | 'C' | 'D';
 
 /**
+ * 内容互动类型。
+ */
+export type ContentInteractionType = 'VIEW' | 'LIKE' | 'SHARE' | 'COLLECT' | 'DISLIKE' | 'REPORT';
+
+/**
  * 内容条目完整字段，作为前后端共享类型的维护入口。
  */
 interface Content {
@@ -167,6 +172,30 @@ interface ContentPageData {
 }
 
 /**
+ * 内容互动计数字段。
+ */
+interface ContentMetrics {
+  viewCount: number;
+  likeCount: number;
+  shareCount: number;
+  collectCount: number;
+}
+
+/**
+ * 点赞状态返回字段。
+ */
+interface ContentLikeState {
+  contentId: Content['id'];
+  liked: boolean;
+  likeCount: number;
+}
+
+interface ContentViewState {
+  contentId: Content['id'];
+  viewCount: number;
+}
+
+/**
  * 内容列表和详情返回记录。
  */
 export type ContentRecord = Content;
@@ -261,3 +290,15 @@ export type PublishContentResponse = Pick<Content, 'publishedVersionId' | 'publi
  * 内容分页响应。
  */
 export type ContentPage = ContentPageData;
+
+/**
+ * 内容互动计数。
+ */
+export type ContentMetricsRecord = ContentMetrics;
+
+/**
+ * 点赞或取消点赞返回结果。
+ */
+export type ContentLikeStateResponse = ContentLikeState;
+
+export type ContentViewStateResponse = ContentViewState;

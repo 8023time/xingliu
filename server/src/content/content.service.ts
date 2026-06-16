@@ -1,11 +1,5 @@
 import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
-import {
-  FileService,
-  ModerationService,
-  PrismaService,
-  ResponseService,
-  type TextModerationResult,
-} from '@libs/common';
+import { ModerationService, PrismaService, ResponseService, type TextModerationResult } from '@libs/common';
 import { Prisma } from '@libs/common/generated/prisma/client';
 import {
   AiTaskStatus,
@@ -22,7 +16,6 @@ import { UpdateContentDto } from './dto/update-content.dto';
 import { ContentQueryDto } from './dto/content-query.dto';
 import { ReviewContentDto } from './dto/review-content.dto';
 import { QualityService } from '../quality/quality.service';
-import { PublicFeedQueryDto } from './dto/public-feed-query.dto';
 
 const contentSelect = {
   id: true,
@@ -60,46 +53,6 @@ const versionSelect = {
   createdAt: true,
 } as const;
 
-const publicContentSelect = {
-  id: true,
-  contentType: true,
-  qualityLevel: true,
-  qualityScore: true,
-  safetyScore: true,
-  publishedAt: true,
-  author: {
-    select: { id: true, username: true, avatarUrl: true },
-  },
-  coverAsset: {
-    select: { type: true, url: true, metadata: true },
-  },
-  publishedVersion: {
-    select: {
-      id: true,
-      versionNo: true,
-      title: true,
-      summary: true,
-      body: true,
-      bodyJson: true,
-      assetIds: true,
-      coverAsset: { select: { type: true, url: true, metadata: true } },
-      safetyReviews: {
-        select: { safetyScore: true },
-        orderBy: { createdAt: 'desc' },
-        take: 1,
-      },
-      qualityEvaluations: {
-        select: { totalScore: true, level: true },
-        orderBy: { createdAt: 'desc' },
-        take: 1,
-      },
-    },
-  },
-  metrics: {
-    select: { viewCount: true, likeCount: true, shareCount: true, collectCount: true },
-  },
-} as const;
-
 @Injectable()
 export class ContentService {
   constructor(
@@ -107,7 +60,6 @@ export class ContentService {
     private readonly prismaService: PrismaService,
     private readonly qualityService: QualityService,
     private readonly responseService: ResponseService,
-    private readonly fileService: FileService,
   ) {}
 
   async create(userId: string, createContentDto: CreateContentDto) {
@@ -275,38 +227,6 @@ export class ContentService {
       throw new BadRequestException('内容当前未发布');
     }
     return this.findOne(userId, id, '内容已下线');
-  }
-
-  async findPublicFeed(query: PublicFeedQueryDto) {
-    const limit = query.limit ?? 20;
-    const contents = await this.prismaService.content.findMany({
-      where: { publishedVersionId: { not: null }, deletedAt: null },
-      select: publicContentSelect,
-      orderBy: [{ publishedAt: 'desc' }, { id: 'desc' }],
-      take: limit + 1,
-      ...(query.cursor ? { cursor: { id: query.cursor }, skip: 1 } : {}),
-    });
-    const hasMore = contents.length > limit;
-    const items = (hasMore ? contents.slice(0, limit) : contents).map((content) => this.toPublicContent(content));
-    return this.responseService.success(
-      {
-        items,
-        nextCursor: hasMore ? (items.at(-1)?.id ?? null) : null,
-        hasMore,
-      },
-      '获取公开内容流成功',
-    );
-  }
-
-  async findPublicContent(id: string) {
-    const content = await this.prismaService.content.findFirst({
-      where: { id, publishedVersionId: { not: null }, deletedAt: null },
-      select: publicContentSelect,
-    });
-    if (!content) {
-      throw new NotFoundException('公开内容不存在');
-    }
-    return this.responseService.success(this.toPublicContent(content), '获取公开内容成功');
   }
 
   async update(userId: string, id: string, updateContentDto: UpdateContentDto) {
@@ -622,25 +542,6 @@ export class ContentService {
 
     return content;
   }
-
-  private toPublicContent(content: Parameters<typeof toPublicContent>[0]) {
-    return toPublicContent(content, (asset) => this.getPublicAssetUrl(asset));
-  }
-
-  private getPublicAssetUrl(asset: { type: AssetType; url: string; metadata: unknown } | null) {
-    if (!asset) {
-      return null;
-    }
-
-    if (asset.type === AssetType.LINK || /^https?:\/\//i.test(asset.url)) {
-      return asset.url;
-    }
-
-    const objectPath =
-      asset.type === AssetType.IMAGE ? (getCompressedOutputStorageKey(asset.metadata) ?? asset.url) : asset.url;
-
-    return this.fileService.getPublicUrl(objectPath);
-  }
 }
 
 function toReviewDecision(riskLevel: TextModerationResult['riskLevel']) {
@@ -685,89 +586,4 @@ function buildSafetyReviewData(
     providerRequestId: moderation.requestId,
     rawProviderOutput: moderation.rawOutput as Prisma.InputJsonValue,
   };
-}
-
-function toPublicContent(
-  content: {
-    id: string;
-    contentType: unknown;
-    qualityLevel: unknown;
-    qualityScore: unknown;
-    safetyScore: unknown;
-    publishedAt: Date | null;
-    author: { id: string; username: string; avatarUrl: string | null };
-    coverAsset: { type: AssetType; url: string; metadata: unknown } | null;
-    publishedVersion: {
-      id: string;
-      versionNo: number;
-      title: string;
-      summary: string | null;
-      body: string;
-      bodyJson: unknown;
-      assetIds: unknown;
-      coverAsset: { type: AssetType; url: string; metadata: unknown } | null;
-      safetyReviews: Array<{ safetyScore: unknown }>;
-      qualityEvaluations: Array<{ totalScore: unknown; level: unknown }>;
-    } | null;
-    metrics: { viewCount: number; likeCount: number; shareCount: number; collectCount: number } | null;
-  },
-  getPublicAssetUrl: (asset: { type: AssetType; url: string; metadata: unknown } | null) => string | null,
-) {
-  const version = content.publishedVersion;
-  if (!version) {
-    throw new ConflictException('公开内容缺少线上版本');
-  }
-  return {
-    id: content.id,
-    contentType: content.contentType,
-    publishedAt: content.publishedAt,
-    qualityLevel: version.qualityEvaluations[0]?.level ?? null,
-    qualityScore: version.qualityEvaluations[0]?.totalScore ?? null,
-    safetyScore: version.safetyReviews[0]?.safetyScore ?? null,
-    coverUrl: getPublicAssetUrl(version.coverAsset ?? content.coverAsset),
-    author: content.author,
-    metrics: content.metrics ?? { viewCount: 0, likeCount: 0, shareCount: 0, collectCount: 0 },
-    publishedVersion: version,
-  };
-}
-
-function getCompressedOutputStorageKey(metadata: unknown): string | null {
-  if (!metadata || typeof metadata !== 'object') {
-    return null;
-  }
-
-  const fileProcess = getObjectProperty(metadata, 'fileProcess');
-  if (!fileProcess) {
-    return null;
-  }
-
-  const processedOutputs = getArrayProperty(fileProcess, 'processedOutputs');
-  if (!processedOutputs) {
-    return null;
-  }
-
-  const compressedOutput = processedOutputs.find((output) => {
-    return output && typeof output === 'object' && getStringProperty(output, 'variant') === 'compressed';
-  });
-
-  if (!compressedOutput || typeof compressedOutput !== 'object') {
-    return null;
-  }
-
-  return getStringProperty(compressedOutput, 'storageKey');
-}
-
-function getObjectProperty(value: object, key: string): object | null {
-  const property = (value as Record<string, unknown>)[key];
-  return property && typeof property === 'object' && !Array.isArray(property) ? property : null;
-}
-
-function getArrayProperty(value: object, key: string): unknown[] | null {
-  const property = (value as Record<string, unknown>)[key];
-  return Array.isArray(property) ? property : null;
-}
-
-function getStringProperty(value: object, key: string): string | null {
-  const property = (value as Record<string, unknown>)[key];
-  return typeof property === 'string' ? property : null;
 }
