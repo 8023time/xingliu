@@ -35,4 +35,43 @@ export class ContentGenerationAiService {
 
     return generatedContentSchema.parse(parseJsonObjectResponse(result));
   }
+
+  async *streamContent(instruction: string): AsyncGenerator<string> {
+    const model = this.aiService.getModel('AI 生成服务');
+    const stream = await model.stream(
+      [
+        new SystemMessage(
+          [
+            '你是内容创作助手。根据创作设置生成一篇可直接进入编辑器继续编辑的中文图文内容，不得包含违法违规、危险操作或虚构事实。',
+            '只能返回一个 JSON 对象，不要 Markdown、代码块或解释文字。',
+            'JSON 结构：{ "title": string, "summary": string, "body": string, "tags": string[] }。',
+          ].join('\n'),
+        ),
+        new HumanMessage(instruction),
+      ],
+      { callbacks: [] },
+    );
+
+    for await (const chunk of stream) {
+      const text = extractChunkText(chunk.content);
+      if (text) yield text;
+    }
+  }
+
+  parseGeneratedContent(content: string): GeneratedContent {
+    return generatedContentSchema.parse(parseJsonObjectResponse(content));
+  }
+}
+
+function extractChunkText(content: unknown): string {
+  if (typeof content === 'string') return content;
+  if (!Array.isArray(content)) return '';
+
+  return content
+    .map((item) => {
+      if (typeof item === 'string') return item;
+      if (item && typeof item === 'object' && 'text' in item && typeof item.text === 'string') return item.text;
+      return '';
+    })
+    .join('');
 }

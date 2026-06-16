@@ -4,6 +4,25 @@ import { ContentGenerationAiService, ModerationService, PrismaService, ResponseS
 import { AiTaskStatus, AiTaskType, CommonStatus, SafetyStatus, Visibility } from '@libs/common/generated/prisma/enums';
 import { CreateAiGenerationDto } from './dto/create-ai-generation.dto';
 
+type AiGenerationStreamEvent =
+  | { type: 'task'; data: { taskId: string } }
+  | { type: 'delta'; data: { text: string } }
+  | { type: 'body_delta'; data: { text: string } }
+  | {
+      type: 'done';
+      data: {
+        taskId: string;
+        content: {
+          id: string;
+          title: string;
+          summary: string;
+          body: string;
+          tags: string[];
+        };
+      };
+    }
+  | { type: 'error'; data: { message: string } };
+
 @Injectable()
 export class AiGenerationService {
   constructor(
@@ -72,6 +91,92 @@ export class AiGenerationService {
         },
       });
       throw error;
+    }
+  }
+
+  async *createStream(userId: string, dto: CreateAiGenerationDto): AsyncGenerator<AiGenerationStreamEvent> {
+    let task: { id: string; createdAt: Date } | null = null;
+    let startedAt = Date.now();
+
+    try {
+      const context = await this.getGenerationContext(userId, dto);
+
+      task = await this.prismaService.aiTask.create({
+        data: {
+          userId,
+          contentId: dto.contentId,
+          promptId: dto.promptId,
+          taskType: AiTaskType.GENERATE,
+          status: AiTaskStatus.RUNNING,
+          modelProvider: 'volcengine_ark',
+          modelName: process.env['OPENAI_MODEL'],
+          inputSummary: `主题：${dto.topic.slice(0, 120)}；素材数：${context.assets.length}`,
+        },
+        select: { id: true, createdAt: true },
+      });
+      startedAt = Date.now();
+
+      yield { type: 'task', data: { taskId: task.id } };
+
+      await this.assertTextPass(this.buildInputModerationText(dto, context.prompt.template));
+
+      let rawContent = '';
+      let streamedBody = '';
+      for await (const delta of this.contentGenerationAiService.streamContent(this.buildInstruction(dto, context))) {
+        rawContent += delta;
+        yield { type: 'delta', data: { text: delta } };
+
+        const body = extractJsonStringField(rawContent, 'body');
+        if (body.length > streamedBody.length) {
+          const bodyDelta = body.slice(streamedBody.length);
+          streamedBody = body;
+          yield { type: 'body_delta', data: { text: bodyDelta } };
+        }
+      }
+
+      const generated = this.contentGenerationAiService.parseGeneratedContent(rawContent);
+      await this.assertTextPass(
+        [generated.title, generated.summary, generated.body, generated.tags.join(' ')].join('\n'),
+      );
+
+      const generatedContent = { id: randomUUID(), ...generated };
+
+      await this.prismaService.$transaction([
+        this.prismaService.aiTask.update({
+          where: { id: task.id },
+          data: {
+            status: AiTaskStatus.SUCCESS,
+            outputSummary: `生成并审核通过内容：${generatedContent.title.slice(0, 80)}`,
+            durationMs: Date.now() - startedAt,
+          },
+        }),
+        this.prismaService.promptTemplate.update({
+          where: { id: dto.promptId },
+          data: { usageCount: { increment: 1 } },
+        }),
+      ]);
+
+      yield {
+        type: 'done',
+        data: {
+          taskId: task.id,
+          content: generatedContent,
+        },
+      };
+    } catch (error) {
+      if (task) {
+        await this.prismaService.aiTask.update({
+          where: { id: task.id },
+          data: {
+            status: AiTaskStatus.FAILED,
+            durationMs: Date.now() - startedAt,
+            errorCode: error instanceof BadRequestException ? 'MODERATION_REJECTED' : 'GENERATION_FAILED',
+            errorMessage: this.getErrorMessage(error).slice(0, 500),
+          },
+        });
+      }
+
+      yield { type: 'error', data: { message: this.getErrorMessage(error) } };
     }
   }
 
@@ -159,4 +264,60 @@ export class AiGenerationService {
       .filter(Boolean)
       .join('\n');
   }
+
+  private getErrorMessage(error: unknown) {
+    if (error instanceof BadRequestException) {
+      const response = error.getResponse();
+      if (typeof response === 'string') return response;
+      if (response && typeof response === 'object' && 'message' in response) {
+        const message = response.message;
+        if (typeof message === 'string') return message;
+        if (Array.isArray(message)) return message.join('；');
+      }
+    }
+
+    return error instanceof Error ? error.message : 'AI 内容生成失败';
+  }
+}
+
+function extractJsonStringField(content: string, fieldName: string) {
+  const fieldIndex = content.indexOf(`"${fieldName}"`);
+  if (fieldIndex < 0) return '';
+
+  const colonIndex = content.indexOf(':', fieldIndex + fieldName.length + 2);
+  if (colonIndex < 0) return '';
+
+  const quoteIndex = content.indexOf('"', colonIndex + 1);
+  if (quoteIndex < 0) return '';
+
+  let value = '';
+  for (let index = quoteIndex + 1; index < content.length; index += 1) {
+    const char = content[index];
+    if (char === '"') return value;
+
+    if (char !== '\\') {
+      value += char;
+      continue;
+    }
+
+    const next = content[index + 1];
+    if (!next) return value;
+
+    if (next === 'n') value += '\n';
+    else if (next === 'r') value += '\r';
+    else if (next === 't') value += '\t';
+    else if (next === 'b') value += '\b';
+    else if (next === 'f') value += '\f';
+    else if (next === '"' || next === '\\' || next === '/') value += next;
+    else if (next === 'u') {
+      const hex = content.slice(index + 2, index + 6);
+      if (hex.length < 4 || !/^[\da-f]{4}$/i.test(hex)) return value;
+      value += String.fromCharCode(Number.parseInt(hex, 16));
+      index += 4;
+    }
+
+    index += 1;
+  }
+
+  return value;
 }
