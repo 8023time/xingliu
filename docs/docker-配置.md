@@ -1,6 +1,6 @@
 # Docker 部署配置
 
-本文说明星流项目的 Docker 部署方式。当前部署保持单体边界：PostgreSQL、MinIO、NestJS API、Next.js Web、React Admin、Caddy 反向代理，不引入 Redis、BullMQ、微服务或额外数据库。
+本文说明星流项目的 Docker 部署方式。当前部署保持单体边界：PostgreSQL、MinIO、NestJS API、Next.js Web、React Creator、Caddy 反向代理，不引入 Redis、BullMQ、微服务或额外数据库。
 
 ## 服务组成
 
@@ -10,10 +10,10 @@
 | `minio` | 9000 | 素材对象存储 |
 | `server` | 3000 | NestJS API，统一 `/api` 前缀 |
 | `web` | 8080 | Next.js C 端内容前台 |
-| `admin` | 8081 | React + Vite 创作者中心 |
+| `creator` | 8081 | React + Vite 创作者中心 |
 | `caddy` | 80 / 443 | 对外反向代理 |
 
-本机开发调试使用 `docker-compose.yml`，生产部署使用 `docker-compose.prod.yml`。两个 compose 都挂载 `Caddyfile.docker`，容器内反代通过 Docker 服务名访问：`server:3000`、`web:8080`、`admin:8081`。
+本机开发调试使用 `docker-compose.yml`，生产部署使用 `docker-compose.prod.yml`。两个 compose 都挂载 `Caddyfile.docker`，容器内反代通过 Docker 服务名访问：`server:3000`、`web:8080`、`creator:8081`。
 
 ## 环境变量
 
@@ -62,7 +62,7 @@ docker compose up -d --build
 本机访问地址：
 
 - Web: `http://localhost:8080`
-- Admin: `http://localhost:8081`
+- Creator: `http://localhost:8081`
 - API: `http://localhost:3000/api`
 - Swagger: `http://localhost:3000/api-docs`
 - Scalar: `http://localhost:3000/docs`
@@ -101,7 +101,7 @@ docker compose exec server pnpm --filter=@xingliu/server exec prisma validate
 
 - `server` 日志中没有 Prisma 迁移失败。
 - `http://api.xingliu.8023time.com/api-docs` 能打开。
-- Admin 登录、注册接口能通过 `creator` 域名的 `/api/*` 转到后端。
+- Creator 登录、注册接口能通过 `creator` 域名的 `/api/*` 转到后端。
 - Web 内容流请求能通过 Next.js `/api/proxy/*` 正常代理。
 - 上传素材后返回的 URL 与 `MINIO_PUBLIC_URL` 一致，并且公网可访问。
 
@@ -112,7 +112,7 @@ docker compose exec server pnpm --filter=@xingliu/server exec prisma validate
 ```bash
 docker compose ps
 docker compose logs web
-docker compose logs admin
+docker compose logs creator
 docker compose logs server
 ```
 

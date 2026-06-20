@@ -1,8 +1,8 @@
-# FE Admin AI Code Generation Rules
+# FE Creator AI Code Generation Rules
 
 ## 1. 产品边界
 
-- `apps/admin` 是星流创作者中心，只实现工作台、AI 创作、Prompt、素材和内容管理。
+- `apps/creator` 是星流创作者中心，只实现工作台、AI 创作、Prompt、素材和内容管理。
 - 审核、评分、改写和版本记录集成在编辑器或内容详情中。
 - 不新增推荐榜、复杂分发中心、复杂数据看板、运营后台或需求之外的创作类型。
 - 当前用户认证、Prompt、素材、内容壳、云端草稿、AI 候选生成与通用预检模块可视为已完成；不得用 mock 数据伪装其他接口已完成。具体完成范围与验证证据见 `docs/dev`。
@@ -38,7 +38,7 @@
 代码修改后运行：
 
 ```bash
-pnpm --filter @xingliu/admin build
+pnpm --filter @xingliu/creator build
 ```
 
 仅修改文档时检查 UTF-8、接口路径、状态和核心流程一致性。

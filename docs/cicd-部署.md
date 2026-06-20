@@ -116,7 +116,7 @@ Actions 会重新部署回滚后的版本。
 
 ```bash
 pnpm --filter @xingliu/server build
-pnpm --filter @xingliu/admin build
+pnpm --filter @xingliu/creator build
 pnpm --filter @xingliu/web build
 ```
 

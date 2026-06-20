@@ -1,6 +1,7 @@
 packages:
   - server
   - apps/*
+  - '!apps/admin'
   - packages/*
 
 onlyBuiltDependencies:

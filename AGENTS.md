@@ -13,9 +13,9 @@
 ## 规则入口
 
 - 本文件负责项目级边界和工程约定。
-- 各子项目有独立的 `AGENTS.md`：`apps/web/AGENTS.md`、`apps/admin/AGENTS.md`、`server/AGENTS.md`，写子项目代码前先阅读对应文件。
+- 各子项目有独立的 `AGENTS.md`：`apps/web/AGENTS.md`、`apps/creator/AGENTS.md`、`server/AGENTS.md`，写子项目代码前先阅读对应文件。
 - 后端实现参考规则 `docs/rules/BD-SERVER-RULES.md`。
-- Admin 前端实现参考规则 `docs/rules/FE-ADMIN-RULES.md`。
+- Creator 前端实现参考规则 `docs/rules/FE-CREATOR-RULES.md`。
 - Web 前端实现参考规则 `docs/rules/FE-WEB-RULES.md`。
 - 事实来源以 `docs/00-索引-文档导航.md` 指定的优先级为准：需求文档 > 接口设计 > 数据库设计 > 架构文档。
 - 如果项目约定和通用工程习惯冲突，优先遵守本项目已有约定。
@@ -24,7 +24,7 @@
 
 - 仓库使用 pnpm workspace + Turborepo 管理。
 - `apps/web/` — Next.js 16 App Router（C 端内容前台），负责已发布内容流、榜单和内容详情。
-- `apps/admin/` — React 19 + Vite 8 + React Router 7 + Ant Design 6 + Tiptap（B 端创作者中心），负责 AI 创作、Prompt、素材和内容管理。
+- `apps/creator/` — React 19 + Vite 8 + React Router 7 + Ant Design 6 + Tiptap（B 端创作者中心），负责 AI 创作、Prompt、素材和内容管理。
 - `server/` — NestJS 11 模块化单体 API，负责业务流程、AI 调用、审核、数据库写入和文件存储。
 - `server/prisma/` — Prisma schema 与迁移文件。Prisma 只属于后端，前端不能直接依赖数据库模型。
 - `server/libs/common/` — 后端内部共享模块（Prisma、MinIO、AI Service、Auth Guard、Moderation Service、响应格式化）。
@@ -49,15 +49,15 @@
 | 概念                | 说明                                                    | 归属                 |
 | ------------------- | ------------------------------------------------------- | -------------------- |
 | `User`              | 创作者/用户，双令牌认证                                 | server               |
-| `PromptTemplate`    | AI 生成提示词模板                                       | server + admin       |
-| `Asset`             | 上传素材（图片等），存储于 MinIO                        | server + admin       |
-| `Content`           | 内容条目，有 `currentVersionId` 和 `publishedVersionId` | server + admin + web |
-| `ContentVersion`    | 不可变内容版本，审核和评分的对象                        | server + admin       |
-| `DraftSnapshot`     | 云端草稿快照，30 秒自动保存                             | server + admin       |
-| `AiTask`            | AI 生成任务记录                                         | server + admin       |
-| `SafetyReview`      | 安全审核结果（mint-filter → 阿里云 → 决策）             | server + admin       |
-| `QualityEvaluation` | AI 质量评分结果                                         | server + admin       |
-| `RewriteRecord`     | 合规改写前后对比记录                                    | server + admin       |
+| `PromptTemplate`    | AI 生成提示词模板                                       | server + creator     |
+| `Asset`             | 上传素材（图片等），存储于 MinIO                        | server + creator     |
+| `Content`           | 内容条目，有 `currentVersionId` 和 `publishedVersionId` | server + creator + web |
+| `ContentVersion`    | 不可变内容版本，审核和评分的对象                        | server + creator     |
+| `DraftSnapshot`     | 云端草稿快照，30 秒自动保存                             | server + creator     |
+| `AiTask`            | AI 生成任务记录                                         | server + creator     |
+| `SafetyReview`      | 安全审核结果（mint-filter → 阿里云 → 决策）             | server + creator     |
+| `QualityEvaluation` | AI 质量评分结果                                         | server + creator     |
+| `RewriteRecord`     | 合规改写前后对比记录                                    | server + creator     |
 | `ContentMetric`     | 内容指标（阅读、点赞、分享等）                          | server + web         |
 | `HotTopic`          | 热点话题与爆文榜                                        | server + web         |
 
@@ -84,7 +84,7 @@
 
 新增业务模块时：
 
-- 明确模块属于 server、admin 还是 web 的职责范围。
+- 明确模块属于 server、creator 还是 web 的职责范围。
 - 检查是否需要新增 Prisma 模型；如需新增，同步更新 schema、迁移和接口设计文档。
 - 检查是否需要新增 API 端点；如需新增，同步更新接口设计文档。
 
@@ -103,8 +103,8 @@
 按改动范围选择验证命令。
 
 ```bash
-# Admin 前端
-pnpm --filter @xingliu/admin build
+# Creator 前端
+pnpm --filter @xingliu/creator build
 
 # Web 前端
 pnpm --filter @xingliu/web build

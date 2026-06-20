@@ -19,13 +19,13 @@ export class RankingController {
 
   @Get('ranking/hot')
   @UseGuards(AuthGuard)
-  findAdminHot(@Query() query: RankingQueryDto): Promise<unknown> {
-    return this.rankingService.findAdminHot(query);
+  findCreatorHot(@Query() query: RankingQueryDto): Promise<unknown> {
+    return this.rankingService.findCreatorHot(query);
   }
 
   @Get('ranking/viral')
   @UseGuards(AuthGuard)
-  findAdminViral(@Query() query: RankingQueryDto): Promise<unknown> {
-    return this.rankingService.findAdminViral(query);
+  findCreatorViral(@Query() query: RankingQueryDto): Promise<unknown> {
+    return this.rankingService.findCreatorViral(query);
   }
 }

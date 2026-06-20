@@ -26,8 +26,8 @@ async function bootstrap() {
   app.enableCors({
     origin:
       process.env.APP_ENV === 'development'
-        ? [`http://${Config.host.dev.admin}`, `http://${Config.host.dev.web}`]
-        : [`https://${Config.host.prod.admin}`, `https://${Config.host.prod.web}`],
+        ? [`http://${Config.host.dev.creator}`, `http://${Config.host.dev.web}`]
+        : [`https://${Config.host.prod.creator}`, `https://${Config.host.prod.web}`],
   });
 
   const config = new DocumentBuilder()

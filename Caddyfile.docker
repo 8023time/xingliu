@@ -3,7 +3,7 @@ creator.xingliu.8023time.com {
     reverse_proxy server:3000
   }
 
-  reverse_proxy admin:8081
+  reverse_proxy creator:8081
 }
 
 xingliu.8023time.com {

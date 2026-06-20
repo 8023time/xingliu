@@ -1,0 +1,215 @@
+.creator-editor-core {
+  display: flex;
+  height: 100%;
+  min-height: 0;
+  flex-direction: column;
+  color: #1f2937;
+  overflow: hidden;
+}
+
+.creator-editor-topbar {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 28px;
+  min-height: 56px;
+  padding: 0 16px;
+}
+
+.creator-editor-toolbar {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  justify-content: center;
+}
+
+.creator-editor-toolbar .ant-btn {
+  border: 0;
+  box-shadow: none;
+  color: #4b5563;
+}
+
+.creator-editor-toolbar .ant-divider-vertical {
+  border-color: #e5e7eb;
+}
+
+.creator-editor-stage {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 0 16px 24px;
+}
+
+.creator-editor-paper {
+  width: min(100%, 980px);
+  min-height: 1180px;
+  margin: 0 auto;
+  padding: 66px 64px;
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+.creator-editor-title-input {
+  padding: 0;
+  color: #9ca3af;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.creator-editor-title-input input::placeholder {
+  color: #a7adb6;
+}
+
+.creator-editor-title-helper {
+  margin: 24px 0 52px;
+  color: #a7adb6;
+  font-size: 15px;
+}
+
+.creator-editor-content {
+  min-height: 760px;
+  outline: none;
+}
+
+.creator-editor-content .ProseMirror {
+  min-height: 760px;
+  outline: none;
+}
+
+.creator-editor-content .ProseMirror > * + * {
+  margin-top: 14px;
+}
+
+.creator-editor-content h2 {
+  margin: 0;
+  color: #111827;
+  font-size: 24px;
+  line-height: 1.35;
+}
+
+.creator-editor-content h3 {
+  margin: 0;
+  color: #1f2937;
+  font-size: 19px;
+  line-height: 1.4;
+}
+
+.creator-editor-content p,
+.creator-editor-content li {
+  color: #374151;
+  font-size: 16px;
+  line-height: 1.85;
+}
+
+.creator-editor-content ul,
+.creator-editor-content ol {
+  padding-left: 24px;
+}
+
+.creator-editor-content blockquote {
+  margin: 16px 0;
+  padding: 10px 14px;
+  border-left: 4px solid #e11d48;
+  background: #fff1f2;
+  color: #475569;
+}
+
+.creator-editor-content .is-editor-empty:first-child::before {
+  height: 0;
+  color: #c0c4cc;
+  content: attr(data-placeholder);
+  float: left;
+  pointer-events: none;
+}
+
+.creator-editor-image {
+  display: block;
+  max-width: 100%;
+  max-height: 420px;
+  margin: 16px auto;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.creator-editor-link {
+  color: #2563eb;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.creator-editor-ai-node,
+.creator-editor-material-node {
+  margin: 16px 0;
+  padding: 14px;
+  border: 1px solid #fecdd3;
+  border-radius: 10px;
+  background: #fff7f7;
+}
+
+.creator-editor-ai-node-header,
+.creator-editor-material-title {
+  margin-bottom: 8px;
+  color: #be123c;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.creator-editor-material-summary {
+  margin: 0;
+  color: #475569;
+}
+
+.creator-editor-status {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 72px;
+  padding: 12px 16px;
+  background: linear-gradient(180deg, rgb(248 248 248 / 0%) 0%, #f8f8f8 36%);
+  color: #64748b;
+  font-size: 13px;
+}
+
+.creator-editor-status-actions {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.creator-editor-status-time {
+  color: #94a3b8;
+}
+
+@media (max-width: 900px) {
+  .creator-editor-topbar {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+  }
+
+  .creator-editor-toolbar {
+    justify-content: flex-start;
+    overflow-x: auto;
+  }
+
+  .creator-editor-paper {
+    min-height: 760px;
+    padding: 36px 24px;
+  }
+
+  .creator-editor-title-input {
+    font-size: 26px;
+  }
+
+  .creator-editor-status {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .creator-editor-status-actions {
+    justify-content: flex-start;
+  }
+}

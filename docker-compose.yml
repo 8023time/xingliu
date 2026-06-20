@@ -82,11 +82,11 @@ services:
     depends_on:
       - server
 
-  admin:
+  creator:
     build:
       context: .
-      dockerfile: Dockerfile.admin
-    container_name: xingliu-admin
+      dockerfile: Dockerfile.creator
+    container_name: xingliu-creator
     restart: unless-stopped
     ports:
       - '8081:8081'
@@ -106,7 +106,7 @@ services:
       - caddy_config:/config
     depends_on:
       - web
-      - admin
+      - creator
       - server
 
 volumes:

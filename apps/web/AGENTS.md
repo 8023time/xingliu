@@ -22,7 +22,7 @@
 
 - 仓库使用 pnpm workspace + Turborepo。
 - `apps/web/` 是 Next.js 16 App Router 应用，负责页面渲染、交互状态和调用后端 API。
-- `apps/admin/` 是创作者中心（React 19 + Vite 8 + React Router 7 + Ant Design 6），负责 AI 创作、Prompt、素材和内容管理。
+- `apps/creator/` 是创作者中心（React 19 + Vite 8 + React Router 7 + Ant Design 6），负责 AI 创作、Prompt、素材和内容管理。
 - `server/` 是 NestJS 11 后端，负责业务流程、AI 调用、数据库写入和文件存储。
 - `packages/config/` 存放 `@xingliu/config` 共享配置（host/port 等）。
 - `packages/shared/` 存放 `@xingliu/shared` 共享 TypeScript 类型定义。

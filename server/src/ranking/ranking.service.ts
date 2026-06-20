@@ -51,12 +51,12 @@ export class RankingService {
     return this.findRanking('viral', query, 'public');
   }
 
-  async findAdminHot(query: RankingQueryDto) {
-    return this.findRanking('hot', query, 'admin');
+  async findCreatorHot(query: RankingQueryDto) {
+    return this.findRanking('hot', query, 'creator');
   }
 
-  async findAdminViral(query: RankingQueryDto) {
-    return this.findRanking('viral', query, 'admin');
+  async findCreatorViral(query: RankingQueryDto) {
+    return this.findRanking('viral', query, 'creator');
   }
 
   private async findRanking(kind: RankingKind, query: RankingQueryDto, audience: RankingAudience) {

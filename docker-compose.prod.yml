@@ -116,11 +116,11 @@ services:
         max-size: 10m
         max-file: '3'
 
-  admin:
+  creator:
     build:
       context: .
-      dockerfile: Dockerfile.admin
-    container_name: xingliu-admin-prod
+      dockerfile: Dockerfile.creator
+    container_name: xingliu-creator-prod
     restart: always
     expose:
       - '8081'
@@ -147,7 +147,7 @@ services:
       - caddy_config:/config
     depends_on:
       - web
-      - admin
+      - creator
       - server
     networks:
       - xingliu_network

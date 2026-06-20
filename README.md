@@ -28,9 +28,9 @@ xingliu/
 │   │       ├── lib/               # 请求、格式化、存储等工具
 │   │       ├── stores/            # Zustand 客户端状态
 │   │       └── type/              # Web 侧补充类型
-│   └── admin/                     # B 端创作者后台，Vite + React
+│   └── creator/                   # B 端创作者中心，Vite + React
 │       ├── public/                # 静态资源
-│       └── src/                   # Admin 前端源码
+│       └── src/                   # Creator 前端源码
 │           ├── api/               # ai、asset、content、prompt、ranking、user API 层
 │           ├── assets/            # 字体、图标和图片资源
 │           ├── components/        # 编辑器、布局、弹窗和通用 UI 组件
@@ -40,7 +40,7 @@ xingliu/
 │           ├── pages/             # login、home、content、prompts、assets、rankings 页面
 │           ├── router/            # React Router 路由和守卫
 │           ├── stores/            # Zustand 客户端状态
-│           └── styles/            # Admin 全局样式
+│           └── styles/            # Creator 全局样式
 ├── server/                        # 后端 API 服务，NestJS
 │   ├── src/                       # 后端业务模块源码
 │   │   ├── ai-generation/         # AI 候选内容生成
@@ -83,7 +83,7 @@ xingliu/
 ├── commitlint.config.cjs          # Commitlint 配置
 ├── docker-compose.prod.yml        # 生产环境 Docker Compose 配置
 ├── docker-compose.yml             # 开发环境 Docker Compose 配置
-├── Dockerfile.admin               # Admin 生产镜像构建文件
+├── Dockerfile.creator             # Creator 生产镜像构建文件
 ├── Dockerfile.server              # Server 生产镜像构建文件
 ├── Dockerfile.web                 # Web 生产镜像构建文件
 ├── nginx.conf                     # 生产环境 Nginx 配置
@@ -101,7 +101,7 @@ xingliu/
 
 ### 1. 配置 hosts
 
-本地开发默认通过 Caddy 代理到 Web、Admin 和 Server。请先在系统 hosts 文件中添加以下域名映射：
+本地开发默认通过 Caddy 代理到 Web、Creator 和 Server。请先在系统 hosts 文件中添加以下域名映射：
 
 ```text
 127.0.0.1 creator.xingliu-test.8023time.com
@@ -186,7 +186,7 @@ cp .env.example .env
    自己配置,可以使用下载并安装 PostgreSQL 和 MinIO 的本地版本，或者使用 Docker Compose 启动它们：
    ```
 
-2. 启动 Web、Admin、Server 和本地域名代理：
+2. 启动 Web、Creator、Server 和本地域名代理：
 
    ```bash
    pnpm dev
@@ -194,7 +194,7 @@ cp .env.example .env
 
 3. 访问本地服务：
    - Web 前台：`http://xingliu-test.8023time.com`
-   - Admin 后台：`http://creator.xingliu-test.8023time.com`
+   - Creator 中心：`http://creator.xingliu-test.8023time.com`
    - Server API：`http://api.xingliu-test.8023time.com`
 
 ## 七、项目文档

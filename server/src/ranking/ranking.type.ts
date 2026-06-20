@@ -1,5 +1,5 @@
 export type RankingKind = 'hot' | 'viral';
-export type RankingAudience = 'public' | 'admin';
+export type RankingAudience = 'public' | 'creator';
 
 export interface RankingWeights {
   quality: number;

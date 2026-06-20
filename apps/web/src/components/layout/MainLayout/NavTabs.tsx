@@ -22,7 +22,7 @@ const NavItems: NavItemsType[] = [
     matchPath: (pathname) => pathname === '/',
   },
   {
-    to: `https://${Config.host.prod.admin}`,
+    to: `https://${Config.host.prod.creator}`,
     label: '创作者中心',
     clickType: 'external',
   },

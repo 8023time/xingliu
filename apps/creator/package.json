@@ -1,0 +1,51 @@
+{
+  "name": "@xingliu/creator",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint:eslint": "eslint ."
+  },
+  "dependencies": {
+    "@ant-design/icons": "^6.2.5",
+    "@microsoft/fetch-event-source": "^2.0.1",
+    "@tanstack/react-query": "^5.100.14",
+    "@tiptap/extension-character-count": "^3.23.6",
+    "@tiptap/extension-image": "^3.23.6",
+    "@tiptap/extension-link": "^3.23.6",
+    "@tiptap/extension-placeholder": "^3.23.6",
+    "@tiptap/extension-text-align": "^3.23.6",
+    "@tiptap/pm": "^3.23.6",
+    "@tiptap/react": "^3.23.6",
+    "@tiptap/starter-kit": "^3.23.6",
+    "@xingliu/config": "workspace:*",
+    "@xingliu/shared": "workspace:*",
+    "antd": "^6.4.3",
+    "axios": "^1.16.1",
+    "clsx": "^2.1.1",
+    "dexie": "^4.4.2",
+    "dexie-react-hooks": "^4.4.0",
+    "md5": "^2.3.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "react-router-dom": "^7.11.0",
+    "tailwind-merge": "^3.6.0",
+    "zustand": "^5.0.13"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.0",
+    "@types/node": "^24.12.3",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "orval": "^8.13.0",
+    "rollup-plugin-visualizer": "^7.0.1",
+    "tailwindcss": "^4.3.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.0.12"
+  }
+}
