@@ -10,7 +10,7 @@
 2. GitHub Actions 安装依赖并执行构建校验。
 3. 构建通过后，Actions 通过 SSH 登录服务器。
 4. 服务器进入部署目录，执行 `git pull --ff-only`。
-5. 服务器执行 `docker compose -f docker-compose.prod.yml up -d --build`。
+5. 服务器执行 `docker compose --env-file .env -f docker/docker-compose.prod.yml up -d --build`。
 6. 后端容器启动时自动执行 `prisma migrate deploy`。
 
 workflow 文件位于 `.github/workflows/deploy.yml`。
@@ -124,8 +124,8 @@ pnpm --filter @xingliu/web build
 
 ```bash
 cd /opt/xingliu
-docker compose -f docker-compose.prod.yml ps
-docker compose -f docker-compose.prod.yml logs -f server
+docker compose --env-file .env -f docker/docker-compose.prod.yml ps
+docker compose --env-file .env -f docker/docker-compose.prod.yml logs -f server
 ```
 
 如果 `git pull --ff-only` 失败，说明服务器部署目录存在本地提交或分支分叉。部署目录应只用于部署，不要在服务器上手写代码改动。

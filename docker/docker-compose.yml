@@ -1,3 +1,5 @@
+name: xingliu
+
 services:
   postgres:
     image: postgres:16-alpine
@@ -33,8 +35,8 @@ services:
 
   server:
     build:
-      context: .
-      dockerfile: Dockerfile.server
+      context: ..
+      dockerfile: docker/Dockerfile.server
     container_name: xingliu-server
     restart: unless-stopped
     environment:
@@ -69,8 +71,8 @@ services:
 
   web:
     build:
-      context: .
-      dockerfile: Dockerfile.web
+      context: ..
+      dockerfile: docker/Dockerfile.web
     container_name: xingliu-web
     restart: unless-stopped
     environment:
@@ -84,8 +86,8 @@ services:
 
   creator:
     build:
-      context: .
-      dockerfile: Dockerfile.creator
+      context: ..
+      dockerfile: docker/Dockerfile.creator
     container_name: xingliu-creator
     restart: unless-stopped
     ports:

@@ -70,6 +70,14 @@ xingliu/
 ├── packages/                      # 共享包目录
 │   ├── config/                    # 共享配置包
 │   └── shared/                    # 共享类型
+├── docker/                        # Docker Compose、Dockerfile 和容器内代理配置
+│   ├── Caddyfile.docker           # Docker 环境 Caddy 配置
+│   ├── docker-compose.prod.yml    # 生产环境 Docker Compose 配置
+│   ├── docker-compose.yml         # 开发环境 Docker Compose 配置
+│   ├── Dockerfile.creator         # Creator 生产镜像构建文件
+│   ├── Dockerfile.server          # Server 生产镜像构建文件
+│   ├── Dockerfile.web             # Web 生产镜像构建文件
+│   └── nginx.conf                 # Creator 容器 Nginx 配置
 ├── .dockerignore                  # Docker 忽略规则
 ├── .editorconfig                  # 编辑器通用格式约束
 ├── .env.example                   # 环境变量配置示例
@@ -79,14 +87,7 @@ xingliu/
 ├── .prettierignore                # Prettier 忽略规则
 ├── .prettierrc                    # Prettier 格式化规则
 ├── Caddyfile                      # 本地域名反向代理配置
-├── Caddyfile.docker               # Docker 环境 Caddy 配置
 ├── commitlint.config.cjs          # Commitlint 配置
-├── docker-compose.prod.yml        # 生产环境 Docker Compose 配置
-├── docker-compose.yml             # 开发环境 Docker Compose 配置
-├── Dockerfile.creator             # Creator 生产镜像构建文件
-├── Dockerfile.server              # Server 生产镜像构建文件
-├── Dockerfile.web                 # Web 生产镜像构建文件
-├── nginx.conf                     # 生产环境 Nginx 配置
 ├── package.json                   # 根依赖与脚本配置
 ├── pnpm-lock.yaml                 # pnpm 锁文件
 ├── pnpm-workspace.yaml            # pnpm 工作区配置

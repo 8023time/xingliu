@@ -13,7 +13,7 @@
 | `creator` | 8081 | React + Vite 创作者中心 |
 | `caddy` | 80 / 443 | 对外反向代理 |
 
-本机开发调试使用 `docker-compose.yml`，生产部署使用 `docker-compose.prod.yml`。两个 compose 都挂载 `Caddyfile.docker`，容器内反代通过 Docker 服务名访问：`server:3000`、`web:8080`、`creator:8081`。
+本机开发调试使用 `docker/docker-compose.yml`，生产部署使用 `docker/docker-compose.prod.yml`。两个 compose 都挂载 `docker/Caddyfile.docker`，容器内反代通过 Docker 服务名访问：`server:3000`、`web:8080`、`creator:8081`。
 
 ## 环境变量
 
@@ -56,7 +56,7 @@ NEXT_PUBLIC_API_URL=http://server:3000
 ## 本机 Docker 启动
 
 ```bash
-docker compose up -d --build
+docker compose --env-file .env -f docker/docker-compose.yml up -d --build
 ```
 
 本机访问地址：
@@ -84,7 +84,7 @@ pnpm --filter=@xingliu/server exec prisma migrate deploy
 4. 启动生产 compose：
 
 ```bash
-docker compose -f docker-compose.prod.yml up -d --build
+docker compose --env-file .env -f docker/docker-compose.prod.yml up -d --build
 ```
 
 生产 compose 默认只对外暴露 Caddy 的 `80/443`，内部服务通过 Docker 网络通信。
@@ -92,9 +92,9 @@ docker compose -f docker-compose.prod.yml up -d --build
 ## 验证
 
 ```bash
-docker compose ps
-docker compose logs -f server
-docker compose exec server pnpm --filter=@xingliu/server exec prisma validate
+docker compose --env-file .env -f docker/docker-compose.yml ps
+docker compose --env-file .env -f docker/docker-compose.yml logs -f server
+docker compose --env-file .env -f docker/docker-compose.yml exec server pnpm --filter=@xingliu/server exec prisma validate
 ```
 
 重点检查：
@@ -110,10 +110,10 @@ docker compose exec server pnpm --filter=@xingliu/server exec prisma validate
 如果 Caddy 返回 502，先检查目标容器是否健康：
 
 ```bash
-docker compose ps
-docker compose logs web
-docker compose logs creator
-docker compose logs server
+docker compose --env-file .env -f docker/docker-compose.yml ps
+docker compose --env-file .env -f docker/docker-compose.yml logs web
+docker compose --env-file .env -f docker/docker-compose.yml logs creator
+docker compose --env-file .env -f docker/docker-compose.yml logs server
 ```
 
 如果图片审核失败，优先检查 `MINIO_PUBLIC_URL` 是否公网可下载，以及阿里云变量名是否为 `ALIYUN_ACCESS_KEY_ID`、`ALIYUN_ACCESS_KEY_SECRET`。
